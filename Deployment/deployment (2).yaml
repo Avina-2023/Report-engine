@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reportlogic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reportlogic
+  template:
+    metadata:
+      labels:
+        app: reportlogic
+    spec:
+      containers:
+        - name: reportlogic
+          image: taodev.azurecr.io/reportlogic:$tag
+          imagePullPolicy: Always
+          env:
+          - name: AUDIT_SERVICE_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                name: report-secret
+                key: AUDIT_SERVICE_ENDPOINT
+          - name: PORT
+            value: '3002'
+          ports:
+          - containerPort: 3002
+      imagePullSecrets:
+        - name: mysecret
