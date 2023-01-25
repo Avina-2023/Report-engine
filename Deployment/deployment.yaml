@@ -15,9 +15,6 @@ spec:
       containers:
         - name: reportengineui
           image: taodev.azurecr.io/reportengineui:$tag
-          imagePullPolicy: Always
-          - name: PORT
-            value: '80'
           ports:
           - containerPort: 80
       imagePullSecrets:
