@@ -1,0 +1,96 @@
+<div class="main-wrapper-login">
+    <div class="sub-wrapper">
+        <div class="container-reg200">
+          <div class="main-wrapper-login">
+            <div class="sub-wrapper">
+                <div class="container-reg200">
+                    <div class="left">
+                        <div class="main-logo">
+                            <img alt="main-login-logo" class="beforeloginimgLT" src="assets/images/L&T_logo.svg">
+                        </div>
+                        <div class="login-head">
+                            <span>Welcome to L&T Edutech  <br> Report Engine</span>
+                        </div>
+                        <div class="main-display-image">
+                            <img alt="main-display-logo" class="beforeloginimg" src="assets/images/Group 21189 (1).svg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="right">
+                <div class="formWrapper">
+                    <!-- Login Page User Name -->
+                    <div class="wrap-reg">
+                        <form [formGroup]="loginForm" class="form-wrapper" (ngSubmit)="submit()">
+                            <div class="sign-head">
+                                <h1 class="signIn">Sign in to your account</h1>
+                                <div class="footer-logo">
+                                    <span> © {{currentYear}} L&T EduTech. All Rights Reserved</span>
+                                </div>
+                            </div>
+                            <mat-form-field class="mat-form-spacing" appearance="outline">
+                                <mat-label class="label-color">Username</mat-label>
+                                <input matInput id="username" [placeholder]="'Enter the email'" formControlName="email"
+                                    maxlength="90" required>
+                                <mat-icon matPrefix>
+                                    <span class="login-email-icon">
+                                        <em class="icon-login-email"></em>
+                                    </span>
+                                </mat-icon>
+                                <mat-error class="error"
+                                    *ngIf="!loginForm.get('email').hasError('required') && loginForm.get('email').hasError('maxlength')">
+                                    {{'100 Characters only allowed'}}</mat-error>
+                                <mat-error class="error" *ngIf="loginForm.get('email').hasError('required')">
+                                    {{'Email is Required'}}</mat-error>
+                                <mat-error class="error" *ngIf="loginForm.get('email').hasError('pattern')">
+                                    {{'Please enter a valid email address'}}</mat-error>
+                            </mat-form-field>
+
+                            <!-- Login Page Password -->
+
+                            <mat-form-field class="mat-form-spacing" appearance="outline">
+                                <mat-label class="label-color">{{'Password' }}</mat-label>
+                                <input matInput class="mat-input" [placeholder]="'Enter password'"
+                                    [type]="toggleVisibility ? 'text' : 'password'" formControlName="password"
+                                    [ngClass]="{ 'is-invalid': password.touched && password.errors }" required>
+
+                                <mat-icon matPrefix>
+                                    <span class="login-pass-icon">
+                                        <em class="icon-login-lock"></em>
+                                    </span>
+                                </mat-icon>
+
+                                <div class="login-icon-wrapper" mat-icon-button matSuffix>
+                                    <i class="material-icons login-icon-color "
+                                        (click)="toggleVisibility = !toggleVisibility">{{toggleVisibility ?
+                                        'visibility'
+                                        :
+                                        'visibility_off'}}</i>
+                                </div>
+                                <mat-error class="error" *ngIf="password.touched && password.errors?.required">
+                                    {{'Password is Required' }}
+                                </mat-error>
+                                <mat-error class="error" *ngIf="password.touched && password.errors?.maxlength">
+                                    {{'30 Characters only allowed'
+                                    }}</mat-error>
+                            </mat-form-field>
+                            <!-- Forgot-password -->
+                            <!-- <div class="forgot-div">
+                                <mat-label>
+                                    <a class="forgot" (click)="forgotPassword()">{{'Forgot password?'}}</a>
+                                </mat-label>
+                            </div> -->
+                            <!-- Login-btn -->
+                            <div class="center">
+                                <button class="btn" [ngStyle]="{'opacity': loginForm.invalid ? '0.5' :'1.0'}" id="login"
+                                    mat-raised-button [disabled]="loginForm.invalid" type="submit">
+                                    {{'SIGN IN'}}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

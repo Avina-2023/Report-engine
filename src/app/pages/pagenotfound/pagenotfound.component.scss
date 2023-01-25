@@ -1,0 +1,52 @@
+@import '../../themes/theme.scss';
+
+.pagenotfound {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 10%;
+
+    span {
+        color: $primary-batch-head;
+        font-weight: 500;
+        font-size: 30px;
+        font-weight: normal normal bold 30px/93px Roboto;
+    }
+
+    .pagenotimg {
+        margin-top: 30px;
+
+        img {
+            position: relative;
+            top: 6%;
+            bottom: 5%;
+            width: 90%;
+        }
+    }
+
+    .text {
+        text-align: center;
+        font-size: 15px;
+        position: relative;
+        color: $primary-common-black;
+    }
+
+    .goHome {
+        position: relative;
+        bottom: 6px;
+
+        button {
+            padding: 10px;
+            border: none;
+            width: 170px;
+            height: 44px;
+            background: $primary-batch-head;
+            color: $primary-back-white;
+            font-weight: 500;
+            border-radius: 5px;
+        }
+    }
+
+}

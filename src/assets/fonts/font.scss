@@ -1,0 +1,93 @@
+@import "../../app/themes/theme.scss";
+
+@font-face {
+  font-family: "icomoon";
+  src: url("#{$fontPath}/icomoon.eot?oli839");
+  src: url("#{$fontPath}/icomoon.eot?oli839#iefix") format("embedded-opentype"),
+  url("#{$fontPath}/icomoon.ttf?oli839") format("truetype"),
+  url("#{$fontPath}/icomoon.woff") format("woff"),
+  url("#{$fontPath}/icomoon.svg?oli839#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-warning-green:before {
+  content: "\e900";
+  color: #4eba62;
+}
+
+.icon-login-email:before {
+  content: "\e902";
+}
+
+.icon-LT_logo .path1:before {
+  content: "\e903";
+  color: rgb(8, 85, 140);
+}
+
+.icon-LT_logo .path2:before {
+  content: "\e904";
+  margin-left: -2.3681640625em;
+  color: rgb(0, 0, 0);
+}
+
+.icon-login-lock:before {
+  content: "\e905";
+}
+
+.icon-Popup-close:before {
+  content: "\e906";
+}
+
+.icon-popup-cloud-upload:before {
+  content: "\e907";
+}
+
+.icon-popup-greenTic:before {
+  content: "\e908";
+  color: #4eba62;
+}
+
+.icon-popup-warning:before {
+  content: "\e909";
+  color: #08558c;
+}
+
+.icon-popup-warning-ylw:before {
+  content: "\e90a";
+  color: #ffce00;
+}
+
+.icon-uploadButton-arrow:before {
+  content: "\e90b";
+}
+
+.icon-warning-red:before {
+  content: "\e90c";
+  color: #c02222;
+}
+
+.icon-logout:before {
+  content: "\e901";
+}
+
+.icon-JobList:before {
+  content: "\e900";
+}
