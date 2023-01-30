@@ -1,23 +1,23 @@
 ### STAGE 1: Build ###
-#FROM node:12.7-alpine AS build
 FROM node:14.16.0 AS build
-RUN npm config set registry http://registry.npmjs.org/
-
-# Create app directory
-RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 ARG environment
 ENV PORT=$environment
 RUN echo "Oh dang look at port ${PORT}"
 
 COPY package.json ./
-RUN npm config set registry http://registry.npmjs.org/
+RUN npm config set registry http://registry.npmjs.org/ 
 RUN npm install
-RUN npm install @types/core-js --save-dev
 
 
+COPY . .
+#RUN ng serve
 
-# Bundle app source
-COPY . /usr/src/app
-
+#RUN npm run build:${PORT}
+RUN npm run build
+### STAGE 2: Run ###
+FROM nginx:1.17.1-alpine
+COPY --from=build /usr/src/app/dist/qa-authoring /usr/share/nginx/html
+#COPY ./lxp.crt /etc/ssl/certs/
+#COPY ./lxp.key /etc/ssl/certs/
 EXPOSE 80
