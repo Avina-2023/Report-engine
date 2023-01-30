@@ -3,7 +3,7 @@ export const APP_CONSTANTS = {
   ENDPOINTS: {
     LOGIN: '/login',
     FORGOT: '/forgot-password',
-    AUTH: '/auth',
+    DASHBOARD: '/dashboard',
     ADMIN: {
       HOME: '/auth/admin',
       DASHBOARD: '/auth/admin/dashboard',
@@ -14,7 +14,7 @@ export const APP_CONSTANTS = {
   ROUTES: {
     LOGIN: 'login',
     FORGOT: 'forgot-password',
-    AUTH: 'auth',
+    DASHBOARD: 'dashboard',
     ADMIN: {
       HOME: 'admin',
       DASHBOARD: 'dashboard',

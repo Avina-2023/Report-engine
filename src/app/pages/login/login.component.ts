@@ -34,6 +34,8 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
+    this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.DASHBOARD)
+    return false
     let data = {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
