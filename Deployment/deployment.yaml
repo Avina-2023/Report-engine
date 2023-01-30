@@ -19,3 +19,5 @@ spec:
           - containerPort: 80
       imagePullSecrets:
         - name: mysecret
+      nodeSelector:
+        agentpool: taodev1
