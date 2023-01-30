@@ -1,30 +1,22 @@
 ### STAGE 1: Build ###
-FROM node:14.16.0 AS build
-
-RUN npm config set registry http://registry.npmjs.org/
-#ENV REDIS=redis-master
-#ENV REDIS_PORT=6379
-# Create app directory
-RUN mkdir -p /usr/src/app
+FROM node:10.20.1 AS build
 WORKDIR /usr/src/app
+ARG environment
+ENV PORT=$environment
+RUN echo "Oh dang look at port ${PORT}"
 
-# Install app dependencies
-COPY package.json /usr/src/app/
+COPY package.json ./
+RUN npm config set registry http://registry.npmjs.org/ 
 RUN npm install
+RUN npm install @types/core-js --save-dev
+RUN npm install ng2-charts@2.2.3
 
-RUN npm install -g pptx2pdf
+COPY . .
+#RUN ng serve
 
-RUN \
-  apt-get update && \
-  apt-get -y install libasound2 && \
-  apt-get install -y libnss3-dev libatk-bridge2.0-0 libxkbcommon-x11-0 libgtk-3-0 libgbm-dev && \
-  apt-get install -y build-essential make gcc g++ python python-dev python-pip python-virtualenv && \
-  apt-get -y install ghostscript && apt-get clean && \
-  apt-get install -y libgs-dev && \
-  rm -rf /var/lib/apt/lists/* 
-
-
-# Bundle app source
-COPY . /usr/src/app
-
-EXPOSE 80
+#RUN npm run build:${PORT}
+RUN npm run build
+### STAGE 2: Run ###
+FROM nginx:1.17.1-alpine
+COPY --from=build /usr/src/app/dist/skillsProfile /usr/share/nginx/html
+COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
