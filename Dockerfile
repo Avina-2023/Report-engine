@@ -1,23 +1,17 @@
 ### STAGE 1: Build ###
-FROM node:14.16.0 AS build
-WORKDIR /usr/src/app
-ARG environment
-ENV PORT=$environment
-RUN echo "Oh dang look at port ${PORT}"
+#FROM node:12.7-alpine AS build
+FROM node:10.20.1 AS build
 
-COPY package.json ./
 RUN npm config set registry http://registry.npmjs.org/ 
-RUN npm install
 
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-COPY . .
-#RUN ng serve
+# Install app dependencies
+COPY package.json /usr/src/app/
 
-#RUN npm run build:${PORT}
-RUN npm run build
-### STAGE 2: Run ###
-FROM nginx:1.17.1-alpine
-COPY --from=build /usr/src/app/dist/report_engine /usr/share/nginx/html
-#COPY ./lxp.crt /etc/ssl/certs/
-#COPY ./lxp.key /etc/ssl/certs/
+# Bundle app source
+COPY . /usr/src/app
+
 EXPOSE 80
