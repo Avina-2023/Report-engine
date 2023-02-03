@@ -33,25 +33,27 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  submit() {
-    this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.DASHBOARD)
-    return false
-    let data = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password
-    }
-    this.https.register(data).subscribe((res: any) => {
-      if (res.success) {
-        var userObject = res.data.attributes
-        this.authConfig.setlocalValue('userDetails', JSON.stringify(userObject));
-        this.authConfig.setlocalValue('token', res.token.access_token);
-        this.authConfig.setlocalValue('firstname', res.data.attributes.firstName);
-        this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.ADMIN.JOBSLIST)
-      } else {
-        this.toastr.error(res.message);
-      }
-    }
-    )
+  onSubmit() {
+    console.log("works");
+    // this.authConfig.routeNavigation("/dashboard");
+    this.router.navigate(["/dashboard"])
+    // return false
+    // let data = {
+    //   email: this.loginForm.value.email,
+    //   password: this.loginForm.value.password
+    // }
+    // this.https.register(data).subscribe((res: any) => {
+    //   if (res.success) {
+    //     var userObject = res.data.attributes
+    //     this.authConfig.setlocalValue('userDetails', JSON.stringify(userObject));
+    //     this.authConfig.setlocalValue('token', res.token.access_token);
+    //     this.authConfig.setlocalValue('firstname', res.data.attributes.firstName);
+    //     // this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.ADMIN.JOBSLIST)
+    //   } else {
+    //     this.toastr.error(res.message);
+    //   }
+    // }
+    // )
 
   }
   forgotPassword() {

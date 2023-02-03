@@ -10,6 +10,7 @@ import { MaterialModule } from './material/material.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,8 @@ import { CommonModule } from '@angular/common';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
     ToastrModule.forRoot(
       {
         timeOut: 3000,
