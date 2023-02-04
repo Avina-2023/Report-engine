@@ -1,0 +1,106 @@
+// @import '../../themes/theme.scss';
+
+.main-wrapper-header{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: stretch;
+    height: 8%;
+    background: skyblue;
+    box-shadow: 0 2px 4px -1px #0003!important;
+    background: #00b0ed;
+    background: transparent linear-gradient(90deg,#27bbee 0%,#40bbbd 48%,#88ba2f 100%) 0% 0% no-repeat padding-box;
+
+}
+.left{
+    background-color: rgba(255, 255, 255, 0.966);
+    width: 10%;
+}
+
+.right{
+    // background-color: rgba(255, 255, 255, 0.966);
+    // display: flex;
+    // flex-direction: row;
+    margin-top: 12px;
+    .logout{
+        font-size: 16px;
+        width: 186px;
+        /* height: 52px; */
+        padding-right: 10px;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        justify-content: flex-end;
+      
+    }
+}
+.beforeloginimgLT{
+    position: absolute;
+    width: 93px;
+    left: 30px;
+    top: 6px;
+}
+
+
+.popup-image {
+    display: flex;
+    justify-content: center !important;
+    position: relative;
+    top: 20px;
+    margin-top: 24px;
+  
+    em {
+      font-size: 55px;
+    }
+  }
+  
+  .sure-message {
+    text-align: center !important;
+    position: relative;
+    top: 40px;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .con-btn {
+    font-size: 14px;
+    cursor: pointer;
+    // background: $primary-back-white;
+    // color: $primary-batch-head;
+    // border: 1px solid $primary-batch-head;
+    font-weight: 500;
+    width: 83px;
+    height: 40px;
+    border-radius: 4px;
+  }
+  
+  .confirm {
+    // background-color: $primary-batch-head;
+    // border: 1px solid $primary-batch-head;
+    font-size: 14px;
+    width: 83px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .popupHead {
+    text-align: center !important;
+    position: relative;
+    top: 35px;
+    font-size: 18px;
+  }
+
+  .action {
+    display: flex !important;
+    justify-content: center !important;
+    position: relative;
+    top: 30px;
+    margin: 0px 77px;
+  
+    .confirm {
+    //  background: $primary-batch-head;
+    //  color: $primary-back-white;
+      margin-left: 10%;
+    }
+  }
