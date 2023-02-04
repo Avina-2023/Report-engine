@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 myvar="newvar"
+iframeSrc: SafeUrl;
+
 items=[
   {
     name:"g"
@@ -18,7 +21,10 @@ items=[
     name:"v"
   }
 ]
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) {
+    let url = "http://kibana.lntedutech.com/app/proctor"
+    this.iframeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+   }
 
   ngOnInit() {
   }
