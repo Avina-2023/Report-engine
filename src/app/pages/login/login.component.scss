@@ -6,9 +6,11 @@
   justify-content: space-between;
   align-items: stretch;
   height: 100%;
+  background-image: url(../../../assets/images/webback.jpg);
+  background-repeat: repeat;
 
   .left {
-    background-color: #c0bdbd;
+    background-color: #ffffffe3;
     padding: 10px;
     width: 50%;
     display: flex;
@@ -39,7 +41,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-image: linear-gradient(88deg, #443d3d59, #00000000);
+    background-image: linear-gradient(90deg, #ffffffe3, #fffefead);
+  
 
     .formWrapper {
       text-align: center;
@@ -54,11 +57,20 @@
         // ==
         background: rgb(255 255 255 / 12%);
         border-radius: 5px;
-        box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+        box-shadow: 3px 3px 30px 4px #0000002e;
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
         border: 2px solid rgb(255 255 255 / 63%);
         // ==
+        mat-form-field{
+          padding:5px 0px;
+        }
+        .error,
+          .mat-form-field.mat-form-field-invalid .mat-form-field-label,
+          .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+            color: red;
+            font-size: 12px;
+          }
         .sign-head h1{
           font-weight: 500;
           font-size: 24px;
@@ -99,7 +111,7 @@
     width: 186px;
     height: 47px;
     padding: 12px 10px;
-    margin-top: 40px;
+    margin-top: 20px;
     background: #00b0ed;
     background: transparent linear-gradient(90deg,#27bbee 0%,#40bbbd 48%,#88ba2f 100%) 0% 0% no-repeat padding-box;
     color: #fff;

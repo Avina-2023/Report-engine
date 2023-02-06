@@ -35,9 +35,10 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log("works");
+  // this.authConfig.setlocalValue('token', "mytoken is tli");
+
   //   this.authConfig.routeNavigation("/dashboard");
-  //  this.router.navigate(["/dashboard"])
-   // return false
+  //  return false
     let data = {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
