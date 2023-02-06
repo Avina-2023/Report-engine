@@ -5,17 +5,18 @@ import { LoginComponent } from './pages/login/login.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 import { APP_CONSTANTS } from './utils/app-constants.service';
 import { LoginGaurd } from "./gaurds/loginGaurd";
+import { Reverseauth } from './gaurds/reverseauth';
 const routes: Routes = [
   {
-    path: `${APP_CONSTANTS.ROUTES.LOGIN}`, component: LoginComponent,//canActivate: [LoginGaurd]
+    path: `${APP_CONSTANTS.ROUTES.LOGIN}`, component: LoginComponent,canActivate: [Reverseauth]
   },
   {
-    path: `${APP_CONSTANTS.ROUTES.DASHBOARD}`, component: DashboardComponent,//canActivate: [LoginGaurd]
+    path: `${APP_CONSTANTS.ROUTES.DASHBOARD}`, component: DashboardComponent,canActivate: [LoginGaurd]
   },
   {
     path: '',
     pathMatch: 'full',
-    component: LoginComponent,//canActivate: [LoginGaurd]
+    component: LoginComponent,canActivate: [Reverseauth]
   },
   {
     path: `error`,
