@@ -1,13 +1,4 @@
-.card_wrapper{
-    width: 100%;
-    border: 1px solid black;
-    display: flex;
-    justify-content: space-evenly;
-}
-.card{
-    width: 100px;
-    border: 1px solid black;
-    margin: 5px;
-    padding: 5px;
-
+.dashboard-Container{
+  height: calc(100% - 50px);
+  overflow: hidden;
 }
