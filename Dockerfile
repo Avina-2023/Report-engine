@@ -1,5 +1,5 @@
 ### STAGE 1: Build ###
-FROM node:16.13.2 AS build
+FROM node:16.13.0 AS build
 WORKDIR /usr/src/app
 ARG environment
 ENV PORT=$environment
@@ -18,6 +18,6 @@ RUN npm run build
 ### STAGE 2: Run ###
 FROM nginx:1.17.1-alpine
 COPY --from=build /usr/src/app/dist/report_engine /usr/share/nginx/html
-#COPY ./lxp.crt /etc/ssl/certs/
-#COPY ./lxp.key /etc/ssl/certs/
-EXPOSE 80
+COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
+COPY ./bundle.crt /etc/ssl/certs/
+COPY ./lntiggnite.key /etc/ssl/certs/
