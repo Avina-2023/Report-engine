@@ -15,16 +15,17 @@
 .left{
     background-color: rgba(255, 255, 255, 0.966);
     width: 10%;
+    
 }
 
 .right{
     // background-color: rgba(255, 255, 255, 0.966);
-    // display: flex;
+     display: flex;
     // flex-direction: row;
-    margin-top: 12px;
+    align-items: center;
     .logout{
         font-size: 16px;
-        width: 186px;
+        //width: 186px;
         /* height: 52px; */
         padding-right: 10px;
         color: #fff;
@@ -32,6 +33,13 @@
         display: flex;
         justify-content: flex-end;
       
+    }
+    .firstname{
+      font-size: 14px;
+      color: #fff;
+      justify-content: flex-end;
+      display: flex;
+      padding-right: 5px;
     }
 }
 .beforeloginimgLT{
@@ -41,13 +49,20 @@
     top: 6px;
 }
 
+.logout-wrapper{
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+ // align-content: space-around;
+  justify-content: center;
+
 
 .popup-image {
     display: flex;
     justify-content: center !important;
-    position: relative;
-    top: 20px;
-    margin-top: 24px;
+  //  position: relative;
+  //  top: 20px;
+  //  margin-top: 24px;
   
     em {
       font-size: 55px;
@@ -56,11 +71,19 @@
   
   .sure-message {
     text-align: center !important;
-    position: relative;
-    top: 40px;
     font-weight: 500;
     font-size: 18px;
+    margin: 5px 0px !important;
   }
+
+  .popupHead {
+    text-align: center !important;
+ //   position: relative;
+  //  top: 25px;
+    font-size: 18px;
+    margin: 5px 0px !important;
+  }
+
 
   .con-btn {
     font-size: 14px;
@@ -84,19 +107,13 @@
     border-radius: 4px;
   }
 
-  .popupHead {
-    text-align: center !important;
-    position: relative;
-    top: 35px;
-    font-size: 18px;
-  }
 
   .action {
     display: flex !important;
     justify-content: center !important;
-    position: relative;
-    top: 30px;
-    margin: 0px 77px;
+  //  position: relative;
+  //  top: 30px;
+  //  margin: 0px 77px;
   
     .confirm {
     //  background: $primary-batch-head;
@@ -104,3 +121,5 @@
       margin-left: 10%;
     }
   }
+
+}

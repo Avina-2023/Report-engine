@@ -10,6 +10,7 @@ import { APP_CONSTANTS } from 'src/app/utils/app-constants.service';
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('matDialog', { static: false }) matDialogRef: any;
+ public name:any;
   constructor(
     private authConfig: AppConfigService,
     private dialog: MatDialog,
@@ -18,11 +19,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+   this.name=localStorage.getItem('firstname')
   }
   matDialogOpen() {
     const dialogRef = this.dialog.open(this.matDialogRef, {
-      width: '448px',
-      height: '315px'
 
     });
   }

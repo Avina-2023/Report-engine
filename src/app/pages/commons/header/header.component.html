@@ -8,23 +8,29 @@
 
   <div class="right" (click)="logout()">
 
+    <div class="firstname">
+    Welcome{{' '+name}}
+    </div>
   <div class="logout">
     <!-- <span class="log-line">Logout</span> -->
     <mat-icon>exit_to_app</mat-icon>
   </div>
   </div>
-
 </div>
 
 <ng-template #matDialog>
+  <div class="logout-wrapper">
   <span class="popup-image">
       <em class="icon-popup-warning-ylw"></em>
   </span>
-  <h1 mat-dialog-title class="sure-message">Are you Sure?</h1>
-  <h1 class="popupHead" mat-dialog-title>You want to logout from the application</h1>
+  <p class="sure-message">Are you Sure?</p>
+  <p class="popupHead">You want to logout from the application</p>
   <div class="action" mat-dialog-actions>
       <button class="con-btn" mat-button [mat-dialog-close]="true">CANCEL</button>
       <button class="confirm" mat-button (click)="closeDialog($event)">YES </button>
   </div>
+</div>
 </ng-template>
-<!-- <app-footer></app-footer> -->
+<!--<app-footer></app-footer> -->
+
+
