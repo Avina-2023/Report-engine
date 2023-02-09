@@ -11,6 +11,8 @@ import { APP_CONSTANTS } from 'src/app/utils/app-constants.service';
 export class HeaderComponent implements OnInit {
   @ViewChild('matDialog', { static: false }) matDialogRef: any;
  public name:any;
+ isOpenMenu = false;
+
   constructor(
     private authConfig: AppConfigService,
     private dialog: MatDialog,

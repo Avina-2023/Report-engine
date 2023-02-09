@@ -1,11 +1,16 @@
 <div class="main-wrapper-header">
 
   <div class="left">
-    <div id="nav-icon1">
+    <div id="nav-icon1" (click)="isOpenMenu = !isOpenMenu" [ngClass]="isOpenMenu?'open':''" >
       <span></span>
       <span></span>
       <span></span>
     </div>
+
+<mat-menu #menus="matMenu">
+  <button mat-menu-item>Item 1</button>
+  <button mat-menu-item>Item 2</button>
+</mat-menu>
     <div class="main-logo">
       <img alt="main-login-logo" class="beforeloginimgLT" src="assets/images/L&T_logo.svg">
     </div>

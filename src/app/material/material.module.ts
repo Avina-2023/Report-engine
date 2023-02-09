@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -24,7 +25,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressBarModule,
     MatSidenavModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule
   ],
 
   exports: [
@@ -37,7 +39,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSelectModule,
     MatProgressBarModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule
   ]
 })
 export class MaterialModule { }
