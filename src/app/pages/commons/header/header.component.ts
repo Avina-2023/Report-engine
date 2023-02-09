@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.name=localStorage.getItem('firstname')
+   this.name=this.authConfig.getLocalValue('firstname')
   }
   matDialogOpen() {
     const dialogRef = this.dialog.open(this.matDialogRef, {

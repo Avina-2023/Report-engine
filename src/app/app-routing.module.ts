@@ -6,12 +6,16 @@ import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.compone
 import { APP_CONSTANTS } from './utils/app-constants.service';
 import { LoginGaurd } from "./gaurds/loginGaurd";
 import { Reverseauth } from './gaurds/reverseauth';
+import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
 const routes: Routes = [
   {
     path: `${APP_CONSTANTS.ROUTES.LOGIN}`, component: LoginComponent,canActivate: [Reverseauth]
   },
   {
     path: `${APP_CONSTANTS.ROUTES.DASHBOARD}`, component: DashboardComponent,canActivate: [LoginGaurd]
+  },
+  {
+    path:  `exam`, component: ExamStatusReportComponent
   },
   {
     path: '',

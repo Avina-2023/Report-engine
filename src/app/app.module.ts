@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './pages/dashboard/dashboard.component'; 
 import { FooterComponent } from './pages/commons/footer/footer.component';
 import {HeaderComponent} from './pages/commons/header/header.component'
-
+import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +22,7 @@ import {HeaderComponent} from './pages/commons/header/header.component'
     DashboardComponent,
     PagenotfoundComponent,
     FooterComponent,
+    ExamStatusReportComponent,
     HeaderComponent
    ],
   imports: [
