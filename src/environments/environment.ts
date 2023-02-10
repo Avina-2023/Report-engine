@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  API_BASE_URL: 'https://authedgeservicedev.lntedutech.com',
+  API_BASE_URL: 'https://reportedgedev.lntedutech.com',
  
 };
 

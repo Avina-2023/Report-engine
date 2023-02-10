@@ -33,20 +33,23 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  submit() {
-    this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.DASHBOARD)
-    return false
+  onSubmit() {
+    console.log("works");
+  // this.authConfig.setlocalValue('token', "mytoken is tli");
+
+  //   this.authConfig.routeNavigation("/dashboard");
+  //  return false
     let data = {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
     }
-    this.https.register(data).subscribe((res: any) => {
+    this.https.login(data).subscribe((res: any) => {
       if (res.success) {
         var userObject = res.data.attributes
         this.authConfig.setlocalValue('userDetails', JSON.stringify(userObject));
         this.authConfig.setlocalValue('token', res.token.access_token);
         this.authConfig.setlocalValue('firstname', res.data.attributes.firstName);
-        this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.ADMIN.JOBSLIST)
+        this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.DASHBOARD)
       } else {
         this.toastr.error(res.message);
       }

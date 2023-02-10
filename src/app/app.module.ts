@@ -10,12 +10,20 @@ import { MaterialModule } from './material/material.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DashboardComponent } from './pages/dashboard/dashboard.component'; 
+import { FooterComponent } from './pages/commons/footer/footer.component';
+import {HeaderComponent} from './pages/commons/header/header.component'
+import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    PagenotfoundComponent
+    DashboardComponent,
+    PagenotfoundComponent,
+    FooterComponent,
+    ExamStatusReportComponent,
+    HeaderComponent
    ],
   imports: [
     CommonModule,
@@ -24,6 +32,8 @@ import { CommonModule } from '@angular/common';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
     ToastrModule.forRoot(
       {
         timeOut: 3000,

@@ -41,4 +41,8 @@ export class ApiService {
   toa(data: any) {
     return this.http.post(`${this.BASE_URL}/createXMLFolder`, data)
   }
+
+  dashboard(data: any){
+    return this.http.post(`${this.BASE_URL}/dashboard`,data)
+  }
 }
