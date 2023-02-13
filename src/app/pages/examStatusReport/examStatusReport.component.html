@@ -1,7 +1,10 @@
 
 
 <h3 class="heading">DASHBOARD</h3>
-<!-- AG Grid Angular Component -->
+<div class="excel">
+  <button mat-raised-button (click)="excelexport(rowData)" ><mat-icon>home</mat-icon><span>Download Report</span> </button>
+</div>
+
 <ag-grid-angular
    style="width: 100%; height: 80%;margin: 5px;"
    class="ag-theme-alpine"

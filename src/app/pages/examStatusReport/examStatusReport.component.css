@@ -11,3 +11,11 @@ html, body {
 .heading{
     margin: 5px;
 }
+.excel{
+    color: white;
+    border: 0px;
+    margin: 5px;
+}
+button{
+    cursor: pointer;
+}
