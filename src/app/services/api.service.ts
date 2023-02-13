@@ -43,6 +43,9 @@ export class ApiService {
   }
 
   dashboard(data: any){
+    if(data.date==""){
+      data.date=""
+    }
     return this.http.post(`${this.BASE_URL}/dashboard`,data)
   }
 }
