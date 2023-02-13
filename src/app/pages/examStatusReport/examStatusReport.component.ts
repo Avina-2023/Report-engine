@@ -4,7 +4,8 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
 // import 'ag-grid-enterprise';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
-import { Observable } from 'rxjs';
+import { FileSaverService } from 'ngx-filesaver';
+import { ExcelService } from 'src/app/services/excelService';
 @Component({
   selector: 'app-examStatusReport',
   templateUrl: './examStatusReport.component.html',
@@ -16,7 +17,9 @@ export class ExamStatusReportComponent implements OnInit {
   rowData:any=[];
   constructor(
     private apiservice : ApiService,
-    private http: HttpClient
+    private http: HttpClient,
+    private fileserver:FileSaverService,
+    private excelService:ExcelService
   ) { }
  // Each Column Definition results in one Column.
   public columnDefs: ColDef[] = [
@@ -156,9 +159,10 @@ ngOnInit() {
 
 getdata(){
   this.apiservice.dashboard(this.exam).subscribe((res:any)=>{
-    console.log(res)
     this.rowData = res.data
   })
 }
-
+excelexport(params:any){
+  this.excelService.exportAsExcelFile(params, 'report');
+}
 }
