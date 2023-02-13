@@ -1,7 +1,7 @@
 <div class="main-wrapper-header">
 
   <div class="left">
-    <div id="nav-icon1" (click)="isOpenMenu = !isOpenMenu" [ngClass]="isOpenMenu?'open':''" >
+    <div id="nav-icon1" (click)="menuToggle()" [ngClass]="isOpenMenu?'open':''" >
       <span></span>
       <span></span>
       <span></span>
@@ -37,7 +37,7 @@
   <p class="popupHead">You want to logout from the application</p>
   <div class="action" mat-dialog-actions>
       <button class="con-btn" mat-button [mat-dialog-close]="true">CANCEL</button>
-      <button class="confirm" mat-button (click)="closeDialog($event)">YES </button>
+      <button class="confirm" mat-button (click)="closeDialog($event)">LOGOUT </button>
   </div>
 </div>
 </ng-template>

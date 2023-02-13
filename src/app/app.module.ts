@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './pages/dashboard/dashboard.component'; 
 import { FooterComponent } from './pages/commons/footer/footer.component';
 import {HeaderComponent} from './pages/commons/header/header.component'
+import { SideMenuBarComponent } from './pages/commons/sideMenuBar/sideMenuBar.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {HeaderComponent} from './pages/commons/header/header.component'
     DashboardComponent,
     PagenotfoundComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    SideMenuBarComponent
    ],
   imports: [
     CommonModule,
