@@ -15,6 +15,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FooterComponent } from './pages/commons/footer/footer.component';
 import {HeaderComponent} from './pages/commons/header/header.component'
 import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
+import { AgGridModule } from 'ag-grid-angular';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +35,7 @@ import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusRe
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AgGridModule,
     FormsModule,
     ToastrModule.forRoot(
       {
