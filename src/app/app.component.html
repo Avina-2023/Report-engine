@@ -1,6 +1,6 @@
-<div class="dashboard-Container">
+<div [ngClass]="hUD_Display?'dashboard-Container':'overalls'">
   <app-header *ngIf="hUD_Display"></app-header>
-  <div class="dashbody">
+  <div [ngClass]="hUD_Display?'dashbody':'overalls'">
     <app-sideMenuBar *ngIf="hUD_Display"></app-sideMenuBar>
 <router-outlet></router-outlet>
 </div>
