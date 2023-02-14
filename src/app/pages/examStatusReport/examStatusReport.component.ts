@@ -12,7 +12,7 @@ import { ExcelService } from 'src/app/services/excelService';
   styleUrls: ['./examStatusReport.component.scss']
 })
 export class ExamStatusReportComponent implements OnInit {
-  exam = { "date": ""};
+  exam = { "date": "",'Client_name':"",'Domain_name':"",'DeliveryStartTime':""};
   obj:any;
   rowData:any=[];
   constructor(
@@ -135,7 +135,7 @@ public defaultColDef: ColDef = {
   filter: true,
   resizable:true,
   editable:true,
-  
+
 };
 // For accessing the Grid's API
 @ViewChild(AgGridAngular) agGrid!: AgGridAngular;

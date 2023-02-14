@@ -1,2 +1,8 @@
-
+<div class="dashboard-Container">
+  <app-header *ngIf="hUD_Display"></app-header>
+  <div class="dashbody">
+    <app-sideMenuBar *ngIf="hUD_Display"></app-sideMenuBar>
 <router-outlet></router-outlet>
+</div>
+<app-footer *ngIf="hUD_Display"></app-footer>
+</div>
