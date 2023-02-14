@@ -9,7 +9,7 @@ import { ExcelService } from 'src/app/services/excelService';
 @Component({
   selector: 'app-examStatusReport',
   templateUrl: './examStatusReport.component.html',
-  styleUrls: ['./examStatusReport.component.css']
+  styleUrls: ['./examStatusReport.component.scss']
 })
 export class ExamStatusReportComponent implements OnInit {
   exam = { "date": ""};
