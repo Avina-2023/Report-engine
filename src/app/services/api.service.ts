@@ -48,4 +48,10 @@ export class ApiService {
     }
     return this.http.post(`${this.BASE_URL}/dashboard`,data)
   }
+  userdashboard(data:any){
+  return this.http.post(`${this.BASE_URL}/userdashboard`,data)
+  }
+  dateWiseSectionReport(data:any){
+   return this.http.post(`${this.BASE_URL}/dateWiseSectionReport`,data)
+  }
 }

@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { FileSaverService } from 'ngx-filesaver';
 import { ExcelService } from 'src/app/services/excelService';
+import {CalendarModule} from 'primeng/calendar';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-examStatusReport',
   templateUrl: './examStatusReport.component.html',
@@ -13,8 +15,17 @@ import { ExcelService } from 'src/app/services/excelService';
 })
 export class ExamStatusReportComponent implements OnInit {
   exam = { "date": "",'Client_name':"",'Domain_name':"",'DeliveryStartTime':""};
+  userData = { "date": "2023/02/14"};
+  datepipe=new DatePipe('en-us')
+  datewise:any={}
   obj:any;
   rowData:any=[];
+  ColDef: any;
+  value:Date[] | undefined;
+  date7: Date[] =[new Date(),new Date(new Date().setDate(new Date().getDate() + 1))];
+  
+
+  // colDefs: any=[];
   constructor(
     private apiservice : ApiService,
     private http: HttpClient,
@@ -22,112 +33,7 @@ export class ExamStatusReportComponent implements OnInit {
     private excelService:ExcelService
   ) { }
  // Each Column Definition results in one Column.
-  public columnDefs: ColDef[] = [
-    {
-      headerName: 'Client Name',
-      width: 200,
-      minWidth: 120,
-      field: 'Client_name'
-    },
-    {
-      headerName: 'Domain Name',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'Domain_name'
-    },
-    {
-      headerName: 'Delivery Label',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'DeliveryLabel'
-    },
-    {
-      headerName: 'Delivery Start Time',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'DeliveryStartTime'
-    },
-    {
-      headerName: 'Delivery End Time',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'DeliveryEndTime'
-    },
-    {
-      headerName: 'Yet to Start',
-      width: 50,
-      minWidth: 120,
-      sortable: true,
-      field: 'Yettostart'
-    },
-    {
-      headerName: 'Test Name',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'Testname'
-    },
-    {
-      headerName: 'Completed',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'Completed'
-    },
-    {
-      headerName: 'Inprogress',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'Inprogress'
-    },
-    {
-      headerName: 'Terminated',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'Terminated'
-    },
-    {
-      headerName: 'Attended Instruction',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'Attended_Instruction'
-    },
-    {
-      headerName: 'Viewed Instruction',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'Viewed_Instruction'
-    },
-    {
-      headerName: 'Results Processed',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'Results_Processed'
-    },
-    {
-      headerName: 'Results Inprogress',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'Results_Inprogress'
-    },
-    {
-      headerName: 'Results Not Processed',
-      width: 130,
-      minWidth: 120,
-      sortable: true,
-      field: 'Results_Not_Processed'
-    }
-  ];
+  public columnDefs: ColDef[] = []
 
 // DefaultColDef sets props common to all Columns
 public defaultColDef: ColDef = {
@@ -141,7 +47,8 @@ public defaultColDef: ColDef = {
 @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 // Example load data from sever
 onGridReady(params: GridReadyEvent) {
-this.getdata()
+// this.getdata()
+this.dateWiseSectionReport(this.generateParams())
 }
 
 // Example of consuming Grid Event
@@ -156,13 +63,58 @@ clearSelection(): void {
 ngOnInit() {
     // this.getdata()
 }
+daterrange(){
+  console.log('tstrs',this.date7);
+  
+   if(this.date7[0] && this.date7[1])
+  this.dateWiseSectionReport(this.generateParams())
+  // this.datewise={
+  //   "startDate":this.date7?this.date7[0]:"",
+  //   "enddate":this.date7?this.date7[1]:""
+  // }
+ 
+  console.log('hhhh',this.date7);
+  console.log('datewise',this.datewise);
 
+  
+}
 getdata(){
   this.apiservice.dashboard(this.exam).subscribe((res:any)=>{
     this.rowData = res.data
+    this.dynamicallyConfigureColumnsFromObject(res.data)
+    this.agGrid.api.setRowData(res.data)
   })
+}
+generateParams(){
+  return{
+    
+    "startdate":this.date7?this.datepipe.transform(this.date7[0], 'yyyy-MM-dd h:m'):"",
+    "enddate":this.date7?this.datepipe.transform(this.date7[1], 'yyyy-MM-dd h:m'):""
+  }
+}
+dateWiseSectionReport(data:any){
+
+
+  this.apiservice.dateWiseSectionReport(data).subscribe((res:any)=>{
+    this.rowData = res.data
+    this.dynamicallyConfigureColumnsFromObject(res.data)
+    this.agGrid.api.setRowData(res.data)
+
+  })
+
 }
 excelexport(params:any){
   this.excelService.exportAsExcelFile(params, 'report');
+}
+dynamicallyConfigureColumnsFromObject(anObject:any){
+  if(anObject?.length){
+  this.ColDef = this.agGrid.api.getColumnDefs();
+  this.ColDef.length=0;
+  const keys = Object.keys(anObject[0])
+  keys.forEach(key => this.columnDefs.push({field : key}));
+  this.agGrid.api.setColumnDefs(this.columnDefs);
+  this.agGrid.api.setRowData(anObject);
+  this.rowData=anObject
+}
 }
 }

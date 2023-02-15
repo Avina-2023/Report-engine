@@ -1,16 +1,26 @@
 
 
-<h2 class="heading">Overall Status Report</h2>
+<h3 class="heading">DASHBOARD</h3>
 <div class="excel">
   <button mat-button color="warn" (click)="excelexport(rowData)" ><mat-icon>download</mat-icon><span>Download Report</span> </button>
 </div>
 
+ <div class="p-field p-col-12 p-md-4"> 
+  <label for="range">Range</label>
+   <p-calendar [(ngModel)]="date7" selectionMode="range" [readonlyInput]="true" [showTime]="true" inputId="range" (onSelect)="daterrange()" dateFormat="yy/m/d" ></p-calendar> 
+  </div>
+  
+  <!-- <div class="p-field p-col-12 p-md-4">
+    <label for="time">Start Time</label>
+    <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"></p-calendar>
+    <label for="time">End Time</label>
+    <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"></p-calendar>
+</div> -->
 <ag-grid-angular
    style="width: 100%; height: 80%;margin: 5px;"
    class="ag-theme-alpine"
    [columnDefs]="columnDefs"
    [defaultColDef]="defaultColDef"
-   [rowData]="rowData"
    [rowSelection]="'multiple'"
    [paginationPageSize]="20"
    [pagination]="true"
