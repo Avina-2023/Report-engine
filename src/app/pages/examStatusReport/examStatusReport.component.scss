@@ -10,7 +10,6 @@ html, body {
     margin: 5px;
 }
 .excel{
-    color: white;
     border: 0px;
     margin: 5px;
     display: flex;
@@ -21,3 +20,32 @@ button{
     display: flex;
     align-items: center;
 }
+.p-calendar-container label{
+  margin-right: 10px;
+}
+.p-calendar-container{
+  position: relative;
+  margin-right: 15px;
+  i{
+    position: absolute;
+    right: 3px;
+    top: 5px;
+  }
+}
+::ng-deep.p-calendar-container .p-inputtext {
+
+  height: 25px !important; /* set the height of the input field */
+  font-size: 14px !important; /* set the font size of the input field */
+  padding-right: 20px;
+}
+
+::ng-deep.p-calendar-container .p-datepicker {
+  // width: 200px !important;
+  // height: 250px !important; /* set the width of the calendar popup */
+}
+
+::ng-deep.p-calendar-container .p-datepicker td {
+  padding:0px; /* set the height of each day cell */
+  font-size: 14px !important; /* set the font size of the day cell text */
+}
+
