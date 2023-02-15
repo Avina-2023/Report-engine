@@ -18,6 +18,7 @@ import { SideMenuBarComponent } from './pages/commons/sideMenuBar/sideMenuBar.co
 import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
 import { AgGridModule } from 'ag-grid-angular';
 
+import {CalendarModule} from 'primeng/calendar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { AgGridModule } from 'ag-grid-angular';
     ReactiveFormsModule,
     AgGridModule,
     FormsModule,
+    CalendarModule,
     ToastrModule.forRoot(
       {
         timeOut: 3000,
