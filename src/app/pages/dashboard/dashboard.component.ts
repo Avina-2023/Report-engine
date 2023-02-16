@@ -22,7 +22,7 @@ items=[
   }
 ]
   constructor(private sanitizer: DomSanitizer) {
-    let url = "https://kibana.lntedutech.com/app/proctor"
+    let url = "http://kibanaprod.lntedutech.com/"
     this.iframeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
    }
 
