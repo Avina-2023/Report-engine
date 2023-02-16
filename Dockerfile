@@ -14,7 +14,7 @@ COPY . .
 #RUN ng serve
 
 #RUN npm run build:${PORT}
-RUN npm run build
+RUN npm run build --aot --build-optimizer --optimization 
 ### STAGE 2: Run ###
 FROM nginx:1.17.1-alpine
 COPY --from=build /usr/src/app/dist/report_engine /usr/share/nginx/html

@@ -1,2 +1,8 @@
-
+<div [ngClass]="hUD_Display?'dashboard-Container':'overalls'">
+  <app-header *ngIf="hUD_Display"></app-header>
+  <div [ngClass]="hUD_Display?'dashbody':'overalls'">
+    <app-sideMenuBar *ngIf="hUD_Display"></app-sideMenuBar>
 <router-outlet></router-outlet>
+</div>
+<app-footer *ngIf="hUD_Display"></app-footer>
+</div>

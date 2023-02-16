@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { InterComponentMessenger } from 'src/app/services/interComponentMessenger.service';
 import { AppConfigService } from 'src/app/utils/app-config.service';
 import { APP_CONSTANTS } from 'src/app/utils/app-constants.service';
 
@@ -16,12 +17,18 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authConfig: AppConfigService,
     private dialog: MatDialog,
+    private messenger:InterComponentMessenger
   ) { 
- 
+    this.messenger.sendMessage("sideMenuToggle",this.isOpenMenu)
   }
 
   ngOnInit() {
-   this.name=localStorage.getItem('firstname')
+   this.name=this.authConfig.getLocalValue('firstname')
+  }
+
+  menuToggle(){
+    this.isOpenMenu = !this.isOpenMenu
+    this.messenger.sendMessage("sideMenuToggle",this.isOpenMenu)
   }
   matDialogOpen() {
     const dialogRef = this.dialog.open(this.matDialogRef, {

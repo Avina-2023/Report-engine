@@ -14,9 +14,11 @@
 }
 .left{
   background-color: rgba(255, 255, 255, 0.966);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 200px;
+    justify-content: space-evenly;
 
     #nav-icon1{
     width: 30px;
@@ -158,29 +160,44 @@
   .con-btn {
     font-size: 14px;
     cursor: pointer;
-    // background: $primary-back-white;
-    // color: $primary-batch-head;
     border: none;
+    color:#fff;
+    background-color:#c02222;
     font-weight: 500;
     width: 83px;
     height: 40px;
     border-radius: 4px;
   }
+  .con-btn:active{
+    border: none;
+  }
+  .con-btn:focus{
+    border: none;
+  }
   
   .confirm {
     // background-color: $primary-batch-head;
     // border: 1px solid $primary-batch-head;
+    border:none;
+    color: #fff;
+    background-color:#205081;
     font-size: 14px;
     width: 83px;
     height: 40px;
     cursor: pointer;
     border-radius: 4px;
   }
+  .confirm:active{
+    border: none;
+  }
+  .confirm:focus{
+    border: none;
+  }
 
 
   .action {
     display: flex !important;
-    justify-content: center !important;
+    justify-content: space-evenly !important;
   //  position: relative;
   //  top: 30px;
   //  margin: 0px 77px;
@@ -188,7 +205,6 @@
     .confirm {
     //  background: $primary-batch-head;
     //  color: $primary-back-white;
-      margin-left: 10%;
     }
   }
 
