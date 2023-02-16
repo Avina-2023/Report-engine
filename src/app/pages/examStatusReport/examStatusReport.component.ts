@@ -64,19 +64,8 @@ ngOnInit() {
     // this.getdata()
 }
 daterrange(){
-  console.log('tstrs',this.date7);
-  
    if(this.date7[0] && this.date7[1])
   this.dateWiseSectionReport(this.generateParams())
-  // this.datewise={
-  //   "startDate":this.date7?this.date7[0]:"",
-  //   "enddate":this.date7?this.date7[1]:""
-  // }
- 
-  console.log('hhhh',this.date7);
-  console.log('datewise',this.datewise);
-
-  
 }
 getdata(){
   this.apiservice.dashboard(this.exam).subscribe((res:any)=>{
@@ -87,21 +76,16 @@ getdata(){
 }
 generateParams(){
   return{
-    
     "startdate":this.date7?this.datepipe.transform(this.date7[0], 'yyyy-MM-dd h:m'):"",
     "enddate":this.date7?this.datepipe.transform(this.date7[1], 'yyyy-MM-dd h:m'):""
   }
 }
 dateWiseSectionReport(data:any){
-
-
   this.apiservice.dateWiseSectionReport(data).subscribe((res:any)=>{
     this.rowData = res.data
     this.dynamicallyConfigureColumnsFromObject(res.data)
     this.agGrid.api.setRowData(res.data)
-
   })
-
 }
 excelexport(params:any){
   this.excelService.exportAsExcelFile(params, 'report');
@@ -110,6 +94,7 @@ dynamicallyConfigureColumnsFromObject(anObject:any){
   if(anObject?.length){
   this.ColDef = this.agGrid.api.getColumnDefs();
   this.ColDef.length=0;
+  this.columnDefs=[]
   const keys = Object.keys(anObject[0])
   keys.forEach(key => this.columnDefs.push({field : key}));
   this.agGrid.api.setColumnDefs(this.columnDefs);
