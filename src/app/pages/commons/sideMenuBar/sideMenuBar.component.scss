@@ -22,7 +22,8 @@ border: 1px solid rgba(255, 255, 255, 0.84);
 .sidebar-nav {
   height: calc(100% - 50px);
   width: 100%;
-  transition: all 0.3s ease-in-out
+ // transition: all 0.3s ease-in-out
+  
 }
 
 .nav {
@@ -40,7 +41,7 @@ border: 1px solid rgba(255, 255, 255, 0.84);
   margin: 0 10px;
   border-bottom: 1px solid #b7b7b74a;
   overflow: hidden;
-  transition: 0.2s ease-in-out;
+//  transition: 0.2s ease-in-out;
 }
 
 .nav-link {
@@ -60,8 +61,9 @@ border: 1px solid rgba(255, 255, 255, 0.84);
 .nav-item:hover {
   background-color: #d5d5d582;
   border-left: 10px solid #27bbee;
-  margin-left: 0;
+  // margin-left: 0;
   text-shadow: 0px 0px 4px #fffffff0;
+  transition: 0.2s ease-in-out;
 }
 .sidebar.open {
   left: 0;
