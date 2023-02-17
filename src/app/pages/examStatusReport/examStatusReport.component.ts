@@ -47,8 +47,7 @@ public defaultColDef: ColDef = {
 @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 // Example load data from sever
 onGridReady(params: GridReadyEvent) {
-// this.getdata()
-this.dateWiseSectionReport(this.generateParams())
+
 }
 
 // Example of consuming Grid Event
@@ -61,9 +60,14 @@ clearSelection(): void {
   this.agGrid.api.deselectAll();
 }
 ngOnInit() {
-    // this.getdata()
+  let data={
+    "startdate":this.datepipe.transform(this.date7[0], 'yyyy-MM-dd'),
+    "enddate":this.datepipe.transform(this.date7[1], 'yyyy-MM-dd')
+  }
+  this.dateWiseSectionReport(data)
 }
 daterrange(){
+  
    if(this.date7[0] && this.date7[1])
   this.dateWiseSectionReport(this.generateParams())
 }
@@ -96,7 +100,9 @@ dynamicallyConfigureColumnsFromObject(anObject:any){
   this.ColDef.length=0;
   this.columnDefs=[]
   const keys = Object.keys(anObject[0])
-  keys.forEach(key => this.columnDefs.push({field : key}));
+  keys.forEach(key => 
+    this.columnDefs.push({field : key,headerName:key.replaceAll('_',' ')})
+    );
   this.agGrid.api.setColumnDefs(this.columnDefs);
   this.agGrid.api.setRowData(anObject);
   this.rowData=anObject
