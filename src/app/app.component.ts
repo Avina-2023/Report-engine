@@ -16,7 +16,7 @@ ngOnInit() {
   console.log(this.router.url);
   this.router.events.subscribe((val) => {
     if(val instanceof NavigationEnd){
-      let possiblePages = ['/','/login'];
+      let possiblePages = ['/','/login','/assets/Html/maintanence.html'];
       if(possiblePages.includes(val.url))
       {
         this.hUD_Display = false
