@@ -26,12 +26,13 @@ export class DashboardComponent implements OnInit {
   ]
 
   error: any;
-  // onewayTP = true
+  onewayTP = true
   @ViewChild('kibona') iframe: ElementRef | undefined;
   html: any;
   htmlfile = '../../../assets/Html/maintanence.html'
 
   eulaContent: any;
+  timeoutval:any
 
   constructor(private sanitizer: DomSanitizer, private http: HttpClient, private apiservice: ApiService) {
 
@@ -51,11 +52,14 @@ export class DashboardComponent implements OnInit {
       error => {
 
         // this.iframe?.nativeElement.removeAttributeNode("srcdoc")
-        // if (this.onewayTP) {
-          // this.onewayTP = false
+        if (this.onewayTP) {
+          this.onewayTP = false
           this.IframeErrorHandle()
-        // }
-        this.kibonacheck(environment.kibana_url)
+        }
+        clearTimeout(this.timeoutval);
+          this.timeoutval = setTimeout(() => {
+            this.kibonacheck(environment.kibana_url)
+          }, 10000);
         this.error = error.error.type;
       }
     );
