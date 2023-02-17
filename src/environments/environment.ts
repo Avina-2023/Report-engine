@@ -4,8 +4,8 @@
 
 export const environment = {
   production: true,
-  API_BASE_URL: 'https://reportedgedev.lntedutech.com',
- 
+  API_BASE_URL: 'https://reportedge.lntedutech.com',
+
 };
 
 
