@@ -14,28 +14,63 @@ html, body {
     margin: 5px;
     display: flex;
     justify-content: flex-end;
-}
-button{
-    cursor: pointer;
-    display: flex;
     align-items: center;
 }
+// button{
+//     color: #004684 !important;
+//     background-color: #ffffff;
+//     border-radius: 4px;
+//     font-size: 30px;
+//     cursor: pointer;
+//     border: 0px;
+//     margin: 5px;
+//     display: flex;
+//     border: 1px solid #004684;
+//     justify-content: flex-end;
+// }
+
+button{
+    color: #004684 !important;
+    background-color: #ffffff;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+    border: 0px;
+    margin: 5px;
+    display: flex;
+    border: 1px solid #004684;
+    justify-content: flex-end;
+    box-shadow: 0 2px 4px -1px #0003!important;
+
+}
+
+// .download{
+//    width: 5px !important;
+// }
+
+// .download-icon{
+// margin-top: 4px;
+// width: 20px;
+// height: 10px;
+// }
+
 .p-calendar-container label{
   margin-right: 10px;
 }
 .p-calendar-container{
   position: relative;
   margin-right: 15px;
+  margin-top:2px;
   i{
     position: absolute;
     right: 3px;
-    top: 5px;
+    top: 7px;
     cursor: pointer;
   }
 }
 ::ng-deep.p-calendar-container .p-inputtext {
 
-  height: 25px !important; /* set the height of the input field */
+  height: 30px !important; /* set the height of the input field */
   font-size: 14px !important; /* set the font size of the input field */
   padding-right: 20px;
 }
