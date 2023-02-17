@@ -12,8 +12,7 @@ import { environment } from 'src/environments/environment';
 export class DashboardComponent implements OnInit {
 
   myvar = "newvar"
-  Htmlstr = '<div style="display: flex;flex-wrap: wrap; align - content: center; justify - content: center; align - items: center; "><img style="width: 60 %; " src="../../../assets/images/loader.gif"/></div>'
-  iframeSrc = this.sanitizer.bypassSecurityTrustResourceUrl('about:_blank');
+  iframeSrc = this.sanitizer.bypassSecurityTrustResourceUrl('../../../assets/Html/loader.html');
   items = [
     {
       name: "g"
@@ -27,7 +26,7 @@ export class DashboardComponent implements OnInit {
   ]
 
   error: any;
-  onewayTP = true
+  // onewayTP = true
   @ViewChild('kibona') iframe: ElementRef | undefined;
   html: any;
   htmlfile = '../../../assets/Html/maintanence.html'
@@ -46,23 +45,22 @@ export class DashboardComponent implements OnInit {
   kibonacheck(url:any) {
     this.apiservice.getkibona(url).subscribe(
       data => {
-        this.Htmlstr = ""
-        this.iframe?.nativeElement.removeAttributeNode("srcdoc")
+        // this.iframe?.nativeElement.removeAttributeNode("srcdoc")
         this.iframeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
       },
       error => {
-        
-        this.iframe?.nativeElement.removeAttributeNode("srcdoc")
-        if (this.onewayTP) {
-          this.onewayTP = false
+
+        // this.iframe?.nativeElement.removeAttributeNode("srcdoc")
+        // if (this.onewayTP) {
+          // this.onewayTP = false
           this.IframeErrorHandle()
-        }
+        // }
+        this.kibonacheck(environment.kibana_url)
         this.error = error.error.type;
       }
     );
   }
   IframeErrorHandle() {
-    this.Htmlstr = ""
     this.iframeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.htmlfile)
     this.iframe?.nativeElement.contentWindow.location.replace(this.iframeSrc);
     // setTimeout(() => {  }, 5000);
