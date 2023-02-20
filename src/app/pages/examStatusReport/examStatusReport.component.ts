@@ -8,6 +8,7 @@ import { FileSaverService } from 'ngx-filesaver';
 import { ExcelService } from 'src/app/services/excelService';
 import {CalendarModule} from 'primeng/calendar';
 import { DatePipe } from '@angular/common';
+import { InterComponentMessenger } from 'src/app/services/interComponentMessenger.service';
 @Component({
   selector: 'app-examStatusReport',
   templateUrl: './examStatusReport.component.html',
@@ -23,15 +24,18 @@ export class ExamStatusReportComponent implements OnInit {
   ColDef: any;
   value:Date[] | undefined;
   date7: Date[] =[new Date(),new Date(new Date().setDate(new Date().getDate() + 1))];
-  
+  isOpenMenu = false;
 
   // colDefs: any=[];
   constructor(
     private apiservice : ApiService,
     private http: HttpClient,
     private fileserver:FileSaverService,
-    private excelService:ExcelService
-  ) { }
+    private excelService:ExcelService,
+    private messenger:InterComponentMessenger
+  ) { 
+    this.messenger.sendMessage("sideMenuToggle",this.isOpenMenu)
+  }
  // Each Column Definition results in one Column.
   public columnDefs: ColDef[] = []
 
