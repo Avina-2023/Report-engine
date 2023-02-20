@@ -1,6 +1,6 @@
 
-
-<h2 class="heading">Section Wise Report</h2>
+<div class="main">
+<div class="heading"><span>Section Wise Report </span></div>
 <div class="excel">
   <div class="p-field p-calendar-container">
     <label for="range">Delivery date range:</label>
@@ -10,6 +10,8 @@
      <i class="pi pi-calendar" (click)="calen.toggle()" ></i>
     </div>
   <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
+
+</div>
 
 </div>
 
@@ -33,3 +35,4 @@
    (gridReady)="onGridReady($event)"
    (cellClicked)="onCellClicked($event)"
  ></ag-grid-angular>
+

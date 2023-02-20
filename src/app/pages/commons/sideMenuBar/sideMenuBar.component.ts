@@ -13,7 +13,8 @@ export class SideMenuBarComponent implements OnInit {
 
     this.messenger.getMessage().subscribe((data)=>{
       console.log('inside sidemenu')
-      console.log(data);
+      console.log(data );
+
       if(data?.head === "sideMenuToggle"){
         this.menuState = data.value
       }
