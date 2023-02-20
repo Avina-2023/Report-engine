@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -53,5 +53,11 @@ export class ApiService {
   }
   dateWiseSectionReport(data:any){
    return this.http.post(`${this.BASE_URL}/dateWiseSectionReport`,data)
+  }
+  getkibona(url:any){
+    return this.http.get(url,{responseType: 'text'});
+  }
+  getErrpage(){
+    return this.http.get('/assets/Html/maintanence.html')
   }
 }
