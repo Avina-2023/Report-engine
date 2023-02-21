@@ -33,7 +33,7 @@ export class ExamStatusReportComponent implements OnInit {
     private fileserver:FileSaverService,
     private excelService:ExcelService,
     private messenger:InterComponentMessenger
-  ) { 
+  ) {
     this.messenger.sendMessage("sideMenuToggle",this.isOpenMenu)
   }
  // Each Column Definition results in one Column.
@@ -71,7 +71,7 @@ ngOnInit() {
   this.dateWiseSectionReport(data)
 }
 daterrange(){
-  
+
    if(this.date7[0] && this.date7[1])
   this.dateWiseSectionReport(this.generateParams())
 }
@@ -104,7 +104,7 @@ dynamicallyConfigureColumnsFromObject(anObject:any){
   this.ColDef.length=0;
   this.columnDefs=[]
   const keys = Object.keys(anObject[0])
-  keys.forEach(key => 
+  keys.forEach(key =>
     this.columnDefs.push({field : key,headerName:key.replaceAll('_',' ')})
     );
   this.agGrid.api.setColumnDefs(this.columnDefs);
