@@ -44,7 +44,7 @@ public defaultColDef: ColDef = {
   sortable: true,
   filter: true,
   resizable:true,
-  editable:true,
+  editable:false,
 
 };
 // For accessing the Grid's API
