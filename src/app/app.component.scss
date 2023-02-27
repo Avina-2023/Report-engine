@@ -1,6 +1,7 @@
 .dashboard-Container{
   height: 100%;//calc(100% - 50px);
-  overflow: hidden;
+ // overflow: hidden;
+ overflow: scroll;
 }
 .dashbody{
   width: 100%;

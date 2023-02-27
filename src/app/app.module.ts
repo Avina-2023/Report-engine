@@ -17,8 +17,11 @@ import {HeaderComponent} from './pages/commons/header/header.component'
 import { SideMenuBarComponent } from './pages/commons/sideMenuBar/sideMenuBar.component';
 import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
 import { AgGridModule } from 'ag-grid-angular';
+import {MatCardModule} from '@angular/material/card';
 
 import {CalendarModule} from 'primeng/calendar';
+import { NgApexchartsModule } from 'ng-apexcharts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +44,8 @@ import {CalendarModule} from 'primeng/calendar';
     AgGridModule,
     FormsModule,
     CalendarModule,
+    MatCardModule,
+    NgApexchartsModule,
     ToastrModule.forRoot(
       {
         timeOut: 3000,
