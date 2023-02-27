@@ -24,6 +24,7 @@
     "ag-grid-angular": "^29.0.0",
     "ag-grid-community": "^29.0.0",
     "ag-grid-enterprise": "^29.0.0",
+    "angular-lodash": "^0.1.1",
     "apexcharts": "^3.37.1",
     "file-saver": "^2.0.5",
     "force": "^0.0.3",

@@ -11,7 +11,7 @@ html, body {
   justify-content: space-between;
   align-items: center;
   height: 50px;
-  
+
   .heading{
     margin-left: 5px;
     font-size: 20px;
@@ -53,6 +53,9 @@ button{
     right: 3px;
     top: 5px;
   }
+}
+::ng-deep.p-calendar-container .p-calendar{
+  width: 256px;
 }
 ::ng-deep.p-calendar-container .p-inputtext {
 
