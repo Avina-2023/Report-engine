@@ -2,6 +2,7 @@
   height: 100%;//calc(100% - 50px);
  // overflow: hidden;
  overflow: scroll;
+ scroll-behavior: smooth;
 }
 .dashbody{
   width: 100%;

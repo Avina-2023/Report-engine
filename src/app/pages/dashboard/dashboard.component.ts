@@ -136,6 +136,10 @@ total2:any;
   eulaContent: any;
   timeoutval:any
   sparkline: any = [0];
+  totalscheduledCount: any;
+  loggedinCandidates: any;
+  testinProgress:any;
+  testCompleted: any;
 
   constructor(private sanitizer: DomSanitizer, private http: HttpClient, private apiservice: ApiService) {
 
@@ -451,6 +455,10 @@ let keys = ['Total_Count', 'Started', 'Terminated', 'Completed', 'Inprogrss', 'I
 let results = _.zipObject(keys, keys.map(key => _.sum(_.map(this.data, key))));
 this.total = results;
 console.log('this', this.total);
+this.totalscheduledCount = this.total.Total_Count;
+this.loggedinCandidates = this.total.Started;
+this.testinProgress = this.total.Inprogrss;
+this.testCompleted = this.total.Completed;
 }
 
 chartdataUpdate(){
@@ -461,7 +469,7 @@ chartdataUpdate(){
             }
             this.sparkline.push(Math.floor(Math.random() * 50))
             console.log(this.sparkline)
-
+            
             this.chartdataUpdate()
           }, 1000);
 }

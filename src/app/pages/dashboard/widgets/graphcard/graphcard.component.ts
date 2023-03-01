@@ -29,7 +29,7 @@ export class GraphcardComponent implements OnInit {
   @Input() idleCount: any;
   @Input()sparklineData:any = []
   @Input() cardDescription: any;
-  @Input() cardTitle: any;
+  @Input() cardTitle: any = 'input text needed';
   testingValue: any;
   public chartOptions: any;
   currentIdle: any = 0;
@@ -70,7 +70,7 @@ export class GraphcardComponent implements OnInit {
           }
         },
         sparkline: {
-          enabled: true
+          enabled: false
         },
       },
 
