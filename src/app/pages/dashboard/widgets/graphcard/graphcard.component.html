@@ -1,0 +1,29 @@
+<div style="display:flex;align-items: center;">
+  <div style="display:inline-block;width:50%;text-align:center;">
+    <div class="idle-card">
+      <div class="card_count">
+        <h1 class="idle_count">{{idle_count}}</h1>
+
+        <span> Sample Content </span><br>
+        <span>Sample Content</span>
+      </div>
+      <div id="custom-chart">
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+          [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip"
+          [dataLabels]="chartOptions.dataLabels"></apx-chart>
+      </div>
+      <div class="bottom_bar">
+        <div>
+          <h4>{{total.Total_Count}}</h4><span>Logged in</span>
+        </div>
+        <div>
+          <h4>{{total.Inprogrss}}</h4><span>In Progress</span>
+        </div>
+        <div>
+          <h4>{{total.Completed}}</h4><span>Completed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

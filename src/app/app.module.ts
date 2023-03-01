@@ -12,6 +12,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './pages/dashboard/dashboard.component'; 
+import { GraphcardComponent } from './pages/dashboard/widgets/graphcard/graphcard.component'; 
 import { FooterComponent } from './pages/commons/footer/footer.component';
 import {HeaderComponent} from './pages/commons/header/header.component'
 import { SideMenuBarComponent } from './pages/commons/sideMenuBar/sideMenuBar.component';
@@ -19,8 +20,7 @@ import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusRe
 import { AgGridModule } from 'ag-grid-angular';
 import {MatCardModule} from '@angular/material/card';
 import {CalendarModule} from 'primeng/calendar';
-import { NgApexchartsModule } from 'ng-apexcharts';
-
+import { NgApexchartsModule } from "ng-apexcharts";
 @NgModule({
   declarations: [	
     AppComponent,
@@ -31,6 +31,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     HeaderComponent,
     SideMenuBarComponent,
     ExamStatusReportComponent,
+    GraphcardComponent
    ],
   imports: [
     CommonModule,
