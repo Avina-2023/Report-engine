@@ -112,6 +112,7 @@ export class DashboardComponent implements OnInit {
        }
   ];
 total: any;
+total2:any;
   myvar = "newvar"
   iframeSrc = this.sanitizer.bypassSecurityTrustResourceUrl('../../../assets/Html/loader.html');
   items = [
@@ -142,12 +143,27 @@ total: any;
   series: [
     {
       name: "basic",
-      data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+      data: [ 30, 45, 40, 23, 80, 56, 53, 106 ]
     }
   ],
   chart: {
     type: "bar",
-    height: 350
+    width: 550,
+
+    toolbar: {
+      show: true,
+      offsetX: 0,
+        offsetY: 0,
+      tools: {
+        download: true,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+      }
+    }
+
+
   },
   plotOptions: {
     bar: {
@@ -163,30 +179,61 @@ total: any;
       "Result_Processed",
       "Viewed_1st_Question",
       "Idle",
-      "Inprogrss",
+      "Inprogress",
       "Completed",
       "Yet_To_Start",
       "Started",
       "Total_Count"
     ]
-  }
+  },
+
+  tooltip: {
+    fixed: {
+      enabled: true,
+      position: "topLeft", // topRight, topLeft, bottomRight, bottomLeft
+      offsetY: 30,
+      offsetX: 60
+    }
+  },
 };
 
 this.chartOptions2 = {
-  series: [44, 55, 13, 43, 22],
+  series: [106, 53, 56, 80, 23],
   chart: {
-    type: "donut"
+    type: "donut",
+    width: 500,
+    height:500,
+
+    toolbar: {
+      show: true,
+      offsetX: 0,
+        offsetY: 0,
+        zoom: {
+          enabled: true,
+        },
+      tools: {
+        download: true,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+      }
+    }
+
   },
-  labels: ["Client A", "Client B", "Client C", "Client D", "Client E"],
+  labels: ["Total_Count", "Started", "Yet_To_Start", "Inprogress", "Completed"],
   responsive: [
     {
       breakpoint: 480,
       options: {
-        chart: {
-          width: 200
-        },
+        // chart: {
+        //   width: 10
+        // },
         legend: {
           position: "bottom"
+        },
+        tooltip: {
+          enabled: true
         }
       }
     }
@@ -196,8 +243,8 @@ this.chartOptions2 = {
 this.chartOptions3 = {
   series: [25, 15, 44, 55, 41, 17],
   chart: {
-    width: "100%",
-    type: "pie"
+    type: "pie",
+    width:450,
   },
   labels: [
     "College A",
@@ -336,14 +383,14 @@ this.chartOptions4 = {
       }
     }
   ],
-  tooltip: {
-    fixed: {
-      enabled: true,
-      position: "topLeft", // topRight, topLeft, bottomRight, bottomLeft
-      offsetY: 30,
-      offsetX: 60
-    }
-  },
+  // tooltip: {
+  //   fixed: {
+  //     enabled: true,
+  //     position: "topLeft", // topRight, topLeft, bottomRight, bottomLeft
+  //     offsetY: 30,
+  //     offsetX: 60
+  //   }
+  // },
   legend: {
     horizontalAlign: "left",
     offsetX: 40
@@ -356,6 +403,7 @@ this.chartOptions4 = {
     this.kibonacheck(environment.kibana_url);
       console.log(this.data); 
     this.gettestData();
+   // this.getchartdata();
 //       let sum = 0;
 //       for (let i = 0; i < this.data.length; i++) {
 //       sum += this.data[i].Total_Count;
@@ -401,7 +449,12 @@ let results = _.zipObject(keys, keys.map(key => _.sum(_.map(this.data, key))));
 this.total = results;
 console.log('this', this.total);
 }
-  
-  
+
+// getchartdata(){
+//   let keys2 = [ 'Total_Count', 'Started', 'Terminated', 'Completed', 'Inprogrss', 'Idle', 'Yet_To_Start' ];
+//   let results2 = _.zipObject(keys2, keys2.map(key => _.sum(_.map(this.data, key))));
+//   this.total2 = results2;
+//   console.log('this2', this.total2);
+// }
   
 }

@@ -20,11 +20,10 @@ import { SideMenuBarComponent } from './pages/commons/sideMenuBar/sideMenuBar.co
 import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
 import { AgGridModule } from 'ag-grid-angular';
 import {MatCardModule} from '@angular/material/card';
-
 import {CalendarModule} from 'primeng/calendar';
 import { NgApexchartsModule } from "ng-apexcharts";
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LoginComponent,
     DashboardComponent,
