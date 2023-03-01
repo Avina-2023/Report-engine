@@ -456,7 +456,7 @@ console.log('this', this.total);
 chartdataUpdate(){
   clearTimeout(this.timeoutval);
           this.timeoutval = setTimeout(() => {
-            if(this.sparkline.length>=8){
+            if(this.sparkline.length>=10){
               this.sparkline.shift();
             }
             this.sparkline.push(Math.floor(Math.random() * 50))
