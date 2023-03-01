@@ -1,3 +1,4 @@
+import { TinycardComponent } from './pages/dashboard/widgets/tinycard/tinycard.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -32,7 +33,8 @@ import { NgApexchartsModule } from "ng-apexcharts";
     HeaderComponent,
     SideMenuBarComponent,
     ExamStatusReportComponent,
-    GraphcardComponent
+    GraphcardComponent,
+    TinycardComponent
    ],
   imports: [
     CommonModule,

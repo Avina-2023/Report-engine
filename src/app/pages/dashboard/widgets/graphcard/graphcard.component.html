@@ -2,25 +2,28 @@
   <div style="display:inline-block;width:50%;text-align:center;">
     <div class="idle-card">
       <div class="card_count">
-        <h1 class="idle_count">{{idle_count}}</h1>
-
-        <span> Sample Content </span><br>
-        <span>Sample Content</span>
+        <h1> {{cardTitle}} </h1>
+        <h2 class="idle_count">{{idleCount}}</h2>
+        <span>{{cardDescription}}</span>
       </div>
       <div id="custom-chart">
-        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
-          [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip"
-          [dataLabels]="chartOptions.dataLabels"></apx-chart>
+        <apx-chart 
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [dataLabels]="chartOptions.dataLabels"></apx-chart>
       </div>
       <div class="bottom_bar">
         <div>
-          <h4>{{total.Total_Count}}</h4><span>Logged in</span>
+          <h4>123</h4><span>Logged in</span>
         </div>
         <div>
-          <h4>{{total.Inprogrss}}</h4><span>In Progress</span>
+          <h4>321</h4><span>In Progress</span>
         </div>
         <div>
-          <h4>{{total.Completed}}</h4><span>Completed</span>
+          <h4>454</h4><span>Completed</span>
         </div>
       </div>
     </div>
