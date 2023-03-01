@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import {
   ChartComponent,
@@ -24,9 +24,10 @@ export type ChartOptions = {
   templateUrl: './graphcard.component.html',
   styleUrls: ['./graphcard.component.scss']
 })
-export class GraphcardComponent implements OnInit {
-  @ViewChild("chart") chart?: ChartComponent;
+export class GraphcardComponent implements OnInit,OnChanges{
+  @ViewChild("realtime") rtChart?: ChartComponent;
   public chartOptions: any;
+  @Input()sparklineData:any = []
   data = [
     {
       "Client_Name": "Domain Assessments",
@@ -91,6 +92,7 @@ export class GraphcardComponent implements OnInit {
   ];
   total: any;
   testingValue: any;
+  currentIdle: any;
 
   constructor() {
 
@@ -98,19 +100,30 @@ export class GraphcardComponent implements OnInit {
       series: [
         {
           name: "Idle Candidates",
-          data: [131, 70, 98, 151, 112, 169, 10,128]
+          data: []
         }
       ],
       chart: {
         toolbar: {
           show: false
         },
-        type: "area",
+        animations: {
+          enabled: true,
+          easing: 'lienear',
+          dynamicAnimation: {
+            enabled:true,
+            speed: 300
+          },
+          animateGradually:{
+            enabled:true,
+          }
+        },
+        type: "line",
         sparkline:{
           enabled: true
         },
       },
-      
+
 
       dataLabels: {
         enabled: false
@@ -142,6 +155,19 @@ export class GraphcardComponent implements OnInit {
 
   ngOnInit() {
     this.getdata();
+
+    setInterval(()=>{
+      this.chartOptions.series[0].data = this.sparklineData
+      this.currentIdle =this.sparklineData[this.sparklineData.length-1]
+      this.rtChart?.updateSeries(this.chartOptions.series,true)
+    },1000)
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
+    // this.chartOptions.series[0].data = changes['sparklineData'].currentValue
+    // changes.prop contains the old and the new value...
   }
 
   getdata() {

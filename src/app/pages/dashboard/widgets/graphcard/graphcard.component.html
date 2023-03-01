@@ -1,14 +1,14 @@
-<div style="display:flex;align-items: center;">
-  <div style="display:inline-block;width:50%;text-align:center;">
+<!-- <div style="display:flex;align-items: center;">
+  <div style="display:inline-block;width:50%;text-align:center;"> -->
     <div class="idle-card">
       <div class="card_count">
-        <h1 class="idle_count">{{idle_count}}</h1>
-
+        <h1 class="idle_count">{{currentIdle}}</h1>
+<!-- {{sparklineData|json}} -->
         <span> Sample Content </span><br>
         <span>Sample Content</span>
       </div>
       <div id="custom-chart">
-        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+        <apx-chart #realtime   [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
           [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip"
           [dataLabels]="chartOptions.dataLabels"></apx-chart>
       </div>
@@ -24,6 +24,6 @@
         </div>
       </div>
     </div>
-  </div>
+  <!-- </div>
 
-</div>
+</div> -->

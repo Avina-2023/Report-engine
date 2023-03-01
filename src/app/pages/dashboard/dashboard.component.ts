@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
@@ -135,11 +135,12 @@ total2:any;
 
   eulaContent: any;
   timeoutval:any
+  sparkline: any = [0];
 
   constructor(private sanitizer: DomSanitizer, private http: HttpClient, private apiservice: ApiService) {
 
 
-  this.chartOptions = {  
+  this.chartOptions = {
   series: [
     {
       name: "basic",
@@ -175,7 +176,7 @@ total2:any;
   },
   xaxis: {
     categories: [
-     
+
       "Result_Processed",
       "Viewed_1st_Question",
       "Idle",
@@ -400,8 +401,9 @@ this.chartOptions4 = {
   }
 
   ngOnInit() {
-    this.kibonacheck(environment.kibana_url);
-      console.log(this.data); 
+    // this.kibonacheck(environment.kibana_url);
+    this.chartdataUpdate()
+      console.log(this.data);
     this.gettestData();
    // this.getchartdata();
 //       let sum = 0;
@@ -409,6 +411,7 @@ this.chartOptions4 = {
 //       sum += this.data[i].Total_Count;
 // }
   }
+
   kibonacheck(url:any) {
     this.apiservice.getkibona(url).subscribe(
       data => {
@@ -450,11 +453,19 @@ this.total = results;
 console.log('this', this.total);
 }
 
-// getchartdata(){
-//   let keys2 = [ 'Total_Count', 'Started', 'Terminated', 'Completed', 'Inprogrss', 'Idle', 'Yet_To_Start' ];
-//   let results2 = _.zipObject(keys2, keys2.map(key => _.sum(_.map(this.data, key))));
-//   this.total2 = results2;
-//   console.log('this2', this.total2);
-// }
-  
+chartdataUpdate(){
+  clearTimeout(this.timeoutval);
+          this.timeoutval = setTimeout(() => {
+            if(this.sparkline.length>=8){
+              this.sparkline.shift();
+            }
+            this.sparkline.push(Math.floor(Math.random() * 50))
+            console.log(this.sparkline)
+
+            this.chartdataUpdate()
+          }, 1000);
+}
+
+
+
 }
