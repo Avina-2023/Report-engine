@@ -1,13 +1,13 @@
-<div style="display:flex;align-items: center;">
-  <div style="display:inline-block;width:50%;text-align:center;">
+<!-- <div style="display:flex;align-items: center;">
+  <div style="display:inline-block;width:50%;text-align:center;"> -->
     <div class="idle-card">
       <div class="card_count">
         <h1> {{cardTitle}} </h1>
-        <h2 class="idle_count">{{idleCount}}</h2>
+        <h2 class="idle_count">{{currentIdle}}</h2>
         <span>{{cardDescription}}</span>
       </div>
       <div id="custom-chart">
-        <apx-chart 
+        <apx-chart #realtime 
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [xaxis]="chartOptions.xaxis"
@@ -27,6 +27,6 @@
         </div>
       </div>
     </div>
-  </div>
+  <!-- </div>
 
-</div>
+</div> -->

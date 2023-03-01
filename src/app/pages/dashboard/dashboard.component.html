@@ -13,21 +13,21 @@
     <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
     <!-- </mat-card-footer> -->
   </mat-card>
-  
+
   <mat-card class="card">
     <mat-card-header class="a">
       <mat-card-title>Test Initiated</mat-card-title>
     </mat-card-header>
     <span class="num" >{{total.Started}}</span>
   </mat-card>
- 
+
   <mat-card class="card">
     <mat-card-header class="a">
       <mat-card-title>Test In-Progress </mat-card-title>
     </mat-card-header>
     <span class="num" >{{total.Inprogrss }}</span>
   </mat-card>
-  
+
   <mat-card class="card">
     <mat-card-header class="a">
       <mat-card-title>Test Completed</mat-card-title>
@@ -58,17 +58,19 @@
 
 <h2 class="head">Graphical Representation </h2>
 
-<div class="main3"> 
+<div class="main3">
   <mat-card class="card3">
-    <div class="chart">
-      <apx-chart 
+
+    <app-graphcard [sparklineData]="sparkline"></app-graphcard>
+    <!-- <div class="chart">
+      <apx-chart
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [dataLabels]="chartOptions.dataLabels"
         [plotOptions]="chartOptions.plotOptions"
         [xaxis]="chartOptions.xaxis"
       ></apx-chart>
-    </div>   
+    </div>    -->
   </mat-card>
 
   <mat-card class="card3">
@@ -132,6 +134,3 @@
     ></apx-chart>
   </div>
  </mat-card>
- 
-
-</div>

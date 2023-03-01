@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import {
   ChartComponent,
@@ -25,18 +25,24 @@ export type ChartOptions = {
   styleUrls: ['./graphcard.component.scss']
 })
 export class GraphcardComponent implements OnInit {
-  @ViewChild("chart") chart?: ChartComponent;
+  @ViewChild("realtime") rtChart?: ChartComponent;
   @Input() idleCount: any;
-  @Input() series: any;
+  @Input()sparklineData:any = []
   @Input() cardDescription: any;
   @Input() cardTitle: any;
   testingValue: any;
   public chartOptions: any;
+  currentIdle: any = 0;
 
 
   constructor() {
     this.chartOptions = {
-      series: [],
+      series: [
+        {
+          name: "Idle Candidates",
+          data: []
+        }
+      ],
       theme: {
         mode: 'light',
         palette: 'palette1',
@@ -56,7 +62,11 @@ export class GraphcardComponent implements OnInit {
           enabled: true,
           easing: 'linear',
           dynamicAnimation: {
-            speed: 1000
+            enabled: true,
+            speed: 300
+          },
+          animateGradually:{
+            enabled:true,
           }
         },
         sparkline: {
@@ -97,7 +107,34 @@ export class GraphcardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.chartOptions.series = this.series;
-}
+    //this.getdata();
+
+    setInterval(()=>{
+      this.chartOptions.series[0].data = this.sparklineData
+      this.currentIdle =this.sparklineData[this.sparklineData.length-1]
+      this.rtChart?.updateSeries(this.chartOptions.series,true)
+    },1000)
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
+    // this.chartOptions.series[0].data = changes['sparklineData'].currentValue
+    // changes.prop contains the old and the new value...
+  }
+
+ /* getdata() {
+    let keys = ['Total_Count', 'Started', 'Terminated', 'Completed', 'Inprogrss', 'Idle', 'Yet_To_Start'];
+    let results = _.zipObject(keys, keys.map(key => _.sum(_.map(this.data, key))))
+    this.total = results
+    console.log('this', this.total);
+  }
+  get idle_count() {
+    return Math.abs(this.total.Inprogrss - this.total.Completed);
+  }*/
+
+
+
+
 
 }
