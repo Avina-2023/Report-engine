@@ -29,7 +29,7 @@ export class GraphcardComponent implements OnInit {
   @Input() idleCount: any;
   @Input()sparklineData:any = []
   @Input() cardDescription: any;
-  @Input() cardTitle: any;
+  @Input() cardTitle: any = "Idle Candidates";
   testingValue: any;
   public chartOptions: any;
   currentIdle: any = 0;
@@ -63,15 +63,15 @@ export class GraphcardComponent implements OnInit {
           easing: 'linear',
           dynamicAnimation: {
             enabled: true,
-            speed: 300
+            speed: 110
           },
-          animateGradually:{
-            enabled:true,
-          }
+          // animateGradually:{
+          //   enabled:true,
+          // }
         },
-        sparkline: {
-          enabled: true
-        },
+        // sparkline: {
+        //   enabled: true
+        // },
       },
 
       dataLabels: {
