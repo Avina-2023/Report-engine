@@ -38,32 +38,30 @@
 </div>
 
 <div class="main2">
-
   <mat-card class="card2">
     <!-- <mat-card-header>
       <mat-card-title>Test Initiated but no action from candidates (These counts will have hyper link to see the candidate details)</mat-card-title>
     </mat-card-header> -->
     <mat-card-content>Test Initiated but no action from candidates (These counts will have hyper link to see the candidate details)</mat-card-content>
+    <span class="num2">{{total.Idle }}</span>
     <mat-card-footer>
     </mat-card-footer>
   </mat-card>
 
-
   <mat-card class="card2">
       <mat-card-content>Candidate logged in but no further movement (These counts will have hyper link to see the candidate details)</mat-card-content>
+      <span class="num2">{{total.Idle }}</span>
       <mat-card-footer>
       </mat-card-footer>
   </mat-card>
-
 </div>
 
 <h2 class="head">Graphical Representation </h2>
 
 <div class="main3"> 
   <mat-card class="card3">
-
     <div class="chart">
-      <apx-chart
+      <apx-chart 
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [dataLabels]="chartOptions.dataLabels"
@@ -84,7 +82,6 @@
     ></apx-chart>
   </div>
  </mat-card>
-
 </div>
 
 <div class="main4">
@@ -135,4 +132,6 @@
     ></apx-chart>
   </div>
  </mat-card>
+ 
+
 </div>

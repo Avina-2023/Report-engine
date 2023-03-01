@@ -1,6 +1,6 @@
 <div class="main-wrapper-header">
 
-  <div class="left">
+  <!-- <div class="left">
     <div id="nav-icon1" (click)="menuToggle()" [ngClass]="isOpenMenu?'open':''" >
       <span></span>
       <span></span>
@@ -14,18 +14,35 @@
     <div class="main-logo">
       <img alt="main-login-logo" class="beforeloginimgLT" src="assets/images/L&T_logo.svg">
     </div>
+  </div> -->
+
+
+  <div class="left">
+    <div class="main-logo">
+      <img alt="main-login-logo" class="beforeloginimgLT" src="assets/images/L&T_logo.svg">
+    </div>
+
+    <div id="nav-icon1" (click)="menuToggle()" [ngClass]="isOpenMenu?'open':''" >
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+<mat-menu #menus="matMenu">
+  <button mat-menu-item>Item 1</button>
+  <button mat-menu-item>Item 2</button>
+</mat-menu>
+    
   </div>
 
-  <div class="right" (click)="logout()">
-
+  <div class="right" >
     <div class="firstname">
     Welcome{{' '+name}}
     </div>
   <div class="logout">
-    <!-- <span class="log-line">Logout</span> -->
-    <mat-icon>exit_to_app</mat-icon>
+    <mat-icon (click)="logout()">exit_to_app</mat-icon>
   </div>
   </div>
+
 </div>
 
 <ng-template #matDialog>
