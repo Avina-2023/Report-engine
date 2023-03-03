@@ -40,41 +40,4 @@
   [tooltip]="chartOptions4.tooltip" [legend]="chartOptions4.legend"></apx-chart>
   </div>
 
-
-
-<div class="main3" style="display:none;">
-
-  <div style="width:30%;margin-left:25px;">
-    <app-graphcard [sparklineData]="sparkline" [cardTitle]="'Inprogress'"></app-graphcard>
-  </div>
-
-  <div>
-    <h2 class="head">Graphical Representation</h2>
-  </div>
-  <div style="display:flex;align-items:center;justify-content:space-evenly;margin:4% 0%;">
-    <!-- <div><app-graphcard [sparklineData]="sparkline" [cardTitle]="'Idle Candidates'"></app-graphcard></div> -->
-    <div class="chart_card"><apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"    [dataLabels]="chartOptions.dataLabels"  [plotOptions]="chartOptions.plotOptions"    [xaxis]="chartOptions.xaxis"></apx-chart></div>
-    <div class="chart_card"><apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart"
-        [labels]="chartOptions2.labels" [responsive]="chartOptions2.responsive"></apx-chart></div>
-  </div>
-
-
-  <div style="display:flex;align-items:center;justify-content:space-evenly;margin:8% 0%;">
-    <div class="chart_card"><apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart" [labels]="chartOptions3.labels"
-        [title]="chartOptions3.title" [theme]="chartOptions3.theme" [responsive]="chartOptions2.responsive"></apx-chart>
-    </div>
-    <div class="chart_card"><apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart" [labels]="chartOptions2.labels"
-        [responsive]="chartOptions2.responsive"></apx-chart></div>
-  </div>
-
-
-<div class="main5" style="display:none;">
-  <mat-card class="card5">
-    <div id="chart">
-      <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart" [xaxis]="chartOptions4.xaxis"
-        [markers]="chartOptions4.markers" [stroke]="chartOptions4.stroke" [yaxis]="chartOptions4.yaxis"
-        [dataLabels]="chartOptions4.dataLabels" [title]="chartOptions4.title" [fill]="chartOptions4.fill"
-        [tooltip]="chartOptions4.tooltip" [legend]="chartOptions4.legend"></apx-chart>
-    </div>
-  </mat-card>
-  </div>
+  <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs"> </ag-grid-angular>
