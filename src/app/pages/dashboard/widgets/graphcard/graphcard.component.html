@@ -7,23 +7,24 @@
         <span>{{cardDescription}}</span>
       </div>
       <div id="custom-chart">
-        <apx-chart #realtime 
+        <apx-chart #realtime
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [xaxis]="chartOptions.xaxis"
         [stroke]="chartOptions.stroke"
         [tooltip]="chartOptions.tooltip"
+        [colors]="chartOptions.colors"
         [dataLabels]="chartOptions.dataLabels"></apx-chart>
       </div>
-      <div class="bottom_bar">
+      <div class="bottom_bar" [ngStyle]="cardColor?{'background':cardColor}:{}">
         <div>
-          <h4>123</h4><span>Logged in</span>
+          <h4>{{data1}}</h4><span>{{dataLabel1}}</span>
         </div>
         <div>
-          <h4>321</h4><span>In Progress</span>
+          <h4>{{data2}}</h4><span>{{dataLabel2}}</span>
         </div>
         <div>
-          <h4>454</h4><span>Completed</span>
+          <h4>{{data3}}</h4><span>{{dataLabel3}}</span>
         </div>
       </div>
     </div>

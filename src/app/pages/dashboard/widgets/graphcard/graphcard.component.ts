@@ -18,6 +18,7 @@ export type ChartOptions = {
   tooltip: ApexTooltip;
   dataLabels: ApexDataLabels;
 };
+import { Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-graphcard',
@@ -29,13 +30,20 @@ export class GraphcardComponent implements OnInit {
   @Input() idleCount: any;
   @Input()sparklineData:any = []
   @Input() cardDescription: any;
-  @Input() cardTitle: any = 'Input Text Needed';
+  @Input() cardTitle: any;
+  @Input() dataLabel1: String = '######';
+  @Input() data1: Number = 0;
+  @Input() dataLabel2: String = '######';
+  @Input() data2: Number = 0;
+  @Input() dataLabel3: String= '######';
+  @Input() data3: Number = 0;
+  @Input() cardColor:String = "#300";
   testingValue: any;
   public chartOptions: any;
   currentIdle: any = 0;
 
 
-  constructor() {
+  constructor(private renderer: Renderer2) {
     this.chartOptions = {
       series: [
         {
@@ -43,16 +51,8 @@ export class GraphcardComponent implements OnInit {
           data: []
         }
       ],
-      theme: {
-        mode: 'light',
-        palette: 'palette1',
-        monochrome: {
-          enabled: false,
-          color: '#25ee6f',
-          shadeTo: 'light',
-          shadeIntensity: 0.65
-        },
-      },
+      colors:[this.cardColor],
+
       chart: {
         toolbar: {
           show: false
@@ -60,13 +60,15 @@ export class GraphcardComponent implements OnInit {
         type: "line",
         animations: {
           enabled: true,
-          easing: 'linear',
-          dynamicAnimation: {
-            enabled: true,
-            speed: 110
-          },
+          easing: 'easeinout',
+          speed:800,
+          // dynamicAnimation: {
+          //   enabled: true,
+          //   speed: 110
+          // },
           animateGradually:{
             enabled:true,
+            delay:100
           }
         },
         sparkline: {
@@ -111,7 +113,13 @@ export class GraphcardComponent implements OnInit {
 
   ngOnInit() {
     //this.getdata();
-
+    //style color variable setting
+    // getComputedStyle(document.documentElement).setProperty('--graphcard-color',this.cardColor.toString());
+    // this.renderer.setProperty(document.body, '--graphcard', this.cardColor.toString());
+    // this.renderer.setStyle(document.getElementsByClassName('bottom_bar'), 'background',this.cardColor.toString())
+    // document.documentElement.style.setProperty('--graphcard', this.cardColor.toString());
+    // document.getElementsByClassName('bottom_bar')
+    this.chartOptions.colors[0] = this.cardColor.toString()
     setInterval(()=>{
       this.chartOptions.series[0].data = this.sparklineData
       this.currentIdle =this.sparklineData[this.sparklineData.length-1]
@@ -141,3 +149,5 @@ export class GraphcardComponent implements OnInit {
 
 
 }
+
+
