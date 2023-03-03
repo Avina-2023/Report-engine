@@ -1,5 +1,5 @@
 
-<div class="main">
+<div class="report-Wrapper">
 <div class="heading"><span>Section Wise Report </span></div>
 <div class="excel">
   <div class="p-field p-calendar-container">
@@ -13,16 +13,9 @@
 
 </div>
 
+
+
 </div>
-
-
-
-  <!-- <div class="p-field p-col-12 p-md-4">
-    <label for="time">Start Time</label>
-    <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"></p-calendar>
-    <label for="time">End Time</label>
-    <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"></p-calendar>
-</div> -->
 <ag-grid-angular
    style="width: 100%; height: 80%;margin: 5px;"
    class="ag-theme-alpine"
@@ -36,4 +29,14 @@
    (gridReady)="onGridReady($event)"
    (cellClicked)="onCellClicked($event)"
  ></ag-grid-angular>
+
+
+
+  <!-- <div class="p-field p-col-12 p-md-4">
+    <label for="time">Start Time</label>
+    <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"></p-calendar>
+    <label for="time">End Time</label>
+    <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"></p-calendar>
+</div> -->
+
 

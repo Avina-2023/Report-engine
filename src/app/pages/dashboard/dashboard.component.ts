@@ -4,6 +4,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
 import * as _ from 'lodash';
+import { AgGridAngular } from 'ag-grid-angular';
+
 
 
 import {
@@ -20,6 +22,7 @@ import {
   ApexResponsive,
   ApexTheme
 } from "ng-apexcharts";
+import { ColDef } from 'ag-grid-community';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -44,6 +47,9 @@ export type ChartOptions = {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  rowData:any;
+  ColDef: any;
+  public columnDefs: ColDef[] = []
   @ViewChild("chart") chart ?: ChartComponent;
   public chartOptions: any;
   public chartOptions2: any;
@@ -111,6 +117,7 @@ export class DashboardComponent implements OnInit {
        "Result_Not_processed": 100
        }
   ];
+  public data1 =[];
 total: any;
 total2:any;
   myvar = "newvar"
@@ -130,6 +137,7 @@ total2:any;
   error: any;
   onewayTP = true
   @ViewChild('kibona') iframe: ElementRef | undefined;
+  
   html: any;
   htmlfile = '../../../assets/Html/maintanence.html'
 
@@ -420,8 +428,8 @@ this.chartOptions4 = {
 
   ngOnInit() {
     // this.kibonacheck(environment.kibana_url);
-    this.chartdataUpdate()
-      console.log(this.data);
+    // this.chartdataUpdate()
+      // console.log(this.data);
     this.gettestData();
    // this.getchartdata();
 //       let sum = 0;
@@ -464,30 +472,51 @@ this.chartOptions4 = {
 //   return this.data.reduce((total, item) => total + item.Completed, 0);
 // }
 
+@ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 gettestData(){
+  this.apiservice.dashboard(this.data).subscribe((res:any)=>{
+    this.rowData = res.data 
+    this.dynamicallyConfigureColumnsFromObject(res.data)
+    this.agGrid.api.setRowData(res.data)
+    console.log('data1',this.data1);
 let keys = ['Total_Count', 'Started', 'Terminated', 'Completed', 'Inprogrss', 'Idle', 'Yet_To_Start'];
 let results = _.zipObject(keys, keys.map(key => _.sum(_.map(this.data, key))));
 this.total = results;
-console.log('this', this.total);
+// console.log('this', this.total);
 this.totalscheduledCount = this.total.Total_Count;
 this.loggedinCandidates = this.total.Started;
 this.testinProgress = this.total.Inprogrss;
 this.testCompleted = this.total.Completed;
+})
 }
 
-chartdataUpdate(){
-  clearTimeout(this.timeoutval);
-          this.timeoutval = setTimeout(() => {
-            if(this.sparkline.length>=10){
-              this.sparkline.shift();
-            }
-            this.sparkline.push(Math.floor(Math.random() * 50))
-            console.log(this.sparkline)
+
+// chartdataUpdate(){
+//   clearTimeout(this.timeoutval);
+//           this.timeoutval = setTimeout(() => {
+//             if(this.sparkline.length>=10){
+//               this.sparkline.shift();
+//             }
+//             this.sparkline.push(Math.floor(Math.random() * 50))
+//             console.log(this.sparkline)
             
-            this.chartdataUpdate()
-          }, 1000);
+//             this.chartdataUpdate()
+//           }, 1000);
+// }
+
+ dynamicallyConfigureColumnsFromObject(anObject:any){
+  if(anObject?.length){
+  this.ColDef = this.agGrid.api.getColumnDefs();
+  this.ColDef.length=0;
+  this.columnDefs=[]
+  const keys = Object.keys(anObject[0])
+  keys.forEach(key =>
+    this.columnDefs.push({field : key,headerName:key.replaceAll('_',' ')})
+    );
+  this.agGrid.api.setColumnDefs(this.columnDefs);
+  this.agGrid.api.setRowData(anObject);
+  this.rowData=anObject
 }
-
-
+}
 
 }
