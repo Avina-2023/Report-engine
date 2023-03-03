@@ -153,7 +153,7 @@ total2:any;
   ],
   chart: {
     type: "bar",
-    width: 550,
+    //width: 550,
 
     toolbar: {
       show: true,
@@ -169,6 +169,11 @@ total2:any;
     }
 
 
+  },
+  title: {
+    text: "Overall Test Status",
+    align: "left",
+    offsetX: 110
   },
   plotOptions: {
     bar: {
@@ -191,6 +196,7 @@ total2:any;
       "Total_Count"
     ]
   },
+  
 
   tooltip: {
     fixed: {
@@ -206,8 +212,7 @@ this.chartOptions2 = {
   series: [106, 53, 56, 80, 23],
   chart: {
     type: "donut",
-    width: 500,
-    height:500,
+    width: 400,
 
     toolbar: {
       show: true,
@@ -226,6 +231,12 @@ this.chartOptions2 = {
     }
 
   },
+  title: {
+    text: "Clients",
+    align: "left",
+    offsetX: 110
+  },
+  
   labels: ["Total_Count", "Started", "Yet_To_Start", "Inprogress", "Completed"],
   responsive: [
     {
@@ -249,7 +260,7 @@ this.chartOptions3 = {
   series: [25, 15, 44, 55, 41, 17],
   chart: {
     type: "pie",
-    width:450,
+    width:400,
   },
   labels: [
     "College A",
@@ -265,14 +276,16 @@ this.chartOptions3 = {
     }
   },
   title: {
-    text: "Number of leads"
+    text: "College Wise",
+    align: "left",
+    offsetX: 110
   },
   responsive: [
     {
       breakpoint: 480,
       options: {
         chart: {
-          width: 200
+          //width: 200
         },
         legend: {
           position: "bottom"
@@ -301,7 +314,8 @@ this.chartOptions4 = {
     }
   ],
   chart: {
-    height: 350,
+    width: 750,
+    height: 300,
     type: "line",
     stacked: false
   },

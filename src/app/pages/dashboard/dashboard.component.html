@@ -1,44 +1,75 @@
 <div style="display: flex; justify-content: space-evenly;padding: 3% 2%;">
-  <app-tinycard [wgColor]="'#ff0000'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Total Scheduled'"
-    [tinycardCount]="totalscheduledCount"></app-tinycard>
-  <app-tinycard [wgColor]="'#008ffb'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Logged in Candidates'"
-    [tinycardCount]="loggedinCandidates"></app-tinycard>
-  <app-tinycard [wgColor]="'#ffba1f'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Cadidates Not Started'"
-    [tinycardCount]="testinProgress"></app-tinycard>
-  <app-tinycard [wgColor]="'#02bf2b'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Idle Candidates'" [tinycardCount]="testCompleted"></app-tinycard>
+  <app-tinycard [wgColor]="'#ff0000'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'"
+    [tinycardLabel]="'Total Scheduled'" [tinycardCount]="totalscheduledCount"></app-tinycard>
+  <app-tinycard [wgColor]="'#008ffb'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'"
+    [tinycardLabel]="'Logged in Candidates'" [tinycardCount]="loggedinCandidates"></app-tinycard>
+  <app-tinycard [wgColor]="'#ffba1f'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'"
+    [tinycardLabel]="'Cadidates Not Started'" [tinycardCount]="testinProgress"></app-tinycard>
+  <app-tinycard [wgColor]="'#02bf2b'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'"
+    [tinycardLabel]="'Idle Candidates'" [tinycardCount]="testCompleted"></app-tinycard>
 </div>
 
-<div><h2 class="head">Graphical Representation</h2></div>
+<div>
+  <h2 class="head">Graphical Representation</h2>
+</div>
 <div style="display:flex;align-items:center;justify-content:space-evenly;margin:4% 0%;">
-<div>
-  <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
-    [dataLabels]="chartOptions.dataLabels"  [plotOptions]="chartOptions.plotOptions"
-    [xaxis]="chartOptions.xaxis"></apx-chart>
-  <!-- <app-graphcard [cardColor]="'#ffba1f'" [sparklineData]="sparkline" [cardTitle]="'logged in Candidates'"></app-graphcard> -->
-</div>
-<div>
-  <!-- <app-graphcard [cardColor]="'#02bf2b'" [sparklineData]="sparkline" [cardTitle]="'Active Candidates'" [dataLabel1]="'on Instruction'" [data1]="103" [dataLabel2]="'1st Question'"[data2]="250" [dataLabel3]="'cleard 1st Question'"[data3]="580"></app-graphcard> -->
-  <apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart" [labels]="chartOptions2.labels"
-  [responsive]="chartOptions2.responsive"></apx-chart>
-</div>
+  <div class="chart_card">
+    <div class="card_topic">
+      <h1> Overall Test Status </h1>
+    </div>
+    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels"
+      [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis"></apx-chart>
+    <!-- <app-graphcard [cardColor]="'#ffba1f'" [sparklineData]="sparkline" [cardTitle]="'logged in Candidates'"></app-graphcard> -->
+  </div>
+  <div class="chart_card">
+    <div class="card_topic">
+      <h1> Clients </h1>
+    </div>
+    <!-- <app-graphcard [cardColor]="'#02bf2b'" [sparklineData]="sparkline" [cardTitle]="'Active Candidates'" [dataLabel1]="'on Instruction'" [data1]="103" [dataLabel2]="'1st Question'"[data2]="250" [dataLabel3]="'cleard 1st Question'"[data3]="580"></app-graphcard> -->
+    <apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart" [labels]="chartOptions2.labels"
+      [responsive]="chartOptions2.responsive"></apx-chart>
+  </div>
 </div>
 
 <!-- <apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart" [labels]="chartOptions2.labels"
   [responsive]="chartOptions2.responsive"></apx-chart> -->
 <div style="display:flex;align-items:center;justify-content:space-evenly;margin:8% 0%;">
-<div><apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart" [labels]="chartOptions3.labels"
-  [title]="chartOptions3.title" [theme]="chartOptions3.theme" [responsive]="chartOptions2.responsive"></apx-chart></div>
-<div><apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart" [labels]="chartOptions2.labels"
-  [responsive]="chartOptions2.responsive"></apx-chart></div>
+  <div class="chart_card">
+    <div class="card_topic">
+      <h1> College Wise </h1>
+    </div>
+    <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart"
+      [labels]="chartOptions3.labels" [theme]="chartOptions3.theme" [responsive]="chartOptions2.responsive"></apx-chart>
+  </div>
+  <div class="chart_card">
+    <div class="card_topic">
+      <h1> Client Wise Drive Wise </h1>
+    </div>
+    <apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart"
+      [labels]="chartOptions2.labels" [responsive]="chartOptions2.responsive"></apx-chart></div>
 </div>
 
 
-<div style="margin:5% 2%;">
-  <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart" [xaxis]="chartOptions4.xaxis"
-  [markers]="chartOptions4.markers" [stroke]="chartOptions4.stroke" [yaxis]="chartOptions4.yaxis"
-  [dataLabels]="chartOptions4.dataLabels" [title]="chartOptions4.title" [fill]="chartOptions4.fill"
-  [tooltip]="chartOptions4.tooltip" [legend]="chartOptions4.legend"></apx-chart>
+<div class="chart_card" style="width:fit-content!important;margin-right:auto;margin-left:auto;margin-bottom:100px;">
+  <div class="card_topic">
+    <h1> Client Wise Domain Wise Candidates </h1>
   </div>
+  <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart" [xaxis]="chartOptions4.xaxis"
+    [markers]="chartOptions4.markers" [stroke]="chartOptions4.stroke" [yaxis]="chartOptions4.yaxis"
+    [dataLabels]="chartOptions4.dataLabels" [fill]="chartOptions4.fill" [tooltip]="chartOptions4.tooltip"
+    [legend]="chartOptions4.legend"></apx-chart>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -53,28 +84,33 @@
   </div>
   <div style="display:flex;align-items:center;justify-content:space-evenly;margin:4% 0%;">
     <!-- <div><app-graphcard [sparklineData]="sparkline" [cardTitle]="'Idle Candidates'"></app-graphcard></div> -->
-    <div class="chart_card"><apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"    [dataLabels]="chartOptions.dataLabels"  [plotOptions]="chartOptions.plotOptions"    [xaxis]="chartOptions.xaxis"></apx-chart></div>
+    <div class="chart_card"><apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"    
+        [dataLabels]="chartOptions.dataLabels"  [plotOptions]="chartOptions.plotOptions"    
+        [xaxis]="chartOptions.xaxis"></apx-chart></div>
     <div class="chart_card"><apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart"
         [labels]="chartOptions2.labels" [responsive]="chartOptions2.responsive"></apx-chart></div>
   </div>
 
 
   <div style="display:flex;align-items:center;justify-content:space-evenly;margin:8% 0%;">
-    <div class="chart_card"><apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart" [labels]="chartOptions3.labels"
-        [title]="chartOptions3.title" [theme]="chartOptions3.theme" [responsive]="chartOptions2.responsive"></apx-chart>
+    <div class="chart_card"><apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart"
+        [labels]="chartOptions3.labels" [title]="chartOptions3.title" [theme]="chartOptions3.theme"
+        [responsive]="chartOptions2.responsive"></apx-chart>
     </div>
-    <div class="chart_card"><apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart" [labels]="chartOptions2.labels"
-        [responsive]="chartOptions2.responsive"></apx-chart></div>
+    <div class="chart_card"><apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart"
+        [labels]="chartOptions2.labels" [responsive]="chartOptions2.responsive"></apx-chart></div>
   </div>
 
 
-<div class="main5" style="display:none;">
-  <mat-card class="card5">
-    <div id="chart">
-      <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart" [xaxis]="chartOptions4.xaxis"
-        [markers]="chartOptions4.markers" [stroke]="chartOptions4.stroke" [yaxis]="chartOptions4.yaxis"
-        [dataLabels]="chartOptions4.dataLabels" [title]="chartOptions4.title" [fill]="chartOptions4.fill"
-        [tooltip]="chartOptions4.tooltip" [legend]="chartOptions4.legend"></apx-chart>
-    </div>
-  </mat-card>
+  <div class="main5" style="display:none;">
+    <mat-card class="card5">
+      <div id="chart">
+        <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart" [xaxis]="chartOptions4.xaxis"
+          [markers]="chartOptions4.markers" [stroke]="chartOptions4.stroke" [yaxis]="chartOptions4.yaxis"
+          [dataLabels]="chartOptions4.dataLabels" [title]="chartOptions4.title" [fill]="chartOptions4.fill"
+          [tooltip]="chartOptions4.tooltip" [legend]="chartOptions4.legend"></apx-chart>
+      </div>
+    </mat-card>
   </div>
+
+</div>
