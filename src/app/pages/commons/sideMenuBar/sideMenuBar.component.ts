@@ -7,7 +7,7 @@ import { InterComponentMessenger } from 'src/app/services/interComponentMessenge
   styleUrls: ['./sideMenuBar.component.scss']
 })
 export class SideMenuBarComponent implements OnInit {
-  menuState: boolean = false;
+  menuState: boolean = true;
 
   constructor(private messenger:InterComponentMessenger) {
 

@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { InterComponentMessenger } from './services/interComponentMessenger.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,8 +12,18 @@ import { NavigationEnd, Router } from '@angular/router';
 export class AppComponent implements OnInit{
   title = 'report_engine';
   href: any;
-  hUD_Display:boolean = false;
-constructor(private router:Router){}
+  hUD_Display:boolean = true;
+  menuState: boolean = true;
+constructor(private router:Router,private messenger:InterComponentMessenger){
+  this.messenger.getMessage().subscribe((data)=>{
+    console.log('inside sidemenu')
+    console.log(data );
+
+    if(data?.head === "sideMenuToggle"){
+      this.menuState = data.value
+    }
+})
+}
 
 
 

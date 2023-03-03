@@ -1,5 +1,5 @@
 .sidebar {
-  height: calc(100% - 80px);
+  height: 100%;
   width: 200px;
   position: fixed;
   z-index: 1;
@@ -9,7 +9,7 @@
   overflow-x: hidden;
   // padding-top: 20px;
   margin-top:50px !important;
-  transition: left 0.3s ease-in-out;
+  transition:  0.3s ease-in-out;
   /* From https://css.glass */
 background: rgba(255, 255, 255, 0);
 border-radius: 3px;
@@ -38,7 +38,6 @@ border: 1px solid rgba(255, 255, 255, 0.84);
   position: relative;
   padding: 10px 0px;
   padding-left: 5px;
-  margin: 0 10px;
   border-bottom: 1px solid #b7b7b74a;
   overflow: hidden;
 //  transition: 0.2s ease-in-out;
@@ -71,6 +70,17 @@ border: 1px solid rgba(255, 255, 255, 0.84);
 
 .sidebar.closed {
   left: -200px;
+  width: 0px;
+
+}
+.demo_sidebar.open {
+  left: 0;
+}
+
+.demo_sidebar.closed {
+  left: -200px;
+  width: 0px;
+
 }
 
 .sidebar-nav.open {
@@ -83,3 +93,7 @@ border: 1px solid rgba(255, 255, 255, 0.84);
   visibility: hidden;
 }
 
+.demo_sidebar{
+  position: relative;
+  width: 200px;
+}

@@ -6,9 +6,21 @@
 }
 .dashbody{
   width: 100%;
-  height: calc(100% - 50px);
+  //height: calc(100% - 50px);
   background: #ecf0f53b;
+  margin-top: 50px;
+  display: flex;
 }
 .overalls{
   height: 100%;
+}
+.trans_effect{
+  transition: width 2s;
+}
+// .open{
+//   width: 100vw;
+// }
+.closed{
+  transition:  2s;
+  width: 100%;
 }
