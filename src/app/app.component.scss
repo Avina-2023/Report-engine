@@ -1,5 +1,5 @@
 .dashboard-Container{
-  height: 100%;//calc(100% - 50px);
+ // height: 100%;//calc(100% - 50px);
  // overflow: hidden;
  overflow: scroll;
  scroll-behavior: smooth;
@@ -16,6 +16,7 @@
 }
 .trans_effect{
   transition: width 2s;
+  width: 100%;
 }
 // .open{
 //   width: 100vw;

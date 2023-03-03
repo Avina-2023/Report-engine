@@ -4,6 +4,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
 import * as _ from 'lodash';
+import { AgGridAngular } from 'ag-grid-angular';
+
 
 
 import {
@@ -20,6 +22,7 @@ import {
   ApexResponsive,
   ApexTheme
 } from "ng-apexcharts";
+import { ColDef } from 'ag-grid-community';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -130,6 +133,7 @@ export class DashboardComponent implements OnInit {
   error: any;
   onewayTP = true
   @ViewChild('kibona') iframe: ElementRef | undefined;
+  
   html: any;
   htmlfile = '../../../assets/Html/maintanence.html'
 
@@ -191,7 +195,6 @@ export class DashboardComponent implements OnInit {
             zoomout: true,
           }
         }
-
 
       },
       plotOptions: {
@@ -412,7 +415,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     // this.kibonacheck(environment.kibana_url);
-    this.chartdataUpdate()
+    // this.chartdataUpdate()
     console.log(this.data);
     this.gettestData();
     // this.getchartdata();
@@ -514,7 +517,21 @@ export class DashboardComponent implements OnInit {
       this.chartdataUpdate()
     }, 1000);
   }
-
-
-
+  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
+  gettestData(){
+    this.apiservice.dashboard(this.data).subscribe((res:any)=>{
+      this.rowData = res.data 
+      this.dynamicallyConfigureColumnsFromObject(res.data)
+      this.agGrid.api.setRowData(res.data)
+      console.log('data1',this.data1);
+  let keys = ['Total_Count', 'Started', 'Terminated', 'Completed', 'Inprogrss', 'Idle', 'Yet_To_Start'];
+  let results = _.zipObject(keys, keys.map(key => _.sum(_.map(this.data, key))));
+  this.total = results;
+  // console.log('this', this.total);
+  this.totalscheduledCount = this.total.Total_Count;
+  this.loggedinCandidates = this.total.Started;
+  this.testinProgress = this.total.Inprogrss;
+  this.testCompleted = this.total.Completed;
+  })
+  }
 }
