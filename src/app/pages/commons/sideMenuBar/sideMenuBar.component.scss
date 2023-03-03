@@ -94,6 +94,7 @@ border: 1px solid rgba(255, 255, 255, 0.84);
 }
 
 .demo_sidebar{
+  transition: width .3s;
   position: relative;
   width: 200px;
 }

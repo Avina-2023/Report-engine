@@ -24,7 +24,6 @@ export class ExamStatusReportComponent implements OnInit {
   ColDef: any;
   value:Date[] | undefined;
   date7: Date[] =[new Date(),new Date(new Date().setDate(new Date().getDate() + 1))];
-  isOpenMenu = false;
 
   // colDefs: any=[];
   constructor(
@@ -33,9 +32,7 @@ export class ExamStatusReportComponent implements OnInit {
     private fileserver:FileSaverService,
     private excelService:ExcelService,
     private messenger:InterComponentMessenger
-  ) {
-    this.messenger.sendMessage("sideMenuToggle",this.isOpenMenu)
-  }
+  ) {}
  // Each Column Definition results in one Column.
   public columnDefs: ColDef[] = []
 
