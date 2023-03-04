@@ -121,7 +121,7 @@ export class DashboardComponent implements OnInit {
     filter: true,
     resizable:true,
     editable:false,
-  
+
   };
   total: any;
   total2: any;
@@ -143,7 +143,7 @@ export class DashboardComponent implements OnInit {
   onewayTP = true
   @ViewChild('kibona') iframe: ElementRef | undefined;
 
-  
+
   html: any;
   htmlfile = '../../../assets/Html/maintanence.html'
 
@@ -161,7 +161,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private sanitizer: DomSanitizer, private http: HttpClient, private apiservice: ApiService) {
 
- 
+
 
     this.chartOptions = {
       series: [
@@ -480,7 +480,7 @@ export class DashboardComponent implements OnInit {
         this.dynamicallyConfigureColumnsFromObject(res.data)
         // this.agGrid.api.setRowData(res.data)
       }, 1000);
-     
+
       let domainSum = 0
       res.data.forEach((_item: any) => {
         if (_item.Domain_Name) {
@@ -494,7 +494,7 @@ export class DashboardComponent implements OnInit {
       this.total = results;
       console.log('this', this.total);
       this.getChart(this.total)
-   
+
     })
   }
   getChart(_data: any) {
@@ -524,14 +524,14 @@ export class DashboardComponent implements OnInit {
   }
   dynamicallyConfigureColumnsFromObject(anObject:any){
     console.log('anObject',anObject);
-    
+
     if(anObject?.length){
     this.ColDef = this.agGrid.api.getColumnDefs();
     this.ColDef.length=0;
     this.columnDefs=[]
     const keys = Object.keys(anObject[0])
     console.log('keys',keys);
-    
+
     keys.forEach(key =>
       this.columnDefs.push({field : key,headerName:key.replaceAll('_',' ')})
       );

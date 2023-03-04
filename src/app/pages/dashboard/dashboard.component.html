@@ -1,18 +1,18 @@
 <div style="display: flex; justify-content: space-evenly;padding: 3% 2%;">
   <app-tinycard [wgColor]="'#ff0000'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Scheduled'"
-  [tinycardCount]="total.Total_Count"></app-tinycard>
+  [tinycardCount]="total?.Total_Count"></app-tinycard>
 <app-tinycard [wgColor]="'#008ffb'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Batches'"
   [tinycardCount]="batchCount"></app-tinycard>
 <app-tinycard [wgColor]="'#ffba1f'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Domains'"
   [tinycardCount]="domainCount"></app-tinycard>
-<app-tinycard [wgColor]="'#02bf2b'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Test Started'" [tinycardCount]="total.Started"></app-tinycard>
+<app-tinycard [wgColor]="'#02bf2b'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Test Started'" [tinycardCount]="total?.Started"></app-tinycard>
 
 </div>
 <div style="display: flex; justify-content: space-evenly;">
 <app-tinycard [wgColor]="'#ffba1f'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Logged In'"
-  [tinycardCount]="total.Inprogrss"></app-tinycard>
-<app-tinycard [wgColor]="'#02bf2b'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'InProgress'" [tinycardCount]="total.Completed"></app-tinycard>
-<app-tinycard [wgColor]="'#02bf2b'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Completed'" [tinycardCount]="total.Started"></app-tinycard>
+  [tinycardCount]="total?.Inprogrss"></app-tinycard>
+<app-tinycard [wgColor]="'#02bf2b'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'InProgress'" [tinycardCount]="total?.Completed"></app-tinycard>
+<app-tinycard [wgColor]="'#02bf2b'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Completed'" [tinycardCount]="total?.Started"></app-tinycard>
 
 </div>
 
