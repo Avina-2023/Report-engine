@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
@@ -22,7 +23,6 @@ import {
   ApexResponsive,
   ApexTheme
 } from "ng-apexcharts";
-import { ColDef } from 'ag-grid-community';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -47,6 +47,8 @@ export type ChartOptions = {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  rowData:any;
+  ColDef: any;
   @ViewChild("chart") chart?: ChartComponent;
   public chartOptions: any;
   public chartOptions2: any;
@@ -114,6 +116,13 @@ export class DashboardComponent implements OnInit {
       "Result_Not_processed": 100
     }
   ];
+  public defaultColDef: ColDef = {
+    sortable: true,
+    filter: true,
+    resizable:true,
+    editable:false,
+  
+  };
   total: any;
   total2: any;
   myvar = "newvar"
@@ -133,6 +142,7 @@ export class DashboardComponent implements OnInit {
   error: any;
   onewayTP = true
   @ViewChild('kibona') iframe: ElementRef | undefined;
+
   
   html: any;
   htmlfile = '../../../assets/Html/maintanence.html'
@@ -151,6 +161,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private sanitizer: DomSanitizer, private http: HttpClient, private apiservice: ApiService) {
 
+ 
 
     this.chartOptions = {
       series: [
@@ -167,38 +178,26 @@ export class DashboardComponent implements OnInit {
           data: []
         },
         {
-          name: 'Terminated',
+          name: 'Completed',
           data: []
         },
         {
-          name: 'Terminated',
+          name: 'Inprogrss',
           data: []
         },
         {
-          name: 'Terminated',
+          name: 'Yet To Start',
           data: []
         },
       ],
       colors: ['#65c15f', '#00bc94', '#69bb46', '#00bdd2', '#C6E7E3', '#219EBC'],
       chart: {
         type: "bar",
-        width: 550,
-        toolbar: {
-          show: true,
-          offsetX: 0,
-          offsetY: 0,
-          tools: {
-            download: true,
-            selection: true,
-            zoom: true,
-            zoomin: true,
-            zoomout: true,
-          }
-        }
-
+        width: 450,
       },
       plotOptions: {
         bar: {
+          borderRadius: 4,
           horizontal: true
         }
       },
@@ -226,7 +225,7 @@ export class DashboardComponent implements OnInit {
       colors: ['#65c15f', '#00bc94', '#69bb46', '#00bdd2', '#C6E7E3', '#219EBC'],
       chart: {
         type: "donut",
-        width: 500,
+        width: 450,
         height: 500,
 
         toolbar: {
@@ -412,6 +411,8 @@ export class DashboardComponent implements OnInit {
     };
 
   }
+  public columnDefs: ColDef[] = []
+  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 
   ngOnInit() {
     // this.kibonacheck(environment.kibana_url);
@@ -474,11 +475,14 @@ export class DashboardComponent implements OnInit {
   gettestData() {
     this.apiservice.dashboard().subscribe((res: any) => {
       this.batchCount = res.data.length
+      console.log('res.data',res.data);
+      setTimeout(() => {
+        this.dynamicallyConfigureColumnsFromObject(res.data)
+        // this.agGrid.api.setRowData(res.data)
+      }, 1000);
+     
       let domainSum = 0
       res.data.forEach((_item: any) => {
-        //  =_item.Domain_Name.length
-        //  this.domainSum=domainSum+_item.Domain_Name.length;
-        console.log("test", _item.Domain_Name);
         if (_item.Domain_Name) {
           domainSum = domainSum + 1
         }
@@ -490,6 +494,7 @@ export class DashboardComponent implements OnInit {
       this.total = results;
       console.log('this', this.total);
       this.getChart(this.total)
+   
     })
   }
   getChart(_data: any) {
@@ -517,21 +522,22 @@ export class DashboardComponent implements OnInit {
       this.chartdataUpdate()
     }, 1000);
   }
-  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
-  gettestData(){
-    this.apiservice.dashboard(this.data).subscribe((res:any)=>{
-      this.rowData = res.data 
-      this.dynamicallyConfigureColumnsFromObject(res.data)
-      this.agGrid.api.setRowData(res.data)
-      console.log('data1',this.data1);
-  let keys = ['Total_Count', 'Started', 'Terminated', 'Completed', 'Inprogrss', 'Idle', 'Yet_To_Start'];
-  let results = _.zipObject(keys, keys.map(key => _.sum(_.map(this.data, key))));
-  this.total = results;
-  // console.log('this', this.total);
-  this.totalscheduledCount = this.total.Total_Count;
-  this.loggedinCandidates = this.total.Started;
-  this.testinProgress = this.total.Inprogrss;
-  this.testCompleted = this.total.Completed;
-  })
+  dynamicallyConfigureColumnsFromObject(anObject:any){
+    console.log('anObject',anObject);
+    
+    if(anObject?.length){
+    this.ColDef = this.agGrid.api.getColumnDefs();
+    this.ColDef.length=0;
+    this.columnDefs=[]
+    const keys = Object.keys(anObject[0])
+    console.log('keys',keys);
+    
+    keys.forEach(key =>
+      this.columnDefs.push({field : key,headerName:key.replaceAll('_',' ')})
+      );
+    this.agGrid.api.setColumnDefs(this.columnDefs);
+    this.agGrid.api.setRowData(anObject);
+    // this.rowData=anObject
+  }
   }
 }
