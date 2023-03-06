@@ -14,9 +14,9 @@
         align-items: center;
     }
 
-    div {
-        padding: 10px;
-    }
+    // div {
+    //     padding: 10px;
+    // }
 
     p:first-child {
         font-size: 29px !important;
@@ -35,6 +35,11 @@
     }
 }
 
+.drawerSpace{
+  display: flex;
+  justify-content: space-around;
+}
+
 .tiny_card:hover {
   transform: scale(1.05);
   //box-shadow: 0 0.46875rem 4.1875rem rgb(4 9 20 / 5%), 0 0.9375rem 2.40625rem rgb(4 9 20 / 5%), 0 0.25rem 1.3125rem rgb(4 9 20 / 6%), 0 0.125rem 1.1875rem rgb(4 9 20 / 6%);
@@ -44,6 +49,7 @@
 
   .bg_bottom_expand {
     // transform: scale(1.0);
+    color:#fff;
     transition: all .2s;
     cursor: pointer;
     height: 50px;
@@ -61,6 +67,7 @@
     border-radius: 0px 0px 4px 4px;
 }
 .bg_bottom_expand {
+  color: red;
     padding: 8px !important;
     box-shadow: inset 0px 6px 6px -2px #00000063;
     border-radius: 0px 0px 4px 4px;

@@ -224,6 +224,7 @@ export class DashboardComponent implements OnInit {
   chart2series: any;
   chart2label: any;
   countByDriveName: any;
+  CountDetails: any;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -575,6 +576,7 @@ this.chartOptions5 = {
       let keys = [
         'Total_Count',
         'Started',
+        'Idle',
         'Terminated',
         'Completed',
         'Inprogrss',
@@ -585,6 +587,10 @@ this.chartOptions5 = {
         keys.map((key) => _.sum(_.map(res.data, key)))
       );
       this.total = results;
+      this.CountDetails={
+        "idle":this.total.Idle,
+        "terminate":this.total.Terminated
+      }
       // console.log('this', this.total);
       this.getChart(this.total);
     });
