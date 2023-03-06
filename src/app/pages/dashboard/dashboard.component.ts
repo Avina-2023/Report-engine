@@ -417,7 +417,7 @@ export class DashboardComponent implements OnInit {
         offsetX: 110,
       },
       xaxis: {
-        categories: [],
+        categories: Array(),
       },
       yaxis: [
         {
@@ -651,8 +651,8 @@ this.chartOptions5 = {
   groupingdata(data: any) {
     // Create an observable from the data
     const data$ = from(data);
-    this.chartOptions4.series = [];
-    // this.chartOptions4.xaxis.catagories.
+    let datarray = new Array();
+    // this.chartOptions4.series = [];
     // Group the data by client and domain name
     data$
       .pipe(
@@ -666,19 +666,29 @@ this.chartOptions5 = {
           data: Array(),
         };
         groupedData.forEach((gdata) => {
+          if(!gdata.Total_Count){
+            gdata.Total_Count = 0
+          }
           domainData.data.push(gdata?.Total_Count);
         });
         groupedData.forEach((cData) => {
+          if(cData.Client_Name==null){
+            cData.Client_Name = "Not Available"
+          }
+          // console.log(cData.Client_Name)
           if (
             !this.chartOptions4.xaxis.categories.includes(cData.Client_Name)
           ) {
-            this.chartOptions4.xaxis.categories.push(cData.Client_Name);
+
+            datarray.push(cData.Client_Name)
+            this.chartOptions4.xaxis.categories= datarray;
           }
         });
 
         this.chartOptions4.series.push(domainData);
-        // this.chart4?.updateOptions(this.chartOptions4)
+        this.chart4?.updateOptions(this.chartOptions4)
       });
+
   }
   clientWiseChartDataSort(_data: any) {
     this.countByClientName = {};
