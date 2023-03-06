@@ -73,7 +73,7 @@ daterrange(){
   this.dateWiseSectionReport(this.generateParams())
 }
 getdata(){
-  this.apiservice.dashboard(this.exam).subscribe((res:any)=>{
+  this.apiservice.dashboard().subscribe((res:any)=>{
     this.rowData = res.data
     this.dynamicallyConfigureColumnsFromObject(res.data)
     this.agGrid.api.setRowData(res.data)
