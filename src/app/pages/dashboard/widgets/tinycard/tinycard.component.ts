@@ -10,7 +10,8 @@ export class TinycardComponent implements OnInit {
   @Input() tinycardCount = '';
   @Input() wgColor: any;
   @Input() iconClass: string = "icon-close";
-
+  @Input() isDrawer = false;
+  disp = false
   constructor() { }
 
   ngOnInit() {

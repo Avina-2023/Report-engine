@@ -1,4 +1,4 @@
-<div class="tiny_card">
+<div class="tiny_card" (mouseover)="isDrawer?disp=true:disp=false" (mouseout)="disp=false">
   <div class="flx_div">
     <div>
       <p>{{tinycardCount}}</p>
@@ -6,5 +6,9 @@
     </div>
     <div><span [ngStyle]="{'color':wgColor}" [class]="iconClass"></span></div>
   </div>
-  <div class="bg_bottom" [ngStyle]="{'background':wgColor}"></div>
+  <div  [ngClass]="isDrawer?'bg_bottom_expand':'bg_bottom'" [ngStyle]="{'background':wgColor}">
+    <div *ngIf="disp">
+gokul inside
+    </div>
+  </div>
 </div>

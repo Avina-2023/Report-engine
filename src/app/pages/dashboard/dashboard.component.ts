@@ -257,14 +257,7 @@ export class DashboardComponent implements OnInit {
           data: [],
         },
       ],
-      colors: [
-        '#65c15f',
-        '#00bc94',
-        '#69bb46',
-        '#00bdd2',
-        '#C6E7E3',
-        '#219EBC',
-      ],
+      colors: [],
       chart: {
         type: 'bar',
         width: 450,
@@ -566,12 +559,12 @@ this.chartOptions5 = {
       setTimeout(() => {
         this.dynamicallyConfigureColumnsFromObject(res.data);
         this.groupingdata(res.data);
-        // this.agGrid.api.setRowData(res.data)
+
       }, 1000);
+
       this.clientWiseChartDataSort(res.data);
       this.domainWiseChartDataSort(res.data);
       this.clientwisedrivedata(res.data);
-
       let domainSum = 0;
       res.data.forEach((_item: any) => {
         if (_item.Domain_Name) {
