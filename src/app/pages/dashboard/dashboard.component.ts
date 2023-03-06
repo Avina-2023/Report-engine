@@ -51,6 +51,7 @@ export class DashboardComponent implements OnInit {
   ColDef: any;
   @ViewChild('chart') chart?: ChartComponent;
   @ViewChild('chart4') chart4?: ChartComponent;
+  @ViewChild('ovrAllChrt') ovrAllChrt?: ChartComponent;
   public chartOptions: any;
   public chartOptions2: any;
   public chartOptions3: any;
@@ -224,7 +225,7 @@ export class DashboardComponent implements OnInit {
   chart2series: any;
   chart2label: any;
   countByDriveName: any;
-  CountDetails: any;
+  CountDetails: { idle: any; terminate: any; } | undefined;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -233,30 +234,7 @@ export class DashboardComponent implements OnInit {
   ) {
     this.chartOptions = {
       series: [
-        {
-          name: 'Total',
-          data: [],
-        },
-        {
-          name: 'Started',
-          data: [],
-        },
-        {
-          name: 'Terminated',
-          data: [],
-        },
-        {
-          name: 'Completed',
-          data: [],
-        },
-        {
-          name: 'Inprogrss',
-          data: [],
-        },
-        {
-          name: 'Yet To Start',
-          data: [],
-        },
+        
       ],
       colors: [],
       chart: {
@@ -560,8 +538,8 @@ this.chartOptions5 = {
       setTimeout(() => {
         this.dynamicallyConfigureColumnsFromObject(res.data);
         this.groupingdata(res.data);
-
-      }, 1000);
+        this.getChart(this.total);
+      }, 5000);
 
       this.clientWiseChartDataSort(res.data);
       this.domainWiseChartDataSort(res.data);
@@ -576,7 +554,6 @@ this.chartOptions5 = {
       let keys = [
         'Total_Count',
         'Started',
-        'Idle',
         'Terminated',
         'Completed',
         'Inprogrss',
@@ -587,30 +564,48 @@ this.chartOptions5 = {
         keys.map((key) => _.sum(_.map(res.data, key)))
       );
       this.total = results;
-      this.CountDetails={
+      this.CountDetails = {
         "idle":this.total.Idle,
         "terminate":this.total.Terminated
       }
       // console.log('this', this.total);
-      this.getChart(this.total);
+      
     });
   }
   getChart(_data: any) {
     // console.log('_data', _data);
 
-    this.chartOptions.series[0].data = [
-      _data.Total_Count,
-      _data.Started,
-      _data.Terminated,
-      _data.Completed,
-      _data.Inprogrss,
-      _data.Yet_To_Start,
-    ];
+    this.chartOptions.series.push(
+      {
+        name: 'Total',
+        data: [_data.Total_Count],
+      },
+      {
+        name: 'Started',
+        data: [_data.Started],
+      },
+      {
+        name: 'Terminated',
+        data: [_data.Terminated],
+      },
+      {
+        name: 'Completed',
+        data: [_data.Completed],
+      },
+      {
+        name: 'Inprogrss',
+        data: [_data.Inprogrss],
+      },
+      {
+        name: 'Yet To Start',
+        data: [_data.Yet_To_Start],
+      },
+    );
 
     //this.chartOptions1.series[0].data = [_data.Total_Count,_data.Started, _data.Terminated, _data.Completed, _data.Inprogrss, _data.Yet_To_Start]
-    // console.log('this.chartOptions.series[0].data', this.chartOptions.series[0].data);
+    console.log('this.chartOptions.series[0].data', this.chartOptions.series);
     // console.log('this.chartOptions2.series', this.chartOptions2.series);
-
+    this.ovrAllChrt?.updateSeries(this.chartOptions.series)
     // this.chartOptions1.series[0].data = [this.total.Total_Count, this.total.Started, this.total.Terminated, this.total.Completed, this.total.Inprogrss, this.total.Yet_To_Start]
   }
 
