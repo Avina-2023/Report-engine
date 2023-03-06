@@ -1,0 +1,33 @@
+<!-- <div style="display:flex;align-items: center;">
+  <div style="display:inline-block;width:50%;text-align:center;"> -->
+    <div class="idle-card">
+      <div class="card_count">
+        <h1> {{cardTitle}} </h1>
+        <h2 class="idle_count">{{currentIdle}}</h2>
+        <span>{{cardDescription}}</span>
+      </div>
+      <div id="custom-chart">
+        <apx-chart #realtime
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [colors]="chartOptions.colors"
+        [dataLabels]="chartOptions.dataLabels"></apx-chart>
+      </div>
+      <div class="bottom_bar" [ngStyle]="cardColor?{'background':cardColor}:{}">
+        <div>
+          <h4>{{data1}}</h4><span>{{dataLabel1}}</span>
+        </div>
+        <div>
+          <h4>{{data2}}</h4><span>{{dataLabel2}}</span>
+        </div>
+        <div>
+          <h4>{{data3}}</h4><span>{{dataLabel3}}</span>
+        </div>
+      </div>
+    </div>
+  <!-- </div>
+
+</div> -->

@@ -7,23 +7,23 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class WebSocketService {
-  public taoSyncPercentage: any;
-  @Output() progress: EventEmitter<boolean> = new EventEmitter();
-  socket = io(environment.API_BASE_URL)
+  @Output() dashboardData: EventEmitter<boolean> = new EventEmitter();
+  socket = io(environment.socket_url)
 
   constructor() { }
-  getPercentage() {
-    this.socket.on('taoSyncDet', (data: any) => {
-      this.taoSyncPercentage = data.taoSyncPercentage;
-      this.newMessageReceived(data);
-      this.progress.emit(data);
+  getDashboardData() {
+    this.socket.on('dashboard', (data: any) => {
+      // this.newMessageReceived(data);
+      this.dashboardData.emit(data);
     });
   }
 
-  socketOf() {
-    this.socket.on('disconnectThatSoc', () => {
+  socketOff() {
+    this.socket.disconnect();
+    this.socket.emit('logout', {userid:123});
+    // this.socket.on('disconnectThatSoc', () => {
       this.socket.disconnect();
-    });
+    // });
   }
 
   newMessageReceived(data: any) {
