@@ -18,14 +18,12 @@
     padding: 10px;
     font-size: 35px;
     border-radius: 4px;
-    
-}
-.icon-accessibility{
-    padding: 5px 5px 5px 5px;
-    font-size: 35px;
-    color: white;
-    width: 25%;
-    /* opacity: 0.4;  */
+    em {
+        padding: 5px 5px 5px 5px;
+        font-size: 35px;
+        color: white;
+        width: 25%;
+    }    
 }
 .body{
     padding-top: 25px;

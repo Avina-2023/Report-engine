@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
 import * as _ from 'lodash';
 import { AgGridAngular } from 'ag-grid-angular';
-
+import { DatePipe } from '@angular/common';
 
 
 import {
@@ -50,6 +50,8 @@ export class DashboardComponent implements OnInit {
   rowData:any;
   ColDef: any;
   public columnDefs: ColDef[] = []
+  date7: Date[] =[new Date(),new Date(new Date().setDate(new Date().getDate() + 1))];
+  datepipe=new DatePipe('en-us')
   @ViewChild("chart") chart ?: ChartComponent;
   public chartOptions: any;
   public chartOptions2: any;
@@ -424,6 +426,27 @@ this.chartOptions4 = {
 // }
   }
 
+  daterrange(){
+
+    if(this.date7[0] && this.date7[1])
+   this.dateWiseSectionReport(this.generateParams())
+ }
+
+ dateWiseSectionReport(data:any){
+  this.apiservice.dateWiseSectionReport(data).subscribe((res:any)=>{
+    this.rowData = res.data
+    this.dynamicallyConfigureColumnsFromObject(res.data)
+    this.agGrid.api.setRowData(res.data)
+  })
+}
+
+generateParams(){
+  return{
+    "startdate":this.date7?this.datepipe.transform(this.date7[0], 'yyyy-MM-dd h:m'):"",
+    "enddate":this.date7?this.datepipe.transform(this.date7[1], 'yyyy-MM-dd h:m'):""
+  }
+}
+
   kibonacheck(url:any) {
     this.apiservice.getkibona(url).subscribe(
       data => {
@@ -461,18 +484,18 @@ this.chartOptions4 = {
 @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 gettestData(){
   this.apiservice.dashboard(this.data).subscribe((res:any)=>{
-    this.rowData = res.data 
-    this.dynamicallyConfigureColumnsFromObject(res.data)
-    this.agGrid.api.setRowData(res.data)
-    console.log('data1',this.data1);
-let keys = ['Total_Count', 'Started', 'Terminated', 'Completed', 'Inprogrss', 'Idle', 'Yet_To_Start'];
-let results = _.zipObject(keys, keys.map(key => _.sum(_.map(this.data, key))));
-this.total = results;
-// console.log('this', this.total);
-this.totalscheduledCount = this.total.Total_Count;
-this.loggedinCandidates = this.total.Started;
-this.testinProgress = this.total.Inprogrss;
-this.testCompleted = this.total.Completed;
+  this.rowData = res.data 
+  this.dynamicallyConfigureColumnsFromObject(res.data)
+  this.agGrid.api.setRowData(res.data)
+  console.log('data1',this.data1);
+  let keys = ['Total_Count', 'Started', 'Terminated', 'Completed', 'Inprogrss', 'Idle', 'Yet_To_Start'];
+  let results = _.zipObject(keys, keys.map(key => _.sum(_.map(this.data, key))));
+  this.total = results;
+  //console.log('this', this.total);
+  this.totalscheduledCount = this.total.Total_Count;
+  this.loggedinCandidates = this.total.Started;
+  this.testinProgress = this.total.Inprogrss;
+  this.testCompleted = this.total.Completed;
 })
 }
 

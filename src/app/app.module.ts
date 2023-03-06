@@ -22,6 +22,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import {MatCardModule} from '@angular/material/card';
 import {CalendarModule} from 'primeng/calendar';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { DetailscardComponent } from './pages/detailscard/detailscard.component';
+import { MinidetailscardComponent } from './pages/minidetailscard/minidetailscard.component';
 @NgModule({
   declarations: [	
     AppComponent,
@@ -33,7 +35,9 @@ import { NgApexchartsModule } from "ng-apexcharts";
     SideMenuBarComponent,
     ExamStatusReportComponent,
     GraphcardComponent,
-    TinycardComponent
+    TinycardComponent,
+    DetailscardComponent,
+    MinidetailscardComponent
    ],
   imports: [
     CommonModule,

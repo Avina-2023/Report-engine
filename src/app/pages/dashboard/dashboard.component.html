@@ -1,8 +1,12 @@
 <div style="display: flex; justify-content: space-evenly;padding: 3% 2%;">
   <app-tinycard [wgColor]="'#ff0000'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Total Scheduled'"
     [tinycardCount]="totalscheduledCount"></app-tinycard>
-  <app-tinycard [wgColor]="'#008ffb'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Logged in Candidates'"
-    [tinycardCount]="loggedinCandidates"></app-tinycard>
+  <app-tinycard 
+  [wgColor]="'#008ffb'" 
+  [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" 
+  [tinycardLabel]="'Logged in Candidates'"
+    [tinycardCount]="loggedinCandidates">
+  </app-tinycard>
   <app-tinycard [wgColor]="'#ffba1f'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Cadidates Not Started'"
     [tinycardCount]="testinProgress"></app-tinycard>
   <app-tinycard [wgColor]="'#02bf2b'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Idle Candidates'" [tinycardCount]="testCompleted"></app-tinycard>
@@ -40,4 +44,27 @@
   [tooltip]="chartOptions4.tooltip" [legend]="chartOptions4.legend"></apx-chart>
   </div>
 
-  <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs"> </ag-grid-angular>
+  <div class="p-field p-calendar-container">
+    <label for="range">Delivery date range:</label>
+     <p-calendar #calen [(ngModel)]="date7" selectionMode="range" [readonlyInput]="true"  inputId="range" (onSelect)="daterrange()" dateFormat="yy/m/d" >
+
+     </p-calendar>
+     <i class="pi pi-calendar" (click)="calen.toggle()" ></i>
+    </div>
+
+  <ag-grid-angular style="width: 100%; height: 500px; padding: 5px 10px 15px 10px;" class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs"> </ag-grid-angular>
+  
+<app-detailscard
+[detailscardLable]  ='" Report Submitted "'
+[detailscardCount]='"5.82k "'
+[detailscardfooter]='"^ 54.1%"'
+[detailscardicon]='"icon-login-lock"'
+> </app-detailscard>
+
+<app-minidetailscard
+  [minidetailscardLable] = '"Sales "'
+  [minidetailscardLable2] = '" Monthly Goals "'
+  [minidetailscardLable3] = '"^175.5% "'
+  [minidetailscardnum] = '"$1229 "' >
+</app-minidetailscard>
+
