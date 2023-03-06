@@ -19,7 +19,7 @@
 <div>
   <h2 class="head">Graphical Representation</h2>
 </div>
-<div style="display:flex;align-items:center;justify-content:space-evenly;margin:4% 0%;">
+<div style="display:flex;align-items:stretch;justify-content:space-evenly;margin:4% 0%;">
   <div class="chart_card">
     <div class="card_topic">
       <h1> Overall Test Status </h1>
@@ -33,49 +33,38 @@
       <h1> Clients </h1>
     </div>
     <!-- <app-graphcard [cardColor]="'#02bf2b'" [sparklineData]="sparkline" [cardTitle]="'Active Candidates'" [dataLabel1]="'on Instruction'" [data1]="103" [dataLabel2]="'1st Question'"[data2]="250" [dataLabel3]="'cleard 1st Question'"[data3]="580"></app-graphcard> -->
-    <apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart" [labels]="chartOptions2.labels"
-      [responsive]="chartOptions2.responsive"  [colors]="chartOptions2.colors"></apx-chart>
+    <apx-chart #clientwise [dataLabels]="chartOptions2.dataLabels" [series]="chartOptions2.series" [chart]="chartOptions2.chart" [labels]="chartOptions2.labels"
+      [responsive]="chartOptions2.responsive"[legend]="chartOptions2.legend"  [colors]="chartOptions2.colors"></apx-chart>
   </div>
 </div>
 
 <!-- <apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart" [labels]="chartOptions2.labels"
   [responsive]="chartOptions2.responsive"></apx-chart> -->
-<div style="display:flex;align-items:center;justify-content:space-evenly;margin:8% 0%;">
+<div style="display:flex;align-items:stretch;justify-content:space-evenly;margin:8% 0%;">
   <div class="chart_card">
     <div class="card_topic">
-      <h1> College Wise </h1>
+      <h1> Domain Wise </h1>
     </div>
     <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart"
-      [labels]="chartOptions3.labels" [theme]="chartOptions3.theme"  [colors]="chartOptions3.colors" [responsive]="chartOptions2.responsive"></apx-chart>
+      [labels]="chartOptions3.labels" [legend]="chartOptions2.legend" [theme]="chartOptions3.theme"  [colors]="chartOptions3.colors" [responsive]="chartOptions2.responsive"></apx-chart>
   </div>
-  <div class="chart_card">
-    <div class="card_topic">
-      <h1> Client Wise Drive Wise </h1>
-    </div>
-    <apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart"
-      [labels]="chartOptions2.labels"  [colors]="chartOptions2.colors" [responsive]="chartOptions2.responsive"></apx-chart></div>
-</div>
+  <div class="chart_card">  <div class="card_topic">   <h1> Client Wise Drive Wise </h1>  </div>  <apx-chart
+      [series]="chartOptions5.series" [chart]="chartOptions5.chart"    [labels]="chartOptions5.labels"
+      [colors]="chartOptions5.colors" [legend]="chartOptions2.legend" [responsive]="chartOptions5.responsive"></apx-chart></div>
+  </div>
 
 
-<div class="chart_card" style="width:fit-content!important;margin-right:auto;margin-left:auto;margin-bottom:100px;">
+<div class="chart_card" style="width: 98%;margin-right:auto;margin-left:auto;margin-bottom:100px;">
   <div class="card_topic">
     <h1> Client Wise Domain Wise Candidates </h1>
   </div>
-  <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart" [xaxis]="chartOptions4.xaxis"
+  <apx-chart #chart4 [series]="chartOptions4.series" [chart]="chartOptions4.chart" [xaxis]="chartOptions4.xaxis"
     [markers]="chartOptions4.markers" [stroke]="chartOptions4.stroke" [yaxis]="chartOptions4.yaxis"
     [dataLabels]="chartOptions4.dataLabels" [fill]="chartOptions4.fill" [tooltip]="chartOptions4.tooltip"
     [legend]="chartOptions4.legend"></apx-chart>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-  <ag-grid-angular style="width: 100%; height: 500px;margin-bottom:50px;" class="ag-theme-alpine"  [columnDefs]="columnDefs"> </ag-grid-angular>
+<div class="card_topic">
+  <h1> Overall Dashboard Table Representation</h1>
+</div>
+<ag-grid-angular style="width: 100%; height: 500px;margin-bottom:50px;" class="ag-theme-alpine"  [columnDefs]="columnDefs"    [paginationPageSize]="20"
+[pagination]="true"> </ag-grid-angular>
