@@ -1,18 +1,18 @@
 <div style="display: flex; justify-content: space-evenly;padding: 3% 2%;">
-  <app-tinycard [wgColor]="'#00bd9d'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Scheduled'"
+  <app-tinycard [wgColor]="'#00bd9d'" [iconClass]="'icon-schedule'" [tinycardLabel]="'Scheduled'"
   [tinycardCount]="total?.Total_Count"></app-tinycard>
-<app-tinycard [wgColor]="'#008ffb'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Batches'"
+<app-tinycard [wgColor]="'#008ffb'" [iconClass]="'icon-groups'" [tinycardLabel]="'Batches'"
   [tinycardCount]="batchCount"></app-tinycard>
-<app-tinycard [wgColor]="'#ffba1f'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Domains'"
+<app-tinycard [wgColor]="'#ffba1f'" [iconClass]="'icon-domain'" [tinycardLabel]="'Domains'"
   [tinycardCount]="domainCount"></app-tinycard>
-<app-tinycard [wgColor]="'#02bf2b'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Test Started'" [tinycardCount]="total?.Started"></app-tinycard>
+<app-tinycard [wgColor]="'#02bf2b'" [iconClass]="'icon-assignment'" [tinycardLabel]="'Test Started'" [tinycardCount]="total?.Started"></app-tinycard>
 
 </div>
 <div style="display: flex; justify-content: space-evenly;">
-<app-tinycard [wgColor]="'#70bc41'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Logged In'"
+<app-tinycard [wgColor]="'#70bc41'" [iconClass]="'icon-logged_in'" [tinycardLabel]="'Logged In'"
   [tinycardCount]="total?.Started"></app-tinycard>
-<app-tinycard [wgColor]="'#ff0000'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'InProgress'" [isDrawer]="true" [tinycardCount]="total?.Inprogrss" [tinyCountDetails]="CountDetails"></app-tinycard>
-<app-tinycard [wgColor]="'#27bbee'" [iconClass]="'icon-home_FILL0_wght400_GRAD0_opsz48'" [tinycardLabel]="'Completed'" [tinycardCount]="total?.Completed"></app-tinycard>
+<app-tinycard [wgColor]="'#ff0000'" [iconClass]="'icon-edit_note'" [tinycardLabel]="'InProgress'" [isDrawer]="true" [tinycardCount]="total?.Inprogrss" [tinyCountDetails]="CountDetails"></app-tinycard>
+<app-tinycard [wgColor]="'#27bbee'" [iconClass]="'icon-test-completed'" [tinycardLabel]="'Completed'" [tinycardCount]="total?.Completed"></app-tinycard>
 
 </div>
 
