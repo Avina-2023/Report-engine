@@ -1,16 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-minidetailscard',
   templateUrl: './minidetailscard.component.html',
-  styleUrls: ['./minidetailscard.component.scss']
+  styleUrls: ['./minidetailscard.component.css']
 })
 export class MinidetailscardComponent implements OnInit {
-
-  @Input() minidetailscardLable =' ';
-  @Input() minidetailscardLable2 =' ';
-  @Input() minidetailscardLable3 = ' ';
-  @Input() minidetailscardnum = ' ';
 
   constructor() { }
 
