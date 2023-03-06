@@ -234,7 +234,7 @@ export class DashboardComponent implements OnInit {
   ) {
     this.chartOptions = {
       series: [
-        
+
       ],
       colors: [],
       chart: {
@@ -539,7 +539,7 @@ this.chartOptions5 = {
         this.dynamicallyConfigureColumnsFromObject(res.data);
         this.groupingdata(res.data);
         this.getChart(this.total);
-      }, 5000);
+      }, 1000);
 
       this.clientWiseChartDataSort(res.data);
       this.domainWiseChartDataSort(res.data);
@@ -569,7 +569,7 @@ this.chartOptions5 = {
         "terminate":this.total.Terminated
       }
       // console.log('this', this.total);
-      
+
     });
   }
   getChart(_data: any) {
