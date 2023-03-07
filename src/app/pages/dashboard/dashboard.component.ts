@@ -234,33 +234,61 @@ export class DashboardComponent implements OnInit {
   ) {
     this.chartOptions = {
       series: [{
-        data: []
-      }],
-      colors: [
-        '#65c15f',
-        '#00bc94',
-        '#69bb46',
-        '#00bdd2',
-        '#C6E7E3',
-        '#219EBC',
-      ],
-        chart: {
-        type: 'bar',
-        height: 350
-      },
-      plotOptions: {
-        bar: {
-          borderRadius: 4,
-          horizontal: true,
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      xaxis: {
-        categories: ['Total Count','Started','Terminated','Idle','Completed','Inprogress',
-        'Yet To Start'],
+        name: "Total",
+      data: []
+    }],
+    plotOptions: {
+      bar: {
+        startingShape: "flat",
+        endingShape: "rounded",
+        borderRadius: 2,
+        distributed: true,
+        horizontal: true,
+
+        dataLabels: {
+          position: 'bottom',
+        },
       }
+    },
+      chart: {
+      type: 'bar',
+      height: 380,
+      margin:0
+    },
+   
+    colors: ['#33b2df', '#546E7A', '#d4526e', '#13d8aa', '#A5978B', '#2b908f', '#f9a3a4', '#90ee7e',
+      '#f48024', '#69d2e7'
+    ],
+    dataLabels: {
+      enabled: true,
+      textAnchor: 'start',
+      style: {
+        colors: ['#fff'],
+      },
+      formatter: function (val:any, opt:any) {
+        return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+      },
+      offsetX: 0,
+      dropShadow: {
+        enabled: false
+      }
+    },
+    stroke: {
+      width: 1,
+      colors: ['#fff']
+    },
+    xaxis: {
+      categories: [
+      'Total Count',
+      'Started',
+      'Terminated',
+      'Idle',
+      'Completed',
+      'Inprogrss',
+      'Yet To Start'
+      ],
+    },
+
     };
 
     this.chartOptions2 = {
