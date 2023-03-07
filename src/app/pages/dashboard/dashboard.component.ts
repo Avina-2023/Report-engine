@@ -258,8 +258,8 @@ export class DashboardComponent implements OnInit {
         enabled: false
       },
       xaxis: {
-        categories: ['Total_Count','Started','Terminated','Idle','Completed','Inprogrss',
-        'Yet_To_Start'],
+        categories: ['Total Count','Started','Terminated','Idle','Completed','Inprogress',
+        'Yet To Start'],
       }
     };
 
