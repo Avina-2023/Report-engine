@@ -562,8 +562,8 @@ this.chartOptions5 = {
         "idle":this.total.Idle,
         "terminate":this.total.Terminated
       }
-      console.log('this', this.total);
-      
+      // console.log('this', this.total);
+
     });
   }
   getChart(_data: any) {
