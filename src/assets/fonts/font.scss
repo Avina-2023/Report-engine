@@ -27,6 +27,34 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.icon-logged_in:before {
+  content: "\e916";
+}
+.icon-test-completed:before {
+  content: "\e917";
+}
+.icon-domain:before {
+  content: "\e904";
+}
+.icon-schedule:before {
+  content: "\e90b";
+}
+.icon-groups:before {
+  content: "\e911";
+}
+.icon-assignment:before {
+  content: "\e912";
+}
+.icon-edit_note:before {
+  content: "\e913";
+}
+.icon-draft_orders:before {
+  content: "\e914";
+}
+.icon-edit_square:before {
+  content: "\e915";
+}
 .icon-colorize_FILL0_wght400_GRAD0_opsz48:before {
   content: "\e903";
 }

@@ -51,6 +51,7 @@ export class DashboardComponent implements OnInit {
   ColDef: any;
   @ViewChild('chart') chart?: ChartComponent;
   @ViewChild('chart4') chart4?: ChartComponent;
+  @ViewChild('ovrAllChrt') ovrAllChrt?: ChartComponent;
   public chartOptions: any;
   public chartOptions2: any;
   public chartOptions3: any;
@@ -224,6 +225,7 @@ export class DashboardComponent implements OnInit {
   chart2series: any;
   chart2label: any;
   countByDriveName: any;
+  CountDetails: { idle: any; terminate: any; } | undefined;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -231,72 +233,62 @@ export class DashboardComponent implements OnInit {
     private apiservice: ApiService
   ) {
     this.chartOptions = {
-      series: [
-        {
-          name: 'Total',
-          data: [],
-        },
-        {
-          name: 'Started',
-          data: [],
-        },
-        {
-          name: 'Terminated',
-          data: [],
-        },
-        {
-          name: 'Completed',
-          data: [],
-        },
-        {
-          name: 'Inprogrss',
-          data: [],
-        },
-        {
-          name: 'Yet To Start',
-          data: [],
-        },
-      ],
-      colors: [
-        '#65c15f',
-        '#00bc94',
-        '#69bb46',
-        '#00bdd2',
-        '#C6E7E3',
-        '#219EBC',
-      ],
-      chart: {
-        type: 'bar',
-        width: 450,
-      },
-      plotOptions: {
-        bar: {
-          borderRadius: 4,
-          horizontal: true,
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      xaxis: {
-        categories: [
-          'Total',
-          'Started',
-          'Terminated',
-          'Completed',
-          'Inprogrss',
-          'Yet To Start',
-        ],
-      },
+      series: [{
+        name: "Total",
+      data: []
+    }],
+    plotOptions: {
+      bar: {
+        startingShape: "flat",
+        endingShape: "rounded",
+        borderRadius: 2,
+        distributed: true,
+        horizontal: true,
 
-      tooltip: {
-        fixed: {
-          enabled: true,
-          position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
-          offsetY: 30,
-          offsetX: 60,
+        dataLabels: {
+          position: 'bottom',
         },
+      }
+    },
+      chart: {
+      type: 'bar',
+      height: 380,
+      margin:0
+    },
+   
+    colors: ['#33b2df', '#546E7A', '#d4526e', '#13d8aa', '#A5978B', '#2b908f', '#f9a3a4', '#90ee7e',
+      '#f48024', '#69d2e7'
+    ],
+    dataLabels: {
+      enabled: true,
+      textAnchor: 'start',
+      style: {
+        colors: ['#fff'],
       },
+      formatter: function (val:any, opt:any) {
+        return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+      },
+      offsetX: 0,
+      dropShadow: {
+        enabled: false
+      }
+    },
+    stroke: {
+      width: 1,
+      colors: ['#fff']
+    },
+    xaxis: {
+      categories: [
+      'Total Count',
+      'Started',
+      'Terminated',
+      'Idle',
+      'Completed',
+      'Inprogrss',
+      'Yet To Start'
+      ],
+    },
+
     };
 
     this.chartOptions2 = {
@@ -417,7 +409,7 @@ export class DashboardComponent implements OnInit {
         offsetX: 110,
       },
       xaxis: {
-        categories: [],
+        categories: Array(),
       },
       yaxis: [
         {
@@ -566,12 +558,11 @@ this.chartOptions5 = {
       setTimeout(() => {
         this.dynamicallyConfigureColumnsFromObject(res.data);
         this.groupingdata(res.data);
-        // this.agGrid.api.setRowData(res.data)
       }, 1000);
+
       this.clientWiseChartDataSort(res.data);
       this.domainWiseChartDataSort(res.data);
       this.clientwisedrivedata(res.data);
-
       let domainSum = 0;
       res.data.forEach((_item: any) => {
         if (_item.Domain_Name) {
@@ -583,6 +574,7 @@ this.chartOptions5 = {
         'Total_Count',
         'Started',
         'Terminated',
+        'Idle',
         'Completed',
         'Inprogrss',
         'Yet_To_Start',
@@ -592,26 +584,51 @@ this.chartOptions5 = {
         keys.map((key) => _.sum(_.map(res.data, key)))
       );
       this.total = results;
-      // console.log('this', this.total);
       this.getChart(this.total);
+
+      this.CountDetails = {
+        "idle":this.total.Idle,
+        "terminate":this.total.Terminated
+      }
+      // console.log('this', this.total);
+
     });
   }
   getChart(_data: any) {
-    // console.log('_data', _data);
 
-    this.chartOptions.series[0].data = [
-      _data.Total_Count,
-      _data.Started,
-      _data.Terminated,
-      _data.Completed,
-      _data.Inprogrss,
-      _data.Yet_To_Start,
-    ];
+    console.log('_data', _data);
 
-    //this.chartOptions1.series[0].data = [_data.Total_Count,_data.Started, _data.Terminated, _data.Completed, _data.Inprogrss, _data.Yet_To_Start]
-    // console.log('this.chartOptions.series[0].data', this.chartOptions.series[0].data);
+    // this.chartOptions.series.push(
+    //   {
+    //     name: 'Total',
+    //     data: [_data.Total_Count],
+    //   },
+    //   {
+    //     name: 'Started',
+    //     data: [_data.Started],
+    //   },
+    //   {
+    //     name: 'Terminated',
+    //     data: [_data.Terminated],
+    //   },
+    //   {
+    //     name: 'Completed',
+    //     data: [_data.Completed],
+    //   },
+    //   {
+    //     name: 'Inprogrss',
+    //     data: [_data.Inprogrss],
+    //   },
+    //   {
+    //     name: 'Yet To Start',
+    //     data: [_data.Yet_To_Start],
+    //   },
+    // );
+
+    this.chartOptions.series[0].data = [_data.Total_Count,_data.Started, _data.Terminated,_data.Idle, _data.Completed, _data.Inprogrss, _data.Yet_To_Start]
+    // console.log('this.chartOptions.series[0].data', this.chartOptions.series);
     // console.log('this.chartOptions2.series', this.chartOptions2.series);
-
+    // this.ovrAllChrt?.updateSeries(this.chartOptions.series)
     // this.chartOptions1.series[0].data = [this.total.Total_Count, this.total.Started, this.total.Terminated, this.total.Completed, this.total.Inprogrss, this.total.Yet_To_Start]
   }
 
@@ -651,8 +668,8 @@ this.chartOptions5 = {
   groupingdata(data: any) {
     // Create an observable from the data
     const data$ = from(data);
-    this.chartOptions4.series = [];
-    // this.chartOptions4.xaxis.catagories.
+    let datarray = new Array();
+    // this.chartOptions4.series = [];
     // Group the data by client and domain name
     data$
       .pipe(
@@ -666,19 +683,29 @@ this.chartOptions5 = {
           data: Array(),
         };
         groupedData.forEach((gdata) => {
+          if(!gdata.Total_Count){
+            gdata.Total_Count = 0
+          }
           domainData.data.push(gdata?.Total_Count);
         });
         groupedData.forEach((cData) => {
+          if(cData.Client_Name==null){
+            cData.Client_Name = "Not Available"
+          }
+          // console.log(cData.Client_Name)
           if (
             !this.chartOptions4.xaxis.categories.includes(cData.Client_Name)
           ) {
-            this.chartOptions4.xaxis.categories.push(cData.Client_Name);
+
+            datarray.push(cData.Client_Name)
+            this.chartOptions4.xaxis.categories= datarray;
           }
         });
 
         this.chartOptions4.series.push(domainData);
-        // this.chart4?.updateOptions(this.chartOptions4)
+        this.chart4?.updateOptions(this.chartOptions4)
       });
+
   }
   clientWiseChartDataSort(_data: any) {
     this.countByClientName = {};
