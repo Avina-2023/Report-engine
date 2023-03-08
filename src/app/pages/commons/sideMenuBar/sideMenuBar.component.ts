@@ -7,13 +7,14 @@ import { InterComponentMessenger } from 'src/app/services/interComponentMessenge
   styleUrls: ['./sideMenuBar.component.scss']
 })
 export class SideMenuBarComponent implements OnInit {
-  menuState: boolean = false;
+  menuState: boolean = true;
 
   constructor(private messenger:InterComponentMessenger) {
 
     this.messenger.getMessage().subscribe((data)=>{
       console.log('inside sidemenu')
-      console.log(data);
+      console.log(data );
+
       if(data?.head === "sideMenuToggle"){
         this.menuState = data.value
       }

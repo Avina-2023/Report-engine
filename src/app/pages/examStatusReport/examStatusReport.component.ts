@@ -8,6 +8,7 @@ import { FileSaverService } from 'ngx-filesaver';
 import { ExcelService } from 'src/app/services/excelService';
 import {CalendarModule} from 'primeng/calendar';
 import { DatePipe } from '@angular/common';
+import { InterComponentMessenger } from 'src/app/services/interComponentMessenger.service';
 @Component({
   selector: 'app-examStatusReport',
   templateUrl: './examStatusReport.component.html',
@@ -23,15 +24,15 @@ export class ExamStatusReportComponent implements OnInit {
   ColDef: any;
   value:Date[] | undefined;
   date7: Date[] =[new Date(),new Date(new Date().setDate(new Date().getDate() + 1))];
-  
 
   // colDefs: any=[];
   constructor(
     private apiservice : ApiService,
     private http: HttpClient,
     private fileserver:FileSaverService,
-    private excelService:ExcelService
-  ) { }
+    private excelService:ExcelService,
+    private messenger:InterComponentMessenger
+  ) {}
  // Each Column Definition results in one Column.
   public columnDefs: ColDef[] = []
 
@@ -40,7 +41,7 @@ public defaultColDef: ColDef = {
   sortable: true,
   filter: true,
   resizable:true,
-  editable:true,
+  editable:false,
 
 };
 // For accessing the Grid's API
@@ -67,12 +68,12 @@ ngOnInit() {
   this.dateWiseSectionReport(data)
 }
 daterrange(){
-  
+
    if(this.date7[0] && this.date7[1])
   this.dateWiseSectionReport(this.generateParams())
 }
 getdata(){
-  this.apiservice.dashboard(this.exam).subscribe((res:any)=>{
+  this.apiservice.dashboard().subscribe((res:any)=>{
     this.rowData = res.data
     this.dynamicallyConfigureColumnsFromObject(res.data)
     this.agGrid.api.setRowData(res.data)
@@ -100,7 +101,7 @@ dynamicallyConfigureColumnsFromObject(anObject:any){
   this.ColDef.length=0;
   this.columnDefs=[]
   const keys = Object.keys(anObject[0])
-  keys.forEach(key => 
+  keys.forEach(key =>
     this.columnDefs.push({field : key,headerName:key.replaceAll('_',' ')})
     );
   this.agGrid.api.setColumnDefs(this.columnDefs);

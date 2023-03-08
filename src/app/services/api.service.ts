@@ -42,11 +42,9 @@ export class ApiService {
     return this.http.post(`${this.BASE_URL}/createXMLFolder`, data)
   }
 
-  dashboard(data: any){
-    if(data.date==""){
-      data.date=""
-    }
-    return this.http.post(`${this.BASE_URL}/dashboard`,data)
+  dashboard(){
+   
+    return this.http.post(`${this.BASE_URL}/dashboard`,{})
   }
   userdashboard(data:any){
   return this.http.post(`${this.BASE_URL}/userdashboard`,data)

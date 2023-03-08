@@ -13,7 +13,6 @@ export class InterComponentMessenger {
       head,
       value
     }
-    console.log("inside service")
       this.subject.next( data );
   }
 
@@ -22,7 +21,6 @@ export class InterComponentMessenger {
   }
 
   getMessage(): Observable<any> {
-    console.log('insideget');
       return this.subject.asObservable();
   }
 }

@@ -1,0 +1,40 @@
+:root {
+  --graphcard: #000000;
+}
+::ng-deep .apexcharts-canvas {
+  margin: auto!important;
+}
+.idle-card{
+  background: #fff;
+    //margin: 2%;
+    box-shadow: 2px 3px 11px 3px #b7b7b7;
+    text-align:left;
+
+    .card_count{
+      padding: 20px;
+      span{
+        font-size: 14px;
+      }
+      h1{
+        font-weight: 100;
+      }
+    }
+    .bottom_bar{
+      padding: 10px 10px 20px 10px;
+      color: #fff;
+      background: var(--graphcard);
+      display: inline-flex;
+      width: -webkit-fill-available;
+      justify-content: space-between;
+
+      div{
+        line-height: 0px;
+      }
+    }
+}
+
+.idle_count{
+  font-size: 40px;
+  font-weight: 500;
+}
+

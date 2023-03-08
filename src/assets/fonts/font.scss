@@ -28,66 +28,80 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-logged_in:before {
+  content: "\e916";
+}
+.icon-test-completed:before {
+  content: "\e917";
+}
+.icon-domain:before {
+  content: "\e904";
+}
+.icon-schedule:before {
+  content: "\e90b";
+}
+.icon-groups:before {
+  content: "\e911";
+}
+.icon-assignment:before {
+  content: "\e912";
+}
+.icon-edit_note:before {
+  content: "\e913";
+}
+.icon-draft_orders:before {
+  content: "\e914";
+}
+.icon-edit_square:before {
+  content: "\e915";
+}
+.icon-colorize_FILL0_wght400_GRAD0_opsz48:before {
+  content: "\e903";
+}
+.icon-monitoring:before {
+  content: "\e910";
+}
+.icon-home_FILL0_wght400_GRAD0_opsz48:before {
+  content: "\e90f";
+}
+.icon-accessibility:before {
+  content: "\e90e";
+}
 .icon-warning-green:before {
   content: "\e900";
   color: #4eba62;
 }
-
 .icon-login-email:before {
   content: "\e902";
 }
-
-.icon-LT_logo .path1:before {
-  content: "\e903";
-  color: rgb(8, 85, 140);
-}
-
-.icon-LT_logo .path2:before {
-  content: "\e904";
-  margin-left: -2.3681640625em;
-  color: rgb(0, 0, 0);
-}
-
 .icon-login-lock:before {
   content: "\e905";
 }
-
 .icon-Popup-close:before {
   content: "\e906";
 }
-
 .icon-popup-cloud-upload:before {
   content: "\e907";
 }
-
 .icon-popup-greenTic:before {
   content: "\e908";
   color: #4eba62;
 }
-
 .icon-popup-warning:before {
   content: "\e909";
   color: #08558c;
 }
-
 .icon-popup-warning-ylw:before {
   content: "\e90a";
   color: #ffce00;
 }
-
-.icon-uploadButton-arrow:before {
-  content: "\e90b";
-}
-
 .icon-warning-red:before {
   content: "\e90c";
   color: #c02222;
 }
-
 .icon-logout:before {
   content: "\e901";
 }
-
 .icon-JobList:before {
-  content: "\e900";
+  content: "\e90d";
 }

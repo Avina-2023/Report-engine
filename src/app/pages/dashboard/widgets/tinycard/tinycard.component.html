@@ -1,0 +1,21 @@
+<div class="tiny_card" (mouseover)="isDrawer?disp=true:disp=false">
+  <div class="flx_div">
+    <div>
+      <p>{{tinycardCount}}</p>
+      <p>{{tinycardLabel}}</p>
+    </div>
+    <div><span [ngStyle]="{'color':wgColor}" [class]="iconClass"></span></div>
+  </div>
+  <div  [ngClass]="isDrawer?'bg_bottom_expand':'bg_bottom'" [ngStyle]="{'background':wgColor}">
+    <div *ngIf="disp" class="drawerSpace">
+      <div>
+        <div>Idle</div>
+        <div>{{tinyCountDetails?.idle}}</div>
+      </div>
+      <div>
+        <div>Terminated</div>
+        <div>{{tinyCountDetails?.terminate}}</div>
+      </div>
+    </div>
+  </div>
+</div>
