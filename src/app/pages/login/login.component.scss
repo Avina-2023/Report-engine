@@ -5,7 +5,7 @@
   width: 100% !important;
   justify-content: space-between;
   align-items: stretch;
-  height: 100%;
+  height: 100vh;
   background-image: url(../../../assets/images/webback.jpg);
   background-repeat: repeat;
 
@@ -42,7 +42,7 @@
     flex-direction: column;
     justify-content: space-between;
     background-image: linear-gradient(90deg, #fffffff5, #fffefead);
-  
+
 
     .formWrapper {
       text-align: center;
