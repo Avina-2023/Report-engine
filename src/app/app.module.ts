@@ -8,12 +8,12 @@ import { LoginComponent } from './pages/login/login.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DashboardComponent } from './pages/dashboard/dashboard.component'; 
-import { GraphcardComponent } from './pages/dashboard/widgets/graphcard/graphcard.component'; 
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { GraphcardComponent } from './pages/dashboard/widgets/graphcard/graphcard.component';
 import { FooterComponent } from './pages/commons/footer/footer.component';
 import {HeaderComponent} from './pages/commons/header/header.component'
 import { SideMenuBarComponent } from './pages/commons/sideMenuBar/sideMenuBar.component';
@@ -22,14 +22,17 @@ import { AgGridModule } from 'ag-grid-angular';
 import {MatCardModule} from '@angular/material/card';
 import {CalendarModule} from 'primeng/calendar';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { LoadingSpinnerComponent } from './pages/commons/loadingSpinner/loadingSpinner.component';
+import { HttpLoaderInterceptor } from './interceptors/http-loader.interceptor';
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
     PagenotfoundComponent,
     FooterComponent,
     HeaderComponent,
+    LoadingSpinnerComponent,
     SideMenuBarComponent,
     ExamStatusReportComponent,
     GraphcardComponent,
@@ -60,7 +63,12 @@ import { NgApexchartsModule } from "ng-apexcharts";
       }
     ),
   ],
-  providers: [HttpClient],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, useClass: HttpLoaderInterceptor, multi: true
+    },
+    HttpClient
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

@@ -25,7 +25,7 @@
       <h1> Overall Test Status </h1>
     </div>
     <apx-chart #ovrAllChrt [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels" [colors]="chartOptions.colors"
-      [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis"></apx-chart>
+      [plotOptions]="chartOptions.plotOptions" [legend]="chartOptions.legend"  [xaxis]="chartOptions.xaxis"></apx-chart>
     <!-- <app-graphcard [cardColor]="'#ffba1f'" [sparklineData]="sparkline" [cardTitle]="'logged in Candidates'"></app-graphcard> -->
   </div>
   <div class="chart_card">
@@ -45,11 +45,11 @@
     <div class="card_topic">
       <h1> Domain Wise </h1>
     </div>
-    <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart"
+    <apx-chart #chart3 [series]="chartOptions3.series" [chart]="chartOptions3.chart"
       [labels]="chartOptions3.labels" [legend]="chartOptions2.legend" [theme]="chartOptions3.theme"  [colors]="chartOptions3.colors" [responsive]="chartOptions2.responsive"></apx-chart>
   </div>
   <div class="chart_card">  <div class="card_topic">   <h1> Client Wise Drive Wise </h1>  </div>  <apx-chart
-      [series]="chartOptions5.series" [chart]="chartOptions5.chart"    [labels]="chartOptions5.labels"
+    #chart5  [series]="chartOptions5.series" [chart]="chartOptions5.chart"    [labels]="chartOptions5.labels"
       [colors]="chartOptions5.colors" [legend]="chartOptions2.legend" [responsive]="chartOptions5.responsive"></apx-chart></div>
   </div>
 
@@ -63,8 +63,8 @@
     [dataLabels]="chartOptions4.dataLabels" [fill]="chartOptions4.fill" [tooltip]="chartOptions4.tooltip"
     [legend]="chartOptions4.legend"></apx-chart>
 </div>
-<div class="card_topic">
+<div class="card_topic ml-10">
   <h1> Overall Dashboard Table Representation</h1>
 </div>
-<ag-grid-angular style="width: 100%; height: 500px;margin-bottom:50px;" class="ag-theme-alpine"  [columnDefs]="columnDefs"    [paginationPageSize]="20"
+<ag-grid-angular style="width: 100%; height: 500px;margin-bottom:50px;margin-left: 10px;margin-right: 10px;" class="ag-theme-alpine"  [columnDefs]="columnDefs"    [paginationPageSize]="20"
 [pagination]="true"> </ag-grid-angular>

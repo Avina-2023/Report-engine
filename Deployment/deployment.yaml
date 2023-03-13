@@ -20,4 +20,4 @@ spec:
       imagePullSecrets:
         - name: mysecret
       nodeSelector:
-        agentpool: taodev1
+        agentpool: taodev
