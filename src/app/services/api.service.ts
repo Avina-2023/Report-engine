@@ -42,9 +42,11 @@ export class ApiService {
     return this.http.post(`${this.BASE_URL}/createXMLFolder`, data)
   }
 
-  dashboard(){
-   
-    return this.http.post(`${this.BASE_URL}/dashboard`,{})
+  dashboard(data:any){
+    if (data == undefined) {
+      data = {};
+    }
+    return this.http.post(`${this.BASE_URL}/dashboard`,data)
   }
   userdashboard(data:any){
   return this.http.post(`${this.BASE_URL}/userdashboard`,data)
