@@ -51,6 +51,8 @@ export class DashboardComponent implements OnInit {
   ColDef: any;
   @ViewChild('chart') chart?: ChartComponent;
   @ViewChild('chart4') chart4?: ChartComponent;
+  @ViewChild('chart5') chart5?: ChartComponent;
+  @ViewChild('chart3') chart3?: ChartComponent;
   @ViewChild('ovrAllChrt') ovrAllChrt?: ChartComponent;
   public chartOptions: any;
   public chartOptions2: any;
@@ -255,19 +257,19 @@ export class DashboardComponent implements OnInit {
       height: 380,
       margin:0
     },
-   
+
     colors: ['#33b2df', '#546E7A', '#d4526e', '#13d8aa', '#A5978B', '#2b908f', '#f9a3a4', '#90ee7e',
       '#f48024', '#69d2e7'
     ],
     dataLabels: {
-      enabled: true,
+      enabled: false,
       textAnchor: 'start',
       style: {
         colors: ['#fff'],
       },
-      formatter: function (val:any, opt:any) {
-        return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
-      },
+      // formatter: function (val:any, opt:any) {
+      //   return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+      // },
       offsetX: 0,
       dropShadow: {
         enabled: false
@@ -362,10 +364,7 @@ export class DashboardComponent implements OnInit {
       ],
       dataLabels: {
         enabled: true,
-        formatter: function (val:any) {
-          console.log(val);
-          return val + "gooo"
-        },
+
       },
       theme: {
         monochrome: {
@@ -445,7 +444,7 @@ export class DashboardComponent implements OnInit {
         offsetX: 40,
       },
     };
-this.chartOptions5 = {
+    this.chartOptions5 = {
   series: [],
   colors: ['#65c15f', '#00bc94', '#00bdd2', '#C6E7E3', '#219EBC'],
   chart: {
@@ -555,14 +554,15 @@ this.chartOptions5 = {
     this.apiservice.dashboard().subscribe((res: any) => {
       this.batchCount = res.data.length;
       // console.log('res.data',res.data);
-      setTimeout(() => {
+      // setTimeout(() => {
         this.dynamicallyConfigureColumnsFromObject(res.data);
         this.groupingdata(res.data);
-      }, 1000);
+        this.clientWiseChartDataSort(res.data);
+        this.domainWiseChartDataSort(res.data);
+        this.clientwisedrivedata(res.data);
+    // }, 1000);
 
-      this.clientWiseChartDataSort(res.data);
-      this.domainWiseChartDataSort(res.data);
-      this.clientwisedrivedata(res.data);
+
       let domainSum = 0;
       res.data.forEach((_item: any) => {
         if (_item.Domain_Name) {
@@ -593,43 +593,15 @@ this.chartOptions5 = {
       // console.log('this', this.total);
 
     });
+
   }
   getChart(_data: any) {
 
     console.log('_data', _data);
 
-    // this.chartOptions.series.push(
-    //   {
-    //     name: 'Total',
-    //     data: [_data.Total_Count],
-    //   },
-    //   {
-    //     name: 'Started',
-    //     data: [_data.Started],
-    //   },
-    //   {
-    //     name: 'Terminated',
-    //     data: [_data.Terminated],
-    //   },
-    //   {
-    //     name: 'Completed',
-    //     data: [_data.Completed],
-    //   },
-    //   {
-    //     name: 'Inprogrss',
-    //     data: [_data.Inprogrss],
-    //   },
-    //   {
-    //     name: 'Yet To Start',
-    //     data: [_data.Yet_To_Start],
-    //   },
-    // );
 
     this.chartOptions.series[0].data = [_data.Total_Count,_data.Started, _data.Terminated,_data.Idle, _data.Completed, _data.Inprogrss, _data.Yet_To_Start]
-    // console.log('this.chartOptions.series[0].data', this.chartOptions.series);
-    // console.log('this.chartOptions2.series', this.chartOptions2.series);
-    // this.ovrAllChrt?.updateSeries(this.chartOptions.series)
-    // this.chartOptions1.series[0].data = [this.total.Total_Count, this.total.Started, this.total.Terminated, this.total.Completed, this.total.Inprogrss, this.total.Yet_To_Start]
+    this.ovrAllChrt?.updateSeries(this.chartOptions.series)
   }
 
   chartdataUpdate() {
@@ -722,7 +694,7 @@ this.chartOptions5 = {
     });
     this.chart2series.forEach((items: any) => {
       this.chartOptions2.series.push(items);
-      // this.clientwisePie?.updateSeries(this.chartOptions2.series)
+      this.clientwisePie?.updateSeries(this.chartOptions2.series)
       // this.chupdateSeries
     });
   }
@@ -741,7 +713,7 @@ this.chartOptions5 = {
     });
     chart3series.forEach((items: any) => {
       this.chartOptions3.series.push(items);
-      // this.clientwisePie?.updateSeries(this.chartOptions2.series)
+      this.chart3?.updateOptions(this.chartOptions3)
       // this.chupdateSeries
     });
   }
@@ -760,6 +732,7 @@ clientwisedrivedata(_data: any) {
  })
  chart5series.forEach((items: any) => {
  this.chartOptions5?.series.push(items)
+ this.chart5?.updateSeries(this.chartOptions5.series)
  })
 }
 
