@@ -23,6 +23,7 @@ import {
   ApexResponsive,
   ApexTheme
 } from "ng-apexcharts";
+import * as moment from 'moment';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -228,6 +229,8 @@ export class DashboardComponent implements OnInit {
   chart2label: any;
   countByDriveName: any;
   CountDetails: { idle: any; terminate: any; } | undefined;
+  date7: Date[] =[];
+  DashboardData:any
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -473,7 +476,7 @@ export class DashboardComponent implements OnInit {
       breakpoint: 480,
       options: {
         // chart: {
-        //   width: 10
+        //  width: 10
         // },
 
         tooltip: {
@@ -551,7 +554,7 @@ export class DashboardComponent implements OnInit {
   // }
 
   gettestData() {
-    this.apiservice.dashboard().subscribe((res: any) => {
+    this.apiservice.dashboard(this.DashboardData).subscribe((res: any) => {
       this.batchCount = res.data.length;
       // console.log('res.data',res.data);
       // setTimeout(() => {
@@ -734,6 +737,14 @@ clientwisedrivedata(_data: any) {
  this.chartOptions5?.series.push(items)
  this.chart5?.updateSeries(this.chartOptions5.series)
  })
+}
+
+daterrange(){
+  console.log('datata',moment(this.date7[0]).format('yyyy-MM-DD'));
+  let dateparams={ "startdate":this.date7?moment(this.date7[0]).format('yyyy-MM-DD'):"", "enddate":this.date7?moment(this.date7[1]).format('yyyy-MM-DD'):""}
+  this.DashboardData=dateparams
+  this.gettestData();
+  console.log('dateparams',dateparams);
 }
 
 
