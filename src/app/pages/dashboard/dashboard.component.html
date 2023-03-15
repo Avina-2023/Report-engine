@@ -1,3 +1,8 @@
+<div class="excel"> <div class="p-field p-calendar-container">  <label for="range">Delivery date range:</label>
+    <p-calendar #calen [(ngModel)]="date7" selectionMode="range" [readonlyInput]="true"  inputId="range"
+      (onSelect)="daterrange()" dateFormat="yy/m/d">  </p-calendar>  <i class="pi pi-calendar"
+      (click)="calen.toggle()"></i>  </div>
+</div>
 <div style="display: flex; justify-content: space-evenly;padding: 3% 2%;">
   <app-tinycard [wgColor]="'#00bd9d'" [iconClass]="'icon-schedule'" [tinycardLabel]="'Scheduled'"
   [tinycardCount]="total?.Total_Count"></app-tinycard>
