@@ -151,5 +151,51 @@
 .ml-10{
   margin-left:10px
 }
+.excel{
+  display: flex;
+  
+  justify-content: right;
+  padding-right: 15px;
+  padding-top: 10px;
+}
 
+.p-calendar-container label{
+  margin-right: 10px;
+}
+.p-calendar-container{
+  position: relative;
+  margin-right: 20px;
+  margin-top: 10px;
+  i{
+    position: absolute;
+    right: 3px;
+    top: 5px;
+  }
+}
+::ng-deep.p-calendar-container .p-calendar{
+  width: 256px;
+}
+::ng-deep.p-calendar-container .p-inputtext {
 
+  height: 25px !important; /* set the height of the input field */
+  font-size: 14px !important; /* set the font size of the input field */
+  padding-right: 20px;
+}
+
+::ng-deep.p-calendar-container .p-datepicker td {
+  padding:0px; /* set the height of each day cell */
+  font-size: 14px !important; /* set the font size of the day cell text */
+}
+.livebtn{
+  font-size: 10px;
+  padding-top: 10px; 
+  button{
+    height: 25px;
+  }
+  .ic{
+    font-size: 18px;
+    top: 4px;
+    position: relative;
+  }
+
+}
