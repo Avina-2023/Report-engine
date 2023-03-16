@@ -24,6 +24,7 @@ import {
   ApexTheme
 } from "ng-apexcharts";
 import * as moment from 'moment';
+import { LoaderService } from 'src/app/services/loader.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -113,7 +114,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     private http: HttpClient,
-    private apiservice: ApiService
+    private apiservice: ApiService,
+    public loader: LoaderService
   ) {
     this.chartOptions = {
       series: [{
@@ -635,6 +637,11 @@ daterrange(){
   console.log('dateparams',dateparams);
 }
 }
-
+livebtn(){
+  this.loader.setLoading(true)
+  setTimeout(() => {
+    this.loader.setLoading(false)
+  }, 10000);
+}
 
 }
