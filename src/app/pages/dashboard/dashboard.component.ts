@@ -631,7 +631,7 @@ daterrange(){
 livebtn(){
   this.loader.setLoading(true)
   setTimeout(() => {
-    // this.loader.setLoading(false)
+    this.loader.setLoading(false)
   }, 10000);
 }
 
