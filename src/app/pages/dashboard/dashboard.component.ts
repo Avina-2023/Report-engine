@@ -520,6 +520,7 @@ export class DashboardComponent implements OnInit {
   }
   groupingdata(data: any) {
     // Create an observable from the data
+    this.chartOptions4.series = []
     const data$ = from(data);
     let datarray = new Array();
     // this.chartOptions4.series = [];
@@ -570,9 +571,11 @@ export class DashboardComponent implements OnInit {
     });
     this.chart2label = Object.keys(this.countByClientName);
     this.chart2series = Object.values(this.countByClientName);
+    this.chartOptions2.labels = [];
     this.chart2label.forEach((items: any) => {
       this.chartOptions2.labels.push(items);
     });
+    this.chartOptions2.series = [];
     this.chart2series.forEach((items: any) => {
       this.chartOptions2.series.push(items);
       this.clientwisePie?.updateSeries(this.chartOptions2.series)
@@ -589,10 +592,13 @@ export class DashboardComponent implements OnInit {
     });
     let chart3label = Object.keys(domainwise);
     let chart3series = Object.values(domainwise);
+    this.chartOptions3.labels = []
     chart3label.forEach((items: any) => {
       this.chartOptions3.labels.push(items);
     });
+    this.chartOptions3.series = [];
     chart3series.forEach((items: any) => {
+
       this.chartOptions3.series.push(items);
       this.chart3?.updateOptions(this.chartOptions3)
       // this.chupdateSeries
@@ -608,10 +614,13 @@ clientwisedrivedata(_data: any) {
  } })
  let chart5label = Object.keys(this.countByDriveName);
  let chart5series = Object.values(this.countByDriveName);
+ this.chartOptions5.labels= []
  chart5label.forEach((items: any) => {
  this.chartOptions5?.labels.push(items)
  })
+ this.chartOptions5.series = [];
  chart5series.forEach((items: any) => {
+
  this.chartOptions5?.series.push(items)
  this.chart5?.updateSeries(this.chartOptions5.series)
  })
