@@ -153,7 +153,7 @@
 }
 .excel{
   display: flex;
-  
+
   justify-content: right;
   padding-right: 15px;
   padding-top: 10px;
@@ -188,7 +188,7 @@
 }
 .livebtn{
   font-size: 10px;
-  padding-top: 10px; 
+  padding-top: 10px;
   button{
     height: 25px;
   }
@@ -198,4 +198,11 @@
     position: relative;
   }
 
+}
+.topToolbar{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom:10px;
+  margin-right: 10px;
+  width: 100%;
 }

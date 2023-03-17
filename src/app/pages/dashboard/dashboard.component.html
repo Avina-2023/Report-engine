@@ -13,7 +13,7 @@
     >
     </p-calendar>
     <i class="pi pi-calendar" (click)="calen.toggle()"></i>
-  
+
   </div>
   <div class="livebtn">
     <button (click)="livebtn()" mat-raised-button color="warn" aria-label="Example icon button with a delete icon">
@@ -183,6 +183,9 @@
 <div class="card_topic ml-10">
   <h1>Overall Dashboard Table Representation</h1>
 </div>
+<div class="topToolbar">
+  <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
+</div>
 <ag-grid-angular
   style="
     width: 100%;
@@ -193,6 +196,7 @@
   "
   class="ag-theme-alpine"
   [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
   [paginationPageSize]="20"
   [pagination]="true"
 >

@@ -25,6 +25,7 @@ import {
 } from "ng-apexcharts";
 import * as moment from 'moment';
 import { LoaderService } from 'src/app/services/loader.service';
+import { ExcelService } from 'src/app/services/excelService';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -60,7 +61,7 @@ export class DashboardComponent implements OnInit {
   public chartOptions2: any;
   public chartOptions3: any;
   public chartOptions4: any;
-  public  chartOptions5:any;
+  public chartOptions5: any;
   public defaultColDef: ColDef = {
     sortable: true,
     filter: true,
@@ -107,73 +108,84 @@ export class DashboardComponent implements OnInit {
   chart2series: any;
   chart2label: any;
   countByDriveName: any;
-  CountDetails: { idle: any; terminate: any; } | undefined;
-  date7: Date[] =[];
-  DashboardData:any
+  CountDetails: { idle: any; terminate: any } | undefined;
+  date7: Date[] = [];
+  DashboardData: any;
 
   constructor(
     private sanitizer: DomSanitizer,
     private http: HttpClient,
     private apiservice: ApiService,
-    public loader: LoaderService
+    public loader: LoaderService,
+    private excelService:ExcelService,
   ) {
     this.chartOptions = {
-      series: [{
-        name: "Total",
-      data: []
-    }],
-    plotOptions: {
-      bar: {
-        startingShape: "flat",
-        endingShape: "rounded",
-        borderRadius: 2,
-        distributed: true,
-        horizontal: true,
-
-        dataLabels: {
-          position: 'bottom',
+      series: [
+        {
+          name: 'Total',
+          data: [],
         },
-      }
-    },
-      chart: {
-      type: 'bar',
-      height: 380,
-      margin:0
-    },
+      ],
+      plotOptions: {
+        bar: {
+          startingShape: 'flat',
+          endingShape: 'rounded',
+          borderRadius: 2,
+          distributed: true,
+          horizontal: true,
 
-    colors: ['#33b2df', '#546E7A', '#d4526e', '#13d8aa', '#A5978B', '#2b908f', '#f9a3a4', '#90ee7e',
-      '#f48024', '#69d2e7'
-    ],
-    dataLabels: {
-      enabled: false,
-      textAnchor: 'start',
-      style: {
+          dataLabels: {
+            position: 'bottom',
+          },
+        },
+      },
+      chart: {
+        type: 'bar',
+        height: 380,
+        margin: 0,
+      },
+
+      colors: [
+        '#33b2df',
+        '#546E7A',
+        '#d4526e',
+        '#13d8aa',
+        '#A5978B',
+        '#2b908f',
+        '#f9a3a4',
+        '#90ee7e',
+        '#f48024',
+        '#69d2e7',
+      ],
+      dataLabels: {
+        enabled: false,
+        textAnchor: 'start',
+        style: {
+          colors: ['#fff'],
+        },
+        // formatter: function (val:any, opt:any) {
+        //   return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+        // },
+        offsetX: 0,
+        dropShadow: {
+          enabled: false,
+        },
+      },
+      stroke: {
+        width: 1,
         colors: ['#fff'],
       },
-      // formatter: function (val:any, opt:any) {
-      //   return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
-      // },
-      offsetX: 0,
-      dropShadow: {
-        enabled: false
-      }
-    },
-    stroke: {
-      width: 1,
-      colors: ['#fff']
-    },
-    xaxis: {
-      categories: [
-      'Total Count',
-      'Started',
-      'Terminated',
-      'Idle',
-      'Completed',
-      'Inprogrss',
-      'Yet To Start'
-      ],
-    },
-
+      xaxis: {
+        categories: [
+          'Total Count',
+          'Started',
+          'Terminated',
+          'Idle',
+          'Completed',
+          'Inprogrss',
+          'Yet To Start',
+        ],
+      },
     };
 
     this.chartOptions2 = {
@@ -187,7 +199,7 @@ export class DashboardComponent implements OnInit {
         '#219EBC',
       ],
       legend: {
-        show:true,
+        show: true,
         position: 'bottom',
       },
       chart: {
@@ -242,12 +254,9 @@ export class DashboardComponent implements OnInit {
         type: 'pie',
         width: 450,
       },
-      labels: [
-
-      ],
+      labels: [],
       dataLabels: {
         enabled: true,
-
       },
       theme: {
         monochrome: {
@@ -312,7 +321,6 @@ export class DashboardComponent implements OnInit {
             enabled: true,
           },
         },
-
       ],
       // tooltip: {
       //   fixed: {
@@ -328,52 +336,48 @@ export class DashboardComponent implements OnInit {
       },
     };
     this.chartOptions5 = {
-  series: [],
-  colors: ['#65c15f', '#00bc94', '#00bdd2', '#C6E7E3', '#219EBC'],
-  chart: {
-    type: 'donut',
-    width: 450,
-    height: 500,
-    toolbar: {
-      show: true,
-      offsetX: 0,
-      offsetY: 0,
-      zoom: {
-        enabled: true,
-      },
-      tools: {
-        download: true,
-        selection: true,
-        zoom: true,
-        zoomin: true,
-        zoomout: true,
-      },
-    },
-  },
-  labels: [],
-  responsive: [
-    {
-      breakpoint: 480,
-      options: {
-        // chart: {
-        //  width: 10
-        // },
-
-        tooltip: {
-          enabled: true,
+      series: [],
+      colors: ['#65c15f', '#00bc94', '#00bdd2', '#C6E7E3', '#219EBC'],
+      chart: {
+        type: 'donut',
+        width: 450,
+        height: 500,
+        toolbar: {
+          show: true,
+          offsetX: 0,
+          offsetY: 0,
+          zoom: {
+            enabled: true,
+          },
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+          },
         },
       },
-    },
-  ],
-};
+      labels: [],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            // chart: {
+            //  width: 10
+            // },
 
-
+            tooltip: {
+              enabled: true,
+            },
+          },
+        },
+      ],
+    };
   }
   public columnDefs: ColDef[] = [];
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
   @ViewChild('clientwise') clientwisePie: ChartComponent | undefined;
-
-
 
   ngOnInit() {
     // this.groupingdata()
@@ -438,13 +442,12 @@ export class DashboardComponent implements OnInit {
       this.batchCount = res.data.length;
       // console.log('res.data',res.data);
       // setTimeout(() => {
-        this.dynamicallyConfigureColumnsFromObject(res.data);
-        this.groupingdata(res.data);
-        this.clientWiseChartDataSort(res.data);
-        this.domainWiseChartDataSort(res.data);
-        this.clientwisedrivedata(res.data);
-    // }, 1000);
-
+      this.dynamicallyConfigureColumnsFromObject(res.data);
+      this.groupingdata(res.data);
+      this.clientWiseChartDataSort(res.data);
+      this.domainWiseChartDataSort(res.data);
+      this.clientwisedrivedata(res.data);
+      // }, 1000);
 
       let domainSum = 0;
       res.data.forEach((_item: any) => {
@@ -470,21 +473,25 @@ export class DashboardComponent implements OnInit {
       this.getChart(this.total);
 
       this.CountDetails = {
-        "idle":this.total.Idle,
-        "terminate":this.total.Terminated
-      }
+        idle: this.total.Idle,
+        terminate: this.total.Terminated,
+      };
       // console.log('this', this.total);
-
     });
-
   }
   getChart(_data: any) {
-
     console.log('_data', _data);
 
-
-    this.chartOptions.series[0].data = [_data.Total_Count,_data.Started, _data.Terminated,_data.Idle, _data.Completed, _data.Inprogrss, _data.Yet_To_Start]
-    this.ovrAllChrt?.updateSeries(this.chartOptions.series)
+    this.chartOptions.series[0].data = [
+      _data.Total_Count,
+      _data.Started,
+      _data.Terminated,
+      _data.Idle,
+      _data.Completed,
+      _data.Inprogrss,
+      _data.Yet_To_Start,
+    ];
+    this.ovrAllChrt?.updateSeries(this.chartOptions.series);
   }
 
   chartdataUpdate() {
@@ -517,12 +524,12 @@ export class DashboardComponent implements OnInit {
       );
       this.agGrid.api.setColumnDefs(this.columnDefs);
       this.agGrid.api.setRowData(anObject);
-      // this.rowData=anObject
+      this.rowData=anObject
     }
   }
   groupingdata(data: any) {
     // Create an observable from the data
-    this.chartOptions4.series = []
+    this.chartOptions4.series = [];
     const data$ = from(data);
     let datarray = new Array();
     // this.chartOptions4.series = [];
@@ -539,29 +546,27 @@ export class DashboardComponent implements OnInit {
           data: Array(),
         };
         groupedData.forEach((gdata) => {
-          if(!gdata.Total_Count){
-            gdata.Total_Count = 0
+          if (!gdata.Total_Count) {
+            gdata.Total_Count = 0;
           }
           domainData.data.push(gdata?.Total_Count);
         });
         groupedData.forEach((cData) => {
-          if(cData.Client_Name==null){
-            cData.Client_Name = "Not Available"
+          if (cData.Client_Name == null) {
+            cData.Client_Name = 'Not Available';
           }
           // console.log(cData.Client_Name)
           if (
             !this.chartOptions4.xaxis.categories.includes(cData.Client_Name)
           ) {
-
-            datarray.push(cData.Client_Name)
-            this.chartOptions4.xaxis.categories= datarray;
+            datarray.push(cData.Client_Name);
+            this.chartOptions4.xaxis.categories = datarray;
           }
         });
 
         this.chartOptions4.series.push(domainData);
-        this.chart4?.updateOptions(this.chartOptions4)
+        this.chart4?.updateOptions(this.chartOptions4);
       });
-
   }
   clientWiseChartDataSort(_data: any) {
     this.countByClientName = {};
@@ -580,12 +585,12 @@ export class DashboardComponent implements OnInit {
     this.chartOptions2.series = [];
     this.chart2series.forEach((items: any) => {
       this.chartOptions2.series.push(items);
-      this.clientwisePie?.updateSeries(this.chartOptions2.series)
+      this.clientwisePie?.updateSeries(this.chartOptions2.series);
       // this.chupdateSeries
     });
   }
   domainWiseChartDataSort(_data: any) {
-    let domainwise:any = {};
+    let domainwise: any = {};
     _data.forEach((_item: any) => {
       if (!domainwise[_item.Domain_Name]) {
         domainwise[_item.Domain_Name] = 0;
@@ -594,54 +599,59 @@ export class DashboardComponent implements OnInit {
     });
     let chart3label = Object.keys(domainwise);
     let chart3series = Object.values(domainwise);
-    this.chartOptions3.labels = []
+    this.chartOptions3.labels = [];
     chart3label.forEach((items: any) => {
       this.chartOptions3.labels.push(items);
     });
     this.chartOptions3.series = [];
     chart3series.forEach((items: any) => {
-
       this.chartOptions3.series.push(items);
-      this.chart3?.updateOptions(this.chartOptions3)
+      this.chart3?.updateOptions(this.chartOptions3);
       // this.chupdateSeries
     });
   }
-clientwisedrivedata(_data: any) {
- this.countByDriveName = {};
- _data.forEach((_item: any) => {
- if (!this.countByDriveName[_item.Client_Name]) {
- this.countByDriveName[_item.Client_Name] = 1;
- } else {
- this.countByDriveName[_item.Client_Name] += 1;
- } })
- let chart5label = Object.keys(this.countByDriveName);
- let chart5series = Object.values(this.countByDriveName);
- this.chartOptions5.labels= []
- chart5label.forEach((items: any) => {
- this.chartOptions5?.labels.push(items)
- })
- this.chartOptions5.series = [];
- chart5series.forEach((items: any) => {
+  clientwisedrivedata(_data: any) {
+    this.countByDriveName = {};
+    _data.forEach((_item: any) => {
+      if (!this.countByDriveName[_item.Client_Name]) {
+        this.countByDriveName[_item.Client_Name] = 1;
+      } else {
+        this.countByDriveName[_item.Client_Name] += 1;
+      }
+    });
+    let chart5label = Object.keys(this.countByDriveName);
+    let chart5series = Object.values(this.countByDriveName);
+    this.chartOptions5.labels = [];
+    chart5label.forEach((items: any) => {
+      this.chartOptions5?.labels.push(items);
+    });
+    this.chartOptions5.series = [];
+    chart5series.forEach((items: any) => {
+      this.chartOptions5?.series.push(items);
+      this.chart5?.updateSeries(this.chartOptions5.series);
+    });
+  }
 
- this.chartOptions5?.series.push(items)
- this.chart5?.updateSeries(this.chartOptions5.series)
- })
-}
+  daterrange() {
+    if (this.date7[0] && this.date7[1]) {
+      console.log('datata', moment(this.date7[0]).format('yyyy-MM-DD'));
+      let dateparams = {
+        startdate: this.date7 ? moment(this.date7[0]).format('yyyy-MM-DD') : '',
+        enddate: this.date7 ? moment(this.date7[1]).format('yyyy-MM-DD') : '',
+      };
+      this.DashboardData = dateparams;
+      this.gettestData();
+      console.log('dateparams', dateparams);
+    }
+  }
+  livebtn() {
+    this.loader.setLoading(true);
+    setTimeout(() => {
+      this.loader.setLoading(false);
+    }, 10000);
+  }
 
-daterrange(){
-  if(this.date7[0] && this.date7[1]){
-  console.log('datata',moment(this.date7[0]).format('yyyy-MM-DD'));
-  let dateparams={ "startdate":this.date7?moment(this.date7[0]).format('yyyy-MM-DD'):"", "enddate":this.date7?moment(this.date7[1]).format('yyyy-MM-DD'):""}
-  this.DashboardData=dateparams
-  this.gettestData();
-  console.log('dateparams',dateparams);
-}
-}
-livebtn(){
-  this.loader.setLoading(true)
-  setTimeout(() => {
-    this.loader.setLoading(false)
-  }, 10000);
-}
-
+  excelexport(params: any) {
+    this.excelService.exportAsExcelFile(params, 'report');
+  }
 }
