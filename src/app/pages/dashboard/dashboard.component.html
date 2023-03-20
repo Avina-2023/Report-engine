@@ -16,8 +16,8 @@
 
   </div>
   <div class="livebtn">
-    <button (click)="livebtn()" mat-raised-button color="warn" aria-label="Example icon button with a delete icon">
-      <span class="icon-date ic"></span> Live
+    <button (click)="liveData = !liveData;livebtn()" mat-raised-button color="warn" aria-label="Example icon button with a delete icon">
+      <span *ngIf="!liveData" class="icon-date ic"></span> <mat-icon *ngIf="liveData">stop</mat-icon> {{liveData?'Stop':'Live'}}
     </button>
   </div>
 </div>

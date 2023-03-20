@@ -26,6 +26,7 @@ import {
 import * as moment from 'moment';
 import { LoaderService } from 'src/app/services/loader.service';
 import { ExcelService } from 'src/app/services/excelService';
+import { WebSocketService } from 'src/app/services/web-socket.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -111,6 +112,8 @@ export class DashboardComponent implements OnInit {
   CountDetails: { idle: any; terminate: any } | undefined;
   date7: Date[] = [];
   DashboardData: any;
+  liveData: boolean = false;
+  socket_subs: any;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -118,6 +121,7 @@ export class DashboardComponent implements OnInit {
     private apiservice: ApiService,
     public loader: LoaderService,
     private excelService:ExcelService,
+    private socketService:WebSocketService
   ) {
     this.chartOptions = {
       series: [
@@ -263,9 +267,6 @@ export class DashboardComponent implements OnInit {
           enabled: false,
         },
       },
-      title: {
-        text: 'Number of leads',
-      },
       responsive: [
         {
           breakpoint: 480,
@@ -294,11 +295,7 @@ export class DashboardComponent implements OnInit {
       stroke: {
         width: [1, 1, 4],
       },
-      title: {
-        text: 'Client wise Domain wise Candidates',
-        align: 'left',
-        offsetX: 110,
-      },
+
       xaxis: {
         categories: Array(),
       },
@@ -380,116 +377,73 @@ export class DashboardComponent implements OnInit {
   @ViewChild('clientwise') clientwisePie: ChartComponent | undefined;
 
   ngOnInit() {
-    // this.groupingdata()
-    // this.kibonacheck(environment.kibana_url);
-    // this.chartdataUpdate()
-    this.gettestData();
-    // this.getchartdata();
-    //       let sum = 0;
-    //       for (let i = 0; i < this.data.length; i++) {
-    //       sum += this.data[i].Total_Count;
-    // }
-  }
-  getdata() {
-    // this.apiservice.dashboard().subscribe((res: any) => {
-    //   console.log(res.data);
-    //      let keys = ['Total_Count', 'Started', 'Terminated', 'Completed', 'Inprogrss', 'Idle', 'Yet_To_Start'];
-    //   let results = _.zipObject(keys, keys.map(key => _.sum(_.map(res.data, key))))
-    //   console.log(results);
-    //      this.total = results
-    //      this.chartDetails=results
-    //  this.getChart(this.chartDetails)
-    // })
+
+    this.getDashboardAPI();
+    this.getDashboardSocket();
   }
 
-  kibonacheck(url: any) {
-    this.apiservice.getkibona(url).subscribe(
-      (data) => {
-        // this.iframe?.nativeElement.removeAttributeNode("srcdoc")
-        this.iframeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-      },
-      (error) => {
-        // this.iframe?.nativeElement.removeAttributeNode("srcdoc")
-        if (this.onewayTP) {
-          this.onewayTP = false;
-          this.IframeErrorHandle();
-        }
-        clearTimeout(this.timeoutval);
-        this.timeoutval = setTimeout(() => {
-          this.kibonacheck(environment.kibana_url);
-        }, 10000);
-        this.error = error.error.type;
-      }
-    );
-  }
-  IframeErrorHandle() {
-    this.iframeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.htmlfile
-    );
-    this.iframe?.nativeElement.contentWindow.location.replace(this.iframeSrc);
-    // setTimeout(() => {  }, 5000);
-  }
+  getDashboardSocket(){
+     this.socket_subs = this.socketService.dashboardData.subscribe((data)=>{
+      console.log(data)
+      this.dynamicallyConfigureColumnsFromObject(data);
+      this.groupingdata(data);
+      this.clientWiseChartDataSort(data);
+      this.domainWiseChartDataSort(data);
+      this.clientwisedrivedata(data);
+      this.getChart(data);
 
-  // get totalValue():number{
-  //      return this.data.reduce((total, item) => total + item.Total_Count, 0);
-  // }
-  // get completedValue():number{
-  //   return this.data.reduce((total, item) => total + item.Completed, 0);
-  // }
+    })
+  }
+  getDashboardAPI() {
 
-  gettestData() {
     this.apiservice.dashboard(this.DashboardData).subscribe((res: any) => {
-      this.batchCount = res.data.length;
-      // console.log('res.data',res.data);
-      // setTimeout(() => {
+
       this.dynamicallyConfigureColumnsFromObject(res.data);
       this.groupingdata(res.data);
       this.clientWiseChartDataSort(res.data);
       this.domainWiseChartDataSort(res.data);
       this.clientwisedrivedata(res.data);
-      // }, 1000);
+      this.getChart(res.data);
 
-      let domainSum = 0;
-      res.data.forEach((_item: any) => {
-        if (_item.Domain_Name) {
-          domainSum = domainSum + 1;
-        }
-      });
-      this.domainCount = domainSum;
-      let keys = [
-        'Total_Count',
-        'Started',
-        'Terminated',
-        'Idle',
-        'Completed',
-        'Inprogrss',
-        'Yet_To_Start',
-      ];
-      let results = _.zipObject(
-        keys,
-        keys.map((key) => _.sum(_.map(res.data, key)))
-      );
-      this.total = results;
-      this.getChart(this.total);
-
-      this.CountDetails = {
-        idle: this.total.Idle,
-        terminate: this.total.Terminated,
-      };
-      // console.log('this', this.total);
     });
   }
   getChart(_data: any) {
-    console.log('_data', _data);
+    this.batchCount = _data.length;
+    let domainSum = 0;
+    _data.forEach((_item: any) => {
+      if (_item.Domain_Name) {
+        domainSum = domainSum + 1;
+      }
+    });
+    this.domainCount = domainSum;
+    let keys = [
+      'Total_Count',
+      'Started',
+      'Terminated',
+      'Idle',
+      'Completed',
+      'Inprogrss',
+      'Yet_To_Start',
+    ];
+    let results:any = _.zipObject(
+      keys,
+      keys.map((key) => _.sum(_.map(_data, key)))
+    );
+    this.total = results;
+
+    this.CountDetails = {
+      idle: this.total.Idle,
+      terminate: this.total.Terminated,
+    };
 
     this.chartOptions.series[0].data = [
-      _data.Total_Count,
-      _data.Started,
-      _data.Terminated,
-      _data.Idle,
-      _data.Completed,
-      _data.Inprogrss,
-      _data.Yet_To_Start,
+      results.Total_Count,
+      results.Started,
+      results.Terminated,
+      results.Idle,
+      results.Completed,
+      results.Inprogrss,
+      results.Yet_To_Start,
     ];
     this.ovrAllChrt?.updateSeries(this.chartOptions.series);
   }
@@ -640,15 +594,22 @@ export class DashboardComponent implements OnInit {
         enddate: this.date7 ? moment(this.date7[1]).format('yyyy-MM-DD') : '',
       };
       this.DashboardData = dateparams;
-      this.gettestData();
+      this.getDashboardAPI();
       console.log('dateparams', dateparams);
     }
   }
   livebtn() {
-    this.loader.setLoading(true);
-    setTimeout(() => {
-      this.loader.setLoading(false);
-    }, 10000);
+    if(this.liveData)
+    {
+      this.socketService.getDashboardData()
+      this.getDashboardSocket();
+    }else{
+      this.socket_subs.unsubscribe()
+      this.socketService.socketOff();
+      this.getDashboardAPI();
+    }
+
+
   }
 
   excelexport(params: any) {
