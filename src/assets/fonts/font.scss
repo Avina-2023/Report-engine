@@ -27,7 +27,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.icon-date:before {
+  content: "\e919";
+}
 .icon-logged_in:before {
   content: "\e916";
 }

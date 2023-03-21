@@ -4,7 +4,8 @@
 <div class="excel">
   <div class="p-field p-calendar-container">
     <label for="range">Delivery date range:</label>
-     <p-calendar #calen [(ngModel)]="date7" selectionMode="range" [readonlyInput]="true" [showTime]="true" inputId="range" (onSelect)="daterrange()" dateFormat="yy/m/d" >
+     <p-calendar #calen [(ngModel)]="date7" selectionMode="range" [readonlyInput]="true" 
+     [showTime]="true" inputId="range" (onSelect)="daterrange()" dateFormat="yy/m/d" >
 
      </p-calendar>
      <i class="pi pi-calendar" (click)="calen.toggle()" ></i>
