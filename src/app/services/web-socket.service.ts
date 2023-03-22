@@ -8,14 +8,22 @@ import { environment } from 'src/environments/environment';
 })
 export class WebSocketService {
   @Output() dashboardData: EventEmitter<boolean> = new EventEmitter();
-  socket = io(environment.socket_url)
+  socket: any;
+
 
   constructor() { }
+  startConnection(){
+     this.socket = io(environment.socket_url)
+     return this.socket
+  }
   getDashboardData() {
-    this.socket.on('dashboard', (data: any) => {
+
+      this.startConnection().on('LiveDashboard', (data: any) => {
       // this.newMessageReceived(data);
+      console.log('receivingSocketData')
       this.dashboardData.emit(data);
     });
+    console.log(this.socket.connected, 'issocket connected on')
   }
 
   socketOff() {
@@ -23,6 +31,7 @@ export class WebSocketService {
     this.socket.emit('logout', {userid:123});
     // this.socket.on('disconnectThatSoc', () => {
       this.socket.disconnect();
+      console.log(this.socket.connected, 'issocket connected')
     // });
   }
 

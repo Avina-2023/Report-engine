@@ -1,0 +1,91 @@
+.main{
+    display: flex;
+    text-align: center;
+    margin: 15px 30px 0px 15px;
+}
+.main1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* text-align: center; */
+}
+.card{
+    padding: 15px 15px 15px 15px;
+    display: flex;
+    text-align: center;
+    height: 130px;
+    width: 25%;
+    margin-left: 15px;
+    background: transparent linear-gradient(90deg,#27bbee 0%,#40bbbd 48%,#88ba2f 100%) 0% 0% no-repeat padding-box;
+    box-shadow: 0 2px 10px -1px rgb(69 90 100 / 30%);
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.a{
+    display: flex;
+    padding-top: 10px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.b{
+    display: flex;
+    padding-left: 20px;
+    padding-top: 20px;
+    font-size: 35px;
+    font-weight: 500;
+}
+.bar{
+    padding-top: 20px;
+}
+
+
+.card:hover {
+    transition: .2s ease-in-out;
+    box-shadow: 0 5px 11px 0px rgb(69 90 100 / 30%);
+}
+
+.minicard3{
+    padding: 15px 15px 15px 15px;
+    margin-left: 35px;
+    height: 120px;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background-color: #88ba2f;
+    box-shadow: 0 2px 10px -1px rgb(69 90 100 / 30%);
+
+
+}
+.left{
+    display: flex;
+    flex-direction: column;
+    /* justify-content:left; */
+    align-content: space-between;
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 15px;
+}
+.x{
+    padding-top: 10px;
+}
+.y{
+    padding-bottom: 10px;
+}
+.z{
+    padding-top: 10px;
+}
+.right{
+    display: flex;
+    justify-content: right;
+    font-size: 15px;
+    font-weight: 500;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.minicard:hover {
+    transition: .2s ease-in-out;
+    box-shadow: 0 5px 11px 0px rgb(69 90 100 / 30%);
+}

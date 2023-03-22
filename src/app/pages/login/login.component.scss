@@ -25,6 +25,9 @@
       line-height: normal;
       text-align: center;
     }
+    .beforeloginimg{
+      width: 100%;
+    }
     .main-logo{
       // background: rgba(255, 255, 255, 0.24);
       // border-radius: 5px;
@@ -42,7 +45,9 @@
     flex-direction: column;
     justify-content: space-between;
     background-image: linear-gradient(90deg, #fffffff5, #fffefead);
-
+    .mobile_Header{
+      display:none;
+    }
 
     .formWrapper {
       text-align: center;
@@ -108,7 +113,7 @@
 .btn{
   font-size: 16px;
     border: none;
-    width: 186px;
+    width: 75%;
     height: 47px;
     padding: 12px 10px;
     margin-top: 20px;
@@ -117,4 +122,32 @@
     color: #fff;
     cursor: pointer;
     border-radius: 50px!important;
+}
+
+@media (max-width: 875px) {
+  .left{display: none !important;}
+  .right{
+    .mobile_Header{
+      display:flex !important;
+      flex-direction: column;
+      align-items: center;
+      margin-top:15px;
+      .beforeloginimgLT{
+        width: 80%;
+      }
+      .login-head{
+        font-size: 16px;
+    color: #08558c;
+    margin-top: 10px;
+    font-weight: 500;
+      }
+    }
+    width: 100% !important;
+  }
+  @media (max-width: 490px) {
+    .form-wrapper{
+      width:80% !important;
+    }
+  }
+
 }
