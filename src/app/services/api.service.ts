@@ -15,7 +15,7 @@ export class ApiService {
 
 
   register(data: any) {
-    return this.http.post(`${this.BASE_URL}/login`, data)
+    return this.http.post(`${this.BASE_URL}/create-user`, data)
   }
 
   login(data: any) {
@@ -26,20 +26,8 @@ export class ApiService {
     return this.http.post(`${this.BASE_URL}/uploadQuestion`, file);
   }
 
-  Joblist(data: any) {
-    return this.http.post(`${this.BASE_URL}/getBatchList`, data);
-  }
-
-  jobDetails(data: any) {
-    return this.http.post(`${this.BASE_URL}/getBatchDetails`, data)
-  }
-
-  getOrganiz(data: any) {
-    return this.http.post(`${this.BASE_URL}/getOrganization`, data)
-  }
-
-  toa(data: any) {
-    return this.http.post(`${this.BASE_URL}/createXMLFolder`, data)
+  getOrganizationList(){
+    return this.http.get(`https://uapedgeservicedev.lntedutech.com/getUapOrganizations`)
   }
 
   dashboard(data:any){

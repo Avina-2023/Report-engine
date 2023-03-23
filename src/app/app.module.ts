@@ -24,6 +24,17 @@ import {CalendarModule} from 'primeng/calendar';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { LoadingSpinnerComponent } from './pages/commons/loadingSpinner/loadingSpinner.component';
 import { HttpLoaderInterceptor } from './interceptors/http-loader.interceptor';
+import { AdminSettingsModule } from './pages/adminSettings/adminSettings.module';
+
+import { NZ_ICONS } from 'ng-zorro-antd/icon';
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
+import { IconDefinition } from '@ant-design/icons-angular';
+import * as AllIcons from '@ant-design/icons-angular/icons';
+
+const antDesignIcons = AllIcons as {
+  [key: string]: IconDefinition;
+};
+const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesignIcons[key])
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +47,7 @@ import { HttpLoaderInterceptor } from './interceptors/http-loader.interceptor';
     SideMenuBarComponent,
     ExamStatusReportComponent,
     GraphcardComponent,
-    TinycardComponent
+    TinycardComponent,
    ],
   imports: [
     CommonModule,
@@ -50,6 +61,7 @@ import { HttpLoaderInterceptor } from './interceptors/http-loader.interceptor';
     FormsModule,
     CalendarModule,
     MatCardModule,
+    AdminSettingsModule,
     NgApexchartsModule,
     ToastrModule.forRoot(
       {
@@ -67,6 +79,7 @@ import { HttpLoaderInterceptor } from './interceptors/http-loader.interceptor';
     {
       provide: HTTP_INTERCEPTORS, useClass: HttpLoaderInterceptor, multi: true
     },
+    { provide: NZ_I18N, useValue: en_US }, { provide: NZ_ICONS, useValue: icons },
     HttpClient
   ],
   bootstrap: [AppComponent],
