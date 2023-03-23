@@ -12,12 +12,13 @@ export class SideMenuBarComponent implements OnInit {
   isAdmin:boolean = false
   constructor(private messenger:InterComponentMessenger) {
     let userDetails:any = localStorage.getItem('userDetails');
+    if(userDetails?.roleId == "SADM"){
+      this.isAdmin = true;
+    }
     this.messenger.getMessage().subscribe((data)=>{
       console.log('inside sidemenu')
       console.log(data );
-      if(userDetails?.roleId == "SADM"){
-        this.isAdmin = true;
-      }
+
       if(data?.head === "sideMenuToggle"){
         this.menuState = data.value
       }

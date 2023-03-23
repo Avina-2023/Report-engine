@@ -1,41 +1,43 @@
-<ng-container class="addUser">
-
+<div class="addUser">
+  <div class="heading">
+    <h2>Add user</h2>
+  </div>
   <div class="formWrapper">
-    <div [formGroup]="addUserForm" >
-
+    <div [formGroup]="addUserForm">
       <div class="overall-input-wrapper width-45">
         <label>Email ID<span class="redTxt">*</span></label>
-        <input matInput placeholder="Enter here" id="email"  class="input" type="text" formControlName="email">
-       <div class="form-error" *ngIf="email?.invalid && email?.touched">
+        <input matInput placeholder="Enter here" id="email" class="input" type="text" formControlName="email">
+        <div class="form-error" *ngIf="email?.invalid && email?.touched">
           <div *ngIf="addUserForm?.get('email')?.hasError?.('required')">Email ID is Required</div>
-        <div *ngIf="email?.errors?.email">Not an Valid Email ID</div>
+          <div *ngIf="email?.errors?.email">Not an Valid Email ID</div>
+        </div>
       </div>
-    </div>
-    <div class="overall-input-wrapper width-100">
-      <label>First Name <span class="redTxt">*</span></label>
-      <input matInput class="input" id="fname" placeholder="Enter here" type="text" formControlName="fname">
-      <div class="form-error" *ngIf="fname?.invalid && fname?.touched">
-        <div *ngIf="fname?.errors?.required">Name  is Required</div>
-        <div *ngIf="fname.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed</div>
+      <div class="overall-input-wrapper width-100">
+        <label>First Name <span class="redTxt">*</span></label>
+        <input matInput class="input" id="fname" placeholder="Enter here" type="text" formControlName="fname">
+        <div class="form-error" *ngIf="fname?.invalid && fname?.touched">
+          <div *ngIf="fname?.errors?.required">Name is Required</div>
+          <div *ngIf="fname.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed</div>
+        </div>
       </div>
-    </div>
-    <div class="overall-input-wrapper width-100">
-      <label>Last Name <span class="redTxt">*</span></label>
-      <input matInput class="input" id="lname" placeholder="Enter here" type="text" formControlName="lname">
-      <div class="form-error" *ngIf="lname?.invalid && lname?.touched">
-        <div *ngIf="lname?.errors?.required">Last name is Required</div>
-        <div *ngIf="lname.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed</div>
+      <div class="overall-input-wrapper width-100">
+        <label>Last Name <span class="redTxt">*</span></label>
+        <input matInput class="input" id="lname" placeholder="Enter here" type="text" formControlName="lname">
+        <div class="form-error" *ngIf="lname?.invalid && lname?.touched">
+          <div *ngIf="lname?.errors?.required">Last name is Required</div>
+          <div *ngIf="lname.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed</div>
+        </div>
       </div>
-    </div>
 
-    <div class="overall-input-wrapper width-100">
-      <label>Organization <span class="redTxt">*</span></label>
-    <nz-select formControlName="orgid" [nzSize]="'default'" nzMode="multiple" nzPlaceHolder="Please select your Organization">
-      <nz-option *ngFor="let option of orglist" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
-    </nz-select>
-    </div>
+      <div class="overall-input-wrapper width-100">
+        <label>Organization <span class="redTxt">*</span></label>
+        <nz-select style="width:100%" formControlName="orgid" [nzSize]="'default'" nzMode="multiple"
+          nzPlaceHolder="Please select your Organization">
+          <nz-option *ngFor="let option of orglist" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+        </nz-select>
+      </div>
 
-    <!-- <div  class="overall-input-wrapper width-100">
+      <!-- <div  class="overall-input-wrapper width-100">
       <label>OrgID <span class="redTxt">*</span></label>
       <input matInput class="input" id="orgid" placeholder="Enter here" type="text" formControlName="orgid">
       <div class="form-error" *ngIf="orgid?.invalid && orgid?.touched">
@@ -44,18 +46,18 @@
       </div>
     </div> -->
 
-    <div class="overall-input-wrapper width-100">
-      <label>RoleID <span class="redTxt">*</span></label>
-      <input matInput class="input" id="roleid" placeholder="Enter here" type="text" formControlName="roleid">
-      <div class="form-error" *ngIf="roleid?.invalid && roleid?.touched">
-        <div *ngIf="roleid?.errors?.required">role  is Required</div>
-        <div *ngIf="roleid.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed</div>
+      <div class="overall-input-wrapper width-100">
+        <label>RoleID <span class="redTxt">*</span></label>
+        <input matInput class="input" id="roleid" placeholder="Enter here" type="text" formControlName="roleid">
+        <div class="form-error" *ngIf="roleid?.invalid && roleid?.touched">
+          <div *ngIf="roleid?.errors?.required">role is Required</div>
+          <div *ngIf="roleid.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed</div>
+        </div>
       </div>
-    </div>
-    <div>
-      <button (click)="formSubmit()">Save</button>
-    </div>
+      <div class="submitBtn">
+        <button (click)="formSubmit()">Save</button>
+      </div>
     </div>
   </div>
 
-</ng-container>
+</div>
