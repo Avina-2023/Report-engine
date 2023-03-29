@@ -9,7 +9,6 @@ import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.compone
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -19,11 +18,22 @@ import {HeaderComponent} from './pages/commons/header/header.component'
 import { SideMenuBarComponent } from './pages/commons/sideMenuBar/sideMenuBar.component';
 import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
 import { AgGridModule } from 'ag-grid-angular';
-import {MatCardModule} from '@angular/material/card';
 import {CalendarModule} from 'primeng/calendar';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { LoadingSpinnerComponent } from './pages/commons/loadingSpinner/loadingSpinner.component';
 import { HttpLoaderInterceptor } from './interceptors/http-loader.interceptor';
+import { AdminSettingsModule } from './pages/adminSettings/adminSettings.module';
+
+import { NZ_ICONS } from 'ng-zorro-antd/icon';
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
+import { IconDefinition } from '@ant-design/icons-angular';
+import * as AllIcons from '@ant-design/icons-angular/icons';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
+const antDesignIcons = AllIcons as {
+  [key: string]: IconDefinition;
+};
+const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesignIcons[key])
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +46,7 @@ import { HttpLoaderInterceptor } from './interceptors/http-loader.interceptor';
     SideMenuBarComponent,
     ExamStatusReportComponent,
     GraphcardComponent,
-    TinycardComponent
+    TinycardComponent,
    ],
   imports: [
     CommonModule,
@@ -49,24 +59,15 @@ import { HttpLoaderInterceptor } from './interceptors/http-loader.interceptor';
     AgGridModule,
     FormsModule,
     CalendarModule,
-    MatCardModule,
+    AdminSettingsModule,
     NgApexchartsModule,
-    ToastrModule.forRoot(
-      {
-        timeOut: 3000,
-        preventDuplicates: true,
-        maxOpened: 1,
-        autoDismiss: true,
-        progressBar: true,
-        progressAnimation: 'increasing',
-        closeButton: true
-      }
-    ),
+    SweetAlert2Module.forRoot()
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: HttpLoaderInterceptor, multi: true
     },
+    { provide: NZ_I18N, useValue: en_US }, { provide: NZ_ICONS, useValue: icons },
     HttpClient
   ],
   bootstrap: [AppComponent],

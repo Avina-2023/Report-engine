@@ -7,6 +7,7 @@ import { APP_CONSTANTS } from './utils/app-constants.service';
 import { LoginGaurd } from "./gaurds/loginGaurd";
 import { Reverseauth } from './gaurds/reverseauth';
 import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
+import { AddUserComponent } from './pages/adminSettings/addUser/addUser.component';
 const routes: Routes = [
   {
     path: `${APP_CONSTANTS.ROUTES.LOGIN}`, component: LoginComponent,canActivate: [Reverseauth]
@@ -17,6 +18,13 @@ const routes: Routes = [
   {
     path:  `exam`, component: ExamStatusReportComponent
   },
+  {
+    path: `${APP_CONSTANTS.ROUTES.ADMIN.HOME}`,
+    loadChildren: () => import('./pages/adminSettings/adminSettings.module').then(m => m.AdminSettingsModule)
+  },
+  // {
+  //   path:  `${APP_CONSTANTS.ROUTES.ADMIN.ADDUSER}`, component: AddUserComponent
+  // },
   {
     path: '',
     pathMatch: 'full',
