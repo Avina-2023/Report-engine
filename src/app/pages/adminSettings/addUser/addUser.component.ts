@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
-
+import { AlertServiceService } from 'src/app/services/alertService.service';
 @Component({
   selector: 'app-addUser',
   templateUrl: './addUser.component.html',
-  styleUrls: ['./addUser.component.scss']
+  styleUrls: ['./addUser.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AddUserComponent implements OnInit {
   addUserForm: any;
@@ -20,12 +21,15 @@ export class AddUserComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiservice: ApiService,
+    private alertservice: AlertServiceService
     ) { }
 
   ngOnInit() {
     this.forminitialize();
     this.getOrganizationList();
+
   }
+
 
   getOrganizationList(){
     this.apiservice.getOrganizationList().subscribe((data:any)=>{
@@ -63,9 +67,9 @@ formSubmit(){
       console.log(res);
 
       if(res.success){
-        alert('success')
+        this.alertservice.toastfire('success',res.message);
       }else{
-        alert('false')
+        this.alertservice.toastfire('warning',res.message);
       }
     })
    }

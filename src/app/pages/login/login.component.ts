@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
 import { AppConfigService } from 'src/app/utils/app-config.service';
 import { APP_CONSTANTS } from 'src/app/utils/app-constants.service';
@@ -21,7 +20,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private https: ApiService,
     private authConfig: AppConfigService,
-    public toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +49,7 @@ export class LoginComponent implements OnInit {
         this.authConfig.setlocalValue('firstname', res.data.attributes.firstName);
         this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.DASHBOARD)
       } else {
-        this.toastr.error(res.message);
+        //implement sweet alert
       }
     }
     )
