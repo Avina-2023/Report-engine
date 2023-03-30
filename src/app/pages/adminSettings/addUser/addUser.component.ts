@@ -30,6 +30,12 @@ export class AddUserComponent implements OnInit {
 
   }
 
+  conform(){
+    this.alertservice.alertDialog('success',"Do you want to close it?",'Press yes to close').then((data)=>{
+      console.log(data)
+    })
+  }
+
 
   getOrganizationList(){
     this.apiservice.getOrganizationList().subscribe((data:any)=>{
