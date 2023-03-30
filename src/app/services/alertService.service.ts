@@ -30,7 +30,20 @@ toastfire(toasttype:SweetAlertIcon, message:any){
  )
 }
 
-// alertDialog(toasttype:SweetAlertIcon,titleData){
+async alertDialog(icon:SweetAlertIcon,title:string,text:string){
 
-// }
+  return Swal.fire({
+    title,
+    text,
+    icon,
+    showCancelButton: false,
+    showDenyButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes',
+    denyButtonText: 'No',
+    cancelButtonText:'Cancel'
+  })
+
+}
 }
