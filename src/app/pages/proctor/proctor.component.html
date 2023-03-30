@@ -1,0 +1,27 @@
+<h3>
+  Proctor Details!
+</h3>
+<div class="total">
+<h3>Rejected : {{this.rejected}}</h3>
+<h3>Stopped : {{this.stopped}}</h3>
+<h3>Started : {{this.Started}}</h3>
+<h3>Accepted : {{this.accepted}}</h3>
+<h3>Paused : {{this.paused}}</h3>
+<h3>Template : {{this.template}}</h3>
+<h3>Created : {{this.created}}</h3>
+</div>
+<ag-grid-angular
+style="width: 100%; height: 500px;margin: 5px;"
+class="ag-theme-alpine"
+[suppressClickEdit]="true"
+[rowData]="rowData"
+[columnDefs]="columnDefs"
+[defaultColDef]="defaultColDef"
+[rowSelection]="'multiple'"
+[paginationPageSize]="20"
+[pagination]="true"
+[animateRows]="true"
+(gridReady)="onGridReady($event)"
+(cellClicked)="onCellClicked($event)"
+
+></ag-grid-angular>

@@ -8,6 +8,7 @@ import { LoginGaurd } from "./gaurds/loginGaurd";
 import { Reverseauth } from './gaurds/reverseauth';
 import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
 import { AddUserComponent } from './pages/adminSettings/addUser/addUser.component';
+import { ProctorComponent } from './pages/proctor/proctor.component'
 const routes: Routes = [
   {
     path: `${APP_CONSTANTS.ROUTES.LOGIN}`, component: LoginComponent,canActivate: [Reverseauth]
@@ -17,6 +18,9 @@ const routes: Routes = [
   },
   {
     path:  `exam`, component: ExamStatusReportComponent
+  },
+  {
+    path:  `proctor`, component: ProctorComponent
   },
   {
     path: `${APP_CONSTANTS.ROUTES.ADMIN.HOME}`,
