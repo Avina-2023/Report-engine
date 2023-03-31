@@ -2,26 +2,36 @@
   Proctor Details!
 </h3>
 <div class="total">
-<h3>Rejected : {{this.rejected}}</h3>
-<h3>Stopped : {{this.stopped}}</h3>
-<h3>Started : {{this.Started}}</h3>
-<h3>Accepted : {{this.accepted}}</h3>
-<h3>Paused : {{this.paused}}</h3>
-<h3>Template : {{this.template}}</h3>
-<h3>Created : {{this.created}}</h3>
+  <h3>Rejected : {{this.rejected}}</h3>
+  <h3>Stopped : {{this.stopped}}</h3>
+  <h3>Started : {{this.Started}}</h3>
+  <h3>Accepted : {{this.accepted}}</h3>
+  <h3>Paused : {{this.paused}}</h3>
+  <h3>Template : {{this.template}}</h3>
+  <h3>Created : {{this.created}}</h3>
 </div>
-<ag-grid-angular
-style="width: 100%; height: 500px;margin: 5px;"
-class="ag-theme-alpine"
-[suppressClickEdit]="true"
-[rowData]="rowData"
-[columnDefs]="columnDefs"
-[defaultColDef]="defaultColDef"
-[rowSelection]="'multiple'"
-[paginationPageSize]="20"
-[pagination]="true"
-[animateRows]="true"
-(gridReady)="onGridReady($event)"
-(cellClicked)="onCellClicked($event)"
+<div class="filter">
+<div class="date-filter">
+  <input type="date" />
+</div>
+<div class="status-filter">
+  <select>
+    <option>--select status--</option>
+    <option>rejected</option>
+    <option>stopped</option>
+    <option>Started</option>
+    <option>accepted</option>
+    <option>paused</option>
+    <option>template</option>
+    <option>created</option>
+  </select>
+</div>
 
-></ag-grid-angular>
+  <div class="schedule-filter">
+    <input type="text" />
+  </div>
+</div>
+<ag-grid-angular style="width: 100%; height: 500px;margin: 5px;" class="ag-theme-alpine" [suppressClickEdit]="true"
+  [rowData]="rowData" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [rowSelection]="'multiple'"
+  [paginationPageSize]="20" [pagination]="true" [animateRows]="true" (gridReady)="onGridReady($event)"
+  (cellClicked)="onCellClicked($event)"></ag-grid-angular>

@@ -6,9 +6,12 @@ import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.compone
 import { APP_CONSTANTS } from './utils/app-constants.service';
 import { LoginGaurd } from "./gaurds/loginGaurd";
 import { Reverseauth } from './gaurds/reverseauth';
+import { PrevilegeGaurd } from './gaurds/PrevilegeGaurd';
 import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
 import { AddUserComponent } from './pages/adminSettings/addUser/addUser.component';
 import { ProctorComponent } from './pages/proctor/proctor.component'
+ 
+
 const routes: Routes = [
   {
     path: `${APP_CONSTANTS.ROUTES.LOGIN}`, component: LoginComponent,canActivate: [Reverseauth]
@@ -17,13 +20,13 @@ const routes: Routes = [
     path: `${APP_CONSTANTS.ROUTES.DASHBOARD}`, component: DashboardComponent,canActivate: [LoginGaurd]
   },
   {
-    path:  `exam`, component: ExamStatusReportComponent
+    path:  `${APP_CONSTANTS.ROUTES.EXAM}`, component: ExamStatusReportComponent,canActivate:[PrevilegeGaurd]
   },
   {
-    path:  `proctor`, component: ProctorComponent
+    path:  `${APP_CONSTANTS.ROUTES.PROCTOR}`, component: ProctorComponent,canActivate:[PrevilegeGaurd]
   },
   {
-    path: `${APP_CONSTANTS.ROUTES.ADMIN.HOME}`,
+    path: `${APP_CONSTANTS.ROUTES.ADMIN.HOME}`,canActivate:[PrevilegeGaurd],
     loadChildren: () => import('./pages/adminSettings/adminSettings.module').then(m => m.AdminSettingsModule)
   },
   // {
