@@ -4,6 +4,8 @@ export const APP_CONSTANTS = {
     LOGIN: '/login',
     FORGOT: '/forgot-password',
     DASHBOARD: '/dashboard',
+    PROCTOR:'/proctor',
+    EXAM:'/exam',
     ADMIN:{
       ADDUSER: '/admin/newUser'
     },
@@ -13,6 +15,8 @@ export const APP_CONSTANTS = {
     LOGIN: 'login',
     FORGOT: 'forgot-password',
     DASHBOARD: 'dashboard',
+    PROCTOR:'proctor',
+    EXAM:'exam',
     ADMIN:{
       HOME: 'admin',
       ADDUSER:'newUser'

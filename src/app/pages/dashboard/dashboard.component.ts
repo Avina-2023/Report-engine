@@ -471,10 +471,13 @@ export class DashboardComponent implements OnInit {
       // console.log('keys',keys);
 
       keys.forEach((key) =>
+      
         this.columnDefs.push({
           field: key,
-          headerName: key.replaceAll('_', ' '),
-        })
+          headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
+
+        }),
+       
       );
       this.agGrid.api.setColumnDefs(this.columnDefs);
       this.agGrid.api.setRowData(anObject);

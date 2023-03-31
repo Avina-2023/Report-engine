@@ -12,7 +12,7 @@ export class SideMenuBarComponent implements OnInit {
   isAdmin:boolean = false
   constructor(private messenger:InterComponentMessenger) {
     let userDetails:any = localStorage.getItem('userDetails');
-    if(userDetails?.roleId == "SADM"){
+    if(JSON.parse(userDetails)?.roleId == "SADM"){
       this.isAdmin = true;
     }
     this.messenger.getMessage().subscribe((data)=>{
