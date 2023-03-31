@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ApiService {
 
-  BASE_URL = environment.local;
+  BASE_URL = environment.API_BASE_URL;
 
   constructor(
     private http: HttpClient,
