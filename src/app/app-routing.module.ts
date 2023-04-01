@@ -6,7 +6,7 @@ import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.compone
 import { APP_CONSTANTS } from './utils/app-constants.service';
 import { LoginGaurd } from "./gaurds/loginGaurd";
 import { Reverseauth } from './gaurds/reverseauth';
-import { PrevilegeGaurd } from './gaurds/PrevilegeGaurd';
+import { PrevilegeGaurd } from './gaurds/previlegeGaurd';
 import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
 import { AddUserComponent } from './pages/adminSettings/addUser/addUser.component';
 import { ProctorComponent } from './pages/proctor/proctor.component'
