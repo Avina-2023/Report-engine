@@ -42,6 +42,13 @@ export class ApiService {
   dateWiseSectionReport(data:any){
    return this.http.post(`${this.BASE_URL}/dateWiseSectionReport`,data)
   }
+  proctor(data:any){
+    console.log(data);
+    if (data == undefined) {
+      data = {};
+    }
+    return this.http.post(`https://reportelasticdev.lntedutech.com/proctor`,data)
+   }
   getkibona(url:any){
     return this.http.get(url,{responseType: 'text'});
   }

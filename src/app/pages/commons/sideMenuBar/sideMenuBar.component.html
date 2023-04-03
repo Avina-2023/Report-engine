@@ -4,11 +4,14 @@
       <li class="nav-item" [routerLink]="['/dashboard']"  routerLinkActive="selected">
         <a class="nav-link" id="home">Home</a>
       </li>
-      <li class="nav-item" [routerLink]="['/exam']"  routerLinkActive="selected">
+      <li *ngIf="isAdmin" class="nav-item" [routerLink]="['/exam']"  routerLinkActive="selected">
         <a class="nav-link"   id="about">Reports</a>
       </li>
-      <li  class="nav-item" [routerLink]="[APP_CONSTANTS.ENDPOINTS.ADMIN.ADDUSER]"  routerLinkActive="selected">
+      <li *ngIf="isAdmin" class="nav-item" [routerLink]="[APP_CONSTANTS.ENDPOINTS.ADMIN.ADDUSER]"  routerLinkActive="selected">
         <a class="nav-link"   id="about">New Users</a>
+      </li>
+      <li *ngIf="isAdmin" class="nav-item" [routerLink]="[APP_CONSTANTS.ENDPOINTS.PROCTOR]"  routerLinkActive="selected">
+        <a class="nav-link"   id="about">Proctors</a>
       </li>
       <!-- <li class="nav-item">
         <a class="nav-link" href="#" id="contact">Contact</a>

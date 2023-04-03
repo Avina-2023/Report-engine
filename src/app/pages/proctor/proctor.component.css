@@ -1,0 +1,9 @@
+
+.total{
+    display: flex;
+    justify-content: space-around;
+}
+.filter{
+    display: flex;
+    justify-content:flex-end;
+}
