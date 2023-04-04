@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertServiceService } from 'src/app/services/alertService.service';
 import { ApiService } from 'src/app/services/api.service';
 import { AppConfigService } from 'src/app/utils/app-config.service';
 import { APP_CONSTANTS } from 'src/app/utils/app-constants.service';
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private https: ApiService,
     private authConfig: AppConfigService,
+    private alertService: AlertServiceService
   ) { }
 
   ngOnInit(): void {
@@ -49,7 +51,7 @@ export class LoginComponent implements OnInit {
         this.authConfig.setlocalValue('firstname', res.data.attributes.firstName);
         this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.DASHBOARD)
       } else {
-        //implement sweet alert
+        this.alertService.toastfire('error',res.message);
       }
     }
     )
