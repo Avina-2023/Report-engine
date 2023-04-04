@@ -14,10 +14,8 @@ spec:
     spec:
       containers:
         - name: reportengineui
-          image: taodev.azurecr.io/reportengineui:$tag
+          image: taodev.azurecr.io/reportengineuiuat:$tag
           ports:
           - containerPort: 80
       imagePullSecrets:
         - name: mysecret
-      nodeSelector:
-        agentpool: taodev
