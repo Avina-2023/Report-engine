@@ -1,0 +1,19 @@
+.vmssDashWrapper{
+  margin:15px;
+  .card-Section{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+  }
+  mat-card{
+    margin-top: 10px;
+  }
+  .topToolbar{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom:10px;
+    margin-right: 10px;
+    width: 100%;
+  }
+}

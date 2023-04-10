@@ -33,6 +33,9 @@ import * as AllIcons from '@ant-design/icons-angular/icons';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { ProctorComponent } from './pages/proctor/proctor.component';
+import { MinidetailscardComponent } from './pages/minidetailscard/minidetailscard.component';
+import { DetailscardComponent } from './pages/detailscard/detailscard.component';
+import { Dashboard_VMSSComponent } from './pages/dashboard_VMSS/dashboard_VMSS.component';
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
 };
@@ -50,7 +53,10 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     ExamStatusReportComponent,
     GraphcardComponent,
     TinycardComponent,
-    ProctorComponent
+    MinidetailscardComponent,
+    ProctorComponent,
+    DetailscardComponent,
+    Dashboard_VMSSComponent
    ],
   imports: [
     CommonModule,

@@ -52,7 +52,7 @@ export class ApiService {
   getkibona(url:any){
     return this.http.get(url,{responseType: 'text'});
   }
-  getVMSSDetails(dateParam:any =new Date()){
+  getVMSSDetails(dateParam:any){
     return this.http.get('https://qa-assess.lntedutech.com/tao/views/api/taostatus/dashboard.php?fromdate='+dateParam)
   }
   getErrpage(){

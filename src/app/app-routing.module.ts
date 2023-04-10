@@ -10,7 +10,8 @@ import { PrevilegeGaurd } from './gaurds/previlegeGaurd';
 import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
 import { AddUserComponent } from './pages/adminSettings/addUser/addUser.component';
 import { ProctorComponent } from './pages/proctor/proctor.component'
- 
+import { Dashboard_VMSSComponent } from './pages/dashboard_VMSS/dashboard_VMSS.component';
+
 
 const routes: Routes = [
   {
@@ -24,6 +25,9 @@ const routes: Routes = [
   },
   {
     path:  `${APP_CONSTANTS.ROUTES.PROCTOR}`, component: ProctorComponent,canActivate:[PrevilegeGaurd]
+  },
+  {
+    path:  `${APP_CONSTANTS.ROUTES.VMSSDASH}`, component: Dashboard_VMSSComponent,canActivate:[LoginGaurd]
   },
   {
     path: `${APP_CONSTANTS.ROUTES.ADMIN.HOME}`,canActivate:[PrevilegeGaurd],
