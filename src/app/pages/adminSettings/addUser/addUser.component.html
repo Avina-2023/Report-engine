@@ -1,0 +1,59 @@
+<div class="addUser">
+  <div class="heading">
+    <h2>Add user</h2>
+  </div>
+  <mat-card >
+    <div [formGroup]="addUserForm" class="formWrapper">
+      <mat-label>Email ID<span class="redTxt">*</span></mat-label>
+      <mat-form-field appearance="outline">
+
+        <input matInput placeholder="Enter here" id="email" class="input" type="email" [email]="true" formControlName="email">
+          <mat-error *ngIf="addUserForm?.get('email')?.hasError?.('required')">Email ID is Required</mat-error>
+          <mat-error *ngIf="email?.errors?.email">Not an Valid Email ID</mat-error>
+      </mat-form-field>
+      <mat-label>First Name <span class="redTxt">*</span></mat-label>
+      <mat-form-field appearance="outline">
+
+        <input matInput class="input" id="fname" placeholder="Enter here" type="text" formControlName="fname">
+          <mat-error *ngIf="fname?.errors?.required">Name is Required</mat-error>
+          <mat-error *ngIf="fname.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed</mat-error>
+      </mat-form-field>
+      <mat-label>Last Name <span class="redTxt">*</span></mat-label>
+      <mat-form-field appearance="outline">
+        <input matInput class="input" id="lname" placeholder="Enter here" type="text" formControlName="lname">
+          <mat-error *ngIf="lname?.errors?.required">Last name is Required</mat-error>
+          <mat-error *ngIf="lname.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed</mat-error>
+      </mat-form-field>
+      <div class="nzformfield">
+        <mat-label>Organization <span class="redTxt">*</span></mat-label>
+        <nz-select style="width:100%" formControlName="orgid" [nzSize]="'default'" nzMode="multiple"
+          nzPlaceHolder="Please select your Organization" [class]="">
+          <nz-option *ngFor="let option of orglist" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+        </nz-select>
+        <div class="form-spacer" *ngIf="!(orgid?.invalid && orgid?.touched)">
+        </div>
+        <div class="form-error" *ngIf="orgid?.invalid && orgid?.touched">
+        <mat-error *ngIf="orgid?.errors?.required">Organization name is Required</mat-error>
+        </div>
+      </div>
+      <!-- <div  class="overall-input-wrapper width-100">
+      <label>OrgID <span class="redTxt">*</span></label>
+      <input matInput class="input" id="orgid" placeholder="Enter here" type="text" formControlName="orgid">
+      <div class="form-error" *ngIf="orgid?.invalid && orgid?.touched">
+        <mat-error *ngIf="orgid?.errors?.required">Org ID  is Required</mat-error>
+        <mat-error *ngIf="orgid.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed</mat-error>
+      </div>
+    </div> -->
+    <mat-label>RoleID<span class="redTxt">*</span></mat-label>
+      <mat-form-field appearance="outline">
+        <input matInput class="input" id="roleid" placeholder="Enter here" type="text" formControlName="roleid">
+          <mat-error *ngIf="roleid?.errors?.required">Role is Required</mat-error>
+          <mat-error *ngIf="roleid.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed</mat-error>
+      </mat-form-field>
+      <div class="submitBtn">
+        <button mat-raised-button color="primary" (click)="formSubmit()">Save</button>
+      </div>
+    </div>
+  </mat-card>
+
+</div>

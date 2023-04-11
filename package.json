@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --aot --build-optimizer --optimization ",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "start": "nx serve",
+    "build": "nx build --aot --build-optimizer --optimization ",
+    "watch": "nx build --watch --configuration development",
+    "test": "nx test"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^15.1.0",
     "@angular/platform-browser-dynamic": "^15.1.0",
     "@angular/router": "^15.1.0",
+    "@sweetalert2/ngx-sweetalert2": "^12.1.0",
     "ag-grid": "^18.1.2",
     "ag-grid-angular": "^29.0.0",
     "ag-grid-community": "^29.0.0",
@@ -32,20 +33,27 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "ng-apexcharts": "^1.7.4",
+    "ng-zorro-antd": "^15.0.3",
     "ngx-filesaver": "^15.0.0",
-    "ngx-toastr": "15.2.1",
     "primeicons": "^6.0.1",
     "primeng": "^15.2.0",
     "rxjs": "~7.8.0",
     "socket.io-client": "^4.6.1",
+    "sweetalert2": "^11.7.3",
     "tslib": "^2.3.0",
     "xlsx": "^0.18.5",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.1.2",
+    "@angular-devkit/core": "~15.1.2",
+    "@angular-devkit/schematics": "~15.1.2",
     "@angular/cli": "~15.1.2",
     "@angular/compiler-cli": "^15.1.0",
+    "@nrwl/angular": "15.9.2",
+    "@nrwl/nx-cloud": "latest",
+    "@nrwl/workspace": "15.9.2",
+    "@schematics/angular": "~15.1.2",
     "@types/file-saver": "^2.0.5",
     "@types/jasmine": "~4.3.0",
     "@types/lodash": "^4.14.191",
@@ -55,6 +63,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
+    "nx": "15.9.2",
     "typescript": "~4.9.4"
   }
 }

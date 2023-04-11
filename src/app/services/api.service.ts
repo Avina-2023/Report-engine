@@ -15,7 +15,7 @@ export class ApiService {
 
 
   register(data: any) {
-    return this.http.post(`${this.BASE_URL}/login`, data)
+    return this.http.post(`${this.BASE_URL}/create-user`, data)
   }
 
   login(data: any) {
@@ -26,20 +26,8 @@ export class ApiService {
     return this.http.post(`${this.BASE_URL}/uploadQuestion`, file);
   }
 
-  Joblist(data: any) {
-    return this.http.post(`${this.BASE_URL}/getBatchList`, data);
-  }
-
-  jobDetails(data: any) {
-    return this.http.post(`${this.BASE_URL}/getBatchDetails`, data)
-  }
-
-  getOrganiz(data: any) {
-    return this.http.post(`${this.BASE_URL}/getOrganization`, data)
-  }
-
-  toa(data: any) {
-    return this.http.post(`${this.BASE_URL}/createXMLFolder`, data)
+  getOrganizationList(){
+    return this.http.get(`https://uapedgeservicedev.lntedutech.com/getUapOrganizations`)
   }
 
   dashboard(data:any){
@@ -54,8 +42,18 @@ export class ApiService {
   dateWiseSectionReport(data:any){
    return this.http.post(`${this.BASE_URL}/dateWiseSectionReport`,data)
   }
+  proctor(data:any){
+    console.log(data);
+    if (data == undefined) {
+      data = {};
+    }
+    return this.http.post(`https://reportelasticdev.lntedutech.com/proctor`,data)
+   }
   getkibona(url:any){
     return this.http.get(url,{responseType: 'text'});
+  }
+  getVMSSDetails(dateParam:any){
+    return this.http.get('https://qa-assess.lntedutech.com/tao/views/api/taostatus/dashboard.php?fromdate='+dateParam)
   }
   getErrpage(){
     return this.http.get('/assets/Html/maintanence.html')
