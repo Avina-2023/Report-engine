@@ -1,7 +1,7 @@
 export const mockData ={
   "data":
   {
-    "item": [
+    "items": [
     {
       "instance_name": "Doapp40",
       "DeliveryID": "https://doapp40.lntedutech.com/assess.rdf#i16806885368707511",
@@ -32,7 +32,7 @@ export const mockData ={
     }
   ],
   "total_count": 15,
-  "total_start": 2,
+  "total_started": 2,
   "total_inprogress": 0,
   "total_completed": 2
 },

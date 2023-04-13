@@ -1,13 +1,15 @@
 <div class="vmssDashWrapper">
   <div class="card-Section">
-    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Total'" [cardValue]="vmssData.total_count"
+    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Total'" [cardValue]="vmssData?.total_count"
       [wgColor]="'green'"></app-detailscard>
-    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Started'" [cardValue]="vmssData.total_start"
-      [wgColor]="'blue'"></app-detailscard>
-    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'In progress'" [cardValue]="vmssData.total_inprogress"
+    <!-- <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Started'" [cardValue]="vmssData?.total_started"
+      [wgColor]="'blue'"></app-detailscard> -->
+    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'In progress'" [cardValue]="vmssData?.total_inprogress"
       [wgColor]="'pink'"></app-detailscard>
-    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Completed'" [cardValue]="vmssData.total_completed"
+    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Completed'" [cardValue]="vmssData?.total_completed"
       [wgColor]="'brown'"></app-detailscard>
+      <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Total Instances'" [cardValue]="totalInstances"
+      [wgColor]="'blue'"></app-detailscard>
   </div>
 <div class="graphWrapper">
   <mat-card class="card">
@@ -64,6 +66,8 @@
     [defaultColDef]="defaultColDef"
     [paginationPageSize]="20"
     [pagination]="true"
+    [groupDisplayType]="groupDisplayType" 
+    [groupRowRenderer]="groupRowRenderer"
   >
   </ag-grid-angular>
 </div>

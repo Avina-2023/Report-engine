@@ -25,7 +25,6 @@ export class ProctorComponent implements OnInit {
   paused:any
   template:any
   created:any
-  // ColDef: any;
   rowData:any=[];
   ColDef: any;
   rejectedDate: any;
@@ -35,27 +34,28 @@ export class ProctorComponent implements OnInit {
     private fileserver:FileSaverService,
     private excelService:ExcelService,
   ) { }
-  public groupDisplayType: RowGroupingDisplayType = 'custom';
-  public groupRowRenderer = 'agGroupCellRenderer';
+  // public groupDisplayType: RowGroupingDisplayType = 'custom';
+  // public groupRowRenderer = 'agGroupCellRenderer';
   columnDefs: ColDef[] = [
-    { 
-      // group column name
-      headerName: 'Schedule Name',
-      // use the group cell render provided by the grid
-      cellRenderer: 'agGroupCellRenderer', 
-      // informs the grid to display row groups under this column
-      showRowGroup: 'scheduleName',
-  },
-  {
-    headerName: 'Status',
-    minWidth: 200,
-    showRowGroup: 'status',
-    
-    cellRenderer: 'agGroupCellRenderer',
-  },
-    { field: 'scheduleName',rowGroup: true,hide: true, filter: false, },
-    { field: 'useremail' },
-    { field: 'status' ,rowGroup: true,hide: true, filter: false,},
+  //   { 
+  //     // group column name
+  //     headerName: 'Schedule Name',
+  //     // use the group cell render provided by the grid
+  //     cellRenderer: 'agGroupCellRenderer', 
+  //     // informs the grid to display row groups under this column
+  //     showRowGroup: 'scheduleName',
+  // },
+  // {
+  //   headerName: 'Status',
+  //   minWidth: 200,
+  //   showRowGroup: 'status',
+  //   cellRenderer: 'agGroupCellRenderer',
+  // },
+    { field: 'scheduleName'},
+    // { field: 'scheduleName',rowGroup: true,hide: true, filter: false, },
+    { field: 'useremail'},
+    // { field: 'status' ,rowGroup: true,hide: true, filter: false,},
+    { field: 'status' },
     { field: 'browser' },
     { field: 'signedAt' },
     { field: 'createdAt' }
@@ -131,9 +131,10 @@ export class ProctorComponent implements OnInit {
   statsCardClick(data:string){
       var sportsFilterComponent = this.agGrid.api.getFilterInstance("status");
       console.log(sportsFilterComponent)
+
       sportsFilterComponent?.setModel({
         type: "contains",
-        filter: data
+        filter: "paused"
       });
       this.agGrid.api.onFilterChanged();
   }

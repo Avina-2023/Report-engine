@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ColDef } from 'ag-grid';
+import { ColDef , RowGroupingDisplayType,  } from 'ag-grid-enterprise';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ChartComponent } from 'ng-apexcharts';
 import { ApiService } from 'src/app/services/api.service';
@@ -15,7 +15,8 @@ export class Dashboard_VMSSComponent implements OnInit {
   @ViewChild('timelineChrt') timelineChrt?: ChartComponent;
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 
-
+  public groupDisplayType: RowGroupingDisplayType = 'custom';
+  public groupRowRenderer = 'agGroupCellRenderer';
   vmssData: any;
   chartOptions:any = {
     series: [
@@ -240,27 +241,35 @@ export class Dashboard_VMSSComponent implements OnInit {
   rowData: any;
   ColDefn: any;
   columnDefs: any;
+  totalInstances: any;
   constructor(private apiService:ApiService, private excelService:ExcelService) { }
 
   ngOnInit() {
-    this.apiService.getVMSSDetails("2023-04-05 16:00:00").subscribe((data:any)=>{
+    this.apiService.getVMSSDetails("2023-04-13 11:30:00").subscribe((data:any)=>{
       // let data = mockData;
       console.log(data);
       if(data.success){
         console.log(data.data)
         this.vmssData = data.data;
+        this.totalInstances = this.vmssData?.items.length
         this.chartOptions.series[0].data = [
-          this.vmssData.total_count,
-          this.vmssData.total_start,
-          this.vmssData.total_inprogress,
-          this.vmssData.total_completed,
+          this.vmssData?.total_count,
+          // this.vmssData?.total_started,
+          this.vmssData?.total_inprogress,
+          this.vmssData?.total_completed,
         ];
         this.ovrAllChrt?.updateSeries(this.chartOptions.series);
         setTimeout(() => {
-          this.dynamicallyConfigureColumnsFromObject(this.vmssData.item)
-
-        this.timelineChart(this.vmssData.item)
+        this.dynamicallyConfigureColumnsFromObject(this.vmssData.items)
+        this.timelineChart(this.vmssData.items)
+        const groupedObject = this.vmssData.items.groupBy((item:any) => {
+          return item.instance_name;
+        });
+        console.log(groupedObject)
       }, 500);
+
+      
+
       }
     })
   }
@@ -279,15 +288,26 @@ export class Dashboard_VMSSComponent implements OnInit {
       const keys = Object.keys(anObject[0]);
       // console.log('keys',keys);
 
-      keys.forEach((key) =>
-
-        this.columnDefs.push({
+      keys.forEach((key:any) =>{
+       let colDet:any =  {
           field: key,
           headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
-
-        }),
-
-      );
+        }
+        //THIS IS FOR GROUPING THE TABLE
+      // if(key=='instance_name'){
+      //   let groupCellData = {
+      //     headerName: colDet.headerName,
+      //     minWidth: 200,
+      //     showRowGroup: key,
+      //     cellRenderer: 'agGroupCellRenderer',
+      //   }
+      //   colDet.rowGroup= true;
+      //   colDet.hide= true;
+      //   this.columnDefs.push(groupCellData);
+        
+      // }
+        this.columnDefs.push(colDet);
+        });
       this.agGrid.api.setColumnDefs(this.columnDefs);
       this.agGrid.api.setRowData(anObject);
       this.rowData=anObject
