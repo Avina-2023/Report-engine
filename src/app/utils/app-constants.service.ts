@@ -4,8 +4,10 @@ export const APP_CONSTANTS = {
     LOGIN: '/login',
     FORGOT: '/forgot-password',
     DASHBOARD: '/dashboard',
+    VMSSDASH: '/dashboard_VMSS',
     PROCTOR:'/proctor',
     EXAM:'/exam',
+
     ADMIN:{
       ADDUSER: '/admin/newUser'
     },
@@ -15,6 +17,7 @@ export const APP_CONSTANTS = {
     LOGIN: 'login',
     FORGOT: 'forgot-password',
     DASHBOARD: 'dashboard',
+    VMSSDASH: 'dashboard_VMSS',
     PROCTOR:'proctor',
     EXAM:'exam',
     ADMIN:{
