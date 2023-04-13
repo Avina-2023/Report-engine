@@ -11,7 +11,9 @@
   </div>
 <div class="graphWrapper">
   <mat-card class="card">
-  <mat-card-header><h3>Overall Status</h3></mat-card-header>
+  <mat-card-header>
+    <h3>Overall Status</h3>
+  </mat-card-header>
   <mat-card-content>
     <apx-chart
     #ovrAllChrt
@@ -25,8 +27,10 @@
   ></apx-chart>
   </mat-card-content>
   </mat-card>
-  <mat-card>
-    <mat-card-header><h3>Exam Timelines</h3></mat-card-header>
+  <!-- <mat-card>
+    <mat-card-header>
+      <h3>Exam Timelines</h3>
+    </mat-card-header>
     <mat-card-content>
       <apx-chart
       #timelineChrt
@@ -38,7 +42,7 @@
     [xaxis]="chrtTimeline.xaxis"
     ></apx-chart>
     </mat-card-content>
-  </mat-card>
+  </mat-card> -->
 </div>
 <div class="tableWrapper">
   <div class="card_topic ml-10">

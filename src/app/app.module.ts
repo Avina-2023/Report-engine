@@ -19,6 +19,7 @@ import {HeaderComponent} from './pages/commons/header/header.component'
 import { SideMenuBarComponent } from './pages/commons/sideMenuBar/sideMenuBar.component';
 import { ExamStatusReportComponent } from './pages/examStatusReport/examStatusReport.component';
 import { AgGridModule } from 'ag-grid-angular';
+import 'ag-grid-enterprise';
 import {MatCardModule} from '@angular/material/card';
 import {CalendarModule} from 'primeng/calendar';
 import { NgApexchartsModule } from "ng-apexcharts";
@@ -36,6 +37,10 @@ import { ProctorComponent } from './pages/proctor/proctor.component';
 import { MinidetailscardComponent } from './pages/minidetailscard/minidetailscard.component';
 import { DetailscardComponent } from './pages/detailscard/detailscard.component';
 import { Dashboard_VMSSComponent } from './pages/dashboard_VMSS/dashboard_VMSS.component';
+
+import { LicenseManager } from 'ag-grid-enterprise';
+LicenseManager.setLicenseKey('CompanyName=LARSEN & TOUBRO LIMITED,LicensedGroup=L&T EduTech,LicenseType=MultipleApplications,LicensedConcurrentDeveloperCount=3,LicensedProductionInstancesCount=3,AssetReference=AG-017299,ExpiryDate=15_July_2022_[v2]_MTY1NzgzOTYwMDAwMA==d6a472ece2e8481f35e75c20066f8e49');
+
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
 };
@@ -53,7 +58,6 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     ExamStatusReportComponent,
     GraphcardComponent,
     TinycardComponent,
-    MinidetailscardComponent,
     ProctorComponent,
     DetailscardComponent,
     Dashboard_VMSSComponent
@@ -66,12 +70,13 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AgGridModule,
+    AgGridModule.withComponents([]),
     FormsModule,
     CalendarModule,
     MatCardModule,
     AdminSettingsModule,
     NgApexchartsModule,
+    MinidetailscardComponent,
     SweetAlert2Module.forRoot()
     // ToastrModule.forRoot(
     //   {

@@ -243,8 +243,8 @@ export class Dashboard_VMSSComponent implements OnInit {
   constructor(private apiService:ApiService, private excelService:ExcelService) { }
 
   ngOnInit() {
-    // this.apiService.getVMSSDetails("2023-04-05 16:00:00").subscribe((data:any)=>{
-      let data = mockData;
+    this.apiService.getVMSSDetails("2023-04-05 16:00:00").subscribe((data:any)=>{
+      // let data = mockData;
       console.log(data);
       if(data.success){
         console.log(data.data)
@@ -262,13 +262,11 @@ export class Dashboard_VMSSComponent implements OnInit {
         this.timelineChart(this.vmssData.item)
       }, 500);
       }
-    // })
+    })
   }
 
   timelineChart(timeParam:any){
     var options = this.chrtTimeline;
-
-
   }
 
   dynamicallyConfigureColumnsFromObject(anObject: any) {
