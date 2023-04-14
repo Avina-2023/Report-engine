@@ -22,8 +22,21 @@ export class Dashboard_VMSSComponent implements OnInit {
     series: [
       {
         name: 'Total',
-        data: [],
+        data: [34,74,53,32],
       },
+      {
+        name: 'Started',
+        data: [14,64,26,23],
+      },
+      {
+        name: 'In-progress',
+        data: [4,84,16,45],
+      },
+      {
+        name: 'Completed',
+        data: [24,74,56,22],
+      },
+
     ],
     plotOptions: {
       bar: {
@@ -52,7 +65,7 @@ export class Dashboard_VMSSComponent implements OnInit {
 
     ],
     dataLabels: {
-      enabled: false,
+      enabled: true,
       style: {
         colors: ['#fff'],
       },
@@ -70,10 +83,10 @@ export class Dashboard_VMSSComponent implements OnInit {
     },
     xaxis: {
       categories: [
-        'Total Count',
-        'Started',
-        'Inprogrss',
-        'Completed',
+        'doapp 1',
+        'doapp 2',
+        'doapp 3',
+        'doapp 4',
       ],
     },
   };
