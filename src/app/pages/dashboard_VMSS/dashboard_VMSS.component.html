@@ -1,15 +1,15 @@
 <div class="vmssDashWrapper">
   <div class="card-Section">
     <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Total'" [cardValue]="vmssData?.total_count"
-      [wgColor]="'green'"></app-detailscard>
+      [wgColor]="'#00bed7'"></app-detailscard>
     <!-- <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Started'" [cardValue]="vmssData?.total_started"
       [wgColor]="'blue'"></app-detailscard> -->
     <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'In progress'" [cardValue]="vmssData?.total_inprogress"
-      [wgColor]="'pink'"></app-detailscard>
+      [wgColor]="'#00bdac'"></app-detailscard>
     <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Completed'" [cardValue]="vmssData?.total_completed"
-      [wgColor]="'brown'"></app-detailscard>
+      [wgColor]="'#1bbc7a'"></app-detailscard>
       <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Total Instances'" [cardValue]="totalInstances"
-      [wgColor]="'blue'"></app-detailscard>
+      [wgColor]="'#77bc3c'"></app-detailscard>
   </div>
 <div class="graphWrapper">
   <mat-card class="card">
