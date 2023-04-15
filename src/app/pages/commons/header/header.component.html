@@ -17,12 +17,12 @@
   </div> -->
 
 
-  <div class="left">
-    <div class="main-logo">
+  <div class="left" (click)="menuToggle()">
+    <!-- <div class="main-logo">
       <img alt="main-login-logo" class="beforeloginimgLT" src="assets/images/L&T_logo.svg">
-    </div>
+    </div> -->
 
-    <div id="nav-icon1" (click)="menuToggle()" [ngClass]="isOpenMenu?'open':''">
+    <div id="nav-icon1" [ngClass]="isOpenMenu?'open':''">
       <span></span>
       <span></span>
       <span></span>
@@ -34,11 +34,11 @@
 
   </div>
 
-  <div class="middle">
+  <!-- <div class="middle">
    <div>Date Range Picker </div>
    <div><button class="btn btn-primary" [disabled]="isLoading" (click)="initializeLoader()"><span  [ngClass]="{'icon-loader-icon': isLoading, 'icon-spinner .path1': !isLoading}"></span> {{button}}</button>
    </div>
-  </div>
+  </div> -->
 
   <div class="right">
     <div class="firstname">

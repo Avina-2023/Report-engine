@@ -28,16 +28,16 @@ export class HeaderComponent implements OnInit {
    this.name=this.authConfig.getLocalValue('firstname')
   }
 
-  initializeLoader() {
-    this.isLoading = true;
-    this.button = 'Processing';
+  // initializeLoader() {
+  //   this.isLoading = true;
+  //   this.button = 'Processing';
 
-    setTimeout(() => {
-      this.isLoading = false;
-      this.button = 'Submit';
-      alert('Done loading');
-    }, 2000)
-  }
+  //   setTimeout(() => {
+  //     this.isLoading = false;
+  //     this.button = 'Submit';
+  //     alert('Done loading');
+  //   }, 2000)
+  // }
   menuToggle(){
     this.isOpenMenu = !this.isOpenMenu
     this.messenger.sendMessage("sideMenuToggle",this.isOpenMenu)

@@ -1,26 +1,37 @@
 .sidebar {
   height: 100%;
-  width: 200px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  // background-color: #f1f1f1;
-  overflow-x: hidden;
-  // padding-top: 20px;
-  margin-top:50px !important;
-  transition:  0.3s ease-in-out;
-  /* From https://css.glass */
-background: rgba(255, 255, 255, 0);
-border-radius: 3px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(7.7px);
--webkit-backdrop-filter: blur(7.7px);
-border: 1px solid rgba(255, 255, 255, 0.84);
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.3s ease-in-out;
+    background: linear-gradient(rgb(8 85 140), rgb(23 188 235 / 95%), rgb(64 186 130 / 89%)), url(https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Pushkin_population_history.svg/1198px-Pushkin_population_history.svg.png);
+    border-radius: 3px;
+    box-shadow: -4px -3px 15px 2px rgb(214 173 168);
+    /* backdrop-filter: blur(7.7px); */
+    -webkit-backdrop-filter: blur(7.7px);
+    background-position: revert;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.main-logo{
+  background: linear-gradient(118deg, rgb(255 255 255), #ffffff7d);
+  height: 55px;
+  align-items: center;
+  display: grid;
+  padding: 0px 15px;
+  img{
+    width: 95px;
+  }
 }
 
 .sidebar-nav {
-  height: calc(100% - 50px);
+  //height: calc(100% - 50px);
+  height: 100%;
   width: 100%;
  // transition: all 0.3s ease-in-out
 
@@ -45,24 +56,34 @@ border: 1px solid rgba(255, 255, 255, 0.84);
 }
 
 .nav-link {
-  color: #333;
+  color: #fff;
   text-decoration: none;
   font-weight: bold;
   display: block;
 }
 
 .nav-item.selected{
-  background-color: #d5d5d5bd;
-  border-left: 10px solid #78bc3b;
+  background-color: rgb(213 213 213 / 23%);
+  border-left: 10px solid #9eb6cb;
   margin-left: 0;
-  text-shadow: 0px 0px 4px #fffffff0;
+  //text-shadow: 0px 0px 4px #fffffff0;
 }
 
+// .nav-item.selected::after{
+//   content: "";
+//     position: absolute;
+//     background: rgb(10, 216, 21);
+//     width: 15px;
+//     height: 40px;
+//     top: 0px;
+//     right: 0;
+// }
+
 .nav-item:hover {
-  background-color: #d5d5d582;
-  border-left: 10px solid #27bbee;
+  background-color: rgb(213 213 213 / 23%);
+  border-left: 10px solid #d5d5d53b;
   margin-left: 0;
-  text-shadow: 0px 0px 4px #fffffff0;
+  //text-shadow: 0px 0px 4px #fffffff0;
   transition: 0.2s ease-in-out;
 }
 .sidebar.open {
