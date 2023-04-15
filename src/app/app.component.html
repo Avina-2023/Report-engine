@@ -1,11 +1,9 @@
 <app-loadingspinner></app-loadingspinner>
 <div [ngClass]="hUD_Display?'dashboard-Container':'overalls'">
-  
+  <app-header *ngIf="hUD_Display"></app-header>
   <div [ngClass]="hUD_Display?'dashbody':'overalls'">
     <app-sideMenuBar *ngIf="hUD_Display"></app-sideMenuBar>
-    
     <div class="trans_effect" [ngClass]="menuState?'open':'closed'">
-      <app-header *ngIf="hUD_Display"></app-header>
       <router-outlet></router-outlet>
     </div>
 
