@@ -19,31 +19,13 @@ export class Dashboard_VMSSComponent implements OnInit {
   public groupRowRenderer = 'agGroupCellRenderer';
   vmssData: any;
   chartOptions:any = {
-    series: [
-      {
-        name: 'Total',
-        data: [34,74,53,32],
-      },
-      {
-        name: 'Started',
-        data: [14,64,26,23],
-      },
-      {
-        name: 'In-progress',
-        data: [4,84,16,45],
-      },
-      {
-        name: 'Completed',
-        data: [24,74,56,22],
-      },
-
-    ],
+    series: [],
     plotOptions: {
       bar: {
         startingShape: 'flat',
         endingShape: 'rounded',
         borderRadius: 2,
-        distributed: true,
+        distributed: false,
         horizontal: true,
 
         dataLabels: {
@@ -51,21 +33,20 @@ export class Dashboard_VMSSComponent implements OnInit {
         },
       },
     },
+    tooltip: {
+      shared: true,
+      intersect: false
+    },
+
     chart: {
       type: 'bar',
-      height: 380,
+      height:'450px' ,
       margin: 0,
     },
 
-    colors: [
-      '#33b2df',
-      '#546E7A',
-      '#d4526e',
-      '#13d8aa',
-
-    ],
+   
     dataLabels: {
-      enabled: true,
+      enabled: false,
       style: {
         colors: ['#fff'],
       },
@@ -82,12 +63,7 @@ export class Dashboard_VMSSComponent implements OnInit {
       colors: ['#fff'],
     },
     xaxis: {
-      categories: [
-        'doapp 1',
-        'doapp 2',
-        'doapp 3',
-        'doapp 4',
-      ],
+      categories: [],
     },
   };
   chrtTimeline:any={
@@ -258,33 +234,61 @@ export class Dashboard_VMSSComponent implements OnInit {
   constructor(private apiService:ApiService, private excelService:ExcelService) { }
 
   ngOnInit() {
-    this.apiService.getVMSSDetails("2023-04-13 11:30:00").subscribe((data:any)=>{
-      // let data = mockData;
+    // this.apiService.getVMSSDetails("2023-04-13 11:30:00").subscribe((data:any)=>{
+      let data = mockData;
       console.log(data);
       if(data.success){
         console.log(data.data)
         this.vmssData = data.data;
         this.totalInstances = this.vmssData?.items.length
-        this.chartOptions.series[0].data = [
-          this.vmssData?.total_count,
-          // this.vmssData?.total_started,
-          this.vmssData?.total_inprogress,
-          this.vmssData?.total_completed,
-        ];
-        this.ovrAllChrt?.updateSeries(this.chartOptions.series);
-        setTimeout(() => {
+        let cdata = [{
+          name: 'Total',
+          data: this.vmssData?.items.map((dat:any) => {
+            return dat.Totalcount;
+          }),
+        },
+        {
+          name: 'Yet to Start',  
+          data: this.vmssData?.items.map((dat:any) => {
+            return dat.yetostart;
+          }),
+        },
+        {
+          name: 'In-progress',
+          data: this.vmssData?.items.map((dat:any) => {
+            return dat.inprogress;
+          }),
+        },
+        {
+          name: 'Completed',
+          data: this.vmssData?.items.map((dat:any) => {
+            return dat.completed;
+          }),
+        }];
+        let instData = {
+          xaxis: {
+          type: "category",
+          categories: this.vmssData?.items.map((i:any) =>{return i.instance_name})
+          }};
+          console.log(instData);
+          console.log(cdata);
+          setTimeout(() => {
+        this.ovrAllChrt?.updateSeries(cdata);
+        this.ovrAllChrt?.updateOptions(instData);
+        console.log(this.chartOptions)
+        
         this.dynamicallyConfigureColumnsFromObject(this.vmssData.items)
         this.timelineChart(this.vmssData.items)
-        const groupedObject = this.vmssData.items.groupBy((item:any) => {
-          return item.instance_name;
-        });
-        console.log(groupedObject)
+        // const groupedObject = this.vmssData.items.groupBy((item:any) => {
+        //   return item.instance_name;
+        // });
+        // console.log(groupedObject)
       }, 500);
 
       
 
       }
-    })
+    // })
   }
 
   timelineChart(timeParam:any){

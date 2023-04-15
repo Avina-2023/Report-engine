@@ -12,20 +12,20 @@
       [wgColor]="'#77bc3c'"></app-detailscard>
   </div>
 <div class="graphWrapper">
-  <mat-card class="card">
+  <mat-card class="card" style="height: 550px;">
   <mat-card-header>
     <h3>Overall Status</h3>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content >
     <apx-chart
     #ovrAllChrt
     [series]="chartOptions.series"
     [chart]="chartOptions.chart"
     [dataLabels]="chartOptions.dataLabels"
-    [colors]="chartOptions.colors"
     [plotOptions]="chartOptions.plotOptions"
     [legend]="chartOptions.legend"
     [xaxis]="chartOptions.xaxis"
+    [tooltip]="chartOptions.tooltip"
   ></apx-chart>
   </mat-card-content>
   </mat-card>
@@ -46,11 +46,12 @@
     </mat-card-content>
   </mat-card> -->
 </div>
-<div class="tableWrapper">
-  <div class="card_topic ml-10">
-    <h1>Overall Dashboard Table Representation</h1>
-  </div>
+<mat-card class="tableWrapper">
+  
   <div class="topToolbar">
+    <div class="card_topic">
+      <h3>Overall Dashboard Table Representation</h3>
+    </div>
     <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
   </div>
   <ag-grid-angular
@@ -70,5 +71,5 @@
     [groupRowRenderer]="groupRowRenderer"
   >
   </ag-grid-angular>
-</div>
+</mat-card>
 </div>
