@@ -29,7 +29,9 @@ export class Dashboard_VMSSComponent implements OnInit {
         horizontal: false,
 
         dataLabels: {
-
+          total: {
+            enabled: true,
+          },
           position: 'bottom',
         },
       },
