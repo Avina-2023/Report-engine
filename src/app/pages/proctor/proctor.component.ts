@@ -4,15 +4,16 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { ApiService } from 'src/app/services/api.service';
 import { HttpClient } from '@angular/common/http';
 // import 'ag-grid-enterprise';
-import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
+import { ColDef , RowGroupingDisplayType,  } from 'ag-grid-enterprise';
 import { FileSaverService } from 'ngx-filesaver';
 import { ExcelService } from 'src/app/services/excelService';
-import {CalendarModule} from 'primeng/calendar';
-import { DatePipe } from '@angular/common';
+import * as _ from 'lodash';
+import  {mockData}  from "../dashboard_VMSS/vmssdata"
+
 @Component({
   selector: 'app-proctor',
   templateUrl: './proctor.component.html',
-  styleUrls: ['./proctor.component.css']
+  styleUrls: ['./proctor.component.scss']
 })
 export class ProctorComponent implements OnInit {
   // rowData:any;
@@ -24,7 +25,6 @@ export class ProctorComponent implements OnInit {
   paused:any
   template:any
   created:any
-  // ColDef: any;
   rowData:any=[];
   ColDef: any;
   rejectedDate: any;
@@ -34,10 +34,27 @@ export class ProctorComponent implements OnInit {
     private fileserver:FileSaverService,
     private excelService:ExcelService,
   ) { }
-
+  // public groupDisplayType: RowGroupingDisplayType = 'custom';
+  // public groupRowRenderer = 'agGroupCellRenderer';
   columnDefs: ColDef[] = [
-    { field: 'scheduleName' },
-    { field: 'useremail' },
+  //   { 
+  //     // group column name
+  //     headerName: 'Schedule Name',
+  //     // use the group cell render provided by the grid
+  //     cellRenderer: 'agGroupCellRenderer', 
+  //     // informs the grid to display row groups under this column
+  //     showRowGroup: 'scheduleName',
+  // },
+  // {
+  //   headerName: 'Status',
+  //   minWidth: 200,
+  //   showRowGroup: 'status',
+  //   cellRenderer: 'agGroupCellRenderer',
+  // },
+    { field: 'scheduleName'},
+    // { field: 'scheduleName',rowGroup: true,hide: true, filter: false, },
+    { field: 'useremail'},
+    // { field: 'status' ,rowGroup: true,hide: true, filter: false,},
     { field: 'status' },
     { field: 'browser' },
     { field: 'signedAt' },
@@ -62,14 +79,14 @@ export class ProctorComponent implements OnInit {
  // For accessing the Grid's API
  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
  // Example load data from sever
- onGridReady(params: GridReadyEvent) {
+//  onGridReady(params: GridReadyEvent) {
  
- }
+//  }
  
- // Example of consuming Grid Event
- onCellClicked( e: CellClickedEvent): void {
-   console.log('cellClicked', e);
- }
+//  // Example of consuming Grid Event
+//  onCellClicked( e: CellClickedEvent): void {
+//    console.log('cellClicked', e);
+//  }
   ngOnInit() {
     this.proctordata()
   }
@@ -84,6 +101,10 @@ export class ProctorComponent implements OnInit {
     this.apiservice.proctor(this.date).subscribe((res:any)=>{
       console.log(res);
       this.rowData = res
+      // this.rowData = mockData.data.item;
+      // var grouped = _.mapValues(_.groupBy(cars, 'make'),
+      //                     clist => clist.map(car => _.omit(car, 'make')));
+
       res.forEach((_item:any,_index:any)=>{
         if(_item.status=="rejected"){
           this.rejected= this.rejected + 1
@@ -104,9 +125,20 @@ export class ProctorComponent implements OnInit {
       })
       // this.dynamicallyConfigureColumnsFromObject(res)
       //  this.agGrid.api.setRowData(res)
-      console.log(this.rejectedDate);
 
     })
   }
+  statsCardClick(data:string){
+      var sportsFilterComponent = this.agGrid.api.getFilterInstance("status");
+      console.log(sportsFilterComponent)
+
+      sportsFilterComponent?.setModel({
+        type: "contains",
+        filter: "paused"
+      });
+      this.agGrid.api.onFilterChanged();
+  }
+
+  
 
 }

@@ -1,32 +1,38 @@
 <div class="vmssDashWrapper">
   <div class="card-Section">
-    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Total'" [cardValue]="vmssData.total_count"
-      [wgColor]="'green'"></app-detailscard>
-    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Started'" [cardValue]="vmssData.total_start"
-      [wgColor]="'blue'"></app-detailscard>
-    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'In progress'" [cardValue]="vmssData.total_inprogress"
-      [wgColor]="'pink'"></app-detailscard>
-    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Completed'" [cardValue]="vmssData.total_completed"
-      [wgColor]="'brown'"></app-detailscard>
+    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Total'" [cardValue]="vmssData?.total_count"
+      [wgColor]="'#00bed7'"></app-detailscard>
+    <!-- <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Started'" [cardValue]="vmssData?.total_started"
+      [wgColor]="'blue'"></app-detailscard> -->
+    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'In progress'" [cardValue]="vmssData?.total_inprogress"
+      [wgColor]="'#00bdac'"></app-detailscard>
+    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Completed'" [cardValue]="vmssData?.total_completed"
+      [wgColor]="'#1bbc7a'"></app-detailscard>
+      <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Total Instances'" [cardValue]="totalInstances"
+      [wgColor]="'#77bc3c'"></app-detailscard>
   </div>
 <div class="graphWrapper">
-  <mat-card class="card">
-  <mat-card-header><h3>Overall Status</h3></mat-card-header>
-  <mat-card-content>
+  <mat-card class="card" style="height: 550px;">
+  <mat-card-header>
+    <h3>Overall Status</h3>
+  </mat-card-header>
+  <mat-card-content >
     <apx-chart
     #ovrAllChrt
     [series]="chartOptions.series"
     [chart]="chartOptions.chart"
     [dataLabels]="chartOptions.dataLabels"
-    [colors]="chartOptions.colors"
     [plotOptions]="chartOptions.plotOptions"
     [legend]="chartOptions.legend"
     [xaxis]="chartOptions.xaxis"
+    [tooltip]="chartOptions.tooltip"
   ></apx-chart>
   </mat-card-content>
   </mat-card>
-  <mat-card>
-    <mat-card-header><h3>Exam Timelines</h3></mat-card-header>
+  <!-- <mat-card>
+    <mat-card-header>
+      <h3>Exam Timelines</h3>
+    </mat-card-header>
     <mat-card-content>
       <apx-chart
       #timelineChrt
@@ -38,13 +44,14 @@
     [xaxis]="chrtTimeline.xaxis"
     ></apx-chart>
     </mat-card-content>
-  </mat-card>
+  </mat-card> -->
 </div>
-<div class="tableWrapper">
-  <div class="card_topic ml-10">
-    <h1>Overall Dashboard Table Representation</h1>
-  </div>
+<mat-card class="tableWrapper">
+  
   <div class="topToolbar">
+    <div class="card_topic">
+      <h3>Overall Dashboard Table Representation</h3>
+    </div>
     <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
   </div>
   <ag-grid-angular
@@ -60,7 +67,9 @@
     [defaultColDef]="defaultColDef"
     [paginationPageSize]="20"
     [pagination]="true"
+    [groupDisplayType]="groupDisplayType" 
+    [groupRowRenderer]="groupRowRenderer"
   >
   </ag-grid-angular>
-</div>
+</mat-card>
 </div>

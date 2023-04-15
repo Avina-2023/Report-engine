@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ColDef } from 'ag-grid';
+import { ColDef , RowGroupingDisplayType,  } from 'ag-grid-enterprise';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ChartComponent } from 'ng-apexcharts';
 import { ApiService } from 'src/app/services/api.service';
@@ -15,21 +15,17 @@ export class Dashboard_VMSSComponent implements OnInit {
   @ViewChild('timelineChrt') timelineChrt?: ChartComponent;
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 
-
+  public groupDisplayType: RowGroupingDisplayType = 'custom';
+  public groupRowRenderer = 'agGroupCellRenderer';
   vmssData: any;
   chartOptions:any = {
-    series: [
-      {
-        name: 'Total',
-        data: [],
-      },
-    ],
+    series: [],
     plotOptions: {
       bar: {
         startingShape: 'flat',
         endingShape: 'rounded',
         borderRadius: 2,
-        distributed: true,
+        distributed: false,
         horizontal: true,
 
         dataLabels: {
@@ -37,19 +33,18 @@ export class Dashboard_VMSSComponent implements OnInit {
         },
       },
     },
+    tooltip: {
+      shared: true,
+      intersect: false
+    },
+
     chart: {
       type: 'bar',
-      height: 380,
+      height:'450px' ,
       margin: 0,
     },
 
-    colors: [
-      '#33b2df',
-      '#546E7A',
-      '#d4526e',
-      '#13d8aa',
-
-    ],
+   
     dataLabels: {
       enabled: false,
       style: {
@@ -68,12 +63,7 @@ export class Dashboard_VMSSComponent implements OnInit {
       colors: ['#fff'],
     },
     xaxis: {
-      categories: [
-        'Total Count',
-        'Started',
-        'Inprogrss',
-        'Completed',
-      ],
+      categories: [],
     },
   };
   chrtTimeline:any={
@@ -240,35 +230,69 @@ export class Dashboard_VMSSComponent implements OnInit {
   rowData: any;
   ColDefn: any;
   columnDefs: any;
+  totalInstances: any;
   constructor(private apiService:ApiService, private excelService:ExcelService) { }
 
   ngOnInit() {
-    // this.apiService.getVMSSDetails("2023-04-05 16:00:00").subscribe((data:any)=>{
+    // this.apiService.getVMSSDetails("2023-04-13 11:30:00").subscribe((data:any)=>{
       let data = mockData;
       console.log(data);
       if(data.success){
         console.log(data.data)
         this.vmssData = data.data;
-        this.chartOptions.series[0].data = [
-          this.vmssData.total_count,
-          this.vmssData.total_start,
-          this.vmssData.total_inprogress,
-          this.vmssData.total_completed,
-        ];
-        this.ovrAllChrt?.updateSeries(this.chartOptions.series);
-        setTimeout(() => {
-          this.dynamicallyConfigureColumnsFromObject(this.vmssData.item)
-
-        this.timelineChart(this.vmssData.item)
+        this.totalInstances = this.vmssData?.items.length
+        let cdata = [{
+          name: 'Total',
+          data: this.vmssData?.items.map((dat:any) => {
+            return dat.Totalcount;
+          }),
+        },
+        {
+          name: 'Yet to Start',  
+          data: this.vmssData?.items.map((dat:any) => {
+            return dat.yetostart;
+          }),
+        },
+        {
+          name: 'In-progress',
+          data: this.vmssData?.items.map((dat:any) => {
+            return dat.inprogress;
+          }),
+        },
+        {
+          name: 'Completed',
+          data: this.vmssData?.items.map((dat:any) => {
+            return dat.completed;
+          }),
+        }];
+        let instData = {
+          xaxis: {
+          type: "category",
+          categories: this.vmssData?.items.map((i:any) =>{return i.instance_name})
+          }};
+          console.log(instData);
+          console.log(cdata);
+          setTimeout(() => {
+        this.ovrAllChrt?.updateSeries(cdata);
+        this.ovrAllChrt?.updateOptions(instData);
+        console.log(this.chartOptions)
+        
+        this.dynamicallyConfigureColumnsFromObject(this.vmssData.items)
+        this.timelineChart(this.vmssData.items)
+        // const groupedObject = this.vmssData.items.groupBy((item:any) => {
+        //   return item.instance_name;
+        // });
+        // console.log(groupedObject)
       }, 500);
+
+      
+
       }
     // })
   }
 
   timelineChart(timeParam:any){
     var options = this.chrtTimeline;
-
-
   }
 
   dynamicallyConfigureColumnsFromObject(anObject: any) {
@@ -281,15 +305,26 @@ export class Dashboard_VMSSComponent implements OnInit {
       const keys = Object.keys(anObject[0]);
       // console.log('keys',keys);
 
-      keys.forEach((key) =>
-
-        this.columnDefs.push({
+      keys.forEach((key:any) =>{
+       let colDet:any =  {
           field: key,
           headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
-
-        }),
-
-      );
+        }
+        //THIS IS FOR GROUPING THE TABLE
+      // if(key=='instance_name'){
+      //   let groupCellData = {
+      //     headerName: colDet.headerName,
+      //     minWidth: 200,
+      //     showRowGroup: key,
+      //     cellRenderer: 'agGroupCellRenderer',
+      //   }
+      //   colDet.rowGroup= true;
+      //   colDet.hide= true;
+      //   this.columnDefs.push(groupCellData);
+        
+      // }
+        this.columnDefs.push(colDet);
+        });
       this.agGrid.api.setColumnDefs(this.columnDefs);
       this.agGrid.api.setRowData(anObject);
       this.rowData=anObject

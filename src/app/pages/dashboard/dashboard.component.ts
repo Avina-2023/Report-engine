@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
+import { ColDef } from 'ag-grid-enterprise';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
