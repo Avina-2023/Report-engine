@@ -4,7 +4,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { ApiService } from 'src/app/services/api.service';
 import { HttpClient } from '@angular/common/http';
 // import 'ag-grid-enterprise';
-import { ColDef , RowGroupingDisplayType,  } from 'ag-grid-enterprise';
+import { ColDef , RowGroupingDisplayType  } from 'ag-grid-enterprise';
 import { FileSaverService } from 'ngx-filesaver';
 import { ExcelService } from 'src/app/services/excelService';
 import * as _ from 'lodash';
@@ -34,31 +34,31 @@ export class ProctorComponent implements OnInit {
     private fileserver:FileSaverService,
     private excelService:ExcelService,
   ) { }
-  // public groupDisplayType: RowGroupingDisplayType = 'custom';
-  // public groupRowRenderer = 'agGroupCellRenderer';
+  public groupDisplayType: RowGroupingDisplayType = 'custom';
+  public groupRowRenderer = 'agGroupCellRenderer';
   columnDefs: ColDef[] = [
-  //   { 
-  //     // group column name
-  //     headerName: 'Schedule Name',
-  //     // use the group cell render provided by the grid
-  //     cellRenderer: 'agGroupCellRenderer', 
-  //     // informs the grid to display row groups under this column
-  //     showRowGroup: 'scheduleName',
-  // },
-  // {
-  //   headerName: 'Status',
-  //   minWidth: 200,
-  //   showRowGroup: 'status',
-  //   cellRenderer: 'agGroupCellRenderer',
-  // },
-    { field: 'scheduleName'},
-    // { field: 'scheduleName',rowGroup: true,hide: true, filter: false, },
-    { field: 'useremail'},
-    // { field: 'status' ,rowGroup: true,hide: true, filter: false,},
-    { field: 'status' },
+    { 
+      // group column name
+      headerName: 'Schedule Name',
+      // use the group cell render provided by the grid
+      cellRenderer: 'agGroupCellRenderer', 
+      // informs the grid to display row groups under this column
+      showRowGroup: 'scheduleName',
+  },
+  {
+    headerName: 'Status',
+    minWidth: 200,
+    showRowGroup: 'status',
+    cellRenderer: 'agGroupCellRenderer',
+  },
+    // { field: 'scheduleName'},
+    { field: 'scheduleName',rowGroup: true,hide: true, filter: false, },
+    { field: 'useremail', filter: 'agMultiColumnFilter'},
+    { field: 'status' ,rowGroup: true,hide: true, filter: false,},
+    // { field: 'status' },
     { field: 'browser' },
-    { field: 'signedAt' },
-    { field: 'createdAt' }
+    { field: 'signedAt', filter: 'agMultiColumnFilter'},
+    { field: 'createdAt', filter: 'agMultiColumnFilter'}
 ];
 
 

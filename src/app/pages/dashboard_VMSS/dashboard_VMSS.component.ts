@@ -26,9 +26,10 @@ export class Dashboard_VMSSComponent implements OnInit {
         endingShape: 'rounded',
         borderRadius: 2,
         distributed: false,
-        horizontal: true,
+        horizontal: false,
 
         dataLabels: {
+
           position: 'bottom',
         },
       },
@@ -40,13 +41,14 @@ export class Dashboard_VMSSComponent implements OnInit {
 
     chart: {
       type: 'bar',
-      height:'450px' ,
+      stacked: true,
+      height:'350px' ,
       margin: 0,
     },
 
    
     dataLabels: {
-      enabled: false,
+      enabled: true,
       style: {
         colors: ['#fff'],
       },
@@ -241,12 +243,13 @@ export class Dashboard_VMSSComponent implements OnInit {
         console.log(data.data)
         this.vmssData = data.data;
         this.totalInstances = this.vmssData?.items.length
-        let cdata = [{
-          name: 'Total',
-          data: this.vmssData?.items.map((dat:any) => {
-            return dat.Totalcount;
-          }),
-        },
+        let cdata = [
+        //   {
+        //   name: 'Total',
+        //   data: this.vmssData?.items.map((dat:any) => {
+        //     return dat.Totalcount;
+        //   }),
+        // },
         {
           name: 'Yet to Start',  
           data: this.vmssData?.items.map((dat:any) => {
