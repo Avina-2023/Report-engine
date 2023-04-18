@@ -5,10 +5,12 @@ import { ChartComponent } from 'ng-apexcharts';
 import { ApiService } from 'src/app/services/api.service';
 import { ExcelService } from 'src/app/services/excelService';
 import  {mockData}  from "./vmssdata"
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-dashboard_VMSS',
   templateUrl: './dashboard_VMSS.component.html',
-  styleUrls: ['./dashboard_VMSS.component.scss']
+  styleUrls: ['./dashboard_VMSS.component.scss'],
+  providers: [DatePipe]
 })
 export class Dashboard_VMSSComponent implements OnInit {
   @ViewChild('ovrAllChrt') ovrAllChrt?: ChartComponent;
@@ -18,6 +20,7 @@ export class Dashboard_VMSSComponent implements OnInit {
   public groupDisplayType: RowGroupingDisplayType = 'custom';
   public groupRowRenderer = 'agGroupCellRenderer';
   vmssData: any;
+  selectedDate: any;
   chartOptions:any = {
     series: [],
     plotOptions: {
@@ -70,161 +73,7 @@ export class Dashboard_VMSSComponent implements OnInit {
       categories: [],
     },
   };
-  chrtTimeline:any={
-    series: [
-    {
-      name: 'Bob',
-      data: [
-        {
-          x: 'Design',
-          y: [
-            new Date('2019-03-05').getTime(),
-            new Date('2019-03-08').getTime()
-          ]
-        },
-        {
-          x: 'Code',
-          y: [
-            new Date('2019-03-02').getTime(),
-            new Date('2019-03-05').getTime()
-          ]
-        },
-        {
-          x: 'Code',
-          y: [
-            new Date('2019-03-05').getTime(),
-            new Date('2019-03-07').getTime()
-          ]
-        },
-        {
-          x: 'Test',
-          y: [
-            new Date('2019-03-03').getTime(),
-            new Date('2019-03-09').getTime()
-          ]
-        },
-        {
-          x: 'Test',
-          y: [
-            new Date('2019-03-08').getTime(),
-            new Date('2019-03-11').getTime()
-          ]
-        },
-        {
-          x: 'Validation',
-          y: [
-            new Date('2019-03-11').getTime(),
-            new Date('2019-03-16').getTime()
-          ]
-        },
-        {
-          x: 'Design',
-          y: [
-            new Date('2019-03-01').getTime(),
-            new Date('2019-03-03').getTime()
-          ],
-        }
-      ]
-    },
-    {
-      name: 'Joe',
-      data: [
-        {
-          x: 'Design',
-          y: [
-            new Date('2019-03-02').getTime(),
-            new Date('2019-03-05').getTime()
-          ]
-        },
-        {
-          x: 'Test',
-          y: [
-            new Date('2019-03-06').getTime(),
-            new Date('2019-03-16').getTime()
-          ],
-          goals: [
-            {
-              name: 'Break',
-              value: new Date('2019-03-10').getTime(),
-              strokeColor: '#CD2F2A'
-            }
-          ]
-        },
-        {
-          x: 'Code',
-          y: [
-            new Date('2019-03-03').getTime(),
-            new Date('2019-03-07').getTime()
-          ]
-        },
-        {
-          x: 'Deployment',
-          y: [
-            new Date('2019-03-20').getTime(),
-            new Date('2019-03-22').getTime()
-          ]
-        },
-        {
-          x: 'Design',
-          y: [
-            new Date('2019-03-10').getTime(),
-            new Date('2019-03-16').getTime()
-          ]
-        }
-      ]
-    },
-    {
-      name: 'Dan',
-      data: [
-        {
-          x: 'Code',
-          y: [
-            new Date('2019-03-10').getTime(),
-            new Date('2019-03-17').getTime()
-          ]
-        },
-        {
-          x: 'Validation',
-          y: [
-            new Date('2019-03-05').getTime(),
-            new Date('2019-03-09').getTime()
-          ],
-          goals: [
-            {
-              name: 'Break',
-              value: new Date('2019-03-07').getTime(),
-              strokeColor: '#CD2F2A'
-            }
-          ]
-        },
-      ]
-    }
-  ],
-    chart: {
-    height: 450,
-    type: 'rangeBar'
-  },
-  plotOptions: {
-    bar: {
-      horizontal: true,
-      barHeight: '80%'
-    }
-  },
-  xaxis: {
-    type: 'datetime'
-  },
-  stroke: {
-    width: 1
-  },
-  fill: {
-    type: 'solid',
-    opacity: 0.6
-  },
-  legend: {
-    position: 'top',
-    horizontalAlign: 'left'
-  }
-  };
+
   public defaultColDef: any = {
     sortable: true,
     filter: true,
@@ -235,80 +84,123 @@ export class Dashboard_VMSSComponent implements OnInit {
   ColDefn: any;
   columnDefs: any;
   totalInstances: any;
-  constructor(private apiService:ApiService, private excelService:ExcelService) { }
+  constructor(private apiService:ApiService, private excelService:ExcelService,private datePipe: DatePipe) { }
 
   ngOnInit() {
-    // this.apiService.getVMSSDetails("2023-04-13 11:30:00").subscribe((data:any)=>{
-      let data = mockData;
-      console.log(data);
+
+    this.getVmssData(new Date())
+  }
+
+  getVmssData(data:Date){
+    let dateStr = this.datePipe.transform(data,"YYYY-MM-dd")//data.getFullYear()+"-"+(data.getMonth()+1)+"-"+data.getDate();
+    let timeStr = this.datePipe.transform(data,"hh:mm")
+    let vmssParam = {
+        "date":dateStr,
+        "time":timeStr
+    }
+    this.apiService.getVMSSDetails(vmssParam).subscribe((data:any)=>{
+      // let data = mockData;
       if(data.success){
-        console.log(data.data)
-        this.vmssData = data.data;
-        this.totalInstances = this.vmssData?.items.length
-        let cdata = [
+        this.vmssData = data?.data?data?.data:data.data.item=[];
+        //CHART DATA USING MAP
+        let cdata:any;
+        let instData:any;
+        if(this.vmssData?.items){
+         cdata = [
         //   {
         //   name: 'Total',
-        //   data: this.vmssData?.items.map((dat:any) => {
+        //   data: this.vmssData?.items?.map((dat:any) => {
         //     return dat.Totalcount;
         //   }),
         // },
         {
           name: 'Yet to Start',  
-          data: this.vmssData?.items.map((dat:any) => {
+          data: this.vmssData?.items?.map((dat:any) => {
             return dat.yetostart;
           }),
         },
         {
           name: 'In-progress',
-          data: this.vmssData?.items.map((dat:any) => {
+          data: this.vmssData?.items?.map((dat:any) => {
             return dat.inprogress;
           }),
         },
         {
           name: 'Completed',
-          data: this.vmssData?.items.map((dat:any) => {
+          data: this.vmssData?.items?.map((dat:any) => {
             return dat.completed;
           }),
         }];
-        let instData = {
+        //INSTANCE GROUPING DATA
+         instData = {
           xaxis: {
           type: "category",
-          categories: this.vmssData?.items.map((i:any) =>{return i.instance_name})
+          categories: this.vmssData?.items?.map((i:any) =>{return i.instance_name})
           }};
-          console.log(instData);
-          console.log(cdata);
+        }else{
+          cdata = [
+            {
+              name: 'Yet to Start',  
+              data: [],
+            },
+            {
+              name: 'In-progress',
+              data: []
+            },
+            {
+              name: 'Completed',
+              data: []
+            }
+          ];
+          instData = {
+            xaxis: {
+              type: "category",
+              categories: []
+              },
+            noData: {
+              text: 'No Data Available',
+              align: 'center',
+              verticalAlign: 'middle',
+              offsetX: 0,
+              offsetY: 0,
+              style: {
+                color: 'red',
+                fontSize: '14px',
+                fontFamily: undefined
+              }
+            }
+          }
+        }
           setTimeout(() => {
+            console.log(cdata)
         this.ovrAllChrt?.updateSeries(cdata);
         this.ovrAllChrt?.updateOptions(instData);
-        console.log(this.chartOptions)
         
-        this.dynamicallyConfigureColumnsFromObject(this.vmssData.items)
-        this.timelineChart(this.vmssData.items)
+        this.dynamicallyConfigureColumnsFromObject(this.vmssData?.items)
+        // this.timelineChart(this.vmssData.items)
         // const groupedObject = this.vmssData.items.groupBy((item:any) => {
         //   return item.instance_name;
         // });
-        // console.log(groupedObject)
       }, 500);
 
       
 
       }
-    // })
+    })
   }
-
-  timelineChart(timeParam:any){
-    var options = this.chrtTimeline;
+  onChange(event: Date){
+    this.getVmssData(event)
   }
 
   dynamicallyConfigureColumnsFromObject(anObject: any) {
-    // console.log('anObject',anObject);
+    console.log(anObject)
+    this.ColDefn = this.agGrid.api.getColumnDefs();
+    this.ColDefn.length = 0;
+    this.columnDefs = [];
 
     if (anObject?.length) {
-      this.ColDefn = this.agGrid.api.getColumnDefs();
-      this.ColDefn.length = 0;
-      this.columnDefs = [];
+     
       const keys = Object.keys(anObject[0]);
-      // console.log('keys',keys);
 
       keys.forEach((key:any) =>{
        let colDet:any =  {
@@ -316,23 +208,27 @@ export class Dashboard_VMSSComponent implements OnInit {
           headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
         }
         //THIS IS FOR GROUPING THE TABLE
-      // if(key=='instance_name'){
-      //   let groupCellData = {
-      //     headerName: colDet.headerName,
-      //     minWidth: 200,
-      //     showRowGroup: key,
-      //     cellRenderer: 'agGroupCellRenderer',
-      //   }
-      //   colDet.rowGroup= true;
-      //   colDet.hide= true;
-      //   this.columnDefs.push(groupCellData);
+      if(key=='instance_name'){
+        let groupCellData = {
+          headerName: colDet.headerName,
+          minWidth: 200,
+          showRowGroup: key,
+          cellRenderer: 'agGroupCellRenderer',
+        }
+        colDet.rowGroup= true;
+        colDet.hide= true;
+        this.columnDefs.push(groupCellData);
         
-      // }
+      }
         this.columnDefs.push(colDet);
         });
       this.agGrid.api.setColumnDefs(this.columnDefs);
       this.agGrid.api.setRowData(anObject);
       this.rowData=anObject
+    }else{
+      this.agGrid.api.setColumnDefs(this.columnDefs);
+      this.agGrid.api.setRowData([]);
+      this.rowData=[]
     }
   }
 

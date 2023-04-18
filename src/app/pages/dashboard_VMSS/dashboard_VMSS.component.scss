@@ -7,9 +7,14 @@
 }
 .vmssDashWrapper{
   margin:15px;
+  .pageFilterBar{
+    display: flex;
+    justify-content: flex-end;    
+    padding: 0 0 10px 0;
+  }
   .card-Section{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
 
   }
@@ -20,13 +25,10 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
-    margin-top: 10px;
-    margin-right: 10px;
-    padding-right: 10px;
+
     width: 100%;
     align-items: center;
+     h3{margin:0px !important}
   }
-  .card_topic{
-   h3{margin:0px !important}
-  }
+ 
 }

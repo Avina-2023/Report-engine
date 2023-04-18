@@ -52,8 +52,8 @@ export class ApiService {
   getkibona(url:any){
     return this.http.get(url,{responseType: 'text'});
   }
-  getVMSSDetails(dateParam:any){
-    return this.http.get('https://qa-assess.lntedutech.com/tao/views/api/taostatus/dashboard.php?fromdate='+dateParam)
+  getVMSSDetails(data:any){
+    return this.http.post(`${this.BASE_URL}/vmssdashboard-details`,data)
   }
   getErrpage(){
     return this.http.get('/assets/Html/maintanence.html')

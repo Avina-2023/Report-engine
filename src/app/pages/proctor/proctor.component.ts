@@ -4,7 +4,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { ApiService } from 'src/app/services/api.service';
 import { HttpClient } from '@angular/common/http';
 // import 'ag-grid-enterprise';
-import { ColDef , RowGroupingDisplayType  } from 'ag-grid-enterprise';
+import { ColDef , RowGroupingDisplayType, SideBarDef  } from 'ag-grid-enterprise';
 import { FileSaverService } from 'ngx-filesaver';
 import { ExcelService } from 'src/app/services/excelService';
 import * as _ from 'lodash';
@@ -34,39 +34,34 @@ export class ProctorComponent implements OnInit {
     private fileserver:FileSaverService,
     private excelService:ExcelService,
   ) { }
-  public groupDisplayType: RowGroupingDisplayType = 'custom';
-  public groupRowRenderer = 'agGroupCellRenderer';
+  public groupDisplayType: RowGroupingDisplayType = 'groupRows';
+  // public groupRowRenderer = 'agGroupCellRenderer';
   columnDefs: ColDef[] = [
     { 
       // group column name
-      headerName: 'Schedule Name',
+      headerName: 'Group',
       // use the group cell render provided by the grid
       cellRenderer: 'agGroupCellRenderer', 
       // informs the grid to display row groups under this column
-      showRowGroup: 'scheduleName',
+      showRowGroup: true,
+      filter:false 
   },
-  {
-    headerName: 'Status',
-    minWidth: 200,
-    showRowGroup: 'status',
-    cellRenderer: 'agGroupCellRenderer',
-  },
+  // {
+  //   headerName: 'Status',
+  //   minWidth: 200,
+  //   showRowGroup: 'status',
+  //   cellRenderer: 'agGroupCellRenderer',
+  // },
     // { field: 'scheduleName'},
-    { field: 'scheduleName',rowGroup: true,hide: true, filter: false, },
+    { field: 'scheduleName',rowGroup: true},
+    { field: 'status' ,rowGroup: true },
     { field: 'useremail', filter: 'agMultiColumnFilter'},
-    { field: 'status' ,rowGroup: true,hide: true, filter: false,},
     // { field: 'status' },
     { field: 'browser' },
     { field: 'signedAt', filter: 'agMultiColumnFilter'},
     { field: 'createdAt', filter: 'agMultiColumnFilter'}
 ];
 
-
-
-
-
- // Each Column Definition results in one Column.
-//  public columnDefs: ColDef[] = []
 
  // DefaultColDef sets props common to all Columns
  public defaultColDef: ColDef = {
@@ -76,6 +71,9 @@ export class ProctorComponent implements OnInit {
    editable:false,
  
  };
+ public sideBar: SideBarDef  = {
+  toolPanels: ['filters'],
+};
  // For accessing the Grid's API
  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
  // Example load data from sever
