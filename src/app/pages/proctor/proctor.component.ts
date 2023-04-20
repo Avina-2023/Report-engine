@@ -8,6 +8,7 @@ import { ColDef , RowGroupingDisplayType, SideBarDef  } from 'ag-grid-enterprise
 import { FileSaverService } from 'ngx-filesaver';
 import { ExcelService } from 'src/app/services/excelService';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import  {mockData}  from "../dashboard_VMSS/vmssdata"
 
 @Component({
@@ -18,6 +19,7 @@ import  {mockData}  from "../dashboard_VMSS/vmssdata"
 export class ProctorComponent implements OnInit {
   // rowData:any;
   date:any
+  dtRange:any
   rejected:any
   stopped:any
   Started:any
@@ -37,29 +39,32 @@ export class ProctorComponent implements OnInit {
   public groupDisplayType: RowGroupingDisplayType = 'groupRows';
   // public groupRowRenderer = 'agGroupCellRenderer';
   columnDefs: ColDef[] = [
-    { 
-      // group column name
-      headerName: 'Group',
-      // use the group cell render provided by the grid
-      cellRenderer: 'agGroupCellRenderer', 
-      // informs the grid to display row groups under this column
-      showRowGroup: true,
-      filter:false 
-  },
+  //   { 
+  //     // group column name
+  //     headerName: 'Group',
+  //     // use the group cell render provided by the grid
+  //     cellRenderer: 'agGroupCellRenderer', 
+  //     // informs the grid to display row groups under this column
+  //     showRowGroup: true,
+  //     filter:false 
+  // },
   // {
   //   headerName: 'Status',
   //   minWidth: 200,
   //   showRowGroup: 'status',
   //   cellRenderer: 'agGroupCellRenderer',
   // },
-    // { field: 'scheduleName'},
-    { field: 'scheduleName',rowGroup: true},
-    { field: 'status' ,rowGroup: true },
+    { field: 'scheduleName'},
+    { field: 'status' },
+
+    // { field: 'scheduleName',rowGroup: true},
+    // { field: 'status' ,rowGroup: true },
     { field: 'useremail', filter: 'agMultiColumnFilter'},
-    // { field: 'status' },
-    { field: 'browser' },
+    { field: 'error', filter: 'agMultiColumnFilter'},
+    // { field: 'browser.name' },
     { field: 'signedAt', filter: 'agMultiColumnFilter'},
-    { field: 'createdAt', filter: 'agMultiColumnFilter'}
+    { field: 'createdAt', filter: 'agMultiColumnFilter'},
+    
 ];
 
 
@@ -86,9 +91,21 @@ export class ProctorComponent implements OnInit {
 //    console.log('cellClicked', e);
 //  }
   ngOnInit() {
-    this.proctordata()
+    let param =  { }
+    this.proctordata(param)
   }
-  proctordata(){
+  dateChange(event:any) {
+    console.log(event)
+    if (event.length==2) {
+      console.log('datata', moment(event[0]).format('yyyy-MM-DD HH:mm'));
+      let dateparams = {
+        startdate: event ? moment(event[0]).format('yyyy-MM-DD HH:mm') : '',
+        enddate: event ? moment(event[1]).format('yyyy-MM-DD HH:mm') : '',
+      };
+      this.proctordata(dateparams)
+    }
+  }
+  proctordata(dateparams:any){
     this.rejected=0
     this.stopped=0
     this.Started=0
@@ -96,14 +113,13 @@ export class ProctorComponent implements OnInit {
     this.paused=0
     this.template=0
     this.created=0
-    this.apiservice.proctor(this.date).subscribe((res:any)=>{
+    this.apiservice.proctor(dateparams).subscribe((res:any)=>{
       console.log(res);
-      this.rowData = res
+      this.rowData = res.data
       // this.rowData = mockData.data.item;
-      // var grouped = _.mapValues(_.groupBy(cars, 'make'),
-      //                     clist => clist.map(car => _.omit(car, 'make')));
 
-      res.forEach((_item:any,_index:any)=>{
+
+      res.data.forEach((_item:any,_index:any)=>{
         if(_item.status=="rejected"){
           this.rejected= this.rejected + 1
         }else if(_item.status=="stopped"){

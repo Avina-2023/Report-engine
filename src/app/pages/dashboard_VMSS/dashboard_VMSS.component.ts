@@ -93,7 +93,7 @@ export class Dashboard_VMSSComponent implements OnInit {
 
   getVmssData(data:Date){
     let dateStr = this.datePipe.transform(data,"YYYY-MM-dd")//data.getFullYear()+"-"+(data.getMonth()+1)+"-"+data.getDate();
-    let timeStr = this.datePipe.transform(data,"hh:mm")
+    let timeStr = this.datePipe.transform(data,"HH:mm")
     let vmssParam = {
         "date":dateStr,
         "time":timeStr
@@ -208,18 +208,18 @@ export class Dashboard_VMSSComponent implements OnInit {
           headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
         }
         //THIS IS FOR GROUPING THE TABLE
-      if(key=='instance_name'){
-        let groupCellData = {
-          headerName: colDet.headerName,
-          minWidth: 200,
-          showRowGroup: key,
-          cellRenderer: 'agGroupCellRenderer',
-        }
-        colDet.rowGroup= true;
-        colDet.hide= true;
-        this.columnDefs.push(groupCellData);
+      // if(key=='instance_name'){
+      //   let groupCellData = {
+      //     headerName: colDet.headerName,
+      //     minWidth: 200,
+      //     showRowGroup: key,
+      //     cellRenderer: 'agGroupCellRenderer',
+      //   }
+      //   colDet.rowGroup= true;
+      //   colDet.hide= true;
+      //   this.columnDefs.push(groupCellData);
         
-      }
+      // }
         this.columnDefs.push(colDet);
         });
       this.agGrid.api.setColumnDefs(this.columnDefs);

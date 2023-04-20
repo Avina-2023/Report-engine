@@ -1,18 +1,9 @@
 <div class="excel">
   <div class="p-field p-calendar-container">
     <label for="range">Delivery date range:</label>
-    <p-calendar
-      #calen
-      [(ngModel)]="date7"
-      selectionMode="range"
-      [readonlyInput]="true"
-      [showTime]="true"
-      inputId="range"
-      (onSelect)="daterrange()"
-      dateFormat="yy/m/d"
-    >
-    </p-calendar>
-    <i class="pi pi-calendar" (click)="calen.toggle()"></i>
+
+    <nz-range-picker   [nzShowTime]="{ nzFormat: 'h:mm' }"
+    nzFormat="dd-MM-yyyy h:mm" [(ngModel)]="dtRange" (ngModelChange)="daterrange($event)"></nz-range-picker>
 
   </div>
   <!-- <div class="livebtn">

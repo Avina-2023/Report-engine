@@ -67,10 +67,15 @@ ngOnInit() {
   }
   this.dateWiseSectionReport(data)
 }
-daterrange(){
+daterrange(event:any){
 
-   if(this.date7[0] && this.date7[1])
-  this.dateWiseSectionReport(this.generateParams())
+   if(event.length){
+   let param = {
+    "startdate":event?this.datepipe.transform(event[0], 'yyyy-MM-dd h:m'):"",
+    "enddate":event?this.datepipe.transform(event[1], 'yyyy-MM-dd h:m'):""
+  }
+  this.dateWiseSectionReport(param)
+}
 }
 getdata(){
   this.apiservice.dashboard(this.daterrange).subscribe((res:any)=>{
@@ -78,12 +83,6 @@ getdata(){
     this.dynamicallyConfigureColumnsFromObject(res.data)
     this.agGrid.api.setRowData(res.data)
   })
-}
-generateParams(){
-  return{
-    "startdate":this.date7?this.datepipe.transform(this.date7[0], 'yyyy-MM-dd h:m'):"",
-    "enddate":this.date7?this.datepipe.transform(this.date7[1], 'yyyy-MM-dd h:m'):""
-  }
 }
 dateWiseSectionReport(data:any){
   this.apiservice.dateWiseSectionReport(data).subscribe((res:any)=>{
@@ -96,17 +95,19 @@ excelexport(params:any){
   this.excelService.exportAsExcelFile(params, 'report');
 }
 dynamicallyConfigureColumnsFromObject(anObject:any){
-  if(anObject?.length){
   this.ColDef = this.agGrid.api.getColumnDefs();
   this.ColDef.length=0;
   this.columnDefs=[]
+  if(anObject?.length){
+  
   const keys = Object.keys(anObject[0])
   keys.forEach(key =>
     this.columnDefs.push({field : key,headerName:key.replaceAll('_',' ')})
     );
-  this.agGrid.api.setColumnDefs(this.columnDefs);
+  
+}
+this.agGrid.api.setColumnDefs(this.columnDefs);
   this.agGrid.api.setRowData(anObject);
   this.rowData=anObject
-}
 }
 }

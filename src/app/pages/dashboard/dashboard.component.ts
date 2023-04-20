@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
     resizable: true,
     editable: false,
   };
+  dtRange:any;
   total: any;
   total2: any;
   myvar = 'newvar';
@@ -462,11 +463,11 @@ export class DashboardComponent implements OnInit {
   }
   dynamicallyConfigureColumnsFromObject(anObject: any) {
     // console.log('anObject',anObject);
-
+    this.ColDef = this.agGrid.api.getColumnDefs();
+    this.ColDef.length = 0;
+    this.columnDefs = [];
     if (anObject?.length) {
-      this.ColDef = this.agGrid.api.getColumnDefs();
-      this.ColDef.length = 0;
-      this.columnDefs = [];
+     
       const keys = Object.keys(anObject[0]);
       // console.log('keys',keys);
 
@@ -479,10 +480,11 @@ export class DashboardComponent implements OnInit {
         }),
        
       );
-      this.agGrid.api.setColumnDefs(this.columnDefs);
+      
+    }
+    this.agGrid.api.setColumnDefs(this.columnDefs);
       this.agGrid.api.setRowData(anObject);
       this.rowData=anObject
-    }
   }
   groupingdata(data: any) {
     // Create an observable from the data
@@ -589,12 +591,13 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  daterrange() {
-    if (this.date7[0] && this.date7[1]) {
-      console.log('datata', moment(this.date7[0]).format('yyyy-MM-DD'));
+  daterrange(event:any) {
+    console.log(event)
+    if (event.length==2) {
+      console.log('datata', moment(event[0]).format('yyyy-MM-DD h:mm'));
       let dateparams = {
-        startdate: this.date7 ? moment(this.date7[0]).format('yyyy-MM-DD') : '',
-        enddate: this.date7 ? moment(this.date7[1]).format('yyyy-MM-DD') : '',
+        startdate: event ? moment(event[0]).format('yyyy-MM-DD h:mm') : '',
+        enddate: event ? moment(event[1]).format('yyyy-MM-DD h:mm') : '',
       };
       this.DashboardData = dateparams;
       this.getDashboardAPI();

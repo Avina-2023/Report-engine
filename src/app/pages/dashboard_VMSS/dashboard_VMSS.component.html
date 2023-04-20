@@ -1,18 +1,18 @@
 <div class="vmssDashWrapper">
   <div class="pageFilterBar">
     <nz-date-picker [(ngModel)]="selectedDate"  [nzShowTime]="{ nzFormat: 'h:mm' }"
-    nzFormat="dd-MM-yyyy h:mm" nzPlaceHolder="Schedule Date" (ngModelChange)="onChange($event)"></nz-date-picker>
+    nzFormat="dd-MM-yyyy HH:mm" nzPlaceHolder="Schedule Date" (ngModelChange)="onChange($event)"></nz-date-picker>
   </div>
   <div class="card-Section">
-    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Total'" [cardValue]="vmssData?.OverAllData?.Total?vmssData?.OverAllData?.Total:0"
+    <app-detailscard [iconClass]="'icon-groups'" [cardLabel]="'Total'" [cardValue]="vmssData?.OverAllData?.Total?vmssData?.OverAllData?.Total:0"
       [wgColor]="'#00bed7'"></app-detailscard>
     <!-- <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Started'" [cardValue]="vmssData?.total_started"
       [wgColor]="'blue'"></app-detailscard> -->
     <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'In progress'" [cardValue]="vmssData?.OverAllData?.Inprogress?vmssData?.OverAllData?.Inprogress:0"
       [wgColor]="'#00bdac'"></app-detailscard>
-    <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Completed'" [cardValue]="vmssData?.OverAllData?.Completed?vmssData?.OverAllData?.Completed:0"
+    <app-detailscard [iconClass]="'icon-test-completed'" [cardLabel]="'Completed'" [cardValue]="vmssData?.OverAllData?.Completed?vmssData?.OverAllData?.Completed:0"
       [wgColor]="'#1bbc7a'"></app-detailscard>
-      <app-detailscard [iconClass]="'icon-monitoring'" [cardLabel]="'Total Instances'" [cardValue]="vmssData?.OverAllData?.Instance?vmssData?.OverAllData?.Instance:0"
+      <app-detailscard [iconClass]="'icon-domain'" [cardLabel]="'Total Instances'" [cardValue]="vmssData?.OverAllData?.Instance?vmssData?.OverAllData?.Instance:0"
       [wgColor]="'#77bc3c'"></app-detailscard>
   </div>
 <div class="graphWrapper">

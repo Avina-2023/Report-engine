@@ -47,7 +47,7 @@ export class ApiService {
     if (data == undefined) {
       data = {};
     }
-    return this.http.post(`https://reportelasticdev.lntedutech.com/proctor`,data)
+    return this.http.post(`${this.BASE_URL}/proctordashboard`,data)
    }
   getkibona(url:any){
     return this.http.get(url,{responseType: 'text'});
