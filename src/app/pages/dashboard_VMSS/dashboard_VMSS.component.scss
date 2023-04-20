@@ -1,8 +1,20 @@
+
+.ml-10{
+  margin-left: 10px !important;
+}
+.mr-10{
+  margin-right: 10px !important;
+}
 .vmssDashWrapper{
   margin:15px;
+  .pageFilterBar{
+    display: flex;
+    justify-content: flex-end;    
+    padding: 0 0 10px 0;
+  }
   .card-Section{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
 
   }
@@ -11,9 +23,12 @@
   }
   .topToolbar{
     display: flex;
-    justify-content: flex-end;
-    margin-bottom:10px;
-    margin-right: 10px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
     width: 100%;
+    align-items: center;
+     h3{margin:0px !important}
   }
+ 
 }

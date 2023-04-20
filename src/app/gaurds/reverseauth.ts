@@ -11,8 +11,14 @@ export class Reverseauth implements CanActivate {
 
   canActivate(): boolean {
     const token = localStorage.getItem('token');
+    const userDetail:any = localStorage.getItem('userDetails');
     if (token) {
-      this.router.navigate(['dashboard']);
+      let userRole = JSON.parse(userDetail).roleId;
+      if (userRole== "VMSS") {
+        this.router.navigate(['dashboard_VMSS']);
+      }else{
+        this.router.navigate(['dashboard']);
+      }
       return false;
     }
     return true;

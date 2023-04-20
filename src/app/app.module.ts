@@ -31,6 +31,9 @@ import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { IconDefinition } from '@ant-design/icons-angular';
 import * as AllIcons from '@ant-design/icons-angular/icons';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+
+
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { ProctorComponent } from './pages/proctor/proctor.component';
@@ -77,6 +80,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     AdminSettingsModule,
     NgApexchartsModule,
     MinidetailscardComponent,
+    NzDatePickerModule,
     SweetAlert2Module.forRoot()
     // ToastrModule.forRoot(
     //   {

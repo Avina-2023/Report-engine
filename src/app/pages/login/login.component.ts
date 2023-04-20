@@ -49,7 +49,12 @@ export class LoginComponent implements OnInit {
         this.authConfig.setlocalValue('userDetails', JSON.stringify(userObject));
         this.authConfig.setlocalValue('token', res.token.access_token);
         this.authConfig.setlocalValue('firstname', res.data.attributes.firstName);
-        this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.DASHBOARD)
+        if(userObject.roleId == "VMSS"){
+          this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.VMSSDASH)
+        }else{
+          this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.DASHBOARD)
+        }
+        
       } else {
         this.alertService.toastfire('error',res.message);
       }
