@@ -16,10 +16,7 @@ export class PrevilegeGaurd implements CanActivate {
       this.router.navigate(['login']);
       return false;
     }
-    if (userRole!== "VMSS"&& token !== null) {
-      this.router.navigate(['login']);
-      return false;
-    }
+    
     return true;
   }
 }

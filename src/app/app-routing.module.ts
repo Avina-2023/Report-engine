@@ -21,7 +21,7 @@ const routes: Routes = [
     path: `${APP_CONSTANTS.ROUTES.DASHBOARD}`, component: DashboardComponent,canActivate: [LoginGaurd]
   },
   {
-    path:  `${APP_CONSTANTS.ROUTES.EXAM}`, component: ExamStatusReportComponent,canActivate:[PrevilegeGaurd]
+    path:  `${APP_CONSTANTS.ROUTES.EXAM}`, component: ExamStatusReportComponent,canActivate:[LoginGaurd]
   },
   {
     path:  `${APP_CONSTANTS.ROUTES.PROCTOR}`, component: ProctorComponent,canActivate:[LoginGaurd]
@@ -30,7 +30,7 @@ const routes: Routes = [
     path:  `${APP_CONSTANTS.ROUTES.VMSSDASH}`, component: Dashboard_VMSSComponent,canActivate:[LoginGaurd]
   },
   {
-    path: `${APP_CONSTANTS.ROUTES.ADMIN.HOME}`,canActivate:[PrevilegeGaurd],
+    path: `${APP_CONSTANTS.ROUTES.ADMIN.HOME}`,canActivate:[LoginGaurd],
     loadChildren: () => import('./pages/adminSettings/adminSettings.module').then(m => m.AdminSettingsModule)
   },
   // {

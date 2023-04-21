@@ -124,7 +124,7 @@ export class ProctorComponent implements OnInit {
           this.rejected= this.rejected + 1
         }else if(_item.status=="stopped"){
           this.stopped= this.stopped + 1
-        }else if(_item.status=="Started"){
+        }else if(_item.status=="started"){
           this.Started= this.Started + 1
         }else if(_item.status=="accepted"){
           this.accepted= this.accepted + 1
