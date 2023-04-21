@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [],
@@ -28,7 +29,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatDialogModule,
     MatTooltipModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ],
 
   exports: [
@@ -43,7 +45,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatDialogModule,
     MatTooltipModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ]
 })
 export class MaterialModule { }

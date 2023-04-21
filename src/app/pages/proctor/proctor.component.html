@@ -1,0 +1,42 @@
+<div class="proctor-Wrapper">
+  <div class="filterBar">
+    <label for="range">Scheduled Date:</label>
+
+    <nz-range-picker   [nzShowTime]="{ nzFormat: 'h:mm' }"
+    nzFormat="dd-MM-yyyy h:mm" id="range" [(ngModel)]="dtRange" (ngModelChange)="dateChange($event)"></nz-range-picker>
+  </div>
+
+  <div class="stats-section">
+    <app-minidetailscard (click)="statsCardClick('created')" [label]="'Created'" [val]="created" [c_color]="'#00bed7'" [iconClass]="'icon-groups'"></app-minidetailscard>
+    <app-minidetailscard (click)="statsCardClick('Started')"[label]="'Started'" [val]="Started" [c_color]="'#00bdac'" [iconClass]="'icon-draft_orders'"></app-minidetailscard>
+    <app-minidetailscard (click)="statsCardClick('paused')"[label]="'Paused'" [val]="paused" [c_color]="'#1bbc7a'" [iconClass]="'icon-assignment'"></app-minidetailscard>
+    <app-minidetailscard (click)="statsCardClick('stopped')"[label]="'Stopped'" [val]="stopped" [c_color]="'#77bc3c'" [iconClass]="'icon-test-completed'"></app-minidetailscard>
+  </div>
+  
+  <!-- <div class="filter">
+  <div class="date-filter">
+    <input type="date" />
+  </div>
+  <div class="status-filter">
+    <select>
+      <option>--select status--</option>
+      <option>rejected</option>
+      <option>stopped</option>
+      <option>Started</option>
+      <option>accepted</option>
+      <option>paused</option>
+      <option>template</option>
+      <option>created</option>
+    </select>
+  </div>
+  
+    <div class="schedule-filter">
+      <input type="text" />
+    </div>
+  </div> -->
+  <ag-grid-angular style="width: 100%; height: 500px;margin: 5px;" class="ag-theme-alpine" [suppressClickEdit]="true"
+    [rowData]="rowData" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [rowSelection]="'multiple'"
+    [paginationPageSize]="20" [pagination]="true" [animateRows]="true" [sideBar]="sideBar"   [groupDisplayType]="groupDisplayType"></ag-grid-angular>
+    <!-- [groupDisplayType]="groupDisplayType" [groupRowRenderer]="groupRowRenderer" -->
+</div>
+

@@ -1,0 +1,25 @@
+.proctor-Wrapper {
+    padding: 15px;
+
+    .filterBar{
+        display: flex;
+        justify-content:flex-end;
+        align-items: center;
+        label{
+            margin-right: 10px;
+        }
+    }
+}
+.filter{
+    display: flex;
+    justify-content:flex-end;
+}
+
+.stats-section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 3em;
+    margin-bottom: 1em;
+}
