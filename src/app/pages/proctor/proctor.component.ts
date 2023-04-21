@@ -97,10 +97,9 @@ export class ProctorComponent implements OnInit {
   dateChange(event:any) {
     console.log(event)
     if (event.length==2) {
-      console.log('datata', moment(event[0]).format('yyyy-MM-DD HH:mm'));
       let dateparams = {
-        startdate: event ? moment(event[0]).format('yyyy-MM-DD HH:mm') : '',
-        enddate: event ? moment(event[1]).format('yyyy-MM-DD HH:mm') : '',
+        startdate: event ? moment(event[0]).format('yyyy-MM-DD') : '',
+        enddate: event ? moment(event[1]).format('yyyy-MM-DD') : '',
       };
       this.proctordata(dateparams)
     }
