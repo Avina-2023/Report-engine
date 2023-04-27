@@ -48,7 +48,7 @@ bootstrapApplication(AppComponent, {
         {
             provide: HTTP_INTERCEPTORS, useClass: HttpLoaderInterceptor, multi: true
         },
-        { provide: NZ_I18N, useValue: en_US }, { provide: NZ_ICONS, useValue: icons },
+        { provide: NZ_I18N, useValue: en_US }, { provide: NZ_ICONS, useValue:"" },
         HttpClient,
         provideAnimations(),
         provideHttpClient(withInterceptorsFromDi())
