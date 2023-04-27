@@ -11,8 +11,8 @@ describe('Dashboard_VMSSComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Dashboard_VMSSComponent ]
-    })
+    imports: [Dashboard_VMSSComponent]
+})
     .compileComponents();
   }));
 

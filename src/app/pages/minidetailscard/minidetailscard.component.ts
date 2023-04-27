@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { MaterialModule } from 'src/app/material/material.module';
+
 
 @Component({
   selector: 'app-minidetailscard',
   standalone: true,
-  imports:[CommonModule,MaterialModule],
+  imports:[CommonModule],
   templateUrl: './minidetailscard.component.html',
   styleUrls: ['./minidetailscard.component.scss']
 })

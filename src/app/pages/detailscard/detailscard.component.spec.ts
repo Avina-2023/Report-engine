@@ -11,8 +11,8 @@ describe('DetailscardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailscardComponent ]
-    })
+    imports: [DetailscardComponent]
+})
     .compileComponents();
   }));
 
