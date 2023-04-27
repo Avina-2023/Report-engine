@@ -121,12 +121,12 @@ export class Dashboard_VMSSComponent implements OnInit {
         //     return dat.Totalcount;
         //   }),
         // },
-        {
-          name: 'Yet to Start',  
-          data: this.vmssData?.items?.map((dat:any) => {
-            return dat.yetostart;
-          }),
-        },
+        // {
+        //   name: 'Yet to Start',  
+        //   data: this.vmssData?.items?.map((dat:any) => {
+        //     return dat.yetostart;
+        //   }),
+        // },
         {
           name: 'In-progress',
           data: this.vmssData?.items?.map((dat:any) => {
@@ -147,10 +147,10 @@ export class Dashboard_VMSSComponent implements OnInit {
           }};
         }else{
           cdata = [
-            {
-              name: 'Yet to Start',  
-              data: [],
-            },
+            // {
+            //   name: 'Yet to Start',  
+            //   data: [],
+            // },
             {
               name: 'In-progress',
               data: []
