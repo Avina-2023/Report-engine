@@ -11,8 +11,8 @@ describe('GraphcardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GraphcardComponent ]
-    })
+    imports: [GraphcardComponent]
+})
     .compileComponents();
   }));
 

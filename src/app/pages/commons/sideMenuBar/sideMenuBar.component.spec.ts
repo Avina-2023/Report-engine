@@ -11,8 +11,8 @@ describe('SideMenuBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SideMenuBarComponent ]
-    })
+    imports: [SideMenuBarComponent]
+})
     .compileComponents();
   }));
 

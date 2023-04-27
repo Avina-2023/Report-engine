@@ -1,5 +1,5 @@
 import { Component, OnInit ,ViewChild} from '@angular/core';
-import { AgGridAngular } from 'ag-grid-angular';
+import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
 
 import { ApiService } from 'src/app/services/api.service';
 import { HttpClient } from '@angular/common/http';
@@ -10,11 +10,16 @@ import { ExcelService } from 'src/app/services/excelService';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import  {mockData}  from "../dashboard_VMSS/vmssdata"
+import { MinidetailscardComponent } from '../minidetailscard/minidetailscard.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @Component({
-  selector: 'app-proctor',
-  templateUrl: './proctor.component.html',
-  styleUrls: ['./proctor.component.scss']
+    selector: 'app-proctor',
+    templateUrl: './proctor.component.html',
+    styleUrls: ['./proctor.component.scss'],
+    standalone: true,
+    imports: [NzDatePickerModule, ReactiveFormsModule, FormsModule, MinidetailscardComponent, AgGridModule]
 })
 export class ProctorComponent implements OnInit {
   // rowData:any;
@@ -114,11 +119,11 @@ export class ProctorComponent implements OnInit {
     this.created=0
     this.apiservice.proctor(dateparams).subscribe((res:any)=>{
       console.log(res);
-      this.rowData = res.data
+      this.rowData = res.data.data
       // this.rowData = mockData.data.item;
 
 
-      res.data.forEach((_item:any,_index:any)=>{
+      res.data.data.forEach((_item:any,_index:any)=>{
         if(_item.status=="rejected"){
           this.rejected= this.rejected + 1
         }else if(_item.status=="stopped"){

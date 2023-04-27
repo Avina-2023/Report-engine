@@ -11,8 +11,8 @@ describe('ProctorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProctorComponent ]
-    })
+    imports: [ProctorComponent]
+})
     .compileComponents();
   }));
 

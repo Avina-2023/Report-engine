@@ -1,14 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
-import {
-  ChartComponent,
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexXAxis,
-  ApexDataLabels,
-  ApexTooltip,
-  ApexStroke
-} from "ng-apexcharts";
+import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexXAxis, ApexDataLabels, ApexTooltip, ApexStroke, NgApexchartsModule } from "ng-apexcharts";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -19,11 +11,14 @@ export type ChartOptions = {
   dataLabels: ApexDataLabels;
 };
 import { Renderer2 } from '@angular/core';
+import { NgStyle } from '@angular/common';
 
 @Component({
-  selector: 'app-graphcard',
-  templateUrl: './graphcard.component.html',
-  styleUrls: ['./graphcard.component.scss']
+    selector: 'app-graphcard',
+    templateUrl: './graphcard.component.html',
+    styleUrls: ['./graphcard.component.scss'],
+    standalone: true,
+    imports: [NgApexchartsModule, NgStyle]
 })
 export class GraphcardComponent implements OnInit {
   @ViewChild("realtime") rtChart?: ChartComponent;

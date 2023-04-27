@@ -21,7 +21,7 @@ export const APP_CONSTANTS = {
     PROCTOR:'proctor',
     EXAM:'exam',
     ADMIN:{
-      HOME: 'admin',
+      HOME: 'admin/newUser',
       ADDUSER:'newUser'
     }
 

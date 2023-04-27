@@ -11,8 +11,8 @@ describe('LoadingSpinnerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoadingSpinnerComponent ]
-    })
+    imports: [LoadingSpinnerComponent]
+})
     .compileComponents();
   }));
 
