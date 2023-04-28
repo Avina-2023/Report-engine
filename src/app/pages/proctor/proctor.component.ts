@@ -103,8 +103,8 @@ export class ProctorComponent implements OnInit {
     console.log(event)
     if (event.length==2) {
       let dateparams = {
-        startdate: event ? moment(event[0]).format('yyyy-MM-DD') : '',
-        enddate: event ? moment(event[1]).format('yyyy-MM-DD') : '',
+        startdate: event ? moment(event[0]).toISOString() : '',
+        enddate: event ? moment(event[1]).toISOString() : '',
       };
       this.proctordata(dateparams)
     }
