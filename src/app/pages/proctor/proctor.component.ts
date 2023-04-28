@@ -65,6 +65,7 @@ export class ProctorComponent implements OnInit {
     // { field: 'scheduleName',rowGroup: true},
     // { field: 'status' ,rowGroup: true },
     { field: 'useremail', filter: 'agMultiColumnFilter'},
+    { field: 'score', filter: 'agMultiColumnFilter' },
     { field: 'error', filter: 'agMultiColumnFilter'},
     // { field: 'browser.name' },
     // { field: 'signedAt', filter: 'agMultiColumnFilter'},
