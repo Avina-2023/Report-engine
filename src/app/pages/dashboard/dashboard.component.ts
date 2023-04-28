@@ -5,28 +5,20 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
 import * as _ from 'lodash';
-import { AgGridAngular } from 'ag-grid-angular';
+import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
 import { of, groupBy, mergeMap, reduce, map, from, toArray } from 'rxjs';
 
 
-import {
-  ChartComponent,
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexFill,
-  ApexYAxis,
-  ApexTooltip,
-  ApexTitleSubtitle,
-  ApexXAxis,
-  ApexDataLabels,
-  ApexPlotOptions,
-  ApexResponsive,
-  ApexTheme
-} from "ng-apexcharts";
+import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexFill, ApexYAxis, ApexTooltip, ApexTitleSubtitle, ApexXAxis, ApexDataLabels, ApexPlotOptions, ApexResponsive, ApexTheme, NgApexchartsModule } from "ng-apexcharts";
 import * as moment from 'moment';
 import { LoaderService } from 'src/app/services/loader.service';
 import { ExcelService } from 'src/app/services/excelService';
 import { WebSocketService } from 'src/app/services/web-socket.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { TinycardComponent } from './widgets/tinycard/tinycard.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -46,9 +38,11 @@ export type ChartOptions = {
 
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss'],
+    standalone: true,
+    imports: [NzDatePickerModule, ReactiveFormsModule, FormsModule, TinycardComponent, NgApexchartsModule, MatButtonModule, MatIconModule, AgGridModule]
 })
 export class DashboardComponent implements OnInit {
   rowData: any;

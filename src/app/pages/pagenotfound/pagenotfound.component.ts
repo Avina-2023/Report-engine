@@ -3,9 +3,10 @@ import { AppConfigService } from 'src/app/utils/app-config.service';
 import { APP_CONSTANTS } from 'src/app/utils/app-constants.service';
 
 @Component({
-  selector: 'app-pagenotfound',
-  templateUrl: './pagenotfound.component.html',
-  styleUrls: ['./pagenotfound.component.scss']
+    selector: 'app-pagenotfound',
+    templateUrl: './pagenotfound.component.html',
+    styleUrls: ['./pagenotfound.component.scss'],
+    standalone: true
 })
 export class PagenotfoundComponent implements OnInit {
 

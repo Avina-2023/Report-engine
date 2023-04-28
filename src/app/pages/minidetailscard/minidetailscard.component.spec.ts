@@ -11,8 +11,8 @@ describe('MinidetailscardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MinidetailscardComponent ]
-    })
+    imports: [MinidetailscardComponent]
+})
     .compileComponents();
   }));
 

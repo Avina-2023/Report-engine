@@ -1,18 +1,24 @@
 import { Component, OnInit ,ViewChild} from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { AgGridAngular } from 'ag-grid-angular';
+import { AgGridAngular, AgGridModule} from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
 // import 'ag-grid-enterprise';
-import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
+import { ColDef  } from 'ag-grid-enterprise';
 import { FileSaverService } from 'ngx-filesaver';
 import { ExcelService } from 'src/app/services/excelService';
 import {CalendarModule} from 'primeng/calendar';
 import { DatePipe } from '@angular/common';
 import { InterComponentMessenger } from 'src/app/services/interComponentMessenger.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 @Component({
-  selector: 'app-examStatusReport',
-  templateUrl: './examStatusReport.component.html',
-  styleUrls: ['./examStatusReport.component.scss']
+    selector: 'app-examStatusReport',
+    templateUrl: './examStatusReport.component.html',
+    styleUrls: ['./examStatusReport.component.scss'],
+    standalone: true,
+    imports: [NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule]
 })
 export class ExamStatusReportComponent implements OnInit {
   exam = { "date": "",'Client_name':"",'Domain_name':"",'DeliveryStartTime':""};
@@ -46,15 +52,6 @@ public defaultColDef: ColDef = {
 };
 // For accessing the Grid's API
 @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
-// Example load data from sever
-onGridReady(params: GridReadyEvent) {
-
-}
-
-// Example of consuming Grid Event
-onCellClicked( e: CellClickedEvent): void {
-  console.log('cellClicked', e);
-}
 
 // Example using Grid's API
 clearSelection(): void {

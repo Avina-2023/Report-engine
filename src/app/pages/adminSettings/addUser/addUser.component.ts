@@ -1,12 +1,20 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import { AlertServiceService } from 'src/app/services/alertService.service';
+import { MatButtonModule } from '@angular/material/button';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NgIf, NgFor } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 @Component({
-  selector: 'app-addUser',
-  templateUrl: './addUser.component.html',
-  styleUrls: ['./addUser.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-addUser',
+    templateUrl: './addUser.component.html',
+    styleUrls: ['./addUser.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, NgIf, NzSelectModule, NgFor, MatButtonModule]
 })
 export class AddUserComponent implements OnInit {
   addUserForm: any;

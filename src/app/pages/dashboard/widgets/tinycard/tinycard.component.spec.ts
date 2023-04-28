@@ -11,8 +11,8 @@ describe('TinycardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TinycardComponent ]
-    })
+    imports: [TinycardComponent]
+})
     .compileComponents();
   }));
 

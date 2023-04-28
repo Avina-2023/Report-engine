@@ -1,16 +1,24 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColDef , RowGroupingDisplayType,  } from 'ag-grid-enterprise';
-import { AgGridAngular } from 'ag-grid-angular';
-import { ChartComponent } from 'ng-apexcharts';
+import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
+import { ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
 import { ApiService } from 'src/app/services/api.service';
 import { ExcelService } from 'src/app/services/excelService';
 import  {mockData}  from "./vmssdata"
 import { DatePipe } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { DetailscardComponent } from '../detailscard/detailscard.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 @Component({
-  selector: 'app-dashboard_VMSS',
-  templateUrl: './dashboard_VMSS.component.html',
-  styleUrls: ['./dashboard_VMSS.component.scss'],
-  providers: [DatePipe]
+    selector: 'app-dashboard_VMSS',
+    templateUrl: './dashboard_VMSS.component.html',
+    styleUrls: ['./dashboard_VMSS.component.scss'],
+    providers: [DatePipe],
+    standalone: true,
+    imports: [NzDatePickerModule, ReactiveFormsModule, FormsModule, DetailscardComponent, MatCardModule, NgApexchartsModule, MatButtonModule, MatIconModule, AgGridModule]
 })
 export class Dashboard_VMSSComponent implements OnInit {
   @ViewChild('ovrAllChrt') ovrAllChrt?: ChartComponent;
@@ -113,12 +121,12 @@ export class Dashboard_VMSSComponent implements OnInit {
         //     return dat.Totalcount;
         //   }),
         // },
-        {
-          name: 'Yet to Start',  
-          data: this.vmssData?.items?.map((dat:any) => {
-            return dat.yetostart;
-          }),
-        },
+        // {
+        //   name: 'Yet to Start',  
+        //   data: this.vmssData?.items?.map((dat:any) => {
+        //     return dat.yetostart;
+        //   }),
+        // },
         {
           name: 'In-progress',
           data: this.vmssData?.items?.map((dat:any) => {
@@ -139,10 +147,10 @@ export class Dashboard_VMSSComponent implements OnInit {
           }};
         }else{
           cdata = [
-            {
-              name: 'Yet to Start',  
-              data: [],
-            },
+            // {
+            //   name: 'Yet to Start',  
+            //   data: [],
+            // },
             {
               name: 'In-progress',
               data: []
