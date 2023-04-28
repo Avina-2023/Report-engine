@@ -119,11 +119,11 @@ export class ProctorComponent implements OnInit {
     this.created=0
     this.apiservice.proctor(dateparams).subscribe((res:any)=>{
       console.log(res);
-      this.rowData = res.data.data
+      this.rowData = res.data
       // this.rowData = mockData.data.item;
 
 
-      res.data.data.forEach((_item:any,_index:any)=>{
+      res.data.forEach((_item:any,_index:any)=>{
         if(_item.status=="rejected"){
           this.rejected= this.rejected + 1
         }else if(_item.status=="stopped"){
