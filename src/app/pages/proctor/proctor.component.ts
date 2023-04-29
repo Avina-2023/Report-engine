@@ -66,7 +66,14 @@ export class ProctorComponent implements OnInit {
     // { field: 'status' ,rowGroup: true },
     { field: 'useremail', filter: 'agMultiColumnFilter'},
     { field: 'score', filter: 'agMultiColumnFilter' },
-    { field: 'duration', filter: 'agMultiColumnFilter'},
+    { field: 'duration', filter: 'agMultiColumnFilter',
+    cellRenderer: params => {
+      let timename= params.value>1?"Hrs":"Hr"
+      let val = params.value?params.value+" "+timename:""
+      return val;
+  }
+  
+  },
     { field: 'error', filter: 'agMultiColumnFilter'},
     { headerName:"Created At", field: 'date', filter: 'agDateColumnFilter'},
     { field: 'startedAt', filter: 'agDateColumnFilter'},
