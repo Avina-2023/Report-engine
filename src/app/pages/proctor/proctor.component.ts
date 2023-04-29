@@ -65,10 +65,21 @@ export class ProctorComponent implements OnInit {
     // { field: 'scheduleName',rowGroup: true},
     // { field: 'status' ,rowGroup: true },
     { field: 'useremail', filter: 'agMultiColumnFilter'},
+    { field: 'score', filter: 'agMultiColumnFilter' },
+    { field: 'duration', filter: 'agMultiColumnFilter',
+    cellRenderer: params => {
+      let timename= params.value>1?"Hrs":"Hr"
+      let val = params.value?params.value+" "+timename:""
+      return val;
+  }
+  
+  },
     { field: 'error', filter: 'agMultiColumnFilter'},
+    { headerName:"Created At", field: 'date', filter: 'agDateColumnFilter'},
+    { field: 'startedAt', filter: 'agDateColumnFilter'},
+
     // { field: 'browser.name' },
     // { field: 'signedAt', filter: 'agMultiColumnFilter'},
-    { headerName:"Created At", field: 'date', filter: 'agMultiColumnFilter'},
     
 ];
 
@@ -103,8 +114,8 @@ export class ProctorComponent implements OnInit {
     console.log(event)
     if (event.length==2) {
       let dateparams = {
-        startdate: event ? moment(event[0]).format('yyyy-MM-DD') : '',
-        enddate: event ? moment(event[1]).format('yyyy-MM-DD') : '',
+        startdate: event ? moment(event[0]).toISOString() : '',
+        enddate: event ? moment(event[1]).toISOString() : '',
       };
       this.proctordata(dateparams)
     }
