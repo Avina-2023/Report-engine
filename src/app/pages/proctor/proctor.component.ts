@@ -66,10 +66,13 @@ export class ProctorComponent implements OnInit {
     // { field: 'status' ,rowGroup: true },
     { field: 'useremail', filter: 'agMultiColumnFilter'},
     { field: 'score', filter: 'agMultiColumnFilter' },
+    { field: 'duration', filter: 'agMultiColumnFilter'},
     { field: 'error', filter: 'agMultiColumnFilter'},
+    { headerName:"Created At", field: 'date', filter: 'agDateColumnFilter'},
+    { field: 'startedAt', filter: 'agDateColumnFilter'},
+
     // { field: 'browser.name' },
     // { field: 'signedAt', filter: 'agMultiColumnFilter'},
-    { headerName:"Created At", field: 'date', filter: 'agMultiColumnFilter'},
     
 ];
 
