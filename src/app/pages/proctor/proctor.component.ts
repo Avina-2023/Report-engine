@@ -119,7 +119,7 @@ export class ProctorComponent implements OnInit {
     this.created=0
     this.apiservice.proctor(dateparams).subscribe((res:any)=>{
       console.log(res);
-      this.rowData = res.data
+      this.rowData = res.data.data
       // this.rowData = mockData.data.item;
 
 
