@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 export class ApiService {
 
   BASE_URL = environment.API_BASE_URL;
+  ELASTIC_URL = environment.ELASTIC_BASE_URL;
 
   constructor(
     private http: HttpClient,
@@ -34,13 +35,13 @@ export class ApiService {
     if (data == undefined) {
       data = {};
     }
-    return this.http.post(`${this.BASE_URL}/dashboard`,data)
+    return this.http.post(`${this.ELASTIC_URL}/dashboard`,data)
   }
   userdashboard(data:any){
   return this.http.post(`${this.BASE_URL}/userdashboard`,data)
   }
   dateWiseSectionReport(data:any){
-   return this.http.post(`${this.BASE_URL}/dateWiseSectionReport`,data)
+   return this.http.post(`${this.ELASTIC_URL}/dateWiseSectionReport`,data)
   }
   proctor(data:any){
     console.log(data);
