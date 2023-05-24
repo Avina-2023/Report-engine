@@ -68,8 +68,8 @@ daterrange(event:any){
 
    if(event.length){
    let param = {
-    "startdate":event?this.datepipe.transform(event[0], 'yyyy-MM-dd h:m'):"",
-    "enddate":event?this.datepipe.transform(event[1], 'yyyy-MM-dd h:m'):""
+    "startdate":event?this.datepipe.transform(event[0], 'yyyy-MM-dd HH:mm'):"",
+    "enddate":event?this.datepipe.transform(event[1], 'yyyy-MM-dd HH:mm'):""
   }
   this.dateWiseSectionReport(param)
 }
