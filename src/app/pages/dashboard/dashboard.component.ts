@@ -181,7 +181,7 @@ export class DashboardComponent implements OnInit {
           'Terminated',
           'Idle',
           'Completed',
-          'Inprogrss',
+          'Inprogress',
           'Yet To Start',
         ],
       },
