@@ -74,14 +74,15 @@ daterrange(event:any){
   this.dateWiseSectionReport(param)
 }
 }
-getdata(){
-  this.apiservice.dashboard(this.daterrange).subscribe((res:any)=>{
-    this.rowData = res.data
-    this.dynamicallyConfigureColumnsFromObject(res.data)
-    this.agGrid.api.setRowData(res.data)
-  })
-}
+// getdata(){
+//   this.apiservice.dashboard(this.daterrange).subscribe((res:any)=>{
+//     this.rowData = res.data
+//     this.dynamicallyConfigureColumnsFromObject(res.data)
+//     this.agGrid.api.setRowData(res.data)
+//   })
+// }
 dateWiseSectionReport(data:any){
+  console.log(data)
   this.apiservice.dateWiseSectionReport(data).subscribe((res:any)=>{
     this.rowData = res.data
     this.dynamicallyConfigureColumnsFromObject(res.data)
