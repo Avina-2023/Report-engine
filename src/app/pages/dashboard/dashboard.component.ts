@@ -142,6 +142,9 @@ export class DashboardComponent implements OnInit {
         type: 'bar',
         height: 380,
         margin: 0,
+        toolbar: {
+          show: false,
+        }
       },
 
       colors: [
@@ -207,14 +210,14 @@ export class DashboardComponent implements OnInit {
         height: 500,
 
         toolbar: {
-          show: true,
+          show: false,
           offsetX: 0,
           offsetY: 0,
           zoom: {
             enabled: true,
           },
           tools: {
-            download: true,
+            download: false,
             selection: true,
             zoom: true,
             zoomin: true,
@@ -283,6 +286,9 @@ export class DashboardComponent implements OnInit {
         height: 350,
         type: 'line',
         stacked: false,
+        toolbar: {
+          show: false,
+        }
       },
       dataLabels: {
         enabled: false,
@@ -335,14 +341,14 @@ export class DashboardComponent implements OnInit {
         width: 450,
         height: 500,
         toolbar: {
-          show: true,
+          show: false,
           offsetX: 0,
           offsetY: 0,
           zoom: {
             enabled: true,
           },
           tools: {
-            download: true,
+            download: false,
             selection: true,
             zoom: true,
             zoomin: true,
