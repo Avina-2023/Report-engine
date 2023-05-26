@@ -29,7 +29,7 @@ export class ExamStatusReportComponent implements OnInit {
   rowData:any=[];
   ColDef: any;
   value:Date[] | undefined;
-  date7: Date[] =[new Date(),new Date(new Date().setDate(new Date().getDate() + 1))];
+  date7:any;
 
   // colDefs: any=[];
   constructor(
@@ -58,11 +58,7 @@ clearSelection(): void {
   this.agGrid.api.deselectAll();
 }
 ngOnInit() {
-  let data={
-    "startdate":this.datepipe.transform(this.date7[0], 'yyyy-MM-dd'),
-    "enddate":this.datepipe.transform(this.date7[1], 'yyyy-MM-dd')
-  }
-  this.dateWiseSectionReport(data)
+  this.dateWiseSectionReport({})
 }
 daterrange(event:any){
 
