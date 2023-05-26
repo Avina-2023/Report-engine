@@ -14,39 +14,46 @@
 </div>
 <div style="display: flex; justify-content: space-evenly; padding: 3% 2%">
   <app-tinycard
-    [wgColor]="'#00bd9d'"
+    [wgColor]="'#00b0ed'"
     [iconClass]="'icon-schedule'"
     [tinycardLabel]="'Scheduled'"
     [tinycardCount]="total?.Total_Count"
   ></app-tinycard>
   <app-tinycard
-    [wgColor]="'#008ffb'"
+    [wgColor]="'#27bbee'"
     [iconClass]="'icon-groups'"
     [tinycardLabel]="'Batches'"
     [tinycardCount]="batchCount"
   ></app-tinycard>
   <app-tinycard
-    [wgColor]="'#ffba1f'"
+    [wgColor]="'#40bbbd'"
     [iconClass]="'icon-domain'"
     [tinycardLabel]="'Domains'"
     [tinycardCount]="domainCount"
   ></app-tinycard>
   <app-tinycard
-    [wgColor]="'#02bf2b'"
-    [iconClass]="'icon-assignment'"
-    [tinycardLabel]="'Test Started'"
-    [tinycardCount]="total?.Started"
-  ></app-tinycard>
+  [wgColor]="'#70bc41'"
+  [iconClass]="'icon-login-lock'"
+  [tinycardLabel]="'Logged In'"
+  [tinycardCount]="total?.Started"
+></app-tinycard>
 </div>
 <div style="display: flex; justify-content: space-evenly">
   <app-tinycard
-    [wgColor]="'#70bc41'"
-    [iconClass]="'icon-logged_in'"
-    [tinycardLabel]="'Logged In'"
-    [tinycardCount]="total?.Started"
-  ></app-tinycard>
+  [wgColor]="'#70bc41'"
+  [iconClass]="'icon-logged_in'"
+  [tinycardLabel]="'Yet To Start'"
+  [tinycardCount]="total?.Yet_To_Start
+  "
+></app-tinycard>
   <app-tinycard
-    [wgColor]="'#ff0000'"
+  [wgColor]="'#40bbbd'"
+  [iconClass]="'icon-assignment'"
+  [tinycardLabel]="'Test Started'"
+  [tinycardCount]="total?.Started"
+></app-tinycard>
+  <app-tinycard
+    [wgColor]="'#27bbee'"
     [iconClass]="'icon-edit_note'"
     [tinycardLabel]="'InProgress'"
     [isDrawer]="true"
@@ -54,7 +61,7 @@
     [tinyCountDetails]="CountDetails"
   ></app-tinycard>
   <app-tinycard
-    [wgColor]="'#27bbee'"
+    [wgColor]="'#00b0ed'"
     [iconClass]="'icon-test-completed'"
     [tinycardLabel]="'Completed'"
     [tinycardCount]="total?.Completed"
