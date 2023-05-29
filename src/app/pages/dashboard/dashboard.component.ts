@@ -284,7 +284,7 @@ export class DashboardComponent implements OnInit {
       series: [],
       chart: {
         height: 350,
-        type: 'line',
+        type: 'bar',
         stacked: false,
         toolbar: {
           show: false,
@@ -440,8 +440,8 @@ export class DashboardComponent implements OnInit {
     this.chartOptions.series[0].data = [
       results.Total_Count,
       results.Started,
-      results.Terminated,
-      results.Idle,
+      results.Terminated?results.Terminated:0,
+      results.Idle?results.Idle:0,
       results.Completed,
       results.Inprogrss,
       results.Yet_To_Start,
@@ -516,16 +516,21 @@ export class DashboardComponent implements OnInit {
           }
           // console.log(cData.Client_Name)
           if (
-            !this.chartOptions4.xaxis.categories.includes(cData.Client_Name)
+            !datarray.includes(cData.Client_Name)
           ) {
             datarray.push(cData.Client_Name);
-            this.chartOptions4.xaxis.categories = datarray;
           }
         });
-
         this.chartOptions4.series.push(domainData);
-        this.chart4?.updateOptions(this.chartOptions4);
+        console.log(groupedData)
       });
+      setTimeout(() => {
+        console.log(datarray)
+        this.chartOptions4.xaxis.categories = datarray;
+        
+        this.chart4?.updateOptions(this.chartOptions4);
+      }, 1000);
+      
   }
   clientWiseChartDataSort(_data: any) {
     this.countByClientName = {};
