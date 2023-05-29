@@ -1,84 +1,121 @@
 @import '../../themes/theme.scss';
 
 .main-wrapper-login {
+  background-image: url(../../../assets/images/bg.svg);
   display: flex;
   width: 100% !important;
   justify-content: space-between;
   align-items: stretch;
   height: 100vh;
-  background-image: url(../../../assets/images/webback.jpg);
   background-repeat: repeat;
 
   .left {
-    background-color: #fffffff5;
+    
     padding: 10px;
-    width: 50%;
+    width: 65%;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-
-    .login-head {
-      color: #08558c;
-      font-size: 22px;
-      font-weight: 500;
-      line-height: normal;
+    justify-content: space-around;
+   
+    .login-head-Welcome{
+      font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 39px;
+    text-align: center;
+    color: #262626;
+    }
+    .login-head-Analytics{
+    
+      font-style: normal;
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 39px;
       text-align: center;
+      color: #1B4E9B;   
     }
     .beforeloginimg{
+      width: 50%;
+    }
+   
+    .footer_wrapper{
+      display: flex;
+      justify-content: space-between;
       width: 100%;
     }
-    .main-logo{
-      // background: rgba(255, 255, 255, 0.24);
-      // border-radius: 5px;
-      // box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
-      // backdrop-filter: blur(5px);
-      // -webkit-backdrop-filter: blur(5px);
-      // border: 2px solid rgb(255 255 255 / 63%);
-      // padding: 10px 30px
+    .left_img{
+      width: 70%;
+    }
+    .footer_wrapper_left{
+      width: 30%;
+    }
+    .footer_wrapper_right{
+      width: 50%;
+      font-size: 14px;
+      align-self: end;
+    }
+    .footer-logo{
+      font-size: 14px;
+      color: #000;
+      margin-right: 5px;
+    }
+    .footer-logo-line{
+      border: 1px solid #262626;
     }
   }
 
   .right {
-    width: 50%;
+    background: #FFFFFF;
+    box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 40px 0px 0px 40px;
+    width: 35%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     background-image: linear-gradient(90deg, #fffffff5, #fffefead);
     .mobile_Header{
       display:none;
     }
 
-    .formWrapper {
-      text-align: center;
+    .intedutech_wrapper{
+    
+    .formWrapper{
+ 
       display: flex;
       justify-content: center;
-
+   
       .form-wrapper {
-        width: 50%;
+        width: 80%;
         display: flex;
         flex-direction: column;
-        padding: 25px 10px 25px 10px;
-        // ==
-        background: rgb(255 255 255 / 12%);
-        border-radius: 5px;
-        box-shadow: 3px 3px 30px 4px #0000002e;
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
-        border: 2px solid rgb(255 255 255 / 63%);
-        // ==
+      
         mat-form-field{
           padding:5px 0px;
         }
+      }
         .error,
           .mat-form-field.mat-form-field-invalid .mat-form-field-label,
           .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
             color: red;
             font-size: 12px;
           }
-        .sign-head h1{
-          font-weight: 500;
-          font-size: 24px;
+        .sign-head{
+          .sign-head-hello{
+            
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 0px;
+            color: #000000;
+          }
+          .sign-head-Welcome{
+            font-style: normal;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 75px;
+            color: #000000;
+          }
         }
         .login-email-icon em {
           font-size: 13px;
@@ -100,28 +137,23 @@
       }
     }
 
-    .footer-logo{
-      font-size: 14px;
-      color: #000;
-      text-align: right;
-    margin-right: 5px;
-    }
-
   }
 }
 
 .btn{
   font-size: 16px;
     border: none;
-    width: 75%;
+    width: 100%;
     height: 47px;
     padding: 12px 10px;
     margin-top: 20px;
-    background: #00b0ed;
-    background: transparent linear-gradient(90deg,#27bbee 0%,#40bbbd 48%,#88ba2f 100%) 0% 0% no-repeat padding-box;
-    color: #fff;
+    //background: #00b0ed;
+    //background: transparent linear-gradient(90deg,#27bbee 0%,#40bbbd 48%,#88ba2f 100%) 0% 0% no-repeat padding-box;
+    color: #fff !important;
     cursor: pointer;
-    border-radius: 50px!important;
+    background: linear-gradient(90.6deg, #16BEF0 0%, #86BD2A 99.72%);
+    border-radius: 10px !important;
+    //border-radius: 50px!important;
 }
 
 @media (max-width: 875px) {
