@@ -14,25 +14,25 @@
 </div>
 <div style="display: flex; justify-content: space-evenly; padding: 3% 2%">
   <app-tinycard
-    [wgColor]="'#00b0ed'"
+    [wgColor]="'#00578c'"
     [iconClass]="'icon-schedule'"
     [tinycardLabel]="'Scheduled'"
     [tinycardCount]="total?.Total_Count"
   ></app-tinycard>
   <app-tinycard
-    [wgColor]="'#27bbee'"
+    [wgColor]="'#00bddc'"
     [iconClass]="'icon-groups'"
     [tinycardLabel]="'Batches'"
     [tinycardCount]="batchCount"
   ></app-tinycard>
   <app-tinycard
-    [wgColor]="'#40bbbd'"
+    [wgColor]="'#00bda1'"
     [iconClass]="'icon-domain'"
     [tinycardLabel]="'Domains'"
     [tinycardCount]="domainCount"
   ></app-tinycard>
   <app-tinycard
-  [wgColor]="'#70bc41'"
+  [wgColor]="'#70bc40'"
   [iconClass]="'icon-login-lock'"
   [tinycardLabel]="'Logged In'"
   [tinycardCount]="total?.Started"
@@ -40,20 +40,20 @@
 </div>
 <div style="display: flex; justify-content: space-evenly">
   <app-tinycard
-  [wgColor]="'#70bc41'"
+  [wgColor]="'#65ba40'"
   [iconClass]="'icon-logged_in'"
   [tinycardLabel]="'Yet To Start'"
   [tinycardCount]="total?.Yet_To_Start
   "
 ></app-tinycard>
   <app-tinycard
-  [wgColor]="'#40bbbd'"
+  [wgColor]="'#bc823b'"
   [iconClass]="'icon-assignment'"
   [tinycardLabel]="'Test Started'"
   [tinycardCount]="total?.Started"
 ></app-tinycard>
   <app-tinycard
-    [wgColor]="'#27bbee'"
+    [wgColor]="'red'"
     [iconClass]="'icon-edit_note'"
     [tinycardLabel]="'InProgress'"
     [isDrawer]="true"
@@ -61,7 +61,7 @@
     [tinyCountDetails]="CountDetails"
   ></app-tinycard>
   <app-tinycard
-    [wgColor]="'#00b0ed'"
+    [wgColor]="'#00bd8e'"
     [iconClass]="'icon-test-completed'"
     [tinycardLabel]="'Completed'"
     [tinycardCount]="total?.Completed"
@@ -152,7 +152,7 @@
   </div>
 </div>
 
-<div
+<!-- <div
   class="chart_card"
   style="
     width: 98%;
@@ -177,7 +177,7 @@
     [tooltip]="chartOptions4.tooltip"
     [legend]="chartOptions4.legend"
   ></apx-chart>
-</div>
+</div> -->
 <div class="card_topic ml-10">
   <h1>Overall Dashboard Table Representation</h1>
 </div>
