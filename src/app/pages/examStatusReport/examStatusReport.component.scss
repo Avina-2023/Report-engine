@@ -6,24 +6,60 @@ html, body {
    box-sizing: border-box;
    -webkit-overflow-scrolling: touch;
 }
+.reports{
+  position: relative;
+    text-align: center;
+    top: 14px;
+}
+.mat_accordion{
+  position: relative;
+    top: 20px;
+    margin-left: 0px;
+    margin-right: 16px;
+    left: 8px;
+}
+.accordion_align{
+  position: relative;
+  top: 15px;
+}
+
+.excel{
+  // border: 0px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+
+  // justify-content: flex-end;
+}
+.left{
+width: 50%;
+}
+.right{
+width: 50%;
+text-align: -webkit-right;
+}
+
 .report-Wrapper{
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 50px;
 
-  .heading{
-    margin-left: 5px;
-    font-size: 20px;
-    display: flex;
-    justify-content: flex-start;
-}
-.excel{
-    border: 0px;
-    display: flex;
-    justify-content: flex-end;
-}
+//   .heading{
+//     margin-left: 5px;
+//     font-size: 20px;
+//     display: flex;
+//     justify-content: flex-start;
+// }
 
+}
+.heading{
+  margin-left: 5px;
+  font-size: 20px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 button{
@@ -31,13 +67,14 @@ button{
     background-color: #ffffff;
     border-radius: 4px;
     font-size: 15px;
+    right: 8px;
     cursor: pointer;
     border: 0px;
-    margin: 5px;
+    // margin: 5px;
     display: flex;
     border: 1px solid #004684;
     justify-content: flex-end;
-    box-shadow: 0 2px 4px -1px #0003!important;
+    // box-shadow: 0 2px 4px -1px #0003!important;
 
 }
 
@@ -45,9 +82,13 @@ button{
   margin-right: 10px;
 }
 .p-calendar-container{
+  width: 50%;
   position: relative;
-  margin-right: 15px;
-  margin-top: 10px;
+  left: 5px;
+  margin-top: 30px;
+  // right: 70px;
+  // margin-right: 15px;
+  // margin-top: 10px;
   i{
     position: absolute;
     right: 3px;

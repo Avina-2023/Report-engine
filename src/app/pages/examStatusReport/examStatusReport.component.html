@@ -1,25 +1,196 @@
 
-<div class="report-Wrapper">
-<div class="heading"><span>Score Report </span></div>
-<div class="excel">
-  <div class="p-field p-calendar-container">
-    <label for="range">Delivery date range:</label>
-    <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
-    nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
-<!-- 
-     <p-calendar #calen [(ngModel)]="date7" selectionMode="range" [readonlyInput]="true" 
-     [showTime]="true" inputId="range" (onSelect)="daterrange()" dateFormat="yy/m/d" >
-     </p-calendar> -->
-     <!-- <i class="pi pi-calendar" (click)="calen.toggle()" ></i> -->
+
+<div class="reports">
+  <h1> Reports </h1>
+</div>
+<div class="mat_accordion">
+  <mat-tab-group fitInkBarToContent>
+    <mat-tab label="Report1">
+      <div class="excel">
+      <div class="left">
+        <label for="range">Delivery date range:</label>
+        <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
+        nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
+       
+      </div>
+      <div class="right">
+        <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button> 
+      </div> 
     </div>
-  <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
+      
+        <ag-grid-angular
+        style="width: 100%; height: 400px;margin-top: 30px;"
+        class="ag-theme-alpine"
+        [suppressClickEdit]="true"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [rowSelection]="'rowSelection'"
+        [paginationPageSize]="20"
+        [pagination]="true"
+        [animateRows]="true">
+       </ag-grid-angular>
 
-</div>
+<!-- <mat-accordion  multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+         <div class="heading"><span> Section Wise Report </span></div>
+      </mat-panel-title>
+      <mat-panel-description>
+        <div class="excel">
+        <div class="p-field p-calendar-container">
+          <label for="range">Delivery date range:</label>
+          <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
+          nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)" value="svengat"></nz-range-picker>
+          </div>
+        </div>
+        <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ag-grid-angular
+   style="width: 100%; height: 500px;margin: 5px;"
+   class="ag-theme-alpine"
+   [suppressClickEdit]="true"
+   [columnDefs]="columnDefs"
+   [defaultColDef]="defaultColDef"
+   [rowSelection]="'rowSelection'"
+   [paginationPageSize]="20"
+   [pagination]="true"
+   [animateRows]="true">
+  </ag-grid-angular>
+  </mat-expansion-panel>
+</mat-accordion> -->
+    </mat-tab>
 
+    <mat-tab label="Report2">
+      <div class="excel">
+        <div class="left">
+          <label for="range">Delivery date range:</label>
+          <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
+          nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
+         
+        </div>
+        <div class="right">
+          <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button> 
+        </div> 
+      </div>
+        
+          <ag-grid-angular
+          style="width: 100%; height: 400px;margin-top: 30px;"
+          class="ag-theme-alpine"
+          [suppressClickEdit]="true"
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [rowSelection]="'rowSelection'"
+          [paginationPageSize]="20"
+          [pagination]="true"
+          [animateRows]="true">
+         </ag-grid-angular>
 
+    </mat-tab>
+    <mat-tab label="Report3">
+      <div class="excel">
+        <div class="left">
+          <label for="range">Delivery date range:</label>
+          <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
+          nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
+         
+        </div>
+        <div class="right">
+          <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button> 
+        </div> 
+      </div>
+        
+          <ag-grid-angular
+          style="width: 100%; height: 400px;margin-top: 30px;"
+          class="ag-theme-alpine"
+          [suppressClickEdit]="true"
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [rowSelection]="'rowSelection'"
+          [paginationPageSize]="20"
+          [pagination]="true"
+          [animateRows]="true">
+         </ag-grid-angular>
 
-</div>
-<ag-grid-angular
+    </mat-tab>
+    
+    <mat-tab label="Report4">
+      <div class="excel">
+        <div class="left">
+          <label for="range">Delivery date range:</label>
+          <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
+          nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
+         
+        </div>
+        <div class="right">
+          <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button> 
+        </div> 
+      </div>
+        
+          <ag-grid-angular
+          style="width: 100%; height: 400px;margin-top: 30px;"
+          class="ag-theme-alpine"
+          [suppressClickEdit]="true"
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [rowSelection]="'rowSelection'"
+          [paginationPageSize]="20"
+          [pagination]="true"
+          [animateRows]="true">
+         </ag-grid-angular>
+    </mat-tab>
+  </mat-tab-group>
+  
+<!-- <mat-accordion  multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="heading"><span> Section Wise Report </span></div>
+      </mat-panel-title>
+      <mat-panel-description>
+        <div class="excel">
+        <div class="p-field p-calendar-container">
+          <label for="range">Delivery date range:</label>
+          <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
+          nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)" value="svengat"></nz-range-picker>
+          </div>
+        </div>
+        <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ag-grid-angular
+   style="width: 100%; height: 500px;margin: 5px;"
+   class="ag-theme-alpine"
+   [suppressClickEdit]="true"
+   [columnDefs]="columnDefs"
+   [defaultColDef]="defaultColDef"
+   [rowSelection]="'rowSelection'"
+   [paginationPageSize]="20"
+   [pagination]="true"
+   [animateRows]="true">
+  </ag-grid-angular>
+  </mat-expansion-panel>
+</mat-accordion> -->
+<!-- 
+<mat-accordion class="accordion_align" multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="heading"><span> Item Wise Report </span></div>
+      </mat-panel-title>
+      <mat-panel-description>
+        <div class="excel">
+        <div class="p-field p-calendar-container">
+          <label for="range">Delivery date range:</label>
+          <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
+          nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
+          </div>
+        </div>
+        <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ag-grid-angular
    style="width: 100%; height: 500px;margin: 5px;"
    class="ag-theme-alpine"
    [suppressClickEdit]="true"
@@ -27,17 +198,17 @@
    [defaultColDef]="defaultColDef"
    [paginationPageSize]="20"
    [pagination]="true"
-   [animateRows]="true"
-   
- ></ag-grid-angular>
-
-
-
-  <!-- <div class="p-field p-col-12 p-md-4">
-    <label for="time">Start Time</label>
-    <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"></p-calendar>
-    <label for="time">End Time</label>
-    <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"></p-calendar>
+   [animateRows]="true">
+  </ag-grid-angular>
+  </mat-expansion-panel>
+</mat-accordion> -->
+</div>
+<!-- <div class="report-Wrapper">
+<div class="heading"><span>Score Report </span></div>
+<div class="excel">
+</div>
 </div> -->
+
+  
 
 

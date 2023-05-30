@@ -13,12 +13,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTabsModule} from '@angular/material/tabs';
 @Component({
     selector: 'app-examStatusReport',
     templateUrl: './examStatusReport.component.html',
     styleUrls: ['./examStatusReport.component.scss'],
     standalone: true,
-    imports: [NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule]
+    imports: [NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule]
 })
 export class ExamStatusReportComponent implements OnInit {
   exam = { "date": "",'Client_name':"",'Domain_name':"",'DeliveryStartTime':""};
@@ -48,7 +50,7 @@ public defaultColDef: ColDef = {
   filter: true,
   resizable:true,
   editable:false,
-
+  
 };
 // For accessing the Grid's API
 @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
@@ -67,16 +69,17 @@ daterrange(event:any){
     "startdate":event?this.datepipe.transform(event[0], 'yyyy-MM-dd HH:mm'):"",
     "enddate":event?this.datepipe.transform(event[1], 'yyyy-MM-dd HH:mm'):""
   }
+  
   this.dateWiseSectionReport(param)
 }
 }
-getdata(){
-  this.apiservice.dashboard(this.daterrange).subscribe((res:any)=>{
-    this.rowData = res.data
-    this.dynamicallyConfigureColumnsFromObject(res.data)
-    this.agGrid.api.setRowData(res.data)
-  })
-}
+// getdata(){
+//   this.apiservice.dashboard(this.daterrange).subscribe((res:any)=>{
+//     this.rowData = res.data
+//     this.dynamicallyConfigureColumnsFromObject(res.data)
+//     this.agGrid.api.setRowData(res.data)
+//   })
+// }
 dateWiseSectionReport(data:any){
   this.apiservice.dateWiseSectionReport(data).subscribe((res:any)=>{
     this.rowData = res.data
