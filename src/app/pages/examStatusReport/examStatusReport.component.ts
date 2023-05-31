@@ -1,4 +1,4 @@
-import { Component, OnInit ,ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { AgGridAngular, AgGridModule} from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
@@ -24,6 +24,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     templateUrl: './examStatusReport.component.html',
     styleUrls: ['./examStatusReport.component.scss'],
     standalone: true,
+    // encapsulation: ViewEncapsulation.None,
     imports: [NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule]
 })
 export class ExamStatusReportComponent implements OnInit {
