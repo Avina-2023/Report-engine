@@ -15,12 +15,16 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 @Component({
     selector: 'app-examStatusReport',
     templateUrl: './examStatusReport.component.html',
     styleUrls: ['./examStatusReport.component.scss'],
     standalone: true,
-    imports: [NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule]
+    imports: [NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule]
 })
 export class ExamStatusReportComponent implements OnInit {
   exam = { "date": "",'Client_name':"",'Domain_name':"",'DeliveryStartTime':""};
@@ -32,7 +36,9 @@ export class ExamStatusReportComponent implements OnInit {
   ColDef: any;
   value:Date[] | undefined;
   date7:any;
+  sidenav: any;
 
+  
   // colDefs: any=[];
   constructor(
     private apiservice : ApiService,
@@ -73,6 +79,11 @@ daterrange(event:any){
   this.dateWiseSectionReport(param)
 }
 }
+
+clickHandler() {
+  this.sidenav.close();
+}
+
 // getdata(){
 //   this.apiservice.dashboard(this.daterrange).subscribe((res:any)=>{
 //     this.rowData = res.data

@@ -6,17 +6,22 @@ html, body {
    box-sizing: border-box;
    -webkit-overflow-scrolling: touch;
 }
+
+.main-reports{
+  margin: 30px;
+}
 .reports{
   position: relative;
     text-align: center;
     top: 14px;
 }
 .mat_accordion{
-  position: relative;
-    top: 20px;
-    margin-left: 0px;
-    margin-right: 16px;
-    left: 8px;
+  // position: relative;
+  // /* top: 20px; */
+  // margin-left: 0px;
+  // /* margin-right: 16px; */
+  // margin-right: 13px;
+  // left: 8px;
 }
 .accordion_align{
   position: relative;
@@ -34,11 +39,26 @@ html, body {
   // justify-content: flex-end;
 }
 .left{
-width: 50%;
+  text-align: end;
+  // margin-top: 15px;
+  // margin-right: 13px;
+
 }
 .right{
-width: 50%;
-text-align: -webkit-right;
+  width: 100%;
+  margin-left: 8px;
+  text-align: -webkit-right;
+}
+
+.extra-menu{
+  position: absolute;
+  right: 26px;
+  // right: 0;
+  z-index: 2;
+}
+.mat-sidenav-container-button{
+  border: none;
+  // cursor: pointer;
 }
 
 .report-Wrapper{
@@ -61,8 +81,11 @@ text-align: -webkit-right;
   display: flex;
   justify-content: flex-start;
 }
+.mat-sidenav{
 
-button{
+}
+
+.outline-button{
     color: #004684 !important;
     background-color: #ffffff;
     border-radius: 4px;
