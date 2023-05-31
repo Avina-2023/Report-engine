@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { InterComponentMessenger } from 'src/app/services/interComponentMessenger.service';
 import { AppConfigService } from 'src/app/utils/app-config.service';
@@ -7,18 +7,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgClass } from '@angular/common';
+import { AvatarModule } from 'ngx-avatars';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     standalone: true,
-    imports: [NgClass, MatMenuModule, MatIconModule, MatDialogModule, MatButtonModule]
+    imports: [NgClass, MatMenuModule, MatIconModule, MatDialogModule, MatButtonModule, AvatarModule],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('matDialog', { static: false }) matDialogRef: any;
- public name:any;
+ public username:any;
  isOpenMenu = true;
+ 
 
   constructor(
     private authConfig: AppConfigService,
@@ -29,7 +32,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.name=this.authConfig.getLocalValue('firstname')
+   this.username=this.authConfig.getLocalValue('firstname')
   }
 
   menuToggle(){
