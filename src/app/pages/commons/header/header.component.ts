@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
   }
   matDialogOpen() {
     const dialogRef = this.dialog.open(this.matDialogRef, {
-
+      disableClose: true
     });
   }
   closeDialog(e: any) {

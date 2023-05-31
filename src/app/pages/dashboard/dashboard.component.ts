@@ -142,6 +142,9 @@ export class DashboardComponent implements OnInit {
         type: 'bar',
         height: 380,
         margin: 0,
+        toolbar: {
+          show: false,
+        }
       },
 
       colors: [
@@ -181,7 +184,7 @@ export class DashboardComponent implements OnInit {
           'Terminated',
           'Idle',
           'Completed',
-          'Inprogrss',
+          'Inprogress',
           'Yet To Start',
         ],
       },
@@ -207,14 +210,14 @@ export class DashboardComponent implements OnInit {
         height: 500,
 
         toolbar: {
-          show: true,
+          show: false,
           offsetX: 0,
           offsetY: 0,
           zoom: {
             enabled: true,
           },
           tools: {
-            download: true,
+            download: false,
             selection: true,
             zoom: true,
             zoomin: true,
@@ -281,8 +284,11 @@ export class DashboardComponent implements OnInit {
       series: [],
       chart: {
         height: 350,
-        type: 'line',
+        type: 'bar',
         stacked: false,
+        toolbar: {
+          show: false,
+        }
       },
       dataLabels: {
         enabled: false,
@@ -335,14 +341,14 @@ export class DashboardComponent implements OnInit {
         width: 450,
         height: 500,
         toolbar: {
-          show: true,
+          show: false,
           offsetX: 0,
           offsetY: 0,
           zoom: {
             enabled: true,
           },
           tools: {
-            download: true,
+            download: false,
             selection: true,
             zoom: true,
             zoomin: true,
@@ -434,8 +440,8 @@ export class DashboardComponent implements OnInit {
     this.chartOptions.series[0].data = [
       results.Total_Count,
       results.Started,
-      results.Terminated,
-      results.Idle,
+      results.Terminated?results.Terminated:0,
+      results.Idle?results.Idle:0,
       results.Completed,
       results.Inprogrss,
       results.Yet_To_Start,
@@ -510,16 +516,21 @@ export class DashboardComponent implements OnInit {
           }
           // console.log(cData.Client_Name)
           if (
-            !this.chartOptions4.xaxis.categories.includes(cData.Client_Name)
+            !datarray.includes(cData.Client_Name)
           ) {
             datarray.push(cData.Client_Name);
-            this.chartOptions4.xaxis.categories = datarray;
           }
         });
-
         this.chartOptions4.series.push(domainData);
-        this.chart4?.updateOptions(this.chartOptions4);
+        console.log(groupedData)
       });
+      setTimeout(() => {
+        console.log(datarray)
+        this.chartOptions4.xaxis.categories = datarray;
+        
+        this.chart4?.updateOptions(this.chartOptions4);
+      }, 1000);
+      
   }
   clientWiseChartDataSort(_data: any) {
     this.countByClientName = {};
@@ -588,10 +599,10 @@ export class DashboardComponent implements OnInit {
   daterrange(event:any) {
     console.log(event)
     if (event.length==2) {
-      console.log('datata', moment(event[0]).format('yyyy-MM-DD h:mm'));
+      console.log('datata', moment(event[0]).format('yyyy-MM-DD HH:mm'));
       let dateparams = {
-        startdate: event ? moment(event[0]).format('yyyy-MM-DD h:mm') : '',
-        enddate: event ? moment(event[1]).format('yyyy-MM-DD h:mm') : '',
+        startdate: event ? moment(event[0]).format('yyyy-MM-DD HH:mm') : '',
+        enddate: event ? moment(event[1]).format('yyyy-MM-DD HH:mm') : '',
       };
       this.DashboardData = dateparams;
       this.getDashboardAPI();
