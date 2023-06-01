@@ -423,7 +423,7 @@ export class DashboardComponent implements OnInit {
       'Terminated',
       'Idle',
       'Completed',
-      'Inprogrss',
+      'Inprogress',
       'Yet_To_Start',
     ];
     let results:any = _.zipObject(
