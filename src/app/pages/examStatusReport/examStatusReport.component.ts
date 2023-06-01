@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { AgGridAngular, AgGridModule} from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
@@ -18,16 +18,18 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { CommonreportviewComponent } from '../commons/commonreportview/commonreportview.component';
 
 @Component({
     selector: 'app-examStatusReport',
     templateUrl: './examStatusReport.component.html',
     styleUrls: ['./examStatusReport.component.scss'],
     standalone: true,
-    // encapsulation: ViewEncapsulation.None,
-    imports: [NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule]
+
+    imports: [NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule,CommonreportviewComponent],
 })
 export class ExamStatusReportComponent implements OnInit {
+
   exam = { "date": "",'Client_name':"",'Domain_name':"",'DeliveryStartTime':""};
   userData = { "date": "2023/02/14"};
   datepipe=new DatePipe('en-us')
@@ -38,7 +40,7 @@ export class ExamStatusReportComponent implements OnInit {
   value:Date[] | undefined;
   date7:any;
   sidenav: any;
-
+  tabdate:any;
   
   // colDefs: any=[];
   constructor(
@@ -59,25 +61,26 @@ public defaultColDef: ColDef = {
   editable:false,
   
 };
-// For accessing the Grid's API
-@ViewChild(AgGridAngular) agGrid!: AgGridAngular;
+
 
 // Example using Grid's API
-clearSelection(): void {
-  this.agGrid.api.deselectAll();
-}
+// clearSelection(): void {
+//   this.agGrid.api.deselectAll();
+// }
 ngOnInit() {
   this.dateWiseSectionReport({})
+  // this.dateWiseitemReport({})
 }
 daterrange(event:any){
 
    if(event.length){
-   let param = {
+    this.tabdate = {
     "startdate":event?this.datepipe.transform(event[0], 'yyyy-MM-dd HH:mm'):"",
     "enddate":event?this.datepipe.transform(event[1], 'yyyy-MM-dd HH:mm'):""
   }
   
-  this.dateWiseSectionReport(param)
+   this.dateWiseSectionReport(this.tabdate)
+   this.dateWiseitemReport(this.tabdate)
 }
 }
 
@@ -85,37 +88,64 @@ clickHandler() {
   this.sidenav.close();
 }
 
-// getdata(){
-//   this.apiservice.dashboard(this.daterrange).subscribe((res:any)=>{
-//     this.rowData = res.data
-//     this.dynamicallyConfigureColumnsFromObject(res.data)
-//     this.agGrid.api.setRowData(res.data)
-//   })
-// }
+
 dateWiseSectionReport(data:any){
   this.apiservice.dateWiseSectionReport(data).subscribe((res:any)=>{
     this.rowData = res.data
-    this.dynamicallyConfigureColumnsFromObject(res.data)
-    this.agGrid.api.setRowData(res.data)
+    // this.dynamicallyConfigureColumnsFromObject(res.data)
+    // this.agGrid.api.setRowData(res.data)
   })
 }
-excelexport(params:any){
-  this.excelService.exportAsExcelFile(params, 'report');
+
+dateWiseitemReport(data:any){
+  this.apiservice.dateWiseitemReport(data).subscribe((res:any)=>{
+    this.rowData = res.data
+    // this.dynamicallyConfigureColumnsFromObject(res.data)
+    // this.agGrid.api.setRowData(res.data)
+  })
 }
-dynamicallyConfigureColumnsFromObject(anObject:any){
-  this.ColDef = this.agGrid.api.getColumnDefs();
-  this.ColDef.length=0;
-  this.columnDefs=[]
-  if(anObject?.length){
+
+tabchange(event:any){
+
+  switch(event.index) {
+    case 0:
+      this.dateWiseSectionReport(this.tabdate)
+      console.log(this.rowData)
+        break;
+    case 1:
+      this.dateWiseitemReport(this.tabdate)
+      console.log(this.rowData)
+        break;
+ }
+console.log('Index: ' + event.index);
+}
+
+// excelexport(params:any){
+//   this.excelService.exportAsExcelFile(params, 'report');
+// }
+// dateWiseitemReport(data:any){
+//   this.apiservice.dateWiseitemReport(data).subscribe((res:any)=>{
+//     this.rowData = res.data
+//     this.dynamicallyConfigureColumnsFromObject(res.data)
+//     this.agGrid.api.setRowData(res.data)
+//     // console.log(this.dateWiseitemReport)
+//   })
+// }
+
+// dynamicallyConfigureColumnsFromObject(anObject:any){
+//   this.ColDef = this.agGrid.api.getColumnDefs();
+//   this.ColDef.length=0;
+//   this.columnDefs=[]
+//   if(anObject?.length){
   
-  const keys = Object.keys(anObject[0])
-  keys.forEach(key =>
-    this.columnDefs.push({field : key,headerName:key.replaceAll('_',' ')})
-    );
+//   const keys = Object.keys(anObject[0])
+//   keys.forEach(key =>
+//     this.columnDefs.push({field : key,headerName:key.replaceAll('_',' ')})
+//     );
   
-}
-this.agGrid.api.setColumnDefs(this.columnDefs);
-  this.agGrid.api.setRowData(anObject);
-  this.rowData=anObject
-}
+// }
+// this.agGrid.api.setColumnDefs(this.columnDefs);
+//   this.agGrid.api.setRowData(anObject);
+//   this.rowData=anObject
+// }
 }
