@@ -68,8 +68,11 @@ export class ProctorComponent implements OnInit {
     { field: 'score', filter: 'agMultiColumnFilter' },
     { field: 'duration', filter: 'agMultiColumnFilter',
     cellRenderer: params => {
-      let timename= params.value>1?"Hrs":"Hr"
-      let val = params.value?params.value+" "+timename:""
+      let timeData = moment.duration(params.value,'minutes');
+      console.log(timeData.hours,timeData.minutes);
+      let hourData= timeData.hours()>1?timeData.hours()+" Hrs":timeData.hours()?timeData.hours()+" Hr":''
+      let minData= timeData.minutes()>1?timeData.minutes()+" Mins":timeData.minutes()?timeData.minutes()+" Min":''
+      let val = hourData+" "+minData
       return val;
   }
   
