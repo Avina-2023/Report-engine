@@ -404,7 +404,7 @@ export class DashboardComponent implements OnInit {
       'Terminated',
       'Idle',
       'Completed',
-      'Inprogrss',
+      'Inprogress',
       'Yet_To_Start',
     ];
     let results:any = _.zipObject(
@@ -529,6 +529,7 @@ export class DashboardComponent implements OnInit {
       this.clientwisePie?.updateSeries(this.chartOptions2.series);
       
     });
+    this.clientwisePie?.updateOptions(this.chartOptions2);
   }
   domainWiseChartDataSort(_data: any) {
     let domainwise: any = {};
@@ -570,6 +571,7 @@ export class DashboardComponent implements OnInit {
       this.chartOptions5?.series.push(items);
       this.chart5?.updateSeries(this.chartOptions5.series);
     });
+    this.chart5?.updateOptions(this.chartOptions5);
   }
 
   daterrange(event:any) {

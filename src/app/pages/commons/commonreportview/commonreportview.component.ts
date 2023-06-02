@@ -4,6 +4,7 @@ import { ColDef  } from 'ag-grid-enterprise';
 import { ExcelService } from 'src/app/services/excelService';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
@@ -15,14 +16,15 @@ import {MatToolbarModule} from '@angular/material/toolbar';
   templateUrl: './commonreportview.component.html',
   styleUrls: ['./commonreportview.component.scss'],
   standalone: true,
-  imports: [AgGridModule,MatButtonModule, MatIconModule, ReactiveFormsModule, FormsModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule]
+  imports: [CommonModule,AgGridModule,MatButtonModule, MatIconModule, ReactiveFormsModule, FormsModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule]
   
 })
 export class CommonreportviewComponent implements OnInit {
 
   @Input() tabledata = [];
-  @Input() isdownload: boolean = false;
+  @Input() isdownload:any;
   ColDef: any;
+  is_download: any;
   
   constructor(
     private excelService:ExcelService,
@@ -41,12 +43,15 @@ export class CommonreportviewComponent implements OnInit {
 @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 
   ngOnInit() {
-    this.dynamicallyConfigureColumnsFromObject(this.tabledata)
-    this.agGrid.api.setRowData(this.tabledata)
+    // this.dynamicallyConfigureColumnsFromObject(this.tabledata)
+    // this.agGrid.api.setRowData(this.tabledata)
   }
 
   ngOnChanges(changes:SimpleChanges){
-
+    console.log(changes)
+    this.is_download = changes['isdownload']?.currentValue
+    this.dynamicallyConfigureColumnsFromObject(changes['tabledata'].currentValue)
+    this.agGrid.api.setRowData(changes['tabledata'].currentValue)
   }
 
   excelexport(params:any){
