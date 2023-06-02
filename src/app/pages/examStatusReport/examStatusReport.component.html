@@ -30,20 +30,10 @@
   </mat-menu>
 
 
-  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" [backgroundColor]="'primary'" (selectedTabChange)="tabchange($event)" [selectedIndex]="0">
-    <mat-tab label="Report1">
-   <app-commonreportview [tabledata]="rowData" [isdownload]="false"></app-commonreportview>
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" [backgroundColor]="'primary'" (selectedTabChange)="tabchange($event.index)" [selectedIndex]="0">
+    <mat-tab *ngFor="let item of reportList" [label]="item.report_Name">
+   <app-commonreportview [tabledata]="rowData" [isdownload]="item.is_download"></app-commonreportview>
     </mat-tab>
-
-    <mat-tab label="Report2">
-      <app-commonreportview  [tabledata]="rowData" [isdownload]="false"></app-commonreportview>
-    </mat-tab>
-
-    <mat-tab label="Report3">
-      <app-commonreportview [tabledata]="rowData" [isdownload]="false"></app-commonreportview>
-    </mat-tab>
-    
-   
   </mat-tab-group>
   
 </div> 
