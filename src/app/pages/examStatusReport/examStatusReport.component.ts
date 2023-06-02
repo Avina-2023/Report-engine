@@ -1,12 +1,10 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { AgGridAngular, AgGridModule} from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
-// import 'ag-grid-enterprise';
 import { ColDef  } from 'ag-grid-enterprise';
 import { FileSaverService } from 'ngx-filesaver';
 import { ExcelService } from 'src/app/services/excelService';
-import {CalendarModule} from 'primeng/calendar';
 import { DatePipe } from '@angular/common';
 import { InterComponentMessenger } from 'src/app/services/interComponentMessenger.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -42,7 +40,6 @@ export class ExamStatusReportComponent implements OnInit {
   sidenav: any;
   tabdate:any;
   
-  // colDefs: any=[];
   constructor(
     private apiservice : ApiService,
     private http: HttpClient,
@@ -50,10 +47,9 @@ export class ExamStatusReportComponent implements OnInit {
     private excelService:ExcelService,
     private messenger:InterComponentMessenger
   ) {}
- // Each Column Definition results in one Column.
-  public columnDefs: ColDef[] = []
+ 
+public columnDefs: ColDef[] = []
 
-// DefaultColDef sets props common to all Columns
 public defaultColDef: ColDef = {
   sortable: true,
   filter: true,
@@ -62,14 +58,9 @@ public defaultColDef: ColDef = {
   
 };
 
-
-// Example using Grid's API
-// clearSelection(): void {
-//   this.agGrid.api.deselectAll();
-// }
 ngOnInit() {
   this.dateWiseSectionReport({})
-  // this.dateWiseitemReport({})
+  
 }
 daterrange(event:any){
 
@@ -88,20 +79,15 @@ clickHandler() {
   this.sidenav.close();
 }
 
-
 dateWiseSectionReport(data:any){
   this.apiservice.dateWiseSectionReport(data).subscribe((res:any)=>{
     this.rowData = res.data
-    // this.dynamicallyConfigureColumnsFromObject(res.data)
-    // this.agGrid.api.setRowData(res.data)
   })
 }
 
 dateWiseitemReport(data:any){
   this.apiservice.dateWiseitemReport(data).subscribe((res:any)=>{
     this.rowData = res.data
-    // this.dynamicallyConfigureColumnsFromObject(res.data)
-    // this.agGrid.api.setRowData(res.data)
   })
 }
 
@@ -117,35 +103,6 @@ tabchange(event:any){
       console.log(this.rowData)
         break;
  }
-console.log('Index: ' + event.index);
 }
 
-// excelexport(params:any){
-//   this.excelService.exportAsExcelFile(params, 'report');
-// }
-// dateWiseitemReport(data:any){
-//   this.apiservice.dateWiseitemReport(data).subscribe((res:any)=>{
-//     this.rowData = res.data
-//     this.dynamicallyConfigureColumnsFromObject(res.data)
-//     this.agGrid.api.setRowData(res.data)
-//     // console.log(this.dateWiseitemReport)
-//   })
-// }
-
-// dynamicallyConfigureColumnsFromObject(anObject:any){
-//   this.ColDef = this.agGrid.api.getColumnDefs();
-//   this.ColDef.length=0;
-//   this.columnDefs=[]
-//   if(anObject?.length){
-  
-//   const keys = Object.keys(anObject[0])
-//   keys.forEach(key =>
-//     this.columnDefs.push({field : key,headerName:key.replaceAll('_',' ')})
-//     );
-  
-// }
-// this.agGrid.api.setColumnDefs(this.columnDefs);
-//   this.agGrid.api.setRowData(anObject);
-//   this.rowData=anObject
-// }
 }

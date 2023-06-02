@@ -63,7 +63,6 @@ html, body {
   justify-content: flex-start;
 }
 
-
 .outline-button{
     color: #004684 !important;
     background-color: #ffffff;
@@ -102,19 +101,14 @@ html, body {
 }
 ::ng-deep.p-calendar-container .p-inputtext {
 
-  height: 25px !important; /* set the height of the input field */
-  font-size: 14px !important; /* set the font size of the input field */
+  height: 25px !important; 
+  font-size: 14px !important; 
   padding-right: 20px;
 }
 
-::ng-deep.p-calendar-container .p-datepicker {
-  // width: 200px !important;
-  // height: 250px !important; /* set the width of the calendar popup */
-}
-
 ::ng-deep.p-calendar-container .p-datepicker td {
-  padding:0px; /* set the height of each day cell */
-  font-size: 14px !important; /* set the font size of the day cell text */
+  padding:0px;
+  font-size: 14px !important; 
 }
 ::ng-deep.mat-mdc-tab-body-content{
   overflow-x: hidden !important;
