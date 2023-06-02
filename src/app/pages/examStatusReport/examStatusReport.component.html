@@ -1,4 +1,7 @@
 
+
+
+
 <div class="main-reports">
 <div class="left">
   <label for="range">Delivery date range:</label>
@@ -7,7 +10,6 @@
 </div>
 
 <div class="mat_accordion">
- 
   <button class="extra-menu"  mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
     <mat-icon>more_vert</mat-icon>
   </button>
@@ -28,82 +30,28 @@
   </mat-menu>
 
 
-  <mat-tab-group mat-stretch-tabs="false"  mat-align-tabs="start">
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" [backgroundColor]="'primary'" (selectedTabChange)="tabchange($event)" [selectedIndex]="0">
     <mat-tab label="Report1">
-      <div class="right">
-        <button  mat-stroked-button color="basic" (click)="excelexport(rowData)" class="outline-button"><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button> 
-      </div> 
-   
-        <ag-grid-angular
-        style="width: 100%; height: 366px;margin-top: 30px;"
-        class="ag-theme-alpine"
-        [suppressClickEdit]="true"
-        [columnDefs]="columnDefs"
-        [defaultColDef]="defaultColDef"
-        [rowSelection]="'rowSelection'"
-        [paginationPageSize]="20"
-        [pagination]="true"
-        [animateRows]="true">
-       </ag-grid-angular>
+   <app-commonreportview [tabledata]="rowData" [isdownload]="false"></app-commonreportview>
     </mat-tab>
 
     <mat-tab label="Report2">
-        <div class="right">
-          <button  mat-stroked-button color="basic" (click)="excelexport(rowData)" class="outline-button"><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button> 
-        </div> 
-        
-          <ag-grid-angular
-          style="width: 100%; height: 400px;margin-top: 30px;"
-          class="ag-theme-alpine"
-          [suppressClickEdit]="true"
-          [columnDefs]="columnDefs"
-          [defaultColDef]="defaultColDef"
-          [rowSelection]="'rowSelection'"
-          [paginationPageSize]="20"
-          [pagination]="true"
-          [animateRows]="true">
-         </ag-grid-angular>
+      <app-commonreportview  [tabledata]="rowData" [isdownload]="false"></app-commonreportview>
     </mat-tab>
 
     <mat-tab label="Report3">
-        <div class="right">
-          <button  mat-stroked-button color="basic" (click)="excelexport(rowData)" class="outline-button"><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button> 
-        </div> 
-        
-          <ag-grid-angular
-          style="width: 100%; height: 400px;margin-top: 30px;"
-          class="ag-theme-alpine"
-          [suppressClickEdit]="true"
-          [columnDefs]="columnDefs"
-          [defaultColDef]="defaultColDef"
-          [rowSelection]="'rowSelection'"
-          [paginationPageSize]="20"
-          [pagination]="true"
-          [animateRows]="true">
-         </ag-grid-angular>
+      <app-commonreportview [tabledata]="rowData" [isdownload]="false"></app-commonreportview>
     </mat-tab>
     
-    <mat-tab label="Report4">
-        <div class="right">
-          <button mat-stroked-button color="basic" (click)="excelexport(rowData)" class="outline-button"><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button> 
-        </div> 
-    
-          <ag-grid-angular
-          style="width: 100%; height: 400px;margin-top: 30px;"
-          class="ag-theme-alpine"
-          [suppressClickEdit]="true"
-          [columnDefs]="columnDefs"
-          [defaultColDef]="defaultColDef"
-          [rowSelection]="'rowSelection'"
-          [paginationPageSize]="20"
-          [pagination]="true"
-          [animateRows]="true">
-         </ag-grid-angular>
-    </mat-tab>
+   
   </mat-tab-group>
   
+</div> 
 </div>
-</div>
+
+
+
+
 
 
   

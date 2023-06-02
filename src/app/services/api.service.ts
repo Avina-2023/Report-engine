@@ -43,6 +43,10 @@ export class ApiService {
   dateWiseSectionReport(data:any){
    return this.http.post(`${this.BASE_URL}/dateWiseSectionReport`,data)
   }
+  dateWiseitemReport(data:any){
+    return this.http.post(`${this.BASE_URL}/dateWiseitemReport`,data)
+  }
+
   proctor(data:any){
     console.log(data);
     if (data == undefined) {
