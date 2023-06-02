@@ -25,7 +25,7 @@ export class CommonreportviewComponent implements OnInit {
   @Input() tabledata = [];
   @Input() isdownload: boolean = false;
   ColDef: any;
-  // rowData=[];
+  
   constructor(
     private excelService:ExcelService,
   ) { }
