@@ -423,7 +423,7 @@ export class DashboardComponent implements OnInit {
       'Terminated',
       'Idle',
       'Completed',
-      'Inprogrss',
+      'Inprogress',
       'Yet_To_Start',
     ];
     let results:any = _.zipObject(
@@ -443,7 +443,7 @@ export class DashboardComponent implements OnInit {
       results.Terminated?results.Terminated:0,
       results.Idle?results.Idle:0,
       results.Completed,
-      results.Inprogrss,
+      results.Inprogress,
       results.Yet_To_Start,
     ];
     this.ovrAllChrt?.updateSeries(this.chartOptions.series);
