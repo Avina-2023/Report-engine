@@ -134,7 +134,7 @@ export class ProctorComponent implements OnInit {
       // this.rowData = mockData.data.item;
 
 
-      res.data.forEach((_item:any,_index:any)=>{
+      this.rowData.forEach((_item:any,_index:any)=>{
         if(_item.status=="rejected"){
           this.rejected= this.rejected + 1
         }else if(_item.status=="stopped"){
