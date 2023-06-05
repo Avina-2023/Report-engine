@@ -4,8 +4,8 @@
 <div class="excel">
   <div class="p-field p-calendar-container">
     <label for="range">Delivery date range:</label>
-    <nz-range-picker   [nzShowTime]="{ nzFormat: 'h:mm' }"
-    nzFormat="dd-MM-yyyy h:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
+    <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
+    nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
 <!-- 
      <p-calendar #calen [(ngModel)]="date7" selectionMode="range" [readonlyInput]="true" 
      [showTime]="true" inputId="range" (onSelect)="daterrange()" dateFormat="yy/m/d" >
@@ -25,7 +25,6 @@
    [suppressClickEdit]="true"
    [columnDefs]="columnDefs"
    [defaultColDef]="defaultColDef"
-   [rowSelection]="'multiple'"
    [paginationPageSize]="20"
    [pagination]="true"
    [animateRows]="true"

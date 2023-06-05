@@ -14,14 +14,14 @@ export class SideMenuBarComponent implements OnInit {
   menuState: boolean = true;
   APP_CONSTANTS  = APP_CONSTANTS;
   isAdmin:boolean = false
-  isvmss:boolean = false;
+  isCC:boolean = false;
   constructor(private messenger:InterComponentMessenger) {
     let userDetails:any = localStorage.getItem('userDetails');
     if(JSON.parse(userDetails)?.roleId == "SADM"){
       this.isAdmin = true;
     }
-    if(JSON.parse(userDetails)?.roleId == "VMSS"){
-      this.isvmss = true;
+    if(JSON.parse(userDetails)?.roleId == "CC"){
+      this.isCC = true;
     }
     this.messenger.getMessage().subscribe((data)=>{
       console.log('inside sidemenu')

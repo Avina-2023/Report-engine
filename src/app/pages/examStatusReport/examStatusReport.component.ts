@@ -29,7 +29,7 @@ export class ExamStatusReportComponent implements OnInit {
   rowData:any=[];
   ColDef: any;
   value:Date[] | undefined;
-  date7: Date[] =[new Date(),new Date(new Date().setDate(new Date().getDate() + 1))];
+  date7:any;
 
   // colDefs: any=[];
   constructor(
@@ -58,30 +58,27 @@ clearSelection(): void {
   this.agGrid.api.deselectAll();
 }
 ngOnInit() {
-  let data={
-    "startdate":this.datepipe.transform(this.date7[0], 'yyyy-MM-dd'),
-    "enddate":this.datepipe.transform(this.date7[1], 'yyyy-MM-dd')
-  }
-  this.dateWiseSectionReport(data)
+  this.dateWiseSectionReport({})
 }
 daterrange(event:any){
 
    if(event.length){
    let param = {
-    "startdate":event?this.datepipe.transform(event[0], 'yyyy-MM-dd h:m'):"",
-    "enddate":event?this.datepipe.transform(event[1], 'yyyy-MM-dd h:m'):""
+    "startdate":event?this.datepipe.transform(event[0], 'yyyy-MM-dd HH:mm'):"",
+    "enddate":event?this.datepipe.transform(event[1], 'yyyy-MM-dd HH:mm'):""
   }
   this.dateWiseSectionReport(param)
 }
 }
-getdata(){
-  this.apiservice.dashboard(this.daterrange).subscribe((res:any)=>{
-    this.rowData = res.data
-    this.dynamicallyConfigureColumnsFromObject(res.data)
-    this.agGrid.api.setRowData(res.data)
-  })
-}
+// getdata(){
+//   this.apiservice.dashboard(this.daterrange).subscribe((res:any)=>{
+//     this.rowData = res.data
+//     this.dynamicallyConfigureColumnsFromObject(res.data)
+//     this.agGrid.api.setRowData(res.data)
+//   })
+// }
 dateWiseSectionReport(data:any){
+  console.log(data)
   this.apiservice.dateWiseSectionReport(data).subscribe((res:any)=>{
     this.rowData = res.data
     this.dynamicallyConfigureColumnsFromObject(res.data)
