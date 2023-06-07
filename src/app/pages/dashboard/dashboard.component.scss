@@ -2,8 +2,11 @@
   background: #fff;
     box-shadow: 1px 3px 6px lightgrey;
     padding: 30px 20px;
-    width: 500px;
-   
+    width: 500px; 
+}
+
+.NoData{
+  color: black;
 }
 .card_topic{
   h1{
@@ -169,6 +172,22 @@
     right: 3px;
     top: 5px;
   }
+}
+
+.mat-mdc-card{
+    max-width: 200px;
+    align-items: center;
+}
+.mat_card{
+  display: flex;
+  justify-content: center;
+}
+.mat-mdc-card-header{
+  position: relative;
+  margin-bottom: 10px;
+}
+.mat-mdc-card-header{
+  justify-content: center;
 }
 ::ng-deep.p-calendar-container .p-calendar{
   width: 256px;

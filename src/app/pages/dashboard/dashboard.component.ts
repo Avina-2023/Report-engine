@@ -14,9 +14,11 @@ import { ExcelService } from 'src/app/services/excelService';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { TinycardComponent } from './widgets/tinycard/tinycard.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { CommonModule } from '@angular/common';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -40,7 +42,7 @@ export type ChartOptions = {
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
     standalone: true,
-    imports: [NzDatePickerModule, ReactiveFormsModule, FormsModule, TinycardComponent, NgApexchartsModule, MatButtonModule, MatIconModule, AgGridModule]
+    imports: [CommonModule, NzDatePickerModule, ReactiveFormsModule, FormsModule, TinycardComponent, NgApexchartsModule, MatButtonModule, MatIconModule, AgGridModule, MatCardModule]
 })
 export class DashboardComponent implements OnInit {
   rowData: any;
@@ -80,13 +82,16 @@ export class DashboardComponent implements OnInit {
     },
   ];
 
-  error: any;
+  
   onewayTP = true;
   @ViewChild('kibona') iframe: ElementRef | undefined;
 
   html: any;
   htmlfile = '../../../assets/Html/maintanence.html';
 
+  liveData: boolean = false;
+
+  responseData: any;
   eulaContent: any;
   timeoutval: any;
   sparkline: any = [0];
@@ -105,7 +110,6 @@ export class DashboardComponent implements OnInit {
   CountDetails: { idle: any; terminate: any } | undefined;
   date7: Date[] = [];
   DashboardData: any;
-  liveData: boolean = false;
   socket_subs: any;
 
   constructor(
@@ -374,23 +378,33 @@ export class DashboardComponent implements OnInit {
       this.domainWiseChartDataSort(data);
       this.clientwisedrivedata(data);
       this.getChart(data);
-
     })
   }
-  getDashboardAPI() {
 
-    this.apiservice.dashboard(this.DashboardData).subscribe((res: any) => {
-      this.dynamicallyConfigureColumnsFromObject(res.data);
-      this.groupingdata(res.data);
-      this.clientWiseChartDataSort(res.data);
-      this.domainWiseChartDataSort(res.data);
-      this.clientwisedrivedata(res.data);
-      this.getChart(res.data);
-
+  getDashboardAPI() 
+   {
+    this.apiservice.dashboard(this.DashboardData).subscribe((res: any) => {  
+      
+          this.responseData = res.data.length;
+          if(this.responseData ){
+            
+          }else{
+            this.responseData = "";
+          }
+        this.dynamicallyConfigureColumnsFromObject(res.data); 
+        this.groupingdata(res.data);
+        this.domainWiseChartDataSort(res.data);
+        this.clientwisedrivedata(res.data);
+        this.clientWiseChartDataSort(res.data);
+        this.getChart(res.data); 
     });
-  }
+   }
+ 
   getChart(_data: any) {
+     
     this.batchCount = _data.length;
+    console.log(_data.length);
+    
     let domainSum = 0;
     _data.forEach((_item: any) => {
       if (_item.Domain_Name) {
@@ -427,7 +441,7 @@ export class DashboardComponent implements OnInit {
       results.Inprogrss,
       results.Yet_To_Start,
     ];
-    this.ovrAllChrt?.updateSeries(this.chartOptions.series);
+    this.ovrAllChrt?.updateSeries(this.chartOptions.series); 
   }
 
   chartdataUpdate() {
@@ -499,6 +513,8 @@ export class DashboardComponent implements OnInit {
           }
         });
         this.chartOptions4.series.push(domainData);
+        console.log(domainData,'series');
+        
         
       });
       setTimeout(() => {
@@ -510,6 +526,7 @@ export class DashboardComponent implements OnInit {
       
   }
   clientWiseChartDataSort(_data: any) {
+    
     this.countByClientName = {};
     _data.forEach((_item: any) => {
       if (!this.countByClientName[_item.Client_Name]) {
@@ -527,11 +544,12 @@ export class DashboardComponent implements OnInit {
     this.chart2series.forEach((items: any) => {
       this.chartOptions2.series.push(items);
       this.clientwisePie?.updateSeries(this.chartOptions2.series);
-      
     });
-    this.clientwisePie?.updateOptions(this.chartOptions2);
-  }
+    this.clientwisePie?.updateOptions(this.chartOptions2);  
+}
+
   domainWiseChartDataSort(_data: any) {
+  
     let domainwise: any = {};
     _data.forEach((_item: any) => {
       if (!domainwise[_item.Domain_Name]) {
@@ -550,9 +568,11 @@ export class DashboardComponent implements OnInit {
       this.chartOptions3.series.push(items);
       this.chart3?.updateOptions(this.chartOptions3);
     });
-  }
+}
+
   clientwisedrivedata(_data: any) {
-    this.countByDriveName = {};
+    
+      this.countByDriveName = {};
     _data.forEach((_item: any) => {
       if (!this.countByDriveName[_item.Client_Name]) {
         this.countByDriveName[_item.Client_Name] = 1;
@@ -572,7 +592,8 @@ export class DashboardComponent implements OnInit {
       this.chart5?.updateSeries(this.chartOptions5.series);
     });
     this.chart5?.updateOptions(this.chartOptions5);
-  }
+
+    }
 
   daterrange(event:any) {
    

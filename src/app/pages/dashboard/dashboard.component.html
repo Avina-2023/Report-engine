@@ -73,28 +73,34 @@
     justify-content: space-evenly;
     margin: 4% 0%;
   "
->
-  <div class="chart_card">
+> 
+
+<div class="chart_card">
     <div class="card_topic">
       <h1>Overall Test Status</h1>
     </div>
-    <apx-chart
-      #ovrAllChrt
-      [series]="chartOptions.series"
-      [chart]="chartOptions.chart"
-      [dataLabels]="chartOptions.dataLabels"
-      [colors]="chartOptions.colors"
-      [plotOptions]="chartOptions.plotOptions"
-      [legend]="chartOptions.legend"
-      [xaxis]="chartOptions.xaxis"
-    ></apx-chart>
-  
-  </div>
+    <div *ngIf="responseData > 0;else otherContent">
+    <apx-chart 
+    #ovrAllChrt  
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [dataLabels]="chartOptions.dataLabels"
+    [colors]="chartOptions.colors"
+    [plotOptions]="chartOptions.plotOptions"
+    [legend]="chartOptions.legend"
+    [xaxis]="chartOptions.xaxis"
+  >
+</apx-chart>
+</div>
+</div>
+
+
   <div class="chart_card">
     <div class="card_topic">
       <h1>Clients</h1>
     </div>
-   
+  
+    <div *ngIf="responseData > 0;else otherContent">
     <apx-chart
       #clientwise
       [dataLabels]="chartOptions2.dataLabels"
@@ -104,7 +110,9 @@
       [responsive]="chartOptions2.responsive"
       [legend]="chartOptions2.legend"
       [colors]="chartOptions2.colors"
-    ></apx-chart>
+    >
+    </apx-chart>
+  </div>
   </div>
 </div>
 
@@ -120,6 +128,7 @@
     <div class="card_topic">
       <h1>Domain Wise</h1>
     </div>
+    <div *ngIf="responseData > 0;else otherContent">
     <apx-chart
       #chart3
       [series]="chartOptions3.series"
@@ -131,8 +140,12 @@
       [responsive]="chartOptions2.responsive"
     ></apx-chart>
   </div>
+  </div>
+
+
   <div class="chart_card">
     <div class="card_topic"><h1>Client Wise Drive Wise</h1></div>
+    <div *ngIf="responseData > 0;else otherContent">
     <apx-chart
       #chart5
       [series]="chartOptions5.series"
@@ -141,9 +154,11 @@
       [colors]="chartOptions5.colors"
       [legend]="chartOptions2.legend"
       [responsive]="chartOptions5.responsive"
-    ></apx-chart>
+    ></apx-chart> 
+    </div>
   </div>
 </div>
+
 
 <div class="card_topic ml-10">
   <h1>Overall Dashboard Table Representation</h1>
@@ -166,3 +181,14 @@
   [pagination]="true"
 >
 </ag-grid-angular>
+
+<ng-template #otherContent>
+  <div class="mat_card">
+    <mat-card>
+      <mat-card-header>
+      <mat-card-title></mat-card-title>
+      <mat-card-subtitle><span class="icon-popup-warning">  No Data Found </span> </mat-card-subtitle>
+      </mat-card-header>
+     </mat-card>
+  </div>
+</ng-template>
