@@ -13,16 +13,25 @@ import { LoaderService } from '../services/loader.service';
 export class HttpLoaderInterceptor implements HttpInterceptor {
 
   private totalRequests = 0;
-
+  private userDetail:any;
   constructor(
     private loadingService: LoaderService
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log('caught')
+    let locVal:string|null = localStorage.getItem('userDetails')
+    this.userDetail = locVal?JSON.parse(locVal):null;
+    console.log(this.userDetail.id)
     this.totalRequests++;
     this.loadingService.setLoading(true);
-    return next.handle(request).pipe(
+    let modifiedReq  = request
+    if(this.userDetail){
+       modifiedReq = request.clone({ 
+      headers: request.headers.set('user_id', this.userDetail.id),
+    });
+    }
+    
+    return next.handle(modifiedReq).pipe(
       finalize(() => {
         this.totalRequests--;
         if (this.totalRequests == 0) {

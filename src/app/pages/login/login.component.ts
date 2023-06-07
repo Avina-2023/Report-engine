@@ -10,6 +10,7 @@ import { NgIf, NgClass } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import * as CryptoTS from 'crypto-ts';
 
 @Component({
     selector: 'app-login',
@@ -46,10 +47,13 @@ export class LoginComponent implements OnInit {
 
   //   this.authConfig.routeNavigation("/dashboard");
   //  return false
+  
+  let encrypted = CryptoTS.AES.encrypt(this.loginForm.value.password, '(!@#Passcode!@#)').toString();
     let data = {
       email: this.loginForm.value.email,
-      password: this.loginForm.value.password
+      password: encrypted
     }
+
     this.https.login(data).subscribe((res: any) => {
       if (res.success) {
         var userObject = res.data.attributes
