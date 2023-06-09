@@ -1,8 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { AgGridAngular, AgGridModule} from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
-// import 'ag-grid-enterprise';
 import { ColDef  } from 'ag-grid-enterprise';
 import { FileSaverService } from 'ngx-filesaver';
 import { ExcelService } from 'src/app/services/excelService';
@@ -59,10 +58,9 @@ export class ExamStatusReportComponent implements OnInit {
     private apiservice : ApiService,
     
   ) {}
- // Each Column Definition results in one Column.
-  public columnDefs: ColDef[] = []
+ 
+public columnDefs: ColDef[] = []
 
-// DefaultColDef sets props common to all Columns
 public defaultColDef: ColDef = {
   sortable: true,
   filter: true,
@@ -70,14 +68,9 @@ public defaultColDef: ColDef = {
   editable:false,
 };
 
-
-// Example using Grid's API
-// clearSelection(): void {
-//   this.agGrid.api.deselectAll();
-// }
 ngOnInit() {
   this.dateWiseSectionReport({})
-  // this.dateWiseitemReport({})
+  
 }
 daterrange(event:any){
 
@@ -101,16 +94,12 @@ dateWiseSectionReport(data:any){
   console.log(data)
   this.apiservice.dateWiseSectionReport(data).subscribe((res:any)=>{
     this.rowData = res.data
-    // this.dynamicallyConfigureColumnsFromObject(res.data)
-    // this.agGrid.api.setRowData(res.data)
   })
 }
 
 dateWiseitemReport(data:any){
   this.apiservice.dateWiseitemReport(data).subscribe((res:any)=>{
     this.rowData = res.data
-    // this.dynamicallyConfigureColumnsFromObject(res.data)
-    // this.agGrid.api.setRowData(res.data)
   })
 }
 

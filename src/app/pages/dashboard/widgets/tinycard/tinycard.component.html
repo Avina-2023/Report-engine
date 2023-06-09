@@ -1,7 +1,7 @@
 <div class="tiny_card" (mouseover)="isDrawer?disp=true:disp=false">
   <div class="flx_div">
     <div>
-      <p>{{tinycardCount}}</p>
+      <p>{{tinycardCount!== null?tinycardCount:'--'}}</p>
       <p>{{tinycardLabel}}</p>
     </div>
     <div><span [ngStyle]="{'color':wgColor}" [class]="iconClass"></span></div>

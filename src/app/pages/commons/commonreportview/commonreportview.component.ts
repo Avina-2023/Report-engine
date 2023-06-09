@@ -1,7 +1,6 @@
 import { Component, OnInit,ViewChild,  Input, SimpleChanges, OnChanges } from '@angular/core';
 import { AgGridAngular, AgGridModule} from 'ag-grid-angular';
 import { ColDef  } from 'ag-grid-enterprise';
-import { HttpClient } from '@angular/common/http';
 import { ExcelService } from 'src/app/services/excelService';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,10 +29,9 @@ export class CommonreportviewComponent implements OnInit {
   constructor(
     private excelService:ExcelService,
   ) { }
-   // Each Column Definition results in one Column.
+   
    public columnDefs: ColDef[] = []
-
-   // DefaultColDef sets props common to all Columns
+   
    public defaultColDef: ColDef = {
      sortable: true,
      filter: true,
@@ -42,7 +40,6 @@ export class CommonreportviewComponent implements OnInit {
      
    };
 
-  // For accessing the Grid's API
 @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 
   ngOnInit() {
@@ -56,11 +53,6 @@ export class CommonreportviewComponent implements OnInit {
     this.dynamicallyConfigureColumnsFromObject(changes['tabledata'].currentValue)
     this.agGrid.api.setRowData(changes['tabledata'].currentValue)
   }
-  
-
- 
-
-
 
   excelexport(params:any){
     this.excelService.exportAsExcelFile(params, 'report');
@@ -81,7 +73,5 @@ export class CommonreportviewComponent implements OnInit {
   this.agGrid.api.setColumnDefs(this.columnDefs);
     this.agGrid.api.setRowData(anObject);
     this.tabledata=anObject
-  }
-
-  
+  } 
 }
