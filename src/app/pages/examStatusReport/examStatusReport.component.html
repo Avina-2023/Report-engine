@@ -1,43 +1,49 @@
 
-<div class="report-Wrapper">
-<div class="heading"><span>Score Report </span></div>
-<div class="excel">
-  <div class="p-field p-calendar-container">
-    <label for="range">Delivery date range:</label>
-    <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
-    nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
-<!-- 
-     <p-calendar #calen [(ngModel)]="date7" selectionMode="range" [readonlyInput]="true" 
-     [showTime]="true" inputId="range" (onSelect)="daterrange()" dateFormat="yy/m/d" >
-     </p-calendar> -->
-     <!-- <i class="pi pi-calendar" (click)="calen.toggle()" ></i> -->
-    </div>
-  <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
 
+
+
+<div class="main-reports">
+<div class="left">
+  <label for="range">Delivery date range:</label>
+  <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
+  nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
+</div>
+
+<div class="mat_accordion">
+  <!-- <button class="extra-menu"  mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button> -->
+ 
+  <!-- <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Redial</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>voicemail</mat-icon>
+      <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu> -->
+
+
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" [backgroundColor]="'primary'" (selectedTabChange)="tabchange($event.index)" [selectedIndex]="0">
+    <mat-tab *ngFor="let item of reportList" [label]="item.report_Name">
+   <app-commonreportview [tabledata]="rowData" [isdownload]="item.is_download"></app-commonreportview>
+    </mat-tab>
+  </mat-tab-group>
+  
+</div> 
 </div>
 
 
 
-</div>
-<ag-grid-angular
-   style="width: 100%; height: 500px;margin: 5px;"
-   class="ag-theme-alpine"
-   [suppressClickEdit]="true"
-   [columnDefs]="columnDefs"
-   [defaultColDef]="defaultColDef"
-   [paginationPageSize]="20"
-   [pagination]="true"
-   [animateRows]="true"
-   
- ></ag-grid-angular>
 
 
 
-  <!-- <div class="p-field p-col-12 p-md-4">
-    <label for="time">Start Time</label>
-    <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"></p-calendar>
-    <label for="time">End Time</label>
-    <p-calendar [(ngModel)]="date7" [showTime]="true" inputId="time"></p-calendar>
-</div> -->
+  
 
 
