@@ -10,7 +10,7 @@ import { NgStyle, NgClass, NgIf } from '@angular/common';
 })
 export class TinycardComponent implements OnInit {
   @Input() tinycardLabel = 'Input data needed';
-  @Input() tinycardCount = 'Input data needed';
+  @Input() tinycardCount = '--';
   @Input() wgColor: any = 'red';
   @Input() tinyCountDetails: any = "input data needed";
   @Input() iconClass: string = "icon-schedule";
