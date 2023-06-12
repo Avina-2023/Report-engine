@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild,  Input, SimpleChanges, OnChanges } from '@angular/core';
 import { AgGridAngular, AgGridModule} from 'ag-grid-angular';
-import { ColDef  } from 'ag-grid-enterprise';
+import { ColDef, SideBarDef  } from 'ag-grid-enterprise';
 import { ExcelService } from 'src/app/services/excelService';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,6 +26,9 @@ export class CommonreportviewComponent implements OnInit {
   ColDef: any;
   is_download: any;
   
+  public sideBar: SideBarDef  = {
+    toolPanels: ['filters'],
+  };
   constructor(
     private excelService:ExcelService,
   ) { }
