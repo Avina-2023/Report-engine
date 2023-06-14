@@ -102,6 +102,7 @@ clickHandler() {
 dateWiseSectionReport(data:any){
   console.log(data)
   let endPoint = "dateWiseSectionReport"
+  console.log(this.utility.getUserOrg())
   if(this.utility.getUserOrg() === 57){
     endPoint = "getsectiondetails"
   }
