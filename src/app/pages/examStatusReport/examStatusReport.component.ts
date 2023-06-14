@@ -142,7 +142,7 @@ tabchange(index:any){
     case 2:
       this.customTabDataFiller(this.tabdate,"getauditlogs")
         break;
-    case 2:
+    case 3:
       this.customTabDataFiller(this.tabdate,"getadminlogs")
  }
 }
