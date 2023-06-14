@@ -3,11 +3,13 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { LoaderService } from '../services/loader.service';
+import { UtilityService } from '../services/utility.service';
 
 @Injectable()
 export class HttpLoaderInterceptor implements HttpInterceptor {
@@ -15,7 +17,8 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
   private totalRequests = 0;
   private userDetail:any;
   constructor(
-    private loadingService: LoaderService
+    private loadingService: LoaderService,
+    private utility: UtilityService,
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -25,8 +28,11 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
     this.loadingService.setLoading(true);
     let modifiedReq  = request
     if(this.userDetail){
+      // request.headers.set('user_id', this.userDetail.id);
+      request.headers.append('orgd_id', this.userDetail?.organisations[0]?.orgId)
        modifiedReq = request.clone({ 
-      headers: request.headers.set('user_id', this.userDetail.id),
+      headers: request.headers.append('user_id', this.userDetail.id)
+      .append('org_id',this.userDetail?.organisations[0]?.orgId?this.userDetail?.organisations[0]?.orgId:"null")
     });
     }
     
