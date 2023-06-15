@@ -30,7 +30,7 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
     const enc_orgid = this.userDetail?.organisations[0]?.orgId?this.userDetail?.organisations[0]?.orgId.toString():"null"
     if(this.userDetail){
       const custom_headers= new HttpHeaders()
-      // .set('userid', this.utility.encryptData(this.userDetail.id))
+      .set('userid', this.utility.encryptData(this.userDetail.id))
       .set('orgid',this.utility.encryptData(enc_orgid));
 
       
