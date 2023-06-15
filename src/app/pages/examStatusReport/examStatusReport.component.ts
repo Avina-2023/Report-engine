@@ -18,6 +18,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CommonreportviewComponent } from '../commons/commonreportview/commonreportview.component';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
     selector: 'app-examStatusReport',
@@ -56,8 +57,27 @@ export class ExamStatusReportComponent implements OnInit {
   // colDefs: any=[];
   constructor(
     private apiservice : ApiService,
+    private utility: UtilityService,
+  ) {
     
-  ) {}
+    let show_Audit = {
+      report_Name:"User Audit Log",
+      is_enable:true,
+      is_download:true
+    };
+
+    let show_AdminLog = {
+      report_Name:"Admin Log",
+      is_enable:true,
+      is_download:true
+    };
+
+    if(utility.getUserOrg()===57){
+      this.reportList.push(show_Audit)
+      this.reportList.push(show_AdminLog)
+    }
+
+  }
  
 public columnDefs: ColDef[] = []
 
@@ -92,16 +112,33 @@ daterrange(event:any){
 // }
 dateWiseSectionReport(data:any){
   console.log(data)
-  this.apiservice.dateWiseSectionReport(data).subscribe((res:any)=>{
+  let endPoint = "dateWiseSectionReport"
+  console.log(this.utility.getUserOrg())
+  if(this.utility.getUserOrg() === 57){
+    endPoint = "getsectiondetails"
+  }
+  this.apiservice.dateWiseSectionReport(data,endPoint).subscribe((res:any)=>{
     this.rowData = res.data
   })
 }
 
 dateWiseitemReport(data:any){
-  this.apiservice.dateWiseitemReport(data).subscribe((res:any)=>{
+  let endPoint = "dateWiseitemReport"
+  if(this.utility.getUserOrg() === 57){
+    endPoint = "getitemdetails"
+  }
+  this.apiservice.dateWiseitemReport(data,endPoint).subscribe((res:any)=>{
     this.rowData = res.data
   })
 }
+
+customTabDataFiller(data:any,endPoint:string){
+  this.apiservice.dateWiseitemReport(data,endPoint).subscribe((res:any)=>{
+    this.rowData = res.data
+  })
+}
+
+
 
 tabchange(index:any){
   this.currentTabIndex =index;
@@ -113,6 +150,11 @@ tabchange(index:any){
     case 1:
       this.dateWiseitemReport(this.tabdate)
         break;
+    case 2:
+      this.customTabDataFiller(this.tabdate,"getauditlogs")
+        break;
+    case 3:
+      this.customTabDataFiller(this.tabdate,"getadminlogs")
  }
 }
 }
