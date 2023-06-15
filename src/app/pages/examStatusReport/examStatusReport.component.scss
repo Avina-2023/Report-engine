@@ -6,48 +6,90 @@ html, body {
    box-sizing: border-box;
    -webkit-overflow-scrolling: touch;
 }
+
+.main-reports{
+  margin: 30px;
+}
+.reports{
+  position: relative;
+    text-align: center;
+    top: 14px;
+}
+
+.accordion_align{
+  position: relative;
+  top: 15px;
+}
+
+.excel{
+  
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+.left{
+  text-align: end;
+  margin-bottom: 10px;
+}
+.right{
+  width: 100%;
+  margin-left: 8px;
+  margin-top: 10px;
+  text-align: -webkit-right;
+}
+
+.extra-menu{
+  position: absolute;
+  right: 50px;
+  color: #fff;
+  z-index: 2;
+}
+.mat-sidenav-container-button{
+  border: none;
+}
+
 .report-Wrapper{
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 50px;
-
-  .heading{
-    margin-left: 5px;
-    font-size: 20px;
-    display: flex;
-    justify-content: flex-start;
 }
-.excel{
-    border: 0px;
-    display: flex;
-    justify-content: flex-end;
+.heading{
+  margin-left: 5px;
+  font-size: 20px;
+  display: flex;
+  justify-content: flex-start;
 }
 
-}
-
-button{
+.outline-button{
     color: #004684 !important;
     background-color: #ffffff;
     border-radius: 4px;
     font-size: 15px;
+    right: 8px;
     cursor: pointer;
     border: 0px;
-    margin: 5px;
     display: flex;
     border: 1px solid #004684;
     justify-content: flex-end;
-    box-shadow: 0 2px 4px -1px #0003!important;
-
 }
+
+::ng-deep .mat-tab-group{
+
+      background-color: #004684;
+    }
 
 .p-calendar-container label{
   margin-right: 10px;
 }
 .p-calendar-container{
+  width: 50%;
   position: relative;
-  margin-right: 15px;
-  margin-top: 10px;
+  left: 5px;
+  margin-top: 30px;
+ 
   i{
     position: absolute;
     right: 3px;
@@ -59,18 +101,16 @@ button{
 }
 ::ng-deep.p-calendar-container .p-inputtext {
 
-  height: 25px !important; /* set the height of the input field */
-  font-size: 14px !important; /* set the font size of the input field */
+  height: 25px !important; 
+  font-size: 14px !important; 
   padding-right: 20px;
 }
 
-::ng-deep.p-calendar-container .p-datepicker {
-  // width: 200px !important;
-  // height: 250px !important; /* set the width of the calendar popup */
-}
-
 ::ng-deep.p-calendar-container .p-datepicker td {
-  padding:0px; /* set the height of each day cell */
-  font-size: 14px !important; /* set the font size of the day cell text */
+  padding:0px;
+  font-size: 14px !important; 
+}
+::ng-deep.mat-mdc-tab-body-content{
+  overflow-x: hidden !important;
 }
 

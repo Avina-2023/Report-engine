@@ -6,11 +6,6 @@
     nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="dtRange" (ngModelChange)="daterrange($event)"></nz-range-picker>
 
   </div>
-  <!-- <div class="livebtn">
-    <button (click)="liveData = !liveData;livebtn()" mat-raised-button color="warn" aria-label="Example icon button with a delete icon">
-      <span *ngIf="!liveData" class="icon-date ic"></span> <mat-icon *ngIf="liveData">stop</mat-icon> {{liveData?'Stop':'Live'}}
-    </button>
-  </div> -->
 </div>
 <div style="display: flex; justify-content: space-evenly; padding: 3% 2%">
   <app-tinycard
@@ -78,28 +73,34 @@
     justify-content: space-evenly;
     margin: 4% 0%;
   "
->
-  <div class="chart_card">
+> 
+
+<div class="chart_card">
     <div class="card_topic">
       <h1>Overall Test Status</h1>
     </div>
-    <apx-chart
-      #ovrAllChrt
-      [series]="chartOptions.series"
-      [chart]="chartOptions.chart"
-      [dataLabels]="chartOptions.dataLabels"
-      [colors]="chartOptions.colors"
-      [plotOptions]="chartOptions.plotOptions"
-      [legend]="chartOptions.legend"
-      [xaxis]="chartOptions.xaxis"
-    ></apx-chart>
-    <!-- <app-graphcard [cardColor]="'#ffba1f'" [sparklineData]="sparkline" [cardTitle]="'logged in Candidates'"></app-graphcard> -->
-  </div>
+    <div *ngIf="responseData > 0;else otherContent">
+    <apx-chart 
+    #ovrAllChrt  
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [dataLabels]="chartOptions.dataLabels"
+    [colors]="chartOptions.colors"
+    [plotOptions]="chartOptions.plotOptions"
+    [legend]="chartOptions.legend"
+    [xaxis]="chartOptions.xaxis"
+  >
+</apx-chart>
+</div>
+</div>
+
+
   <div class="chart_card">
     <div class="card_topic">
       <h1>Clients</h1>
     </div>
-    <!-- <app-graphcard [cardColor]="'#02bf2b'" [sparklineData]="sparkline" [cardTitle]="'Active Candidates'" [dataLabel1]="'on Instruction'" [data1]="103" [dataLabel2]="'1st Question'"[data2]="250" [dataLabel3]="'cleard 1st Question'"[data3]="580"></app-graphcard> -->
+  
+    <div *ngIf="responseData > 0;else otherContent">
     <apx-chart
       #clientwise
       [dataLabels]="chartOptions2.dataLabels"
@@ -109,12 +110,12 @@
       [responsive]="chartOptions2.responsive"
       [legend]="chartOptions2.legend"
       [colors]="chartOptions2.colors"
-    ></apx-chart>
+    >
+    </apx-chart>
+  </div>
   </div>
 </div>
 
-<!-- <apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart" [labels]="chartOptions2.labels"
-  [responsive]="chartOptions2.responsive"></apx-chart> -->
 <div
   style="
     display: flex;
@@ -127,6 +128,7 @@
     <div class="card_topic">
       <h1>Domain Wise</h1>
     </div>
+    <div *ngIf="responseData > 0;else otherContent">
     <apx-chart
       #chart3
       [series]="chartOptions3.series"
@@ -138,8 +140,12 @@
       [responsive]="chartOptions2.responsive"
     ></apx-chart>
   </div>
+  </div>
+
+
   <div class="chart_card">
     <div class="card_topic"><h1>Client Wise Drive Wise</h1></div>
+    <div *ngIf="responseData > 0;else otherContent">
     <apx-chart
       #chart5
       [series]="chartOptions5.series"
@@ -148,36 +154,12 @@
       [colors]="chartOptions5.colors"
       [legend]="chartOptions2.legend"
       [responsive]="chartOptions5.responsive"
-    ></apx-chart>
+    ></apx-chart> 
+    </div>
   </div>
 </div>
 
-<!-- <div
-  class="chart_card"
-  style="
-    width: 98%;
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 100px;
-  "
->
-  <div class="card_topic">
-    <h1>Client Wise Domain Wise Candidates</h1>
-  </div>
-  <apx-chart
-    #chart4
-    [series]="chartOptions4.series"
-    [chart]="chartOptions4.chart"
-    [xaxis]="chartOptions4.xaxis"
-    [markers]="chartOptions4.markers"
-    [stroke]="chartOptions4.stroke"
-    [yaxis]="chartOptions4.yaxis"
-    [dataLabels]="chartOptions4.dataLabels"
-    [fill]="chartOptions4.fill"
-    [tooltip]="chartOptions4.tooltip"
-    [legend]="chartOptions4.legend"
-  ></apx-chart>
-</div> -->
+
 <div class="card_topic ml-10">
   <h1>Overall Dashboard Table Representation</h1>
 </div>
@@ -199,3 +181,14 @@
   [pagination]="true"
 >
 </ag-grid-angular>
+
+<ng-template #otherContent>
+  <div class="mat_card">
+    <mat-card>
+      <mat-card-header>
+      <mat-card-title></mat-card-title>
+      <mat-card-subtitle><span class="icon-popup-warning">  No Data Found </span> </mat-card-subtitle>
+      </mat-card-header>
+     </mat-card>
+  </div>
+</ng-template>

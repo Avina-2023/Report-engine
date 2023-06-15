@@ -40,9 +40,13 @@ export class ApiService {
   userdashboard(data:any){
   return this.http.post(`${this.BASE_URL}/userdashboard`,data)
   }
-  dateWiseSectionReport(data:any){
-   return this.http.post(`${this.BASE_URL}/dateWiseSectionReport`,data)
+  dateWiseSectionReport(data:any,endPoint:string){
+   return this.http.post(`${this.BASE_URL}/${endPoint}`,data)
   }
+  dateWiseitemReport(data:any,endPoint:string){
+    return this.http.post(`${this.BASE_URL}/${endPoint}`,data)
+  }
+
   proctor(data:any){
     console.log(data);
     if (data == undefined) {

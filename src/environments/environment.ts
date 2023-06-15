@@ -7,7 +7,8 @@ export const environment = {
   API_BASE_URL: 'https://reportedge.lntedutech.com',
   ELASTIC_BASE_URL: 'https:///reportelastic.lntedutech.com',
   local:'http://localhost:3006',
-  socket_url:'https://reportsocketqa.lntedutech.com'
+  kibana_url:'https://kibanaprod.lntedutech.com/',
+  socket_url:'https://reportsocketuat.lntedutech.com'
 
 };
 

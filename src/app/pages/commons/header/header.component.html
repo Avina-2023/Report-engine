@@ -19,7 +19,7 @@
 
   <div class="left">
     <div class="main-logo">
-      <img alt="main-login-logo" class="beforeloginimgLT" src="assets/images/L&T_logo.svg">
+      <img alt="main-login-logo" class="beforeloginimgLT" src="assets/images/mainlogo.svg">
     </div>
 
     <div id="nav-icon1" (click)="menuToggle()" [ngClass]="isOpenMenu?'open':''" >
@@ -36,10 +36,17 @@
 
   <div class="right" >
     <div class="firstname">
-    Welcome{{' '+name}}
+    Welcome
+    <div class="admin">
+      {{' '+username}} 
+    </div>
     </div>
   <div class="logout">
-    <mat-icon (click)="logout()">exit_to_app</mat-icon>
+    <ngx-avatars
+     [name]="username"  src="assets/avatar.jpg" bgColor="#fff" fgColor="#004684"
+     textSizeRatio="2" gravatarId="" size="40" (click)="logout()">
+</ngx-avatars>
+    <!-- <mat-icon (click)="logout()">exit_to_app</mat-icon> -->
   </div>
   </div>
 

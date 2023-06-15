@@ -3,6 +3,7 @@ import { InterComponentMessenger } from 'src/app/services/interComponentMessenge
 import { APP_CONSTANTS } from 'src/app/utils/app-constants.service';
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
+import { UtilityService } from 'src/app/services/utility.service';
 @Component({
     selector: 'app-sideMenuBar',
     templateUrl: './sideMenuBar.component.html',
@@ -15,13 +16,17 @@ export class SideMenuBarComponent implements OnInit {
   APP_CONSTANTS  = APP_CONSTANTS;
   isAdmin:boolean = false
   isCC:boolean = false;
-  constructor(private messenger:InterComponentMessenger) {
+  isOPS: boolean = false;
+  constructor(private messenger:InterComponentMessenger,private utility: UtilityService) {
     let userDetails:any = localStorage.getItem('userDetails');
     if(JSON.parse(userDetails)?.roleId == "SADM"){
       this.isAdmin = true;
     }
     if(JSON.parse(userDetails)?.roleId == "CC"){
       this.isCC = true;
+    }
+    if(JSON.parse(userDetails)?.roleId == "OPS"){
+      this.isOPS = true;
     }
     this.messenger.getMessage().subscribe((data)=>{
       console.log('inside sidemenu')

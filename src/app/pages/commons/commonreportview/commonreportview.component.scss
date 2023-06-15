@@ -1,0 +1,26 @@
+
+ .extra-menu{
+    position: absolute;
+    right: 50px;
+    color: #fff;
+    z-index: 2;
+  }
+  .right{
+    width: 100%;
+    margin-left: 8px;
+    margin-top: 10px;
+    text-align: -webkit-right;
+  }
+  
+  .outline-button{
+    color: #004684 !important;
+    background-color: #ffffff;
+    border-radius: 4px;
+    font-size: 15px;
+    right: 8px;
+    cursor: pointer;
+    border: 0px;
+    display: flex;
+    border: 1px solid #004684;
+    justify-content: flex-end;
+}
