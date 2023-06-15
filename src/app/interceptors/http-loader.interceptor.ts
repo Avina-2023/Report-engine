@@ -27,14 +27,18 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
     this.totalRequests++;
     this.loadingService.setLoading(true);
     let modifiedReq  = request
-    // if(this.userDetail){
-    //   // request.headers.set('user_id', this.userDetail.id);
-    //   request.headers.append('orgd_id', this.userDetail?.organisations[0]?.orgId)
-    //    modifiedReq = request.clone({ 
-    //   headers: request.headers.append('user_id', this.userDetail.id)
-    //   .append('org_id',this.userDetail?.organisations[0]?.orgId?this.userDetail?.organisations[0]?.orgId:"null")
-    // });
-    // }
+    const enc_orgid = this.userDetail?.organisations[0]?.orgId?this.userDetail?.organisations[0]?.orgId.toString():"null"
+    if(this.userDetail){
+      const custom_headers= new HttpHeaders()
+      .set('User_Id', this.utility.encryptData(this.userDetail.id))
+      .set('Org_Id',this.utility.encryptData(enc_orgid));
+
+      
+       modifiedReq = request.clone({ 
+      headers:custom_headers
+      // .append('org_id',this.userDetail?.organisations[0]?.orgId?this.userDetail?.organisations[0]?.orgId:"null")
+    });
+    }
     
     return next.handle(modifiedReq).pipe(
       finalize(() => {

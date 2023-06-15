@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import * as CryptoTS from 'crypto-ts';
 
 @Injectable({
     providedIn: 'root'
   })
 export class UtilityService {
+secretKey = '(!@#Passcode!@#)';
 
 constructor() {  }
 getUserDetails(){
@@ -16,6 +18,11 @@ getUserOrg():Number{
 
 getUserRole():string{
 return this.getUserDetails()?.roleId
+}
+
+//Encription AES method
+encryptData(data:string):string{
+return CryptoTS.AES.encrypt(data, this.secretKey).toString();
 }
 
 }

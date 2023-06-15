@@ -53,22 +53,31 @@ export class ExamStatusReportComponent implements OnInit {
       is_enable:true,
       is_download:true
     },
-    {
-      report_Name:"User Audit Log",
-      is_enable:true,
-      is_download:true
-    },
-    {
-      report_Name:"Admin Log",
-      is_enable:true,
-      is_download:true
-    },
   ]
   // colDefs: any=[];
   constructor(
     private apiservice : ApiService,
     private utility: UtilityService,
-  ) {}
+  ) {
+    
+    let show_Audit = {
+      report_Name:"User Audit Log",
+      is_enable:true,
+      is_download:true
+    };
+
+    let show_AdminLog = {
+      report_Name:"Admin Log",
+      is_enable:true,
+      is_download:true
+    };
+
+    if(utility.getUserOrg()===57){
+      this.reportList.push(show_Audit)
+      this.reportList.push(show_AdminLog)
+    }
+
+  }
  
 public columnDefs: ColDef[] = []
 
