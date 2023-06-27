@@ -9,7 +9,7 @@ import {
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { LoaderService } from '../services/loader.service';
-import { UtilityService } from '../services/utility.service';
+import { AppConfigService } from '../utils/app-config.service';
 
 @Injectable()
 export class HttpLoaderInterceptor implements HttpInterceptor {
@@ -18,7 +18,7 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
   private userDetail:any;
   constructor(
     private loadingService: LoaderService,
-    private utility: UtilityService,
+    private utility: AppConfigService,
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -29,14 +29,13 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
     let modifiedReq  = request
     const enc_orgid = this.userDetail?.organisations[0]?.orgId?this.userDetail?.organisations[0]?.orgId.toString():"null"
     if(this.userDetail){
+
       const custom_headers= new HttpHeaders()
       .set('userid', this.utility.encryptData(this.userDetail.id))
       .set('orgid',this.utility.encryptData(enc_orgid));
-
       
        modifiedReq = request.clone({ 
       headers:custom_headers
-      // .append('org_id',this.userDetail?.organisations[0]?.orgId?this.userDetail?.organisations[0]?.orgId:"null")
     });
     }
     

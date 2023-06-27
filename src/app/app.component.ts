@@ -4,14 +4,14 @@ import { InterComponentMessenger } from './services/interComponentMessenger.serv
 import { FooterComponent } from './pages/commons/footer/footer.component';
 import { SideMenuBarComponent } from './pages/commons/sideMenuBar/sideMenuBar.component';
 import { HeaderComponent } from './pages/commons/header/header.component';
-import { NgClass, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { LoadingSpinnerComponent } from './pages/commons/loadingSpinner/loadingSpinner.component';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     standalone: true,
-    imports: [LoadingSpinnerComponent, NgClass, NgIf, HeaderComponent, SideMenuBarComponent, RouterOutlet, FooterComponent]
+    imports: [LoadingSpinnerComponent, CommonModule, HeaderComponent, SideMenuBarComponent, RouterOutlet, FooterComponent]
 })
 
 
@@ -19,13 +19,10 @@ import { LoadingSpinnerComponent } from './pages/commons/loadingSpinner/loadingS
 export class AppComponent implements OnInit{
   title = 'report_engine';
   href: any;
-  hUD_Display:boolean = true;
+  hUD_Display:boolean = false;
   menuState: boolean = true;
 constructor(private router:Router,private messenger:InterComponentMessenger){
   this.messenger.getMessage().subscribe((data)=>{
-    console.log('inside sidemenu')
-    console.log(data );
-
     if(data?.head === "sideMenuToggle"){
       this.menuState = data.value
     }
@@ -38,7 +35,6 @@ constructor(private router:Router,private messenger:InterComponentMessenger){
 
 ngOnInit() {
   this.href = this.router.setUpLocationChangeListener();
-  console.log(this.router.url);
   this.router.events.subscribe((val) => {
     if(val instanceof NavigationEnd){
       let possiblePages = ['/','/login','/assets/Html/maintanence.html'];
