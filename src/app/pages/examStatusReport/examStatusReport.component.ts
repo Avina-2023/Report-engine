@@ -18,7 +18,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CommonreportviewComponent } from '../commons/commonreportview/commonreportview.component';
-import { UtilityService } from 'src/app/services/utility.service';
+import { AppConfigService } from 'src/app/utils/app-config.service';
 
 @Component({
     selector: 'app-examStatusReport',
@@ -57,7 +57,7 @@ export class ExamStatusReportComponent implements OnInit {
   // colDefs: any=[];
   constructor(
     private apiservice : ApiService,
-    private utility: UtilityService,
+    private utility: AppConfigService,
   ) {
     
     let show_Audit = {
