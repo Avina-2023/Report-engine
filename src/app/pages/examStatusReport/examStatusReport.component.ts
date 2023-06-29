@@ -46,13 +46,27 @@ export class ExamStatusReportComponent implements OnInit {
     {
       report_Name:"Score Report",
       is_enable:true,
-      is_download:true
+      is_download:true,
+      endpoint:(this.utility.getUserOrg()===57)?"dateWiseSectionReport":"getsectiondetails"
     },
     {
       report_Name:"Item wise Report",
       is_enable:true,
-      is_download:true
+      is_download:true,
+      endpoint:(this.utility.getUserOrg()===57)?"dateWiseitemReport":"getitemdetails"
     },
+    // {
+    //   report_Name:"WeCP Score Report",
+    //   is_enable:true,
+    //   is_download:true,
+    //   endpoint:"wecpSectionReport"
+    // },
+    // {
+    //   report_Name:"WeCP Item Report",
+    //   is_enable:true,
+    //   is_download:true,
+    //   endpoint:"wecpItemReport"
+    // },
   ]
   // colDefs: any=[];
   constructor(
@@ -62,12 +76,14 @@ export class ExamStatusReportComponent implements OnInit {
     
     let show_Audit = {
       report_Name:"User Audit Log",
+      endpoint:"getauditlogs",
       is_enable:true,
       is_download:true
     };
 
     let show_AdminLog = {
       report_Name:"Admin Log",
+      endpoint:"getauditlogs",
       is_enable:true,
       is_download:true
     };
@@ -122,18 +138,18 @@ dateWiseSectionReport(data:any){
   })
 }
 
-dateWiseitemReport(data:any){
-  let endPoint = "dateWiseitemReport"
-  if(this.utility.getUserOrg() === 57){
-    endPoint = "getitemdetails"
-  }
-  this.apiservice.dateWiseitemReport(data,endPoint).subscribe((res:any)=>{
-    this.rowData = res.data
-  })
-}
+// dateWiseitemReport(data:any){
+//   let endPoint = "dateWiseitemReport"
+//   if(this.utility.getUserOrg() === 57){
+//     endPoint = "getitemdetails"
+//   }
+//   this.apiservice.dateWiseitemReport(data,endPoint).subscribe((res:any)=>{
+//     this.rowData = res.data
+//   })
+// }
 
 customTabDataFiller(data:any,endPoint:string){
-  this.apiservice.dateWiseitemReport(data,endPoint).subscribe((res:any)=>{
+  this.apiservice.reportDataFetch(data,endPoint).subscribe((res:any)=>{
     this.rowData = res.data
   })
 }
@@ -143,18 +159,11 @@ customTabDataFiller(data:any,endPoint:string){
 tabchange(index:any){
   this.currentTabIndex =index;
   this.rowData = []
-  switch(index) {
-    case 0:
-      this.dateWiseSectionReport(this.tabdate)
-        break;
-    case 1:
-      this.dateWiseitemReport(this.tabdate)
-        break;
-    case 2:
-      this.customTabDataFiller(this.tabdate,"getauditlogs")
-        break;
-    case 3:
-      this.customTabDataFiller(this.tabdate,"getadminlogs")
- }
+  this.reportList.forEach((tab,i) => {
+    if(index==i){
+      this.customTabDataFiller(this.tabdate,tab.endpoint)
+    }
+  });
+  
 }
 }

@@ -43,7 +43,7 @@ export class ApiService {
   dateWiseSectionReport(data:any,endPoint:string){
    return this.http.post(`${this.BASE_URL}/${endPoint}`,data)
   }
-  dateWiseitemReport(data:any,endPoint:string){
+  reportDataFetch(data:any,endPoint:string){
     return this.http.post(`${this.BASE_URL}/${endPoint}`,data)
   }
 
