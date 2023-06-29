@@ -83,7 +83,7 @@ export class ExamStatusReportComponent implements OnInit {
 
     let show_AdminLog = {
       report_Name:"Admin Log",
-      endpoint:"getauditlogs",
+      endpoint:"getadminlogs",
       is_enable:true,
       is_download:true
     };
