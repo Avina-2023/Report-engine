@@ -47,13 +47,13 @@ export class ExamStatusReportComponent implements OnInit {
       report_Name:"Score Report",
       is_enable:true,
       is_download:true,
-      endpoint:(this.utility.getUserOrg()===57)?"dateWiseSectionReport":"getsectiondetails"
+      endpoint:(this.utility.getUserOrg()===57)?"getsectiondetails":"dateWiseSectionReport"
     },
     {
       report_Name:"Item wise Report",
       is_enable:true,
       is_download:true,
-      endpoint:(this.utility.getUserOrg()===57)?"dateWiseitemReport":"getitemdetails"
+      endpoint:(this.utility.getUserOrg()===57)?"getitemdetails":"dateWiseitemReport"
     },
     // {
     //   report_Name:"WeCP Score Report",
@@ -105,7 +105,7 @@ public defaultColDef: ColDef = {
 };
 
 ngOnInit() {
-  this.dateWiseSectionReport({})
+  this.tabchange(0)
   
 }
 daterrange(event:any){
