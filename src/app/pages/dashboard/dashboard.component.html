@@ -8,6 +8,12 @@
   </div>
 </div>
 <div style="display: flex; justify-content: space-evenly; padding: 3% 2%">
+  <app-tinycard *ngIf="utility.getUserOrg()===57"
+    [wgColor]="'#00bda1'"
+    [iconClass]="'icon-domain'"
+    [tinycardLabel]="'Venues'"
+    [tinycardCount]="venueCount.toString()"
+  ></app-tinycard>
   <app-tinycard
     [wgColor]="'#00578c'"
     [iconClass]="'icon-schedule'"
@@ -20,7 +26,7 @@
     [tinycardLabel]="'Batches'"
     [tinycardCount]="batchCount"
   ></app-tinycard>
-  <app-tinycard
+  <app-tinycard *ngIf="utility.getUserOrg()!==57"
     [wgColor]="'#00bda1'"
     [iconClass]="'icon-domain'"
     [tinycardLabel]="'Domains'"
@@ -62,7 +68,7 @@
     [tinycardCount]="total?.Completed"
   ></app-tinycard>
 </div>
-
+<section  *ngIf="utility.getUserOrg()!==57">
 <div>
   <h2 class="head">Graphical Representation</h2>
 </div>
@@ -158,7 +164,7 @@
     </div>
   </div>
 </div>
-
+</section>
 
 <div class="card_topic ml-10">
   <h1>Overall Dashboard Table Representation</h1>

@@ -19,6 +19,7 @@ import { TinycardComponent } from './widgets/tinycard/tinycard.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { CommonModule } from '@angular/common';
+import { AppConfigService } from 'src/app/utils/app-config.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -111,6 +112,7 @@ export class DashboardComponent implements OnInit {
   date7: Date[] = [];
   DashboardData: any;
   socket_subs: any;
+  venueCount: number = 0;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -118,7 +120,8 @@ export class DashboardComponent implements OnInit {
     private apiservice: ApiService,
     public loader: LoaderService,
     private excelService:ExcelService,
-    private socketService:WebSocketService
+    private socketService:WebSocketService,
+    public utility: AppConfigService,
   ) {
     this.chartOptions = {
       series: [
@@ -383,7 +386,20 @@ export class DashboardComponent implements OnInit {
 
   getDashboardAPI() 
    {
-    this.apiservice.dashboard(this.DashboardData).subscribe((res: any) => {  
+    if(this.utility.getUserOrg()===57){
+      this.apiservice.dashboard_offline(this.DashboardData).subscribe((res: any) => { 
+        this.responseData = res.data.length;
+          if(this.responseData ){
+            
+          }else{
+            this.responseData = "";
+          }
+        this.dynamicallyConfigureColumnsFromObject(res.data); 
+        this.groupingCount(res.data); 
+       })
+    }
+    else{
+      this.apiservice.dashboard(this.DashboardData).subscribe((res: any) => {  
       
           this.responseData = res.data.length;
           if(this.responseData ){
@@ -398,20 +414,11 @@ export class DashboardComponent implements OnInit {
         this.clientWiseChartDataSort(res.data);
         this.getChart(res.data); 
     });
-   }
- 
-  getChart(_data: any) {
-     
-    this.batchCount = _data.length;
-    console.log(_data.length);
+    }
     
-    let domainSum = 0;
-    _data.forEach((_item: any) => {
-      if (_item.Domain_Name) {
-        domainSum = domainSum + 1;
-      }
-    });
-    this.domainCount = domainSum;
+   }
+   groupingCount(_data:any){
+    this.batchCount = _data.length;
     let keys = [
       'Total_Count',
       'Started',
@@ -421,11 +428,28 @@ export class DashboardComponent implements OnInit {
       'Inprogress',
       'Yet_To_Start',
     ];
+    let domainSum = 0;
+    _data.forEach((_item: any) => {
+      if (_item.Domain_Name) {
+        domainSum = domainSum + 1;
+      }
+    });
+    this.domainCount = domainSum;
+    const arrayUniqueByKey = [...new Map(_data.map((item:any) =>[item['Venue_Id'], item])).values()];
+    this.venueCount = arrayUniqueByKey.length;
+
     let results:any = _.zipObject(
       keys,
       keys.map((key) => _.sum(_.map(_data, key)))
     );
     this.total = results;
+   }
+ 
+  getChart(_data: any) {
+     
+    
+   
+    this.groupingCount(_data);
 
     this.CountDetails = {
       idle: this.total.Idle,
@@ -433,13 +457,13 @@ export class DashboardComponent implements OnInit {
     };
 
     this.chartOptions.series[0].data = [
-      results.Total_Count,
-      results.Started,
-      results.Terminated?results.Terminated:0,
-      results.Idle?results.Idle:0,
-      results.Completed,
-      results.Inprogrss,
-      results.Yet_To_Start,
+      this.total.Total_Count,
+      this.total.Started,
+      this.total.Terminated?this.total.Terminated:0,
+      this.total.Idle?this.total.Idle:0,
+      this.total.Completed,
+      this.total.Inprogrss,
+      this.total.Yet_To_Start,
     ];
     this.ovrAllChrt?.updateSeries(this.chartOptions.series); 
   }
