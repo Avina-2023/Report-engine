@@ -1,8 +1,83 @@
+
+.warpper {
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+}
+
+.tab {
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 0px 2px;
+  font-weight: 600;
+  background: #f1f1f1;
+  display: inline-block;
+  color: #32557f;
+  border-radius: 3px 3px 0px 0px;
+  // box-shadow: 0 0.5rem 0.8rem #00000080;
+}
+
+.panels {
+  background: #fff;
+  // box-shadow: 0 2rem 2rem #00000080;
+  min-height: 600px;
+  width: 100%;
+  // max-width: 500px;
+  border-radius: 3px;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.panel {
+  display: none;
+  animation: fadein 0.8s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.panel-title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.radio {
+  display: none;
+}
+
+#one:checked ~ .panels #one-panel,
+#two:checked ~ .panels #two-panel,
+#three:checked ~ .panels #three-panel,
+#four:checked ~ .panels #four-panel{
+  display: block;
+}
+
+#one:checked ~ .tabs #one-tab,
+#two:checked ~ .tabs #two-tab,
+#three:checked ~ .tabs #three-tab,
+#four:checked ~ .tabs #four-tab {
+  background: #fff;
+  font-weight: 600;
+  color: #32557f;
+  // border-top: 3px solid #32557f;
+}
+
+
+
+
+
+
 .chart_card{
   background: #fff;
     box-shadow: 1px 3px 6px lightgrey;
     padding: 30px 20px;
-    width: 500px; 
+    width: 500px;
 }
 
 .NoData{
@@ -43,7 +118,7 @@
     }
   }
   .card:hover {
-   
+
     transition: .2s ease-in-out;
     box-shadow: 0 5px 11px 0px rgb(69 90 100 / 30%);
 
@@ -194,14 +269,14 @@
 }
 ::ng-deep.p-calendar-container .p-inputtext {
 
-  height: 25px !important; 
-  font-size: 14px !important; 
+  height: 25px !important;
+  font-size: 14px !important;
   padding-right: 20px;
 }
 
 ::ng-deep.p-calendar-container .p-datepicker td {
   padding:0px;
-  font-size: 14px !important; 
+  font-size: 14px !important;
 }
 .livebtn{
   font-size: 10px;
