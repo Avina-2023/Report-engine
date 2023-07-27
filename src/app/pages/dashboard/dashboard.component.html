@@ -7,7 +7,7 @@
 
   </div>
 </div>
-<div style="display: flex; justify-content: space-evenly; padding: 3% 2%">
+<div style="display: flex; justify-content: space-evenly; padding: 3% 0">
   <app-tinycard *ngIf="utility.getUserOrg()===57"
     [wgColor]="'#00bda1'"
     [iconClass]="'icon-domain'"
@@ -17,7 +17,7 @@
   <app-tinycard
     [wgColor]="'#00578c'"
     [iconClass]="'icon-schedule'"
-    [tinycardLabel]="'Scheduled'"
+    [tinycardLabel]="utility.getUserOrg()===57?'Candidates':'Scheduled'"
     [tinycardCount]="total?.Total_Count"
   ></app-tinycard>
   <app-tinycard
@@ -32,7 +32,7 @@
     [tinycardLabel]="'Domains'"
     [tinycardCount]="domainCount"
   ></app-tinycard>
-  <app-tinycard
+  <app-tinycard *ngIf="utility.getUserOrg()!==57"
   [wgColor]="'#70bc40'"
   [iconClass]="'icon-login-lock'"
   [tinycardLabel]="'Logged In'"
@@ -40,14 +40,14 @@
 ></app-tinycard>
 </div>
 <div style="display: flex; justify-content: space-evenly;margin-bottom: 20px;">
-  <app-tinycard
+  <app-tinycard *ngIf="utility.getUserOrg()!==57"
   [wgColor]="'#65ba40'"
   [iconClass]="'icon-logged_in'"
   [tinycardLabel]="'Yet To Start'"
   [tinycardCount]="total?.Yet_To_Start
   "
 ></app-tinycard>
-  <app-tinycard
+  <app-tinycard 
   [wgColor]="'#bc823b'"
   [iconClass]="'icon-assignment'"
   [tinycardLabel]="'Test Started'"
@@ -57,10 +57,11 @@
     [wgColor]="'red'"
     [iconClass]="'icon-edit_note'"
     [tinycardLabel]="'InProgress'"
-    [isDrawer]="true"
     [tinycardCount]="total?.Inprogress"
     [tinyCountDetails]="CountDetails"
   ></app-tinycard>
+  <!-- [isDrawer]="true" -->
+
   <app-tinycard
     [wgColor]="'#00bd8e'"
     [iconClass]="'icon-test-completed'"
