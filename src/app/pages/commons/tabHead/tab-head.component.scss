@@ -1,121 +1,79 @@
-h1 { 
-	width: 660px; 
-	margin: 0 auto;
-	padding: 20px 0;
-	color: #222;
+.warpper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  // align-items: center;
+}
+.tabs{
+  background-color: #EDEDED;
+  border-bottom: solid 1px #D5D6D9;
+}
+.tab {
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: 600;
+  background: #EDEDED;
+  display: inline-block;
+  color: #32557f;
+  border-radius: 3px 3px 0px 0px;
+  // box-shadow: 0 0.5rem 0.8rem #00000080;
+  border-left:1px solid #D5D6D9;
+
+}
+.tab:first-child{
+  margin-left: 25px;
+  }
+.tab:last-child{
+border-right: 1px solid #D5D6D9;
 }
 
-.group:before,
-.group:after {
-    content: "";
-    display: table;
-}
-.group:after {
-    clear: both;
-}
-.group {
-    zoom: 1;
+.panels {
+  background: #fff;
+  // box-shadow: 0 2rem 2rem #00000080;
+  min-height: 600px;
+  width: 100%;
+  // max-width: 500px;
+  border-radius: 3px;
+  overflow: hidden;
+  padding: 20px;
 }
 
-.tabs { 
-  list-style: none; 
-  margin: 60px auto 0; 
-  width: 660px;
+.panel {
+  display: none;
+  animation: fadein 0.8s;
 }
-.tabs li { 
-  /* Makes a horizontal row */
-  float: left; 
-  
-  /* So the psueudo elements can be
-     abs. positioned inside */
-  position: relative; 
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-.tabs a { 
-  /* Make them block level
-     and only as wide as they need */
-  float: left; 
-  padding: 10px 40px; 
-  text-decoration: none;
-  
-  /* Default colors */ 
-  color: #848484;
-  background: #D5D6D9; 
-  
-  /* Only round the top corners */
-  -webkit-border-top-left-radius: 0px;
-  -webkit-border-top-right-radius: 0px;
-  -moz-border-radius-topleft: 0px;
-  -moz-border-radius-topright: 0px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px; 
+
+.panel-title {
+  font-size: 1.5em;
+  font-weight: bold;
 }
-.tabs .active {
-  /* Highest, active tab is on top */
-  z-index: 3;
+
+.radio {
+  display: none;
 }
-.tabs .active a { 
-  /* Colors when tab is active */
-  background: white; 
-  color: black; 
+
+#one:checked ~ .panels #one-panel,
+#two:checked ~ .panels #two-panel,
+#three:checked ~ .panels #three-panel,
+#four:checked ~ .panels #four-panel{
+  display: block;
 }
-.tabs li:before, .tabs li:after, 
-.tabs li a:before, .tabs li a:after {
-  /* All pseudo elements are 
-     abs. positioned and on bottom */
-  position: absolute;
-  bottom: 0;
-}
-/* Only the first, last, and active
-   tabs need pseudo elements at all */
-.tabs li:last-child:after,   .tabs li:last-child a:after,
-.tabs li:first-child:before, .tabs li:first-child a:before,
-.tabs .active:after,   .tabs .active:before, 
-.tabs .active a:after, .tabs .active a:before {
-  content: "";
-}
-.tabs .active:before, .tabs .active:after {
-  background: white; 
-  
-  /* Squares below circles */
-  z-index: 1;
-}
-/* Squares */
-.tabs li:before, .tabs li:after {
+
+#one:checked ~ .tabs #one-tab,
+#two:checked ~ .tabs #two-tab,
+#three:checked ~ .tabs #three-tab,
+#four:checked ~ .tabs #four-tab {
   background: #fff;
-  width: 10px;
-  height: 10px;
-}
-.tabs li:before {
-  left: -10px;      
-}
-.tabs li:after { 
-  right: -10px;
-}
-/* Circles */
-.tabs li a:after, .tabs li a:before {
-  width: 20px; 
-  height: 20px;
-  /* Circles are circular */
-  -webkit-border-radius: 10px;
-  -moz-border-radius:    10px;
-  border-radius:         10px;
-  background: #fff;
-  
-  /* Circles over squares */
-  z-index: 2;
-}
-.tabs .active a:after, .tabs .active a:before {
-  background: #D5D6D9;
-}
-/* First and last tabs have different
-   outside color needs */
-.tabs li:first-child.active a:before,
-.tabs li:last-child.active a:after {
-  background: #fff;
-}
-.tabs li a:before {
-  left: -20px;
-}
-.tabs li a:after {
-  right: -20px;
+  font-weight: 600;
+  color: #32557f;
+  // border-top: 3px solid #32557f;
 }
