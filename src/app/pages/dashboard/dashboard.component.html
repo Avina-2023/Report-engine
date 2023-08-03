@@ -1,194 +1,189 @@
-<div class="excel">
-  <div class="p-field p-calendar-container">
-    <label for="range">Delivery date range:</label>
-
-    <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
-    nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="dtRange" (ngModelChange)="daterrange($event)"></nz-range-picker>
-
-  </div>
-</div>
-<div style="display: flex; justify-content: space-evenly; padding: 3% 2%">
-  <app-tinycard
-    [wgColor]="'#00578c'"
-    [iconClass]="'icon-schedule'"
-    [tinycardLabel]="'Scheduled'"
-    [tinycardCount]="total?.Total_Count"
-  ></app-tinycard>
-  <app-tinycard
-    [wgColor]="'#00bddc'"
-    [iconClass]="'icon-groups'"
-    [tinycardLabel]="'Batches'"
-    [tinycardCount]="batchCount"
-  ></app-tinycard>
-  <app-tinycard
-    [wgColor]="'#00bda1'"
-    [iconClass]="'icon-domain'"
-    [tinycardLabel]="'Domains'"
-    [tinycardCount]="domainCount"
-  ></app-tinycard>
-  <app-tinycard
-  [wgColor]="'#70bc40'"
-  [iconClass]="'icon-login-lock'"
-  [tinycardLabel]="'Logged In'"
-  [tinycardCount]="total?.Started"
-></app-tinycard>
-</div>
-<div style="display: flex; justify-content: space-evenly">
-  <app-tinycard
-  [wgColor]="'#65ba40'"
-  [iconClass]="'icon-logged_in'"
-  [tinycardLabel]="'Yet To Start'"
-  [tinycardCount]="total?.Yet_To_Start
-  "
-></app-tinycard>
-  <app-tinycard
-  [wgColor]="'#bc823b'"
-  [iconClass]="'icon-assignment'"
-  [tinycardLabel]="'Test Started'"
-  [tinycardCount]="total?.Started"
-></app-tinycard>
-  <app-tinycard
-    [wgColor]="'red'"
-    [iconClass]="'icon-edit_note'"
-    [tinycardLabel]="'InProgress'"
-    [isDrawer]="true"
-    [tinycardCount]="total?.Inprogress"
-    [tinyCountDetails]="CountDetails"
-  ></app-tinycard>
-  <app-tinycard
-    [wgColor]="'#00bd8e'"
-    [iconClass]="'icon-test-completed'"
-    [tinycardLabel]="'Completed'"
-    [tinycardCount]="total?.Completed"
-  ></app-tinycard>
-</div>
 
 <div>
-  <h2 class="head">Graphical Representation</h2>
+<div class="matcard-flex">
+  <div class="card-flex">
+    <mat-card class="mat-card">
+        <mat-card-content>
+          <div class="total-content">
+          <div>Total Candidates</div>
+          <div class="total-flex">
+            <div class="num-left">
+            <div class="mat-number">7500</div>
+            </div>
+            <div class="num-left">
+                <div class="number-flex">
+                <div class="left-flex">
+                  <div class="green-color">6000</div>
+                  <div class="black-color">1000</div>
+                  <div class="red-color">500</div>
+                </div>
+                <div class="right-flex">
+                  <div>Total Logged in</div>
+                  <div>Absent</div>
+                  <div>Issue</div>
+                </div>
+              </div>
+             
+          </div>
+          </div>
+        </div>
+        </mat-card-content>
+      </mat-card>      
+  </div>
+  <div class="card-flex">
+    <mat-card class="mat-card">
+        <mat-card-content>
+          <div class="total-content">
+          <div>Test Started</div>
+          <div class="total-flex">
+            <div class="num-left">
+            <div class="mat-number">4500</div>
+            </div>
+            <div class="num-left">
+               <div class="grid-flex">
+                <div class="number-flex">
+                <div class="left-flex">
+                  <div class="green-color">3000</div>
+                  <div class="black-color">1000</div>
+                  <div class="red-color">500</div>
+                </div>
+                <div class="right-flex">
+                  <div>Completed</div>
+                  <div>Progress</div>
+                  <div>Issue</div>
+                </div>
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div> 
+        </mat-card-content>
+      </mat-card>      
+  </div>
+  <div class="card-flex">
+    <mat-card class="mat-card">
+        <mat-card-content>
+          <div class="total-content">
+          <div>Proctor</div>
+          <div class="proctor-flex">
+                  <div class="circle green">302</div>
+                  <div class="circle blue">232</div> 
+                  <div class="circle gray">500</div>
+                  <div class="circle red">200</div> 
+          </div>
+          <div class="proctor-create">
+            <div>Created</div>
+            <div>Started</div>
+            <div>Paused</div> 
+            <div>Stopped</div>  
+        </div>
+          </div>
+        </mat-card-content> 
+      </mat-card>      
+  </div>
 </div>
-<div
-  style="
-    display: flex;
-    align-items: stretch;
-    justify-content: space-evenly;
-    margin: 4% 0%;
-  "
-> 
+</div>
 
-<div class="chart_card">
-    <div class="card_topic">
-      <h1>Overall Test Status</h1>
+<div class="main-matcard">
+  <mat-card class="main-card">
+    <div class="flex-container">
+      <div style="flex-grow: 1"><mat-card-content>Ongoing Client Wise Domain Wise Candidates</mat-card-content></div>
+      <div style="flex-grow: 400"><span class="blue-color"><span class="blue-text">05</span></span></div>
+      <div style="flex-grow: 18;"><span class="black-round"></span></div>
     </div>
-    <div *ngIf="responseData > 0;else otherContent">
-    <apx-chart 
-    #ovrAllChrt  
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [dataLabels]="chartOptions.dataLabels"
-    [colors]="chartOptions.colors"
-    [plotOptions]="chartOptions.plotOptions"
-    [legend]="chartOptions.legend"
-    [xaxis]="chartOptions.xaxis"
-  >
-</apx-chart>
+   <div class="table-margin">
+    <div class="table-flex">
+      <div class="rowspan-flex">
+        <div class="rowspan">
+          <div class="colspan">
+          <div class="lnt">
+            <div class="aptitude-color">
+            <div class="cloud cloudcolor">2500</div>LNT
+          </div>
+          </div>
+        </div>
+        </div>
+      <div class="table-gray">
+    <table>
+      <tr>
+        <td class="apti-width">Aptitude</td>
+        <td class="a-text">1000</td>
+        <td>
+        <div class="aptitude-color">
+                <div class="apti redco">250</div>
+                <div class="apti grayco">150</div>
+                <div class="apti greenco">100</div>
+        </div></td>
+        <td class="border-none"><img class="apti-image" src="assets/images/bugimage.svg"><span class="red-border">50</span></td>
+        <td class="border-none"><img class="apti-image" src="assets/images/bugimageone.svg"><span class="red-border">15</span></td>
+      </tr>
+      <tr>
+        <td class="apti-width">Regression Testing M31</td>
+        <td class="a-text">500</td>
+        <td><div class="aptitude-color">
+          <div class="apti redco">150</div>
+          <div class="apti grayco">250</div>
+          <div class="apti greenco">100</div>
+       </div></td>
+       <td class="border-none"><img class="apti-image" src="assets/images/bugimage.svg"><span class="red-border">12</span></td>
+       <td class="border-none"><img class="apti-image" src="assets/images/bugimageone.svg"><span class="red-border">02</span></td>
+      </tr>
+      <tr>
+        <td class="apti-width">Series-3</td>
+        <td class="a-text">300</td>
+        <td><div class="aptitude-color">
+          <div class="apti redco">750</div>
+          <div class="apti grayco">250</div>
+          <div class="apti greenco">200</div>
+       </div></td>
+       <td class="border-none"><img class="apti-image" src="assets/images/bugimage.svg"><span class="red-border">23</span></td>
+        <td class="border-none"><img class="apti-image" src="assets/images/bugimageone.svg"><span class="red-border">09</span></td>
+      </tr>
+      <tr>
+        <td class="apti-width">Scheduled Test M31</td>
+        <td class="a-text">100</td>
+        <td><div class="aptitude-color">
+          <div class="apti redco">250</div>
+          <div class="apti grayco">200</div>
+          <div class="apti greenco">650</div>
+       </div></td>
+       <td class="border-none"><img class="apti-image" src="assets/images/bugimage.svg"><span class="red-border">04</span></td>
+       <td class="border-none"><img class="apti-image" src="assets/images/bugimageone.svg"><span class="red-border">32</span></td>
+      </tr>
+      <tr>
+        <td class="apti-width">053123</td>
+        <td class="a-text">600</td>
+        <td><div class="aptitude-color">
+          <div class="apti redco">200</div>
+          <div class="apti grayco">175</div>
+          <div class="apti greenco">225</div>
+       </div></td>
+       <td class="border-none"><img class="apti-image" src="assets/images/bugimage.svg"><span class="red-border">08</span></td>
+       <td class="border-none"><img class="apti-image" src="assets/images/bugimageone.svg"><span class="red-border">46</span></td>
+      </tr>
+    </table>
+  </div>
 </div>
 </div>
-
-
-  <div class="chart_card">
-    <div class="card_topic">
-      <h1>Clients</h1>
+</div>
+  </mat-card>
+  <div class="tfoot">
+    <div class="footer-color">
+      <div class="foo-color">
+         <div class="fi-color">
+           <span class="ap-text">Not yet started</span>
+         </div>
+      </div>
+      <div class="foo-color">
+       <div class="se-color">
+         <span class="ap-text">Inprogress</span>
+       </div>
     </div>
-  
-    <div *ngIf="responseData > 0;else otherContent">
-    <apx-chart
-      #clientwise
-      [dataLabels]="chartOptions2.dataLabels"
-      [series]="chartOptions2.series"
-      [chart]="chartOptions2.chart"
-      [labels]="chartOptions2.labels"
-      [responsive]="chartOptions2.responsive"
-      [legend]="chartOptions2.legend"
-      [colors]="chartOptions2.colors"
-    >
-    </apx-chart>
+    <div class="foo-color">
+     <div class="thir-color">
+       <span class="ap-text">Inprogress</span>
+     </div>
   </div>
+   </div>
   </div>
 </div>
-
-<div
-  style="
-    display: flex;
-    align-items: stretch;
-    justify-content: space-evenly;
-    margin: 8% 0%;
-  "
->
-  <div class="chart_card">
-    <div class="card_topic">
-      <h1>Domain Wise</h1>
-    </div>
-    <div *ngIf="responseData > 0;else otherContent">
-    <apx-chart
-      #chart3
-      [series]="chartOptions3.series"
-      [chart]="chartOptions3.chart"
-      [labels]="chartOptions3.labels"
-      [legend]="chartOptions2.legend"
-      [theme]="chartOptions3.theme"
-      [colors]="chartOptions3.colors"
-      [responsive]="chartOptions2.responsive"
-    ></apx-chart>
-  </div>
-  </div>
-
-
-  <div class="chart_card">
-    <div class="card_topic"><h1>Client Wise Drive Wise</h1></div>
-    <div *ngIf="responseData > 0;else otherContent">
-    <apx-chart
-      #chart5
-      [series]="chartOptions5.series"
-      [chart]="chartOptions5.chart"
-      [labels]="chartOptions5.labels"
-      [colors]="chartOptions5.colors"
-      [legend]="chartOptions2.legend"
-      [responsive]="chartOptions5.responsive"
-    ></apx-chart> 
-    </div>
-  </div>
-</div>
-
-
-<div class="card_topic ml-10">
-  <h1>Overall Dashboard Table Representation</h1>
-</div>
-<div class="topToolbar">
-  <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
-</div>
-<ag-grid-angular
-  style="
-    width: 100%;
-    height: 500px;
-    margin-bottom: 50px;
-    margin-left: 10px;
-    margin-right: 10px;
-  "
-  class="ag-theme-alpine"
-  [columnDefs]="columnDefs"
-  [defaultColDef]="defaultColDef"
-  [paginationPageSize]="20"
-  [pagination]="true"
->
-</ag-grid-angular>
-
-<ng-template #otherContent>
-  <div class="mat_card">
-    <mat-card>
-      <mat-card-header>
-      <mat-card-title></mat-card-title>
-      <mat-card-subtitle><span class="icon-popup-warning">  No Data Found </span> </mat-card-subtitle>
-      </mat-card-header>
-     </mat-card>
-  </div>
-</ng-template>

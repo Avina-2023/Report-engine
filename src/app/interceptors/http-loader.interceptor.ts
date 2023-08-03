@@ -21,7 +21,6 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let locVal:string|null = localStorage.getItem('userDetails')
     this.userDetail = locVal?JSON.parse(locVal):null;
-    console.log(this.userDetail.id)
     this.totalRequests++;
     this.loadingService.setLoading(true);
     let modifiedReq  = request
