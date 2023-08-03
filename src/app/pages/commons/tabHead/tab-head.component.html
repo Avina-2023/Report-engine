@@ -1,0 +1,13 @@
+<div class="warpper">
+  <input class="radio" id="one" name="group" type="radio" checked>
+  <input class="radio" id="two" name="group" type="radio">
+  <input class="radio" id="three" name="group" type="radio">
+  <input class="radio" id="four" name="group" type="radio">
+  <div class="tabs">
+    <label class="tab" id="one-tab" for="one" [routerLink]="['/dashboard']" >Dashboard</label>
+    <label class="tab" id="two-tab" for="two" [routerLink]="['/exam']">Reports</label>
+    <label class="tab" id="three-tab" for="three">Action Center</label>
+    <label class="tab" id="four-tab" for="four" [routerLink]="['/proctor']">Proctors</label>
+  </div>
+
+</div>
