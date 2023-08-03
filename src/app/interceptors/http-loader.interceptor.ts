@@ -3,11 +3,13 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { LoaderService } from '../services/loader.service';
+import { AppConfigService } from '../utils/app-config.service';
 
 @Injectable()
 export class HttpLoaderInterceptor implements HttpInterceptor {
@@ -15,7 +17,8 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
   private totalRequests = 0;
   private userDetail:any;
   constructor(
-    private loadingService: LoaderService
+    private loadingService: LoaderService,
+    private utility: AppConfigService,
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -24,9 +27,15 @@ export class HttpLoaderInterceptor implements HttpInterceptor {
     this.totalRequests++;
     this.loadingService.setLoading(true);
     let modifiedReq  = request
+    const enc_orgid = this.userDetail?.organisations[0]?.orgId?this.userDetail?.organisations[0]?.orgId.toString():"null"
     if(this.userDetail){
+
+      const custom_headers= new HttpHeaders()
+      .set('userid', this.utility.encryptData(this.userDetail.id))
+      .set('orgid',this.utility.encryptData(enc_orgid));
+      
        modifiedReq = request.clone({ 
-      headers: request.headers.set('user_id', this.userDetail.id),
+      headers:custom_headers
     });
     }
     

@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild,  Input, SimpleChanges, OnChanges } from '@angular/core';
 import { AgGridAngular, AgGridModule} from 'ag-grid-angular';
-import { ColDef  } from 'ag-grid-enterprise';
+import { ColDef, SideBarDef  } from 'ag-grid-enterprise';
 import { ExcelService } from 'src/app/services/excelService';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,6 +26,9 @@ export class CommonreportviewComponent implements OnInit {
   ColDef: any;
   is_download: any;
   
+  public sideBar: SideBarDef  = {
+    toolPanels: ['filters'],
+  };
   constructor(
     private excelService:ExcelService,
   ) { }
@@ -51,7 +54,7 @@ export class CommonreportviewComponent implements OnInit {
     console.log(changes)
     this.is_download = changes['isdownload']?.currentValue
     this.dynamicallyConfigureColumnsFromObject(changes['tabledata'].currentValue)
-    this.agGrid.api.setRowData(changes['tabledata'].currentValue)
+    this.agGrid?.api.setRowData(changes['tabledata'].currentValue)
   }
 
   excelexport(params:any){
@@ -59,8 +62,8 @@ export class CommonreportviewComponent implements OnInit {
   }
 
   dynamicallyConfigureColumnsFromObject(anObject:any){
-    this.ColDef = this.agGrid.api.getColumnDefs();
-    this.ColDef.length=0;
+    this.ColDef = this.agGrid?.api?.getColumnDefs();
+    // this.ColDef.length=0;
     this.columnDefs=[]
     if(anObject?.length){
     
@@ -70,8 +73,8 @@ export class CommonreportviewComponent implements OnInit {
       );
     
   }
-  this.agGrid.api.setColumnDefs(this.columnDefs);
-    this.agGrid.api.setRowData(anObject);
+  this.agGrid?.api?.setColumnDefs(this.columnDefs);
+    this.agGrid?.api.setRowData(anObject);
     this.tabledata=anObject
   } 
 }

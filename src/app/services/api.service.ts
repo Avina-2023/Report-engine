@@ -37,14 +37,20 @@ export class ApiService {
     }
     return this.http.post(`${this.BASE_URL}/dashboard`,data)
   }
+  dashboard_offline(data:any){
+    if (data == undefined) {
+      data = {};
+    }
+    return this.http.post(`${this.BASE_URL}/tm_dashboard`,data)
+  }
   userdashboard(data:any){
   return this.http.post(`${this.BASE_URL}/userdashboard`,data)
   }
-  dateWiseSectionReport(data:any){
-   return this.http.post(`${this.BASE_URL}/dateWiseSectionReport`,data)
+  dateWiseSectionReport(data:any,endPoint:string){
+   return this.http.post(`${this.BASE_URL}/${endPoint}`,data)
   }
-  dateWiseitemReport(data:any){
-    return this.http.post(`${this.BASE_URL}/dateWiseitemReport`,data)
+  reportDataFetch(data:any,endPoint:string){
+    return this.http.post(`${this.BASE_URL}/${endPoint}`,data)
   }
 
   proctor(data:any){
