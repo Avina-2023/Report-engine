@@ -492,7 +492,6 @@ export class DashboardComponent implements OnInit {
         this.columnDefs.push({
           field: key,
           headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
-
         }),
        
       );
