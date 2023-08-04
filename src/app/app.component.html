@@ -1,7 +1,7 @@
 <app-loadingspinner></app-loadingspinner>
 <div [ngClass]="hUD_Display?'dashboard-Container':'overalls'">
   <app-header *ngIf="hUD_Display"></app-header>
-  <app-tab-head></app-tab-head>
+  <app-tab-head *ngIf="hUD_Display"></app-tab-head>
   <!-- <div [ngClass]="hUD_Display?'dashbody open':'overalls'"> -->
     <!-- <app-sideMenuBar *ngIf="hUD_Display"></app-sideMenuBar> -->
     <!-- <div class="trans_effect" [ngClass]="menuState?'open':'closed'"> -->
