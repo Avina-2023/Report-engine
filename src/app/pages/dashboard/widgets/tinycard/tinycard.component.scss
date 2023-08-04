@@ -1,5 +1,5 @@
 .tiny_card {
-    width: fit-content;
+    width: 300px;
     justify-content: space-between;
     background: #fff;
     box-shadow: 0px 3px 11px -2px #b7b7b7;
@@ -12,6 +12,7 @@
         display: flex;
         padding: 30px 20px 20px 20px;
         align-items: center;
+        justify-content: space-between;
     }
 
     // div {

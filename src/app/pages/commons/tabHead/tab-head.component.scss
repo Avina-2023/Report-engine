@@ -1,0 +1,79 @@
+.warpper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  // align-items: center;
+}
+.tabs{
+  background-color: #EDEDED;
+  border-bottom: solid 1px #D5D6D9;
+}
+.tab {
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: 600;
+  background: #EDEDED;
+  display: inline-block;
+  color: #32557f;
+  border-radius: 3px 3px 0px 0px;
+  // box-shadow: 0 0.5rem 0.8rem #00000080;
+  border-left:1px solid #D5D6D9;
+
+}
+.tab:first-child{
+  margin-left: 25px;
+  }
+.tab:last-child{
+border-right: 1px solid #D5D6D9;
+}
+
+.panels {
+  background: #fff;
+  // box-shadow: 0 2rem 2rem #00000080;
+  min-height: 600px;
+  width: 100%;
+  // max-width: 500px;
+  border-radius: 3px;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.panel {
+  display: none;
+  animation: fadein 0.8s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.panel-title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.radio {
+  display: none;
+}
+
+#one:checked ~ .panels #one-panel,
+#two:checked ~ .panels #two-panel,
+#three:checked ~ .panels #three-panel,
+#four:checked ~ .panels #four-panel{
+  display: block;
+}
+
+#one:checked ~ .tabs #one-tab,
+#two:checked ~ .tabs #two-tab,
+#three:checked ~ .tabs #three-tab,
+#four:checked ~ .tabs #four-tab {
+  background: #fff;
+  font-weight: 600;
+  color: #32557f;
+  // border-top: 3px solid #32557f;
+}
