@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  API_BASE_URL: 'https://adanireportedgedev.lntedutech.com/',
+  API_BASE_URL: 'https://adanireportedgedev.lntedutech.com',
   ELASTIC_BASE_URL: 'https:///reportelasticdev.lntedutech.com',
   local:'http://localhost:3006',
   socket_url:'https://reportsocketqa.lntedutech.com'
