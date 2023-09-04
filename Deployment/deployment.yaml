@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reportengineui
+  namespace: adanireport
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reportengineui
+  template:
+    metadata:
+      labels:
+        app: reportengineui
+    spec:
+      containers:
+        - name: reportengineui
+          image: adanidev.azurecr.io/reportengineui:$tag
+          ports:
+          - containerPort: 80
+      imagePullSecrets:
+        - name: mysecret
+      
+	 
+
