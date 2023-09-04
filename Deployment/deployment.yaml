@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: reportengineui
-  namespace: adanireport
 spec:
   replicas: 1
   selector:
@@ -15,11 +14,10 @@ spec:
     spec:
       containers:
         - name: reportengineui
-          image: adanidev.azurecr.io/reportengineui:$tag
+          image: taodev.azurecr.io/reportengineui:$tag
           ports:
           - containerPort: 80
       imagePullSecrets:
         - name: mysecret
-      
-	 
-
+      nodeSelector:
+        agentpool: taodev
