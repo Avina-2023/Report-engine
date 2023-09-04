@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adaniengineui
+  namespace: report-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adaniengineui
+  template:
+    metadata:
+      labels:
+        app: adaniengineui
+    spec:
+      containers:
+        - name: adaniengineui
+          image: adanitaoprod.azurecr.io/adaniengineui:$tag
+          ports:
+          - containerPort: 80
+      imagePullSecrets:
+        - name: mysecret
+    
