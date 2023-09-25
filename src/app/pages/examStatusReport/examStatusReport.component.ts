@@ -88,9 +88,18 @@ export class ExamStatusReportComponent implements OnInit {
       is_download:true
     };
 
+    let userDashData={
+      report_Name:"User Data",
+      endpoint:"userdashboard",
+      is_enable:true,
+      is_download:false
+    }
+
     if(utility.getUserOrg()===57){
       this.reportList.push(show_Audit)
       this.reportList.push(show_AdminLog)
+    }else{
+      this.reportList.push(userDashData)
     }
 
   }
