@@ -37,6 +37,12 @@ export class ApiService {
     }
     return this.http.post(`${this.BASE_URL}/dashboard`,data)
   }
+  dashboard_offline(data:any){
+    if (data == undefined) {
+      data = {};
+    }
+    return this.http.post(`${this.BASE_URL}/tm_dashboard`,data)
+  }
   userdashboard(data:any){
   return this.http.post(`${this.BASE_URL}/userdashboard`,data)
   }
