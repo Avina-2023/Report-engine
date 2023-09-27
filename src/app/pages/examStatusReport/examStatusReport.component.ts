@@ -89,7 +89,7 @@ export class ExamStatusReportComponent implements OnInit {
     };
 
     let userDashData={
-      report_Name:"User Data",
+      report_Name:"User Dashobard Data",
       endpoint:"userdashboard",
       is_enable:true,
       is_download:false
