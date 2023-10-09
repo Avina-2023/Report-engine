@@ -18,7 +18,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CommonreportviewComponent } from '../commons/commonreportview/commonreportview.component';
-import { UtilityService } from 'src/app/services/utility.service';
+import { AppConfigService } from 'src/app/utils/app-config.service';
 
 @Component({
     selector: 'app-examStatusReport',
@@ -46,35 +46,60 @@ export class ExamStatusReportComponent implements OnInit {
     {
       report_Name:"Score Report",
       is_enable:true,
-      is_download:true
+      is_download:true,
+      endpoint:(this.utility.getUserOrg()===57)?"getsectiondetails":"dateWiseSectionReport"
     },
     {
       report_Name:"Item wise Report",
       is_enable:true,
-      is_download:true
+      is_download:true,
+      endpoint:(this.utility.getUserOrg()===57)?"getitemdetails":"dateWiseitemReport"
     },
+    // {
+    //   report_Name:"WeCP Score Report",
+    //   is_enable:true,
+    //   is_download:true,
+    //   endpoint:"wecpSectionReport"
+    // },
+    // {
+    //   report_Name:"WeCP Item Report",
+    //   is_enable:true,
+    //   is_download:true,
+    //   endpoint:"wecpItemReport"
+    // },
   ]
   // colDefs: any=[];
   constructor(
     private apiservice : ApiService,
-    private utility: UtilityService,
+    private utility: AppConfigService,
   ) {
     
     let show_Audit = {
       report_Name:"User Audit Log",
+      endpoint:"getauditlogs",
       is_enable:true,
       is_download:true
     };
 
     let show_AdminLog = {
       report_Name:"Admin Log",
+      endpoint:"getadminlogs",
       is_enable:true,
       is_download:true
     };
 
+    let userDashData={
+      report_Name:"User Dashboard Data",
+      endpoint:"userdashboard",
+      is_enable:true,
+      is_download:false
+    }
+
     if(utility.getUserOrg()===57){
       this.reportList.push(show_Audit)
       this.reportList.push(show_AdminLog)
+    }else{
+      this.reportList.push(userDashData)
     }
 
   }
@@ -89,7 +114,7 @@ public defaultColDef: ColDef = {
 };
 
 ngOnInit() {
-  this.dateWiseSectionReport({})
+  this.tabchange(0)
   
 }
 daterrange(event:any){
@@ -122,18 +147,18 @@ dateWiseSectionReport(data:any){
   })
 }
 
-dateWiseitemReport(data:any){
-  let endPoint = "dateWiseitemReport"
-  if(this.utility.getUserOrg() === 57){
-    endPoint = "getitemdetails"
-  }
-  this.apiservice.dateWiseitemReport(data,endPoint).subscribe((res:any)=>{
-    this.rowData = res.data
-  })
-}
+// dateWiseitemReport(data:any){
+//   let endPoint = "dateWiseitemReport"
+//   if(this.utility.getUserOrg() === 57){
+//     endPoint = "getitemdetails"
+//   }
+//   this.apiservice.dateWiseitemReport(data,endPoint).subscribe((res:any)=>{
+//     this.rowData = res.data
+//   })
+// }
 
 customTabDataFiller(data:any,endPoint:string){
-  this.apiservice.dateWiseitemReport(data,endPoint).subscribe((res:any)=>{
+  this.apiservice.reportDataFetch(data,endPoint).subscribe((res:any)=>{
     this.rowData = res.data
   })
 }
@@ -143,18 +168,11 @@ customTabDataFiller(data:any,endPoint:string){
 tabchange(index:any){
   this.currentTabIndex =index;
   this.rowData = []
-  switch(index) {
-    case 0:
-      this.dateWiseSectionReport(this.tabdate)
-        break;
-    case 1:
-      this.dateWiseitemReport(this.tabdate)
-        break;
-    case 2:
-      this.customTabDataFiller(this.tabdate,"getauditlogs")
-        break;
-    case 3:
-      this.customTabDataFiller(this.tabdate,"getadminlogs")
- }
+  this.reportList.forEach((tab,i) => {
+    if(index==i){
+      this.customTabDataFiller(this.tabdate,tab.endpoint)
+    }
+  });
+  
 }
 }

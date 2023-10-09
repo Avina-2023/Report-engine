@@ -1,6 +1,7 @@
 export const APP_CONSTANTS = {
 
   ENDPOINTS: {
+    ROOT:'/',
     LOGIN: '/login',
     FORGOT: '/forgot-password',
     DASHBOARD: '/dashboard',
