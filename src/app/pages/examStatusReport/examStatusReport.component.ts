@@ -88,9 +88,18 @@ export class ExamStatusReportComponent implements OnInit {
       is_download:true
     };
 
+    let userDashData={
+      report_Name:"User Dashboard Data",
+      endpoint:"userdashboard",
+      is_enable:true,
+      is_download:false
+    }
+
     if(utility.getUserOrg()===57){
       this.reportList.push(show_Audit)
       this.reportList.push(show_AdminLog)
+    }else{
+      this.reportList.push(userDashData)
     }
 
   }
@@ -119,11 +128,13 @@ daterrange(event:any){
    this.tabchange(this.currentTabIndex);
 }
 }
-
-clickHandler() {
-  this.sidenav.close();
-}
-
+// getdata(){
+//   this.apiservice.dashboard(this.daterrange).subscribe((res:any)=>{
+//     this.rowData = res.data
+//     this.dynamicallyConfigureColumnsFromObject(res.data)
+//     this.agGrid.api.setRowData(res.data)
+//   })
+// }
 dateWiseSectionReport(data:any){
   console.log(data)
   let endPoint = "dateWiseSectionReport"
