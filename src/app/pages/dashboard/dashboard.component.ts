@@ -465,7 +465,10 @@ export class DashboardComponent implements OnInit {
       this.total.Inprogrss,
       this.total.Yet_To_Start,
     ];
-    this.ovrAllChrt?.updateSeries(this.chartOptions.series); 
+    setTimeout(() => {
+      this.ovrAllChrt?.updateSeries(this.chartOptions.series); 
+    }, 1000);
+    
   }
 
   chartdataUpdate() {
