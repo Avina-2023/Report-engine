@@ -30,12 +30,13 @@ import { AppConfigService } from 'src/app/utils/app-config.service';
 })
 export class ExamStatusReportComponent implements OnInit {
 
- 
+
   userData = { "date": "2023/02/14"};
   datepipe=new DatePipe('en-us')
   datewise:any={}
   obj:any;
   rowData:any=[];
+  keyData:any=[];
   ColDef: any;
   value:Date[] | undefined;
   date7:any;
@@ -73,7 +74,7 @@ export class ExamStatusReportComponent implements OnInit {
     private apiservice : ApiService,
     private utility: AppConfigService,
   ) {
-    
+
     let show_Audit = {
       report_Name:"User Audit Log",
       endpoint:"getauditlogs",
@@ -92,7 +93,14 @@ export class ExamStatusReportComponent implements OnInit {
       report_Name:"User Dashboard Data",
       endpoint:"userdashboard",
       is_enable:true,
-      is_download:false
+      is_download:true
+    }
+
+    let sectionReport={
+      report_Name:"Section Report",
+      endpoint:"sectionScoreCard",
+      is_enable:true,
+      is_download:true
     }
     let feedbackDataReport={
       report_Name:"User Feedback",
@@ -107,10 +115,11 @@ export class ExamStatusReportComponent implements OnInit {
       this.reportList.push(feedbackDataReport)
     }else{
       this.reportList.push(userDashData)
+      this.reportList.push(sectionReport)
     }
 
   }
- 
+
 public columnDefs: ColDef[] = []
 
 public defaultColDef: ColDef = {
@@ -122,7 +131,7 @@ public defaultColDef: ColDef = {
 
 ngOnInit() {
   this.tabchange(0)
-  
+
 }
 daterrange(event:any){
 
@@ -131,7 +140,7 @@ daterrange(event:any){
     "startdate":event?this.datepipe.transform(event[0], 'yyyy-MM-dd HH:mm'):"",
     "enddate":event?this.datepipe.transform(event[1], 'yyyy-MM-dd HH:mm'):""
   }
-  
+
    this.tabchange(this.currentTabIndex);
 }
 }
@@ -141,14 +150,13 @@ clickHandler() {
 }
 
 dateWiseSectionReport(data:any){
-  console.log(data)
   let endPoint = "dateWiseSectionReport"
   console.log(this.utility.getUserOrg())
   if(this.utility.getUserOrg() === 57){
     endPoint = "getsectiondetails"
   }
   this.apiservice.dateWiseSectionReport(data,endPoint).subscribe((res:any)=>{
-    this.rowData = res.data
+    this.rowData = {"data": res.data,"key": res.key}
   })
 }
 
@@ -162,10 +170,14 @@ dateWiseSectionReport(data:any){
 //   })
 // }
 
-customTabDataFiller(data:any,endPoint:string){
-  this.apiservice.reportDataFetch(data,endPoint).subscribe((res:any)=>{
-    this.rowData = res.data
-  })
+customTabDataFiller(data: any, endPoint: string) {
+  this.apiservice.reportDataFetch(data, endPoint).subscribe((res: any) => {
+    if (res.key && res.key?.length) {
+      this.rowData = { data: res.data, key: res.key };
+    } else if (res.data && res.data?.length) {
+      this.rowData = { data: res.data };
+    }
+  });
 }
 
 
@@ -178,6 +190,6 @@ tabchange(index:any){
       this.customTabDataFiller(this.tabdate,tab.endpoint)
     }
   });
-  
+
 }
 }
