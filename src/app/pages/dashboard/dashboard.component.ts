@@ -395,6 +395,16 @@ export class DashboardComponent implements OnInit {
             this.responseData = "";
           }
         this.dynamicallyConfigureColumnsFromObject(res.data); 
+        // this.groupingCount(res.data); 
+       })
+       this.apiservice.dashboard_delivery(this.DashboardData).subscribe((res: any) => { 
+        this.responseData = res.data.length;
+          if(this.responseData ){
+            
+          }else{
+            this.responseData = "";
+          }
+        // this.dynamicallyConfigureColumnsFromObject(res.data); 
         this.groupingCount(res.data); 
        })
     }

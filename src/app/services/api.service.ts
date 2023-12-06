@@ -41,6 +41,14 @@ export class ApiService {
     if (data == undefined) {
       data = {};
     }
+    //tm_dashboard---> deliverywise
+    return this.http.post(`${this.BASE_URL}/batchWiseDashboard`,data)
+  }
+  dashboard_delivery(data:any){
+    if (data == undefined) {
+      data = {};
+    }
+    //tm_dashboard---> deliverywise
     return this.http.post(`${this.BASE_URL}/tm_dashboard`,data)
   }
   userdashboard(data:any){
