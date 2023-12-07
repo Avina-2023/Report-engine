@@ -388,14 +388,14 @@ export class DashboardComponent implements OnInit {
    {
     if(this.utility.getUserOrg()===57){
       this.apiservice.dashboard_offline(this.DashboardData).subscribe((res: any) => {
-        this.responseData = res.data.length;
-          if(this.responseData ){
+        this.responseData = res.data;
+          if(this.responseData?.length ){
 
           }else{
-            this.responseData = "";
+            this.responseData = [];
           }
-        this.dynamicallyConfigureColumnsFromObject(res.data);
-        this.groupingOfflineCount(res.data);
+        this.dynamicallyConfigureColumnsFromObject(this.responseData);
+        this.groupingOfflineCount(this.responseData);
        })
       //  this.apiservice.dashboard_delivery(this.DashboardData).subscribe((res: any) => {
       //   this.responseData = res.data.length;
@@ -411,18 +411,18 @@ export class DashboardComponent implements OnInit {
     else{
       this.apiservice.dashboard(this.DashboardData).subscribe((res: any) => {
 
-          this.responseData = res.data.length;
-          if(this.responseData ){
+          this.responseData = res.data;
+          if(this.responseData.length ){
 
           }else{
-            this.responseData = "";
+            this.responseData = [];
           }
-        this.dynamicallyConfigureColumnsFromObject(res.data);
-        this.groupingdata(res.data);
-        this.domainWiseChartDataSort(res.data);
-        this.clientwisedrivedata(res.data);
-        this.clientWiseChartDataSort(res.data);
-        this.getChart(res.data);
+        this.dynamicallyConfigureColumnsFromObject(this.responseData);
+        this.groupingdata(this.responseData);
+        this.domainWiseChartDataSort(this.responseData);
+        this.clientwisedrivedata(this.responseData);
+        this.clientWiseChartDataSort(this.responseData);
+        this.getChart(this.responseData);
     });
     }
 
