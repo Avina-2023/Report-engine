@@ -2,13 +2,13 @@
   <div class="mat">
 
     <div class="right" *ngIf="isdownload">
-      <button mat-stroked-button color="basic" (click)="excelexport(tabledata)" class="outline-button"><mat-icon
+      <button mat-stroked-button color="basic" (click)="excelexport(excelData)" class="outline-button"><mat-icon
           class="download-icon">download</mat-icon><span>Download Report</span> </button>
     </div>
 
     <ag-grid-angular style="width: 100%; height: 380px;margin-top: 10px;" class="ag-theme-alpine"
       [suppressClickEdit]="true" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
-      [rowSelection]="'rowSelection'" [paginationPageSize]="20" [pagination]="true" [animateRows]="true" [rowData]="tabledata" [sideBar]="sideBar" >
+      [rowSelection]="'single'" [paginationPageSize]="20" [pagination]="true" [animateRows]="true" [rowData]="tabledata" [sideBar]="sideBar" >
     </ag-grid-angular>
 
 

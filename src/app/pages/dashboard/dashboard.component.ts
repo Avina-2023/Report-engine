@@ -19,6 +19,7 @@ import { TinycardComponent } from './widgets/tinycard/tinycard.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { CommonModule } from '@angular/common';
+import { AppConfigService } from 'src/app/utils/app-config.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -27,8 +28,8 @@ export type ChartOptions = {
   yaxis: ApexYAxis | ApexYAxis[];
   title: ApexTitleSubtitle;
   labels: string[];
-  stroke: any; 
-  dataLabels: any; 
+  stroke: any;
+  dataLabels: any;
   fill: ApexFill;
   tooltip: ApexTooltip;
   plotOptions: ApexPlotOptions;
@@ -82,7 +83,7 @@ export class DashboardComponent implements OnInit {
     },
   ];
 
-  
+
   onewayTP = true;
   @ViewChild('kibona') iframe: ElementRef | undefined;
 
@@ -111,6 +112,7 @@ export class DashboardComponent implements OnInit {
   date7: Date[] = [];
   DashboardData: any;
   socket_subs: any;
+  venueCount: number = 0;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -118,7 +120,8 @@ export class DashboardComponent implements OnInit {
     private apiservice: ApiService,
     public loader: LoaderService,
     private excelService:ExcelService,
-    private socketService:WebSocketService
+    private socketService:WebSocketService,
+    public utility: AppConfigService,
   ) {
     this.chartOptions = {
       series: [
@@ -167,7 +170,7 @@ export class DashboardComponent implements OnInit {
         style: {
           colors: ['#fff'],
         },
-        
+
         offsetX: 0,
         dropShadow: {
           enabled: false,
@@ -230,7 +233,7 @@ export class DashboardComponent implements OnInit {
         {
           breakpoint: 480,
           options: {
-           
+
             tooltip: {
               enabled: true,
             },
@@ -317,7 +320,7 @@ export class DashboardComponent implements OnInit {
           },
         },
       ],
-     
+
       legend: {
         horizontalAlign: 'left',
         offsetX: 40,
@@ -351,7 +354,7 @@ export class DashboardComponent implements OnInit {
         {
           breakpoint: 480,
           options: {
-    
+
             tooltip: {
               enabled: true,
             },
@@ -381,37 +384,51 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getDashboardAPI() 
+  getDashboardAPI()
    {
-    this.apiservice.dashboard(this.DashboardData).subscribe((res: any) => {  
-      
-          this.responseData = res.data.length;
-          if(this.responseData ){
-            
+    if(this.utility.getUserOrg()===57){
+      this.apiservice.dashboard_offline(this.DashboardData).subscribe((res: any) => {
+        this.responseData = res.data;
+          if(this.responseData?.length ){
+
           }else{
-            this.responseData = "";
+            this.responseData = [];
           }
-        this.dynamicallyConfigureColumnsFromObject(res.data); 
-        this.groupingdata(res.data);
-        this.domainWiseChartDataSort(res.data);
-        this.clientwisedrivedata(res.data);
-        this.clientWiseChartDataSort(res.data);
-        this.getChart(res.data); 
+        this.dynamicallyConfigureColumnsFromObject(this.responseData);
+        this.groupingOfflineCount(this.responseData);
+       })
+      //  this.apiservice.dashboard_delivery(this.DashboardData).subscribe((res: any) => {
+      //   this.responseData = res.data.length;
+      //     if(this.responseData ){
+
+      //     }else{
+      //       this.responseData = "";
+      //     }
+      //   // this.dynamicallyConfigureColumnsFromObject(res.data);
+      //   this.groupingCount(res.data);
+      //  })
+    }
+    else{
+      this.apiservice.dashboard(this.DashboardData).subscribe((res: any) => {
+
+          this.responseData = res.data;
+          if(this.responseData.length ){
+
+          }else{
+            this.responseData = [];
+          }
+        this.dynamicallyConfigureColumnsFromObject(this.responseData);
+        this.groupingdata(this.responseData);
+        this.domainWiseChartDataSort(this.responseData);
+        this.clientwisedrivedata(this.responseData);
+        this.clientWiseChartDataSort(this.responseData);
+        this.getChart(this.responseData);
     });
+    }
+
    }
- 
-  getChart(_data: any) {
-     
+   groupingCount(_data:any){
     this.batchCount = _data.length;
-    console.log(_data.length);
-    
-    let domainSum = 0;
-    _data.forEach((_item: any) => {
-      if (_item.Domain_Name) {
-        domainSum = domainSum + 1;
-      }
-    });
-    this.domainCount = domainSum;
     let keys = [
       'Total_Count',
       'Started',
@@ -421,11 +438,56 @@ export class DashboardComponent implements OnInit {
       'Inprogress',
       'Yet_To_Start',
     ];
+    let domainSum = 0;
+    _data.forEach((_item: any) => {
+      if (_item.Domain_Name) {
+        domainSum = domainSum + 1;
+      }
+    });
+    this.domainCount = domainSum;
+    const arrayUniqueByKey = [...new Map(_data.map((item:any) =>[item['Venue_Id'], item])).values()];
+    this.venueCount = arrayUniqueByKey.length;
+
     let results:any = _.zipObject(
       keys,
       keys.map((key) => _.sum(_.map(_data, key)))
     );
     this.total = results;
+   }
+
+   groupingOfflineCount(_data:any){
+    this.batchCount = _data.length;
+    let keys = [
+      'Scheduled_Count',
+      'Force_Submit',
+      'Started',
+      'Completed',
+      'In_Progress',
+      'Yet_to_Start',
+    ];
+    let batchSum = 0;
+    _data.forEach((_item: any) => {
+      if (_item.Schedule_Name) {
+        batchSum = batchSum + 1;
+      }
+    });
+    this.batchCount = batchSum;
+    const arrayUniqueByKey = [...new Map(_data.map((item:any) =>[item['Venue_Code'], item])).values()];
+    this.venueCount = arrayUniqueByKey.length;
+
+    let results:any = _.zipObject(
+      keys,
+      keys.map((key) => _.sum(_.map(_data, key)))
+    );
+
+
+    this.total = results;
+   }
+  getChart(_data: any) {
+
+
+
+    this.groupingCount(_data);
 
     this.CountDetails = {
       idle: this.total.Idle,
@@ -433,15 +495,18 @@ export class DashboardComponent implements OnInit {
     };
 
     this.chartOptions.series[0].data = [
-      results.Total_Count,
-      results.Started,
-      results.Terminated?results.Terminated:0,
-      results.Idle?results.Idle:0,
-      results.Completed,
-      results.Inprogress,
-      results.Yet_To_Start,
+      this.total.Total_Count,
+      this.total.Started,
+      this.total.Terminated?this.total.Terminated:0,
+      this.total.Idle?this.total.Idle:0,
+      this.total.Completed,
+      this.total.Inprogrss,
+      this.total.Yet_To_Start,
     ];
-    this.ovrAllChrt?.updateSeries(this.chartOptions.series); 
+    setTimeout(() => {
+      this.ovrAllChrt?.updateSeries(this.chartOptions.series);
+    }, 1000);
+
   }
 
   chartdataUpdate() {
@@ -455,35 +520,35 @@ export class DashboardComponent implements OnInit {
     }, 1000);
   }
   dynamicallyConfigureColumnsFromObject(anObject: any) {
-   
+
     this.ColDef = this.agGrid.api.getColumnDefs();
     this.ColDef.length = 0;
     this.columnDefs = [];
     if (anObject?.length) {
-     
+
       const keys = Object.keys(anObject[0]);
 
       keys.forEach((key) =>
-      
+
         this.columnDefs.push({
           field: key,
           headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
 
         }),
-       
+
       );
-      
+
     }
     this.agGrid.api.setColumnDefs(this.columnDefs);
       this.agGrid.api.setRowData(anObject);
       this.rowData=anObject
   }
   groupingdata(data: any) {
-    
+
     this.chartOptions4.series = [];
     const data$ = from(data);
     let datarray = new Array();
-    
+
     data$
       .pipe(
         groupBy((item: any) => `${item?.Domain_Name}`),
@@ -505,7 +570,7 @@ export class DashboardComponent implements OnInit {
           if (cData.Client_Name == null) {
             cData.Client_Name = 'Not Available';
           }
-          
+
           if (
             !datarray.includes(cData.Client_Name)
           ) {
@@ -514,19 +579,19 @@ export class DashboardComponent implements OnInit {
         });
         this.chartOptions4.series.push(domainData);
         console.log(domainData,'series');
-        
-        
+
+
       });
       setTimeout(() => {
-        
+
         this.chartOptions4.xaxis.categories = datarray;
-        
+
         this.chart4?.updateOptions(this.chartOptions4);
       }, 1000);
-      
+
   }
   clientWiseChartDataSort(_data: any) {
-    
+
     this.countByClientName = {};
     _data.forEach((_item: any) => {
       if (!this.countByClientName[_item.Client_Name]) {
@@ -545,11 +610,11 @@ export class DashboardComponent implements OnInit {
       this.chartOptions2.series.push(items);
       this.clientwisePie?.updateSeries(this.chartOptions2.series);
     });
-    this.clientwisePie?.updateOptions(this.chartOptions2);  
+    this.clientwisePie?.updateOptions(this.chartOptions2);
 }
 
   domainWiseChartDataSort(_data: any) {
-  
+
     let domainwise: any = {};
     _data.forEach((_item: any) => {
       if (!domainwise[_item.Domain_Name]) {
@@ -571,7 +636,7 @@ export class DashboardComponent implements OnInit {
 }
 
   clientwisedrivedata(_data: any) {
-    
+
       this.countByDriveName = {};
     _data.forEach((_item: any) => {
       if (!this.countByDriveName[_item.Client_Name]) {
@@ -596,7 +661,7 @@ export class DashboardComponent implements OnInit {
     }
 
   daterrange(event:any) {
-   
+
     if (event.length==2) {
       console.log('datata', moment(event[0]).format('yyyy-MM-DD HH:mm'));
       let dateparams = {

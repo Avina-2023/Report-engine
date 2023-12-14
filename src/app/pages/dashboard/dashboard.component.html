@@ -7,34 +7,52 @@
 
   </div>
 </div>
-<div style="display: flex; justify-content: space-evenly; padding: 3% 2%">
-  <app-tinycard
+<div style="display: flex; justify-content: space-evenly; padding: 3% 0">
+  <app-tinycard *ngIf="utility.getUserOrg()===57"
+    [wgColor]="'#00bda1'"
+    [iconClass]="'icon-domain'"
+    [tinycardLabel]="'Venues'"
+    [tinycardCount]="venueCount.toString()"
+  ></app-tinycard>
+  <app-tinycard *ngIf="utility.getUserOrg()!==57"
     [wgColor]="'#00578c'"
     [iconClass]="'icon-schedule'"
-    [tinycardLabel]="'Scheduled'"
+    [tinycardLabel]="utility.getUserOrg()===57?'Candidates':'Scheduled'"
     [tinycardCount]="total?.Total_Count"
   ></app-tinycard>
-  <app-tinycard
+  <app-tinycard *ngIf="utility.getUserOrg()===57"
+    [wgColor]="'#00578c'"
+    [iconClass]="'icon-schedule'"
+    [tinycardLabel]="'Candidates'"
+    [tinycardCount]="total?.Scheduled_Count"
+  ></app-tinycard>
+  <app-tinycard *ngIf="utility.getUserOrg()!==57"
     [wgColor]="'#00bddc'"
     [iconClass]="'icon-groups'"
     [tinycardLabel]="'Batches'"
+    [tinycardCount]="domainCount"
+  ></app-tinycard>
+  <app-tinycard *ngIf="utility.getUserOrg()===57"
+    [wgColor]="'#00bddc'"
+    [iconClass]="'icon-groups'"
+    [tinycardLabel]="'Schedules'"
     [tinycardCount]="batchCount"
   ></app-tinycard>
-  <app-tinycard
+  <app-tinycard *ngIf="utility.getUserOrg()!==57"
     [wgColor]="'#00bda1'"
     [iconClass]="'icon-domain'"
     [tinycardLabel]="'Domains'"
     [tinycardCount]="domainCount"
   ></app-tinycard>
-  <app-tinycard
+  <app-tinycard *ngIf="utility.getUserOrg()!==57"
   [wgColor]="'#70bc40'"
   [iconClass]="'icon-login-lock'"
   [tinycardLabel]="'Logged In'"
   [tinycardCount]="total?.Started"
 ></app-tinycard>
 </div>
-<div style="display: flex; justify-content: space-evenly">
-  <app-tinycard
+<div style="display: flex; justify-content: space-evenly;margin-bottom: 20px;">
+  <app-tinycard *ngIf="utility.getUserOrg()!==57"
   [wgColor]="'#65ba40'"
   [iconClass]="'icon-logged_in'"
   [tinycardLabel]="'Yet To Start'"
@@ -47,14 +65,23 @@
   [tinycardLabel]="'Test Started'"
   [tinycardCount]="total?.Started"
 ></app-tinycard>
-  <app-tinycard
+  <app-tinycard  *ngIf="utility.getUserOrg()!==57"
     [wgColor]="'red'"
     [iconClass]="'icon-edit_note'"
     [tinycardLabel]="'InProgress'"
-    [isDrawer]="true"
     [tinycardCount]="total?.Inprogress"
     [tinyCountDetails]="CountDetails"
-  ></app-tinycard>
+    [isDrawer]="true"
+></app-tinycard>
+<app-tinycard  *ngIf="utility.getUserOrg()===57"
+[wgColor]="'red'"
+[iconClass]="'icon-edit_note'"
+[tinycardLabel]="'InProgress'"
+[tinycardCount]="total?.In_Progress"
+[tinyCountDetails]="CountDetails"
+[isDrawer]="true"
+></app-tinycard>
+
   <app-tinycard
     [wgColor]="'#00bd8e'"
     [iconClass]="'icon-test-completed'"
@@ -62,7 +89,7 @@
     [tinycardCount]="total?.Completed"
   ></app-tinycard>
 </div>
-
+<section  *ngIf="utility.getUserOrg()!==57">
 <div>
   <h2 class="head">Graphical Representation</h2>
 </div>
@@ -73,15 +100,15 @@
     justify-content: space-evenly;
     margin: 4% 0%;
   "
-> 
+>
 
 <div class="chart_card">
     <div class="card_topic">
       <h1>Overall Test Status</h1>
     </div>
     <div *ngIf="responseData > 0;else otherContent">
-    <apx-chart 
-    #ovrAllChrt  
+    <apx-chart
+    #ovrAllChrt
     [series]="chartOptions.series"
     [chart]="chartOptions.chart"
     [dataLabels]="chartOptions.dataLabels"
@@ -99,7 +126,7 @@
     <div class="card_topic">
       <h1>Clients</h1>
     </div>
-  
+
     <div *ngIf="responseData > 0;else otherContent">
     <apx-chart
       #clientwise
@@ -154,11 +181,11 @@
       [colors]="chartOptions5.colors"
       [legend]="chartOptions2.legend"
       [responsive]="chartOptions5.responsive"
-    ></apx-chart> 
+    ></apx-chart>
     </div>
   </div>
 </div>
-
+</section>
 
 <div class="card_topic ml-10">
   <h1>Overall Dashboard Table Representation</h1>
