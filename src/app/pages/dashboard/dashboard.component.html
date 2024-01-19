@@ -14,16 +14,28 @@
     [tinycardLabel]="'Venues'"
     [tinycardCount]="venueCount.toString()"
   ></app-tinycard>
-  <app-tinycard
+  <app-tinycard *ngIf="utility.getUserOrg()!==57"
     [wgColor]="'#00578c'"
     [iconClass]="'icon-schedule'"
     [tinycardLabel]="utility.getUserOrg()===57?'Candidates':'Scheduled'"
     [tinycardCount]="total?.Total_Count"
   ></app-tinycard>
-  <app-tinycard
+  <app-tinycard *ngIf="utility.getUserOrg()===57"
+    [wgColor]="'#00578c'"
+    [iconClass]="'icon-schedule'"
+    [tinycardLabel]="'Candidates'"
+    [tinycardCount]="total?.Scheduled_Count"
+  ></app-tinycard>
+  <app-tinycard *ngIf="utility.getUserOrg()!==57"
     [wgColor]="'#00bddc'"
     [iconClass]="'icon-groups'"
     [tinycardLabel]="'Batches'"
+    [tinycardCount]="domainCount"
+  ></app-tinycard>
+  <app-tinycard *ngIf="utility.getUserOrg()===57"
+    [wgColor]="'#00bddc'"
+    [iconClass]="'icon-groups'"
+    [tinycardLabel]="'Schedules'"
     [tinycardCount]="batchCount"
   ></app-tinycard>
   <app-tinycard *ngIf="utility.getUserOrg()!==57"
@@ -47,19 +59,27 @@
   [tinycardCount]="total?.Yet_To_Start
   "
 ></app-tinycard>
-  <app-tinycard 
+  <app-tinycard
   [wgColor]="'#bc823b'"
   [iconClass]="'icon-assignment'"
   [tinycardLabel]="'Test Started'"
   [tinycardCount]="total?.Started"
 ></app-tinycard>
-  <app-tinycard
+  <app-tinycard  *ngIf="utility.getUserOrg()!==57"
     [wgColor]="'red'"
     [iconClass]="'icon-edit_note'"
     [tinycardLabel]="'InProgress'"
     [tinycardCount]="total?.Inprogress"
     [tinyCountDetails]="CountDetails"
     [isDrawer]="true"
+></app-tinycard>
+<app-tinycard  *ngIf="utility.getUserOrg()===57"
+[wgColor]="'red'"
+[iconClass]="'icon-edit_note'"
+[tinycardLabel]="'InProgress'"
+[tinycardCount]="total?.In_Progress"
+[tinyCountDetails]="CountDetails"
+[isDrawer]="true"
 ></app-tinycard>
 
   <app-tinycard
@@ -80,15 +100,15 @@
     justify-content: space-evenly;
     margin: 4% 0%;
   "
-> 
+>
 
 <div class="chart_card">
     <div class="card_topic">
       <h1>Overall Test Status</h1>
     </div>
     <div *ngIf="responseData > 0;else otherContent">
-    <apx-chart 
-    #ovrAllChrt  
+    <apx-chart
+    #ovrAllChrt
     [series]="chartOptions.series"
     [chart]="chartOptions.chart"
     [dataLabels]="chartOptions.dataLabels"
@@ -106,7 +126,7 @@
     <div class="card_topic">
       <h1>Clients</h1>
     </div>
-  
+
     <div *ngIf="responseData > 0;else otherContent">
     <apx-chart
       #clientwise
@@ -161,7 +181,7 @@
       [colors]="chartOptions5.colors"
       [legend]="chartOptions2.legend"
       [responsive]="chartOptions5.responsive"
-    ></apx-chart> 
+    ></apx-chart>
     </div>
   </div>
 </div>
