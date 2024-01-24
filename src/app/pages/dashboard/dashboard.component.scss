@@ -1,157 +1,477 @@
-.chart_card{
+
+.main-reports{
+  margin: 10px;
+}
+.main {
+  display: flex;
+}
+
+.flex-header{
+  display: flex;
+  align-items: flex-start;
+  font-size: 25px;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom:10px;
+  margin-left: 50px;
+  width: 100%;
+}
+
+.left {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom:10px;
+    margin-right: 50px;
+    width: 100%;
+}
+
+.tp-margin {
+  height: 20px;
+  width: 100px;
+}
+
+.matcard-flex {
+  position: relative;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  .card-flex {
+    width: 32%;
+  }
+
+  .total-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 150px;
+    .total-flex {
+      display: flex;
+      // align-items: flex-end;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      .number-flex {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        .left-flex {
+          display: flex;
+          align-content: space-between;
+          flex-direction: column;
+          align-items: center;
+          height: 90px;
+          justify-content: space-evenly;
+        }
+        .right-flex {
+          display: flex;
+          flex-direction: column;
+          // height: 70px;
+          justify-content: space-evenly;
+          align-items: initial;
+          padding-left: 5px;
+        }
+        .right-text {
+          position: relative;
+          left: 8px;
+        }
+        .right-text-issue {
+          position: relative;
+          left: 16px;
+        }
+
+        .green-color {
+          background: #49ae31;
+          padding: 0px 20px;
+          border-radius: 10px;
+          color: #fff;
+          font-size: 12px;
+        }
+        .black-color {
+          background: #262626;
+          padding: 0px 18px;
+          border-radius: 10px;
+          color: #fff;
+          font-size: 12px;
+        }
+        .red-color {
+          background: #ef2917;
+          padding: 0px 14px 0px 20px;
+          border-radius: 10px;
+          color: #fff;
+          font-size: 12px;
+        }
+        .blue-color {
+          background: #310ade;
+          padding: 0px 14px 0px 20px;
+          border-radius: 10px;
+          color: #fff;
+          font-size: 12px;
+        }
+        .orange-color {
+          background: #e98f10;
+          padding: 0px 14px 0px 20px;
+          border-radius: 10px;
+          color: #fff;
+          font-size: 12px;
+        }
+      }
+    }
+    .mat-number {
+      font-size: 50px;
+    }
+  }
+
+  .gray-color {
+    position: relative;
+    margin: 2px;
+    background: #848484;
+    left: 4px;
+    width: 55px;
+    height: 15px;
+    border-radius: 10px;
+    .gray-text {
+      position: absolute;
+      max-width: 200px;
+      width: 100px;
+      left: 64px;
+      top: -2px;
+      font-size: 12px;
+    }
+  }
+  .proctor-create {
+    display: flex;
+    justify-content: space-between;
+  }
+  .proctor-flex {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .circle {
+      position: relative;
+      border-radius: 50%;
+      padding: 12px;
+      border: 3px solid #ffffff77;
+    }
+    .green {
+      color: #fff;
+      background: #49ae31;
+    }
+    .blue {
+      color: #fff;
+      background: #27bbee;
+    }
+    .gray {
+      color: #fff;
+      background: #848484;
+    }
+    .red {
+      color: #fff;
+      background: #e37162;
+    }
+
+    .p-text {
+      position: relative;
+      left: 4px;
+      color: #262626;
+      font: normal normal bold 11px/0px Sans-serif;
+    }
+  }
+}
+
+
+  .ml-10{
+    margin-left:10px
+  }
+
+  .example-user-input {
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+
+  .matcard-grid {
+    position: relative;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .card-grid {
+      width: 100%;
+    }
+  }
+
+ .mat-grid-tile {
+  background: white;
+  border-radius: 1px;
+  border-color: #262626;
+}
+
+
+  .topToolbar{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom:10px;
+    margin-right: 50px;
+    width: 100%;
+  }
+  .outline-button{
+    color: #004684 !important;
+    background-color: #ffffff;
+    border-radius: 4px;
+    font-size: 15px;
+    right: 8px;
+    cursor: pointer;
+    border: 0px;
+    display: flex;
+    border: 1px solid #004684;
+    justify-content: flex-end;
+}
+
+  .NoData{
+  color: black;
+}
+
+.chart-flex {
+  position: relative;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  .card-chart {
+    width: 100%;
+  }
+
+}
+.main_header{
+  display: flex;
+}
+.right_header {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px;
+  width: 100%;
+}
+
+.left_header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom:1px;
+    margin-right: 50px;
+    width: 100%;
+}
+.card_topic{
+  font-size: 25px;
+}
+.count-flex {
+  width: 35%;
+}
+::ng-deep .mat-tooltip {
+  height: 100px;
+  max-height: 25px; /* Set the maximum height */
+  overflow-y: auto; /* Add scrollbars if the content exceeds the maximum height */
+}
+.graph-flex{
+  display: flex
+}
+.right-chart {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px;
+  width: 40%;
+}
+.left_chart {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10px;
+  margin-right: 10px;
+  width: 100%;
+}
+.schedule-flex {
+  position: relative;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  .item-flex {
+    width: 110%;
+  }
+
+  .total-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 150px;
+    .total-flex {
+      display: flex;
+      // align-items: flex-end;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      .number-flex {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        .left-flex {
+          display: flex;
+          align-content: space-between;
+          flex-direction: column;
+          align-items: center;
+          height: 90px;
+          justify-content: space-evenly;
+        }
+        .right-flex {
+          display: flex;
+          flex-direction: column;
+          // height: 70px;
+          justify-content: space-evenly;
+          align-items: initial;
+          padding-left: 5px;
+        }
+        .right-text {
+          position: relative;
+          left: 8px;
+        }
+        .right-text-issue {
+          position: relative;
+          left: 16px;
+        }
+
+        .green-color {
+          background: #49ae31;
+          padding: 0px 20px;
+          border-radius: 10px;
+          color: #fff;
+          font-size: 12px;
+        }
+        .black-color {
+          background: #262626;
+          padding: 0px 18px;
+          border-radius: 10px;
+          color: #fff;
+          font-size: 12px;
+        }
+        .red-color {
+          background: #ef2917;
+          padding: 0px 14px 0px 20px;
+          border-radius: 10px;
+          color: #fff;
+          font-size: 12px;
+        }
+      }
+    }
+    .mat-number {
+      font-size: 50px;
+    }
+  }
+
+  .gray-color {
+    position: relative;
+    margin: 2px;
+    background: #848484;
+    left: 4px;
+    width: 55px;
+    height: 15px;
+    border-radius: 10px;
+    .gray-text {
+      position: absolute;
+      max-width: 200px;
+      width: 100px;
+      left: 64px;
+      top: -2px;
+      font-size: 12px;
+    }
+  }
+  .proctor-create {
+    display: flex;
+    justify-content: space-between;
+  }
+  .proctor-flex {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .circle {
+      position: relative;
+      border-radius: 50%;
+      padding: 12px;
+      border: 3px solid #ffffff77;
+    }
+    .green {
+      color: #fff;
+      background: #49ae31;
+    }
+    .blue {
+      color: #fff;
+      background: #27bbee;
+    }
+    .gray {
+      color: #fff;
+      background: #848484;
+    }
+    .red {
+      color: #fff;
+      background: #e37162;
+    }
+
+    .p-text {
+      position: relative;
+      left: 4px;
+      color: #262626;
+      font: normal normal bold 11px/0px Sans-serif;
+    }
+  }
+
+}
+.schedule {
+  .blue-color {
+    background: #361db0;
+    padding: 0px 20px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 12px;
+  }
+.green-color {
+  background: #49ae31;
+  padding: 0px 20px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 12px;
+}
+.black-color {
+  background: #262626;
+  padding: 0px 18px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 12px;
+}
+.red-color {
+  background: #ef2917;
+  padding: 0px 14px 0px 20px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 12px;
+}
+}
+
+.count-chart{
   background: #fff;
     box-shadow: 1px 3px 6px lightgrey;
     padding: 30px 20px;
-    width: 500px; 
+    width: 600px;
 }
 
-.NoData{
-  color: black;
-}
-.card_topic{
-  h1{
+.chart_topic{
+  margin-left: 10px;
+  .h1{
     font-size: 25px;
-    font-weight: 100;
   }
 }
 
-.main{
-  display: flex;
-  margin: 15px 30px 0px 15px;
-  .card{
-    display: flex;
-    height: 150px;
-    width: 25%;
-    margin-left: 15px;
-    box-shadow: 0 2px 10px -1px rgb(69 90 100 / 30%);
-    cursor: pointer;
-
-    .a{
-      background-color: #b0bec5;
-      padding-top: 20px;
-      text-align: center;
-      display:flex;
-      flex-direction: column;
-    }
-    .num{
-      padding-top: 45px;
-      font-size: 25px;
-      font-weight: 500;
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-    }
-  }
-  .card:hover {
-   
-    transition: .2s ease-in-out;
-    box-shadow: 0 5px 11px 0px rgb(69 90 100 / 30%);
-
-  }
-}
-
-.main2{
-  margin-top: 15px;
-  margin-left: 5px;
-  margin-right: 5px;
-  display: flex;
-  justify-content: space-between;
-  .card2{
-    margin-left: 25px;
-    margin-right: 25px;
-    padding: 5px 5px 5px 5px;
-    display: flex;
-    height: 100px;
-    width: 50%;
-    box-shadow: 0 2px 10px -1px rgb(69 90 100 / 30%);
-    .num2{
-      padding-bottom: 10px;
-      font-weight: 500;
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      font-size: 25px;
-    }
-  }
-  .card2:hover {
-    transition: .2s ease-in-out;
-    box-shadow: 0 5px 11px 0px rgb(69 90 100 / 30%);
-    }
-
-}
-
-.head{
-  margin-top: 10px;
-  margin-left: 25px;
-}
-
-.main3{
-  margin-top: 15px;
-  margin-left: 5px;
-  margin-right: 5px;
-  display: flex;
-  justify-content: space-between;
-  .card3{
-    width: 50%;
-    display: flex;
-    height: 350px;
-    margin-left: 25px;
-    margin-right: 25px;
-    box-shadow: 0 2px 10px -1px rgb(69 90 100 / 30%);
-  }
-
-  .card3:hover {
-    transition: .2s ease-in-out;
-    box-shadow: 0 5px 11px 0px rgb(69 90 100 / 30%);
-    }
-}
-
-.main4{
-  margin-top: 15px;
-  margin-left: 5px;
-  margin-right: 5px;
-  display: flex;
-  justify-content: space-between;
-  .card4{
-    width: 50%;
-    display: flex;
-    height: 350px;
-    margin-left: 25px;
-    margin-right: 25px;
-    box-shadow: 0 2px 10px -1px rgb(69 90 100 / 30%);
-  }
-  .card4:hover {
-    transition: .2s ease-in-out;
-    box-shadow: 0 5px 11px 0px rgb(69 90 100 / 30%);
-    }
-}
-
-.main5{
-  margin-top: 15px;
-  margin-left: 5px;
-  margin-right: 5px;
-  display: flex;
-  justify-content: space-between;
-  .card5{
-    width: 100%;
-    display: flex;
-    height: 400px;
-    margin-left: 25px;
-    margin-right: 25px;
-    box-shadow: 0 2px 10px -1px rgb(69 90 100 / 30%);
-  }
-  .card5:hover {
-    transition: .2s ease-in-out;
-    box-shadow: 0 5px 11px 0px rgb(69 90 100 / 30%);
-    }
-}
-
-.chart{
-  height: 500px;
-}
-.ml-10{
-  margin-left:10px
-}
 .excel{
   display: flex;
 
@@ -174,52 +494,4 @@
   }
 }
 
-.mat-mdc-card{
-    max-width: 200px;
-    align-items: center;
-}
-.mat_card{
-  display: flex;
-  justify-content: center;
-}
-.mat-mdc-card-header{
-  position: relative;
-  margin-bottom: 10px;
-}
-.mat-mdc-card-header{
-  justify-content: center;
-}
-::ng-deep.p-calendar-container .p-calendar{
-  width: 256px;
-}
-::ng-deep.p-calendar-container .p-inputtext {
 
-  height: 25px !important; 
-  font-size: 14px !important; 
-  padding-right: 20px;
-}
-
-::ng-deep.p-calendar-container .p-datepicker td {
-  padding:0px;
-  font-size: 14px !important; 
-}
-.livebtn{
-  font-size: 10px;
-  padding-top: 10px;
-  button{
-    height: 25px;
-  }
-  .ic{
-    font-size: 18px;
-    top: 4px;
-    position: relative;
-  }
-
-}
-.topToolbar{
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom:10px;
-  margin-right: 10px;
-  width: 100%;
-}

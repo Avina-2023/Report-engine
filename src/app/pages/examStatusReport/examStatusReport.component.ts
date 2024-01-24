@@ -10,7 +10,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { InterComponentMessenger } from 'src/app/services/interComponentMessenger.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -19,6 +19,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CommonreportviewComponent } from '../commons/commonreportview/commonreportview.component';
 import { AppConfigService } from 'src/app/utils/app-config.service';
+import { MinidetailscardComponent } from '../minidetailscard/minidetailscard.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 import {  MatCardModule } from '@angular/material/card';
 
 @Component({
@@ -27,11 +30,11 @@ import {  MatCardModule } from '@angular/material/card';
     styleUrls: ['./examStatusReport.component.scss'],
     standalone: true,
 
-    imports: [MatCardModule,CommonModule,NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule,CommonreportviewComponent],
+    imports: [CommonModule,NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule,CommonreportviewComponent,MinidetailscardComponent,MatTooltipModule,MatSelectModule,MatCardModule],
 })
 export class ExamStatusReportComponent implements OnInit {
-
-
+  position = new FormControl("Aptitude");
+  TooltipPosition: any = ['Aptitude', 'Behavioural', 'Step'];
   userData = { "date": "2023/02/14"};
   datepipe=new DatePipe('en-us')
   datewise:any={}
@@ -44,34 +47,23 @@ export class ExamStatusReportComponent implements OnInit {
   sidenav: any;
   tabdate:any;
   currentTabIndex = 0;
-  reportList:any=[
+  toolTipData: any;
+  reportList=[
     {
       report_Name:"Score Report",
       is_enable:true,
       is_download:true,
-      endpoint:(this.utility.getUserOrg()===57)?"getsectiondetails":"dateWiseSectionReport"
+      endpoint:(this.utility.getUserOrg()==="57")?"getsectiondetails":"dateWiseSectionReport"
     },
     {
       report_Name:"Item wise Report",
       is_enable:true,
       is_download:true,
-      endpoint:(this.utility.getUserOrg()===57)?"getitemdetails":"dateWiseitemReport"
-    },
-    // {
-    //   report_Name:"WeCP Score Report",
-    //   is_enable:true,
-    //   is_download:true,
-    //   endpoint:"wecpSectionReport"
-    // },
-    // {
-    //   report_Name:"WeCP Item Report",
-    //   is_enable:true,
-    //   is_download:true,
-    //   endpoint:"wecpItemReport"
-    // },
+      endpoint:(this.utility.getUserOrg()==="57")?"getitemdetails":"dateWiseitemReport"
+    }
   ]
-  showLegend: boolean = false;
   legendData: any;
+  showLegend: any;
   // colDefs: any=[];
   constructor(
     private apiservice : ApiService,
@@ -92,12 +84,6 @@ export class ExamStatusReportComponent implements OnInit {
       is_download:true
     };
 
-    let userDashData={
-      report_Name:"User Dashboard Data",
-      endpoint:"userdashboard",
-      is_enable:true,
-      is_download:true
-    }
 
     let sectionReport={
       report_Name:"Section Report",
@@ -105,6 +91,7 @@ export class ExamStatusReportComponent implements OnInit {
       is_enable:true,
       is_download:true
     }
+
     let feedbackDataReport={
       report_Name:"User Feedback",
       endpoint:"getFeedback",
@@ -112,13 +99,14 @@ export class ExamStatusReportComponent implements OnInit {
       is_download:false,
       isLegend:true
     }
+    console.log("fdbh",utility.getUserOrg());
 
-    if(utility.getUserOrg()===57){
+
+    if(utility.getUserOrg()==="57"){
       this.reportList.push(show_Audit)
       this.reportList.push(show_AdminLog)
       this.reportList.push(feedbackDataReport)
     }else{
-      this.reportList.push(userDashData)
       this.reportList.push(sectionReport)
     }
 
@@ -199,5 +187,10 @@ tabchange(index:any){
     }
   });
 
+}
+
+onSelectionChange(event: any) {
+  const selectedValue = event.value;
+  this.toolTipData = {"event": event.value}
 }
 }

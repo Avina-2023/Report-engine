@@ -41,8 +41,8 @@ export class AppConfigService {
     let userDetail = this.getLocalValue('userDetails');
     return JSON.parse(userDetail ? userDetail : '');
   }
-  getUserOrg(): Number {
-    return this.getUserDetails().organisations[0]?.orgId
+  getUserOrg(): any {
+    return this.getUserDetails().clusterId[0]
   }
 
   getUserRole(): string {

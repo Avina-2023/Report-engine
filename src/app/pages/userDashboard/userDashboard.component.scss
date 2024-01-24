@@ -1,0 +1,125 @@
+.main-reports{
+  margin: 10px;
+}
+.main {
+  display: flex;
+}
+.left {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom:10px;
+  margin-right: 50px;
+  width: 100%;
+}
+.matcard-flex {
+  padding: 25px;
+  display: flex;
+  padding-top: 40px;
+  justify-content: space-between;
+  .card-flex{
+    width: 100;
+  }
+}
+.mat_card{
+  display: flex;
+  justify-content: center;
+}
+.ml-10{
+  margin-left:10px
+}
+  .NoData{
+  color: black;
+}
+
+  .topToolbar{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom:10px;
+    margin-right: 10px;
+    width: 100%;
+  }
+
+  .alert-popup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10%;
+    height: 285px;
+    justify-content: space-around;
+    img{
+      width: 70px;
+
+    }
+    .text{
+      width: 60%;
+      text-align: center;
+      color: #000000;
+      font-size: 16px;
+      // font-weight: 500;
+    }
+    .popup-btn{
+      display: flex;
+      width: 70%;
+      justify-content: space-evenly;
+    }
+    .ok{
+      background-color: #1B4E9B;
+      color: #FCFCFC;
+      font-size: 14px;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cancel{
+      background-color: #FFFFFF;
+      color: #1B4E9B;
+      font-size: 14px;
+      border-color: #1B4E9B;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+
+    }
+    .tickimg{
+      background-color: #49AE31;
+      border-radius: 50px;
+      width: 50px;
+    }
+  }
+
+  .logs-popup {
+    width: 1050px;
+    max-width: 1300px; /* Set a max-width if desired */
+    margin: 0 auto; /* Center the pop-up horizontally */
+    background-color: white; /* Set the background color */
+    padding: 20px; /* Add padding as needed */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    border-radius: 8px; /* Add border-radius for rounded corners */
+  }
+
+    .popup-btn{
+      display: flex;
+      width: 100%;
+      justify-content: space-evenly;
+    }
+    .ok{
+      background-color: #1B4E9B;
+      color: #FCFCFC;
+      font-size: 14px;
+      border: none;
+      padding: 5px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cancel{
+      background-color: #FFFFFF;
+      color: #1B4E9B;
+      font-size: 14px;
+      border-color: #1B4E9B;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+
+    }
+

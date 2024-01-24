@@ -1,197 +1,628 @@
-<div class="excel">
-  <div class="p-field p-calendar-container">
-    <label for="range">Delivery date range:</label>
+<div *ngIf="utility.getUserOrg()==='57'">
+  <div class="excel">
+    <div class="p-field p-calendar-container">
+      <label for="range">Delivery date range:</label>
 
-    <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
-    nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="dtRange" (ngModelChange)="daterrange($event)"></nz-range-picker>
+      <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
+      nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="dtRange" (ngModelChange)="daterrange($event)"></nz-range-picker>
 
-  </div>
-</div>
-<div style="display: flex; justify-content: space-evenly; padding: 3% 0">
-  <app-tinycard *ngIf="utility.getUserOrg()===57"
-    [wgColor]="'#00bda1'"
-    [iconClass]="'icon-domain'"
-    [tinycardLabel]="'Venues'"
-    [tinycardCount]="venueCount.toString()"
-  ></app-tinycard>
-  <app-tinycard *ngIf="utility.getUserOrg()!==57"
-    [wgColor]="'#00578c'"
-    [iconClass]="'icon-schedule'"
-    [tinycardLabel]="utility.getUserOrg()===57?'Candidates':'Scheduled'"
-    [tinycardCount]="total?.Total_Count"
-  ></app-tinycard>
-  <app-tinycard *ngIf="utility.getUserOrg()===57"
-    [wgColor]="'#00578c'"
-    [iconClass]="'icon-schedule'"
-    [tinycardLabel]="'Candidates'"
-    [tinycardCount]="total?.Scheduled_Count"
-  ></app-tinycard>
-  <app-tinycard *ngIf="utility.getUserOrg()!==57"
-    [wgColor]="'#00bddc'"
-    [iconClass]="'icon-groups'"
-    [tinycardLabel]="'Batches'"
-    [tinycardCount]="domainCount"
-  ></app-tinycard>
-  <app-tinycard *ngIf="utility.getUserOrg()===57"
-    [wgColor]="'#00bddc'"
-    [iconClass]="'icon-groups'"
-    [tinycardLabel]="'Schedules'"
-    [tinycardCount]="batchCount"
-  ></app-tinycard>
-  <app-tinycard *ngIf="utility.getUserOrg()!==57"
-    [wgColor]="'#00bda1'"
-    [iconClass]="'icon-domain'"
-    [tinycardLabel]="'Domains'"
-    [tinycardCount]="domainCount"
-  ></app-tinycard>
-  <app-tinycard *ngIf="utility.getUserOrg()!==57"
-  [wgColor]="'#70bc40'"
-  [iconClass]="'icon-login-lock'"
-  [tinycardLabel]="'Logged In'"
-  [tinycardCount]="total?.Started"
-></app-tinycard>
-</div>
-<div style="display: flex; justify-content: space-evenly;margin-bottom: 20px;">
-  <app-tinycard *ngIf="utility.getUserOrg()!==57"
-  [wgColor]="'#65ba40'"
-  [iconClass]="'icon-logged_in'"
-  [tinycardLabel]="'Yet To Start'"
-  [tinycardCount]="total?.Yet_To_Start
-  "
-></app-tinycard>
-  <app-tinycard
-  [wgColor]="'#bc823b'"
-  [iconClass]="'icon-assignment'"
-  [tinycardLabel]="'Test Started'"
-  [tinycardCount]="total?.Started"
-></app-tinycard>
-  <app-tinycard  *ngIf="utility.getUserOrg()!==57"
-    [wgColor]="'red'"
-    [iconClass]="'icon-edit_note'"
-    [tinycardLabel]="'InProgress'"
-    [tinycardCount]="total?.Inprogress"
-    [tinyCountDetails]="CountDetails"
-    [isDrawer]="true"
-></app-tinycard>
-<app-tinycard  *ngIf="utility.getUserOrg()===57"
-[wgColor]="'red'"
-[iconClass]="'icon-edit_note'"
-[tinycardLabel]="'InProgress'"
-[tinycardCount]="total?.In_Progress"
-[tinyCountDetails]="CountDetails"
-[isDrawer]="true"
-></app-tinycard>
-
-  <app-tinycard
-    [wgColor]="'#00bd8e'"
-    [iconClass]="'icon-test-completed'"
-    [tinycardLabel]="'Completed'"
-    [tinycardCount]="total?.Completed"
-  ></app-tinycard>
-</div>
-<section  *ngIf="utility.getUserOrg()!==57">
-<div>
-  <h2 class="head">Graphical Representation</h2>
-</div>
-<div
-  style="
-    display: flex;
-    align-items: stretch;
-    justify-content: space-evenly;
-    margin: 4% 0%;
-  "
->
-
-<div class="chart_card">
-    <div class="card_topic">
-      <h1>Overall Test Status</h1>
     </div>
-    <div *ngIf="responseData > 0;else otherContent">
-    <apx-chart
-    #ovrAllChrt
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [dataLabels]="chartOptions.dataLabels"
-    [colors]="chartOptions.colors"
-    [plotOptions]="chartOptions.plotOptions"
-    [legend]="chartOptions.legend"
-    [xaxis]="chartOptions.xaxis"
+  </div>
+  <div style="display: flex; justify-content: space-evenly; padding: 3% 0">
+    <app-tinycard
+      [wgColor]="'#00bda1'"
+      [iconClass]="'icon-domain'"
+      [tinycardLabel]="'Venues'"
+      [tinycardCount]="venueCount.toString()"
+    ></app-tinycard>
+
+    <app-tinycard
+      [wgColor]="'#00578c'"
+      [iconClass]="'icon-schedule'"
+      [tinycardLabel]="'Candidates'"
+      [tinycardCount]="total?.Scheduled_Count"
+    ></app-tinycard>
+    <app-tinycard
+      [wgColor]="'#00bddc'"
+      [iconClass]="'icon-groups'"
+      [tinycardLabel]="'Schedules'"
+      [tinycardCount]="batchCount"
+    ></app-tinycard>
+  </div>
+  <div style="display: flex; justify-content: space-evenly;margin-bottom: 20px;">
+    <app-tinycard
+    [wgColor]="'#bc823b'"
+    [iconClass]="'icon-assignment'"
+    [tinycardLabel]="'Test Started'"
+    [tinycardCount]="total?.Started"
+  ></app-tinycard>
+  <app-tinycard
+  [wgColor]="'red'"
+  [iconClass]="'icon-edit_note'"
+  [tinycardLabel]="'InProgress'"
+  [tinycardCount]="total?.In_Progress"
+  [tinyCountDetails]="CountDetails"
+  [isDrawer]="true"
+  ></app-tinycard>
+    <app-tinycard
+      [wgColor]="'#00bd8e'"
+      [iconClass]="'icon-test-completed'"
+      [tinycardLabel]="'Completed'"
+      [tinycardCount]="total?.Completed"
+    ></app-tinycard>
+  </div>
+
+  <div class="card_topic ml-10">
+    <h1>Overall Dashboard Table Representation</h1>
+  </div>
+  <div class="topToolbar">
+    <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
+  </div>
+  <ag-grid-angular
+    style="
+      width: 100%;
+      height: 500px;
+      margin-bottom: 50px;
+      margin-left: 10px;
+      margin-right: 10px;
+    "
+    class="ag-theme-alpine"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [paginationPageSize]="20"
+    [pagination]="true"
   >
-</apx-chart>
-</div>
-</div>
+  </ag-grid-angular>
 
-
-  <div class="chart_card">
-    <div class="card_topic">
-      <h1>Clients</h1>
+  <ng-template #otherContent>
+    <div class="mat_card">
+      <mat-card>
+        <mat-card-header>
+        <mat-card-title></mat-card-title>
+        <mat-card-subtitle><span class="icon-popup-warning">  No Data Found </span> </mat-card-subtitle>
+        </mat-card-header>
+       </mat-card>
     </div>
+  </ng-template>
 
-    <div *ngIf="responseData > 0;else otherContent">
-    <apx-chart
-      #clientwise
-      [dataLabels]="chartOptions2.dataLabels"
-      [series]="chartOptions2.series"
-      [chart]="chartOptions2.chart"
-      [labels]="chartOptions2.labels"
-      [responsive]="chartOptions2.responsive"
-      [legend]="chartOptions2.legend"
-      [colors]="chartOptions2.colors"
-    >
-    </apx-chart>
-  </div>
+</div>
+<div *ngIf="utility.getUserOrg()!='57'">
+  <div class="tabs">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="tabchange($event.index)"
+      [selectedIndex]="0">
+      <mat-tab *ngFor="let item of reportList" [label]="item.report_Name">
+        <div *ngIf="item.report_Name === 'Home'">
+          <div class="main-reports">
+            <div class="matcard-flex">
+              <div class="card-flex">
+                <mat-card class="mat-card">
+                  <mat-card-content>
+                    <div class="flex-header">
+                      <div>OverAll Assessment</div>
+                    </div>
+                    <div class="total-content">
+                      <div>Total Scheduled Candidates</div>
+                      <div class="total-flex">
+                        <div class="num-left">
+                          <div
+                            *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                            class="mat-number">
+                            {{scheduleData[0]?.overAll[0]?.scheduled}}
+                          </div>
+                        </div>
+                        <div class="num-left">
+                          <div class="number-flex">
+                            <div class="left-flex">
+                              <div
+                                *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                                class="blue-color">
+                                {{ scheduleData[0]?.overAll[0]?.started}}
+                              </div>
+                              <!-- <div
+                              *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                              class="black-color">
+                              {{ scheduleData[0].overAll[0].Inprogrss }}
+                            </div>
+                            <div
+                              *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                              class="red-color">
+                              {{ scheduleData[0].overAll[0].scheduled }}
+                            </div> -->
+                            </div>
+                            <div class="right-flex">
+                              <div>Test Taken</div>
+                              <!-- <div>Active</div>
+                            <div>Completed</div> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div class="card-flex">
+                <mat-card class="mat-card">
+                  <mat-card-content>
+                    <div class="flex-header">
+                      <div>Live Assessments</div>
+                    </div>
+                    <div class="total-content">
+                      <div>Total Scheduled Candidates</div>
+                      <div class="total-flex">
+                        <div class="num-left">
+                          <div class="mat-number" *ngIf="scheduleData && scheduleData[0]?.live && scheduleData[0]?.live[0]?.scheduled !== undefined && scheduleData[0]?.live[0]?.scheduled !== null">
+                            {{ scheduleData[0]?.live[0]?.scheduled }}
+                          </div>
+                          <div class="mat-number" *ngIf="!scheduleData || !scheduleData[0]?.live || scheduleData[0]?.live[0]?.scheduled === undefined || scheduleData[0]?.live[0]?.scheduled === null">
+                            0
+                          </div>
+                        </div>
+                        <div class="num-left">
+                          <div class="number-flex">
+                            <div class="left-flex">
+                              <div class="green-color"
+                                *ngIf="scheduleData && scheduleData[0]?.live && scheduleData[0]?.live[0]?.started !== undefined && scheduleData[0]?.live[0]?.started !== null">
+                                {{ scheduleData[0]?.live[0]?.started }}
+                              </div>
+                              <div class="green-color"
+                                *ngIf="!scheduleData || !scheduleData[0]?.live || scheduleData[0]?.live[0]?.started === undefined || scheduleData[0]?.live[0]?.started === null">
+                                0
+                              </div>
+                              <div class="black-color"
+                                *ngIf="scheduleData && scheduleData[0]?.live && scheduleData[0]?.live[0]?.Inprogrss !== undefined && scheduleData[0]?.live[0]?.Inprogrss !== null">
+                                {{ scheduleData[0]?.live[0]?.Inprogrss }}
+                              </div>
+                              <div class="black-color"
+                                *ngIf="!scheduleData || !scheduleData[0]?.live || scheduleData[0]?.live[0]?.Inprogrss === undefined || scheduleData[0]?.live[0]?.Inprogrss === null">
+                                0
+                              </div>
+                              <div class="red-color"
+                                *ngIf="scheduleData && scheduleData[0]?.live && scheduleData[0]?.live[0]?.Completed !== undefined && scheduleData[0]?.live[0]?.Completed !== null">
+                                {{ scheduleData[0]?.live[0]?.Completed }}
+                              </div>
+                              <div class="red-color"
+                                *ngIf="!scheduleData || !scheduleData[0]?.live || scheduleData[0]?.live[0]?.Completed === undefined || scheduleData[0]?.live[0]?.Completed === null">
+                                0
+                              </div>
+                            </div>
+                            <div class="right-flex">
+                              <div>Started</div>
+                              <div>Active</div>
+                              <div>Completed</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div class="card-flex">
+                <mat-card class="mat-card">
+                  <mat-card-content>
+                    <div class="flex-header">
+                      <div>Assessment Accomplished</div>
+                    </div>
+                    <div class="total-content">
+                      <div>Total Scheduled Candidates</div>
+                      <div class="total-flex">
+                        <div class="num-left">
+                          <div
+                            *ngIf="scheduleData && scheduleData[0] && scheduleData[0].completed && scheduleData[0].completed[0]"
+                            class="mat-number">
+                            {{scheduleData[0]?.completed[0]?.scheduled}}
+                          </div>
+                        </div>
+                        <div class="num-left">
+                          <div class="number-flex">
+                            <div class="left-flex">
+                              <div
+                                *ngIf="scheduleData && scheduleData[0] && scheduleData[0].completed && scheduleData[0].completed[0]"
+                                class="orange-color">
+                                {{ scheduleData[0]?.completed[0]?.started }}
+                              </div>
+                              <!-- <div
+                              *ngIf="scheduleData && scheduleData[0] && scheduleData[0].completed && scheduleData[0].completed[0]"
+                              class="black-color">
+                              {{ scheduleData[0].completed[0].Inprogrss }}
+                            </div>
+                            <div
+                              *ngIf="scheduleData && scheduleData[0] && scheduleData[0].completed && scheduleData[0].completed[0]"
+                              class="red-color">
+                              {{ scheduleData[0].completed[0].Completed }}
+                            </div> -->
+                            </div>
+                            <div class="right-flex">
+                              <div>Test Taken</div>
+                              <!-- <div>Active</div>
+                            <div>Completed</div> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="scheduleData && scheduleData[0] && scheduleData[0].upComing && scheduleData[0].upComing[0]"
+                        class="upcoming"> Scheduled Upcomming Assessment Candidates -
+                        {{scheduleData[0].upComing[0].scheduled}} </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+          <div class="chart-flex">
+            <div class="card-chart">
+              <mat-card class="chart-card">
+                <mat-card-content>
+                  <div class="main_header">
+                    <div class="right_header">
+                      <div class="card_topic">
+                        <div>Graphical Representation</div>
+                      </div>
+                    </div>
+                    <div class="left_header">
+                      <mat-form-field height="10px" class="example-user-input">
+                        <mat-select [formControl]="position" id="tooltip-position"
+                          (selectionChange)="onSelectionChange($event)">
+                          <mat-option *ngFor="let option of TooltipPosition" [value]="option">{{option}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="graph-flex">
+                    <div class="right-chart">
+                      <div class="schedule-flex">
+                        <div class="item-flex">
+                          <mat-card class="mat-card">
+                            <mat-card-content>
+                              <div class="total-content">
+                                <div class="proctor-flex">
+                                  <div
+                                    *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                                    class="circle green">
+                                    {{ chartData[0]?.overAll[0]?.scheduled }}
+                                  </div>
+                                  <div
+                                    *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                                    class="circle green">
+                                    {{ chartData[0]?.overAll[0]?.started }}
+                                  </div>
+                                  <div
+                                    *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                                    class="circle green">
+                                    {{ chartData[0]?.overAll[0]?.Inprogress }}
+                                  </div>
+                                  <div
+                                    *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                                    class="circle green">
+                                    {{ chartData[0]?.overAll[0]?.Completed }}
+                                  </div>
+                                </div>
+                                <div class="proctor-create">
+                                  <div>Scheduled</div>
+                                  <div>Started</div>
+                                  <div>Active</div>
+                                  <div>Completed</div>
+                                </div>
+                              </div>
+                            </mat-card-content>
+                          </mat-card>
+                          <div class="count-chart">
+                            <div class="chart_topic">
+                              <h1>Overall Assessment Status</h1>
+                            </div>
+                            <!-- <div *ngIf="responseData > 0;else otherContent"> -->
+                            <apx-chart #ovrAllChrt [series]="chartOptions.series" [chart]="chartOptions.chart"
+                              [dataLabels]="chartOptions.dataLabels" [colors]="chartOptions.colors"
+                              [plotOptions]="chartOptions.plotOptions" [legend]="chartOptions.legend"
+                              [xaxis]="chartOptions.xaxis">
+                            </apx-chart>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="left-chart">
+                      <div class="chart_topic">
+                        <h1> Client Wise Data</h1>
+                      </div>
+                      <app-commonreportview [tabledata]="clientData"
+                        [isdownload]="item.is_download"></app-commonreportview>
+                      <div class="chart_topic">
+                        <h1> Test Paper Wise Data</h1>
+                      </div>
+                      <app-commonreportview [tabledata]="testData"
+                        [isdownload]="item.is_download"></app-commonreportview>
+                    </div>
+                  </div>
+                </mat-card-content>
+
+              </mat-card>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="item.report_Name === 'Dashboard Details'">
+          <div class="main-reports">
+            <div class="main">
+              <!-- <div class="right">
+              <mat-slide-toggle color="warn">Live</mat-slide-toggle>
+            </div> -->
+              <div class="left">
+                <label for="range">Delivery date range:</label>
+                <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7"
+                  (ngModelChange)="daterrange($event)"></nz-range-picker>
+              </div>
+            </div>
+            <div class="matcard-flex">
+              <div class="card-flex">
+                <mat-card class="mat-card">
+                  <mat-card-content>
+                    <div class="total-content">
+                      <div>Total Candidates</div>
+                      <div class="total-flex">
+                        <div class="num-left">
+                          <div class="mat-number" *ngIf="total?.Total_Count !== undefined && total?.Total_Count !== null">
+                            {{ total?.Total_Count }}
+                          </div>
+                          <div class="mat-number" *ngIf="total?.Total_Count === undefined || total?.Total_Count === null">
+                            0
+                          </div>
+                        </div>
+                        <div class="num-left">
+                          <div class="number-flex">
+                            <div class="left-flex">
+                              <div class="green-color" *ngIf="total?.Started !== undefined && total?.Started !== null">
+                                {{ total?.Started }}
+                              </div>
+                              <div class="green-color" *ngIf="total?.Started === undefined || total?.Started === null">
+                                0
+                              </div>
+                              <div class="black-color" *ngIf="total?.Yet_To_Start !== undefined && total?.Yet_To_Start !== null">
+                                {{ total?.Yet_To_Start }}
+                              </div>
+                              <div class="black-color" *ngIf="total?.Yet_To_Start === undefined || total?.Yet_To_Start === null">
+                                0
+                              </div>
+                              <div class="red-color">0</div>
+                            </div>
+                            <div class="right-flex">
+                              <div>Total Logged in</div>
+                              <div>Yet To Start</div>
+                              <div>Issue</div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div class="card-flex">
+                <mat-card class="mat-card">
+                  <mat-card-content>
+                    <div class="total-content">
+                      <div>Test Started</div>
+                      <div class="total-flex">
+                        <div class="num-left">
+                          <div class="mat-number" *ngIf="total?.Started !== undefined && total?.Started !== null">
+                            {{ total?.Started }}
+                          </div>
+                          <div class="mat-number" *ngIf="total?.Started === undefined || total?.Started === null">
+                            0
+                          </div>
+                        </div>
+                        <div class="num-left">
+                          <div class="grid-flex">
+                            <div class="number-flex">
+                              <div class="left-flex">
+                                <div class="green-color" *ngIf="total?.Inprogress !== undefined && total?.Inprogress !== null">
+                                  {{ total?.Inprogress }}
+                                </div>
+                                <div class="green-color" *ngIf="total?.Inprogress === undefined || total?.Inprogress === null">
+                                  0
+                                </div>
+                                <div class="black-color" *ngIf="total?.Completed !== undefined && total?.Completed !== null">
+                                  {{ total?.Completed }}
+                                </div>
+                                <div class="black-color" *ngIf="total?.Completed === undefined || total?.Completed === null">
+                                  0
+                                </div>
+                                <div class="red-color" *ngIf="total?.Terminated !== undefined && total?.Terminated !== null">
+                                  {{ total?.Terminated }}
+                                </div>
+                                <div class="red-color" *ngIf="total?.Terminated === undefined || total?.Terminated === null">
+                                  0
+                                </div>
+                              </div>
+                              <div class="right-flex">
+                                <div>Progress</div>
+                                <div>Completed</div>
+                                <div>Terminated</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div class="card-flex">
+                <mat-card class="mat-card">
+                  <mat-card-content>
+                    <div class="total-content">
+                      <div>Proctor</div>
+                      <div class="proctor-flex">
+                        <div class="circle green" *ngIf="created !== undefined && created !== null">
+                          {{ created }}
+                        </div>
+                        <div class="circle green" *ngIf="created === undefined || created === null">
+                          0
+                        </div>
+                        <div class="circle blue" *ngIf="Started !== undefined && Started !== null">
+                          {{ Started }}
+                        </div>
+                        <div class="circle blue" *ngIf="Started === undefined || Started === null">
+                          0
+                        </div>
+                        <div class="circle gray" *ngIf="paused !== undefined && paused !== null">
+                          {{ paused }}
+                        </div>
+                        <div class="circle gray" *ngIf="paused === undefined || paused === null">
+                          0
+                        </div>
+                        <div class="circle red" *ngIf="stopped !== undefined && stopped !== null">
+                          {{ stopped }}
+                        </div>
+                        <div class="circle red" *ngIf="stopped === undefined || stopped === null">
+                          0
+                        </div>
+                      </div>
+                      <div class="proctor-create">
+                        <div>Created</div>
+                        <div>Started</div>
+                        <div>Paused</div>
+                        <div>Stopped</div>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+          <app-commonreportview [tabledata]="rowData" [isdownload]="item.is_download"></app-commonreportview>
+          <ng-template #otherContent>
+            <div class="mat_card">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title></mat-card-title>
+                  <mat-card-subtitle><span class="icon-popup-warning"> No Data Found </span> </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            </div>
+          </ng-template>
+        </div>
+        <div *ngIf="item.report_Name === 'Upcomming Assessments'">
+          <mat-stepper orientation="vertical" #stepper>
+            <mat-step>
+              <ng-template matStepLabel>Tomorrow</ng-template>
+              => one
+              =>two
+            </mat-step>
+            <mat-step>
+              two
+            </mat-step>
+          </mat-stepper>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>
+<!-- <div class="main-reports">
+  <div class="main">
+  <div class="right">
+    <mat-slide-toggle  color="warn">Live</mat-slide-toggle>
+  </div>
+  <div class="left">
+    <label for="range">Delivery date range:</label>
+    <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
+    nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
+  </div>
+  </div>
+  <div class="matcard-flex">
+    <div class="card-flex">
+      <mat-card class="mat-card">
+        <mat-card-content>
+          <div class="total-content">
+            <div>Total Candidates</div>
+            <div class="total-flex">
+              <div class="num-left">
+                <div class="mat-number">{{total?.Total_Count}}</div>
+              </div>
+              <div class="num-left">
+                <div class="number-flex">
+                  <div class="left-flex">
+                    <div class="green-color">{{total?.Started}}</div>
+                    <div class="black-color">{{total?.Yet_To_Start}}</div>
+                    <div class="red-color">0</div>
+                  </div>
+                  <div class="right-flex">
+                    <div>Total Logged in</div>
+                    <div>Yet To Start</div>
+                    <div>Issue</div>
+                  </div>
+                </div>
 
-<div
-  style="
-    display: flex;
-    align-items: stretch;
-    justify-content: space-evenly;
-    margin: 8% 0%;
-  "
->
-  <div class="chart_card">
-    <div class="card_topic">
-      <h1>Domain Wise</h1>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
-    <div *ngIf="responseData > 0;else otherContent">
-    <apx-chart
-      #chart3
-      [series]="chartOptions3.series"
-      [chart]="chartOptions3.chart"
-      [labels]="chartOptions3.labels"
-      [legend]="chartOptions2.legend"
-      [theme]="chartOptions3.theme"
-      [colors]="chartOptions3.colors"
-      [responsive]="chartOptions2.responsive"
-    ></apx-chart>
-  </div>
-  </div>
-
-
-  <div class="chart_card">
-    <div class="card_topic"><h1>Client Wise Drive Wise</h1></div>
-    <div *ngIf="responseData > 0;else otherContent">
-    <apx-chart
-      #chart5
-      [series]="chartOptions5.series"
-      [chart]="chartOptions5.chart"
-      [labels]="chartOptions5.labels"
-      [colors]="chartOptions5.colors"
-      [legend]="chartOptions2.legend"
-      [responsive]="chartOptions5.responsive"
-    ></apx-chart>
+    <div class="card-flex">
+      <mat-card class="mat-card">
+        <mat-card-content>
+          <div class="total-content">
+            <div>Test Started</div>
+            <div class="total-flex">
+              <div class="num-left">
+                <div class="mat-number">{{total?.Started}}</div>
+              </div>
+              <div class="num-left">
+                <div class="grid-flex">
+                  <div class="number-flex">
+                    <div class="left-flex">
+                      <div class="green-color">{{total?.Inprogress}}</div>
+                      <div class="black-color">{{total?.Completed}}</div>
+                      <div class="red-color">{{total?.Terminated}}</div>
+                    </div>
+                    <div class="right-flex">
+                      <div>Progress</div>
+                      <div>Completed</div>
+                      <div>Terminated</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="card-flex">
+      <mat-card class="mat-card">
+        <mat-card-content>
+          <div class="total-content">
+            <div>Proctor</div>
+            <div class="proctor-flex">
+              <div class="circle green">{{created}}</div>
+              <div class="circle blue">{{Started}}</div>
+              <div class="circle gray">{{paused}}</div>
+              <div class="circle red">{{stopped}}</div>
+            </div>
+            <div class="proctor-create">
+              <div>Created</div>
+              <div>Started</div>
+              <div>Paused</div>
+              <div>Stopped</div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>
-</section>
-
 <div class="card_topic ml-10">
-  <h1>Overall Dashboard Table Representation</h1>
-</div>
-<div class="topToolbar">
-  <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
+  <div class="header">
+  <h1> Overall Dashboard Table Representation</h1>
+  </div>
+</div> -->
+
+<!-- <div class="topToolbar">
+    <button mat-stroked-button color="basic" (click)="excelexport(rowData)" class="outline-button"><mat-icon
+      class="download-icon">download</mat-icon><span>Download Report</span> </button>
 </div>
 <ag-grid-angular
   style="
@@ -218,4 +649,4 @@
       </mat-card-header>
      </mat-card>
   </div>
-</ng-template>
+</ng-template> -->
