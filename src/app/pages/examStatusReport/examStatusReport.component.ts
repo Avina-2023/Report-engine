@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {  Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { AgGridAngular, AgGridModule} from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
@@ -19,6 +19,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CommonreportviewComponent } from '../commons/commonreportview/commonreportview.component';
 import { AppConfigService } from 'src/app/utils/app-config.service';
+import {  MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'app-examStatusReport',
@@ -26,7 +27,7 @@ import { AppConfigService } from 'src/app/utils/app-config.service';
     styleUrls: ['./examStatusReport.component.scss'],
     standalone: true,
 
-    imports: [CommonModule,NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule,CommonreportviewComponent],
+    imports: [MatCardModule,CommonModule,NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule,CommonreportviewComponent],
 })
 export class ExamStatusReportComponent implements OnInit {
 
@@ -43,7 +44,7 @@ export class ExamStatusReportComponent implements OnInit {
   sidenav: any;
   tabdate:any;
   currentTabIndex = 0;
-  reportList=[
+  reportList:any=[
     {
       report_Name:"Score Report",
       is_enable:true,
@@ -69,6 +70,8 @@ export class ExamStatusReportComponent implements OnInit {
     //   endpoint:"wecpItemReport"
     // },
   ]
+  showLegend: boolean = false;
+  legendData: any;
   // colDefs: any=[];
   constructor(
     private apiservice : ApiService,
@@ -102,10 +105,18 @@ export class ExamStatusReportComponent implements OnInit {
       is_enable:true,
       is_download:true
     }
+    let feedbackDataReport={
+      report_Name:"User Feedback",
+      endpoint:"getFeedback",
+      is_enable:true,
+      is_download:false,
+      isLegend:true
+    }
 
     if(utility.getUserOrg()===57){
       this.reportList.push(show_Audit)
       this.reportList.push(show_AdminLog)
+      this.reportList.push(feedbackDataReport)
     }else{
       this.reportList.push(userDashData)
       this.reportList.push(sectionReport)
@@ -165,6 +176,9 @@ dateWiseSectionReport(data:any){
 
 customTabDataFiller(data: any, endPoint: string) {
   this.apiservice.reportDataFetch(data, endPoint).subscribe((res: any) => {
+    if(res.legend){
+      this.legendData = res?.legend;
+    }
     if (res.key && res.key?.length) {
       this.rowData = { data: res.data, key: res.key };
     } else if (res.data && res.data?.length) {
@@ -178,8 +192,9 @@ customTabDataFiller(data: any, endPoint: string) {
 tabchange(index:any){
   this.currentTabIndex =index;
   this.rowData = []
-  this.reportList.forEach((tab,i) => {
+  this.reportList.forEach((tab:any,i:number) => {
     if(index==i){
+      this.showLegend = tab?.isLegend
       this.customTabDataFiller(this.tabdate,tab.endpoint)
     }
   });

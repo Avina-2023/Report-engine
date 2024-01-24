@@ -23,6 +23,7 @@ export class CommonreportviewComponent implements OnInit {
 
   @Input() tabledata = [];
   @Input() isdownload:any;
+  // @Input() isLegend:boolean = false
   ColDef: any;
   is_download: any;
 

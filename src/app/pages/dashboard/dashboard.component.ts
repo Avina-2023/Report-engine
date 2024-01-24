@@ -28,8 +28,8 @@ export type ChartOptions = {
   yaxis: ApexYAxis | ApexYAxis[];
   title: ApexTitleSubtitle;
   labels: string[];
-  stroke: any; 
-  dataLabels: any; 
+  stroke: any;
+  dataLabels: any;
   fill: ApexFill;
   tooltip: ApexTooltip;
   plotOptions: ApexPlotOptions;
@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit {
     },
   ];
 
-  
+
   onewayTP = true;
   @ViewChild('kibona') iframe: ElementRef | undefined;
 
@@ -170,7 +170,7 @@ export class DashboardComponent implements OnInit {
         style: {
           colors: ['#fff'],
         },
-        
+
         offsetX: 0,
         dropShadow: {
           enabled: false,
@@ -233,7 +233,7 @@ export class DashboardComponent implements OnInit {
         {
           breakpoint: 480,
           options: {
-           
+
             tooltip: {
               enabled: true,
             },
@@ -320,7 +320,7 @@ export class DashboardComponent implements OnInit {
           },
         },
       ],
-     
+
       legend: {
         horizontalAlign: 'left',
         offsetX: 40,
@@ -354,7 +354,7 @@ export class DashboardComponent implements OnInit {
         {
           breakpoint: 480,
           options: {
-    
+
             tooltip: {
               enabled: true,
             },
@@ -384,38 +384,48 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getDashboardAPI() 
+  getDashboardAPI()
    {
     if(this.utility.getUserOrg()===57){
-      this.apiservice.dashboard_offline(this.DashboardData).subscribe((res: any) => { 
-        this.responseData = res.data.length;
-          if(this.responseData ){
-            
+      this.apiservice.dashboard_offline(this.DashboardData).subscribe((res: any) => {
+        this.responseData = res.data;
+          if(this.responseData?.length ){
+
           }else{
-            this.responseData = "";
+            this.responseData = [];
           }
-        this.dynamicallyConfigureColumnsFromObject(res.data); 
-        this.groupingCount(res.data); 
+        this.dynamicallyConfigureColumnsFromObject(this.responseData);
+        this.groupingOfflineCount(this.responseData);
        })
+      //  this.apiservice.dashboard_delivery(this.DashboardData).subscribe((res: any) => {
+      //   this.responseData = res.data.length;
+      //     if(this.responseData ){
+
+      //     }else{
+      //       this.responseData = "";
+      //     }
+      //   // this.dynamicallyConfigureColumnsFromObject(res.data);
+      //   this.groupingCount(res.data);
+      //  })
     }
     else{
-      this.apiservice.dashboard(this.DashboardData).subscribe((res: any) => {  
-      
-          this.responseData = res.data.length;
-          if(this.responseData ){
-            
+      this.apiservice.dashboard(this.DashboardData).subscribe((res: any) => {
+
+          this.responseData = res.data;
+          if(this.responseData.length ){
+
           }else{
-            this.responseData = "";
+            this.responseData = [];
           }
-        this.dynamicallyConfigureColumnsFromObject(res.data); 
-        this.groupingdata(res.data);
-        this.domainWiseChartDataSort(res.data);
-        this.clientwisedrivedata(res.data);
-        this.clientWiseChartDataSort(res.data);
-        this.getChart(res.data); 
+        this.dynamicallyConfigureColumnsFromObject(this.responseData);
+        this.groupingdata(this.responseData);
+        this.domainWiseChartDataSort(this.responseData);
+        this.clientwisedrivedata(this.responseData);
+        this.clientWiseChartDataSort(this.responseData);
+        this.getChart(this.responseData);
     });
     }
-    
+
    }
    groupingCount(_data:any){
     this.batchCount = _data.length;
@@ -444,11 +454,39 @@ export class DashboardComponent implements OnInit {
     );
     this.total = results;
    }
- 
+
+   groupingOfflineCount(_data:any){
+    this.batchCount = _data.length;
+    let keys = [
+      'Scheduled_Count',
+      'Force_Submit',
+      'Started',
+      'Completed',
+      'In_Progress',
+      'Yet_to_Start',
+    ];
+    let batchSum = 0;
+    _data.forEach((_item: any) => {
+      if (_item.Schedule_Name) {
+        batchSum = batchSum + 1;
+      }
+    });
+    this.batchCount = batchSum;
+    const arrayUniqueByKey = [...new Map(_data.map((item:any) =>[item['Venue_Code'], item])).values()];
+    this.venueCount = arrayUniqueByKey.length;
+
+    let results:any = _.zipObject(
+      keys,
+      keys.map((key) => _.sum(_.map(_data, key)))
+    );
+
+
+    this.total = results;
+   }
   getChart(_data: any) {
-     
-    
-   
+
+
+
     this.groupingCount(_data);
 
     this.CountDetails = {
@@ -466,9 +504,9 @@ export class DashboardComponent implements OnInit {
       this.total.Yet_To_Start,
     ];
     setTimeout(() => {
-      this.ovrAllChrt?.updateSeries(this.chartOptions.series); 
+      this.ovrAllChrt?.updateSeries(this.chartOptions.series);
     }, 1000);
-    
+
   }
 
   chartdataUpdate() {
@@ -482,34 +520,34 @@ export class DashboardComponent implements OnInit {
     }, 1000);
   }
   dynamicallyConfigureColumnsFromObject(anObject: any) {
-   
+
     this.ColDef = this.agGrid.api.getColumnDefs();
     this.ColDef.length = 0;
     this.columnDefs = [];
     if (anObject?.length) {
-     
+
       const keys = Object.keys(anObject[0]);
 
       keys.forEach((key) =>
-      
+
         this.columnDefs.push({
           field: key,
           headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
         }),
-       
+
       );
-      
+
     }
     this.agGrid.api.setColumnDefs(this.columnDefs);
       this.agGrid.api.setRowData(anObject);
       this.rowData=anObject
   }
   groupingdata(data: any) {
-    
+
     this.chartOptions4.series = [];
     const data$ = from(data);
     let datarray = new Array();
-    
+
     data$
       .pipe(
         groupBy((item: any) => `${item?.Domain_Name}`),
@@ -531,7 +569,7 @@ export class DashboardComponent implements OnInit {
           if (cData.Client_Name == null) {
             cData.Client_Name = 'Not Available';
           }
-          
+
           if (
             !datarray.includes(cData.Client_Name)
           ) {
@@ -540,19 +578,19 @@ export class DashboardComponent implements OnInit {
         });
         this.chartOptions4.series.push(domainData);
         console.log(domainData,'series');
-        
-        
+
+
       });
       setTimeout(() => {
-        
+
         this.chartOptions4.xaxis.categories = datarray;
-        
+
         this.chart4?.updateOptions(this.chartOptions4);
       }, 1000);
-      
+
   }
   clientWiseChartDataSort(_data: any) {
-    
+
     this.countByClientName = {};
     _data.forEach((_item: any) => {
       if (!this.countByClientName[_item.Client_Name]) {
@@ -571,11 +609,11 @@ export class DashboardComponent implements OnInit {
       this.chartOptions2.series.push(items);
       this.clientwisePie?.updateSeries(this.chartOptions2.series);
     });
-    this.clientwisePie?.updateOptions(this.chartOptions2);  
+    this.clientwisePie?.updateOptions(this.chartOptions2);
 }
 
   domainWiseChartDataSort(_data: any) {
-  
+
     let domainwise: any = {};
     _data.forEach((_item: any) => {
       if (!domainwise[_item.Domain_Name]) {
@@ -597,7 +635,7 @@ export class DashboardComponent implements OnInit {
 }
 
   clientwisedrivedata(_data: any) {
-    
+
       this.countByDriveName = {};
     _data.forEach((_item: any) => {
       if (!this.countByDriveName[_item.Client_Name]) {
@@ -622,7 +660,7 @@ export class DashboardComponent implements OnInit {
     }
 
   daterrange(event:any) {
-   
+
     if (event.length==2) {
       console.log('datata', moment(event[0]).format('yyyy-MM-DD HH:mm'));
       let dateparams = {
