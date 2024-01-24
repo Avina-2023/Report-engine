@@ -1,13 +1,21 @@
 
 <div class="main-reports">
+<div class="header">
+<!-- <div class="right">
+    <mat-form-field height="10px" class="example-user-input">
+      <mat-select [formControl]="position" id="tooltip-position"
+        (selectionChange)="onSelectionChange($event)">
+        <mat-option *ngFor="let option of TooltipPosition"  [value]="option">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+</div> -->
 <div class="left">
   <label for="range">Delivery date range:</label>
   <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
   nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
 </div>
-
+</div>
 <div class="mat_accordion">
-
   <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" [backgroundColor]="'primary'" (selectedTabChange)="tabchange($event.index)" [selectedIndex]="0">
     <mat-tab *ngFor="let item of reportList" [label]="item.report_Name">
    <app-commonreportview [tabledata]="rowData" [isdownload]="item.is_download" ></app-commonreportview>
@@ -26,10 +34,10 @@
         </tr>
       </table>
     </mat-card-content>
-    
+
   </mat-card>
-  
-</div> 
+
+</div>
 </div>
 
 
@@ -37,6 +45,6 @@
 
 
 
-  
+
 
 

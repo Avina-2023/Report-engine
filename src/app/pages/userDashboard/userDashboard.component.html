@@ -1,0 +1,84 @@
+<div>
+  <div class="main-reports">
+  <div class="main">
+    <div class="left">
+      <label for="range">Delivery date range:</label>
+      <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7"
+        (ngModelChange)="daterrange($event)"></nz-range-picker>
+    </div>
+  </div>
+  </div>
+  <div class="matcard-flex">
+  <div class="card-flex">
+  <app-minidetailscard  [label]="'Candidates'" [val]="total_candidate" [c_color]="'#00bed7'" [iconClass]="'icon-groups'"></app-minidetailscard>
+  </div>
+  <div class="card-flex">
+    <app-minidetailscard  [label]="'Yet_to_Start'" [val]="Yet_to_Start" [c_color]="'#00bdac'" [iconClass]="'icon-assignment'"></app-minidetailscard>
+    </div>
+      <div class="card-flex">
+        <app-minidetailscard  [label]="'InProgress'" [val]="inprogress" [c_color]="'#1bbc7a'" [iconClass]="'icon-draft_orders'"></app-minidetailscard>
+        </div>
+        <div class="card-flex">
+          <app-minidetailscard  [label]="'Completed'" [val]="completed" [c_color]="'#77bc3c'" [iconClass]="'icon-test-completed'"></app-minidetailscard>
+          </div>
+          <div class="card-flex">
+            <app-minidetailscard  [label]="'Terminated'" [val]="terminated" [c_color]="'#57e86b'" [iconClass]="'icon-Popup-close'"></app-minidetailscard>
+            </div>
+          </div>
+</div>
+<div class="card_topic ml-10">
+  <h1>User Dashboard Live Report</h1>
+</div>
+<div class="topToolbar">
+  <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
+</div>
+<ag-grid-angular
+  style="
+    width: 100%;
+    height: 500px;
+    margin-bottom: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+  "
+  class="ag-theme-alpine"
+  [columnDefs]="columnDefs"
+  [frameworkComponents]="frameworkComponents"
+  [paginationPageSize]="20"
+  [pagination]="true"
+>
+</ag-grid-angular>
+
+
+<ng-template #otherContent>
+  <div class="mat_card">
+    <mat-card>
+      <mat-card-header>
+      <mat-card-title></mat-card-title>
+      <mat-card-subtitle><span class="icon-popup-warning">  No Data Found </span> </mat-card-subtitle>
+      </mat-card-header>
+     </mat-card>
+  </div>
+</ng-template>
+
+<ng-template #matDialog>
+  <div  class="alert-popup">
+  <div>
+  </div>
+  <div class="text">
+      {{popupMessage}}
+  </div>
+  <div class="popup-btn">
+  <button class="ok" (click)="popupClose()">Ok</button>
+  </div>
+  </div>
+</ng-template>
+<ng-template #matDialgrid>
+  <div class="logs-popup">
+    <div class="logs">
+      <app-commonreportview [tabledata]="popUpData" [isdownload]="is_download"></app-commonreportview>
+      <div class="popup-btn">
+        <button class="ok" (click)="popupClose()">Ok</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -30,26 +30,41 @@ export class ApiService {
   getOrganizationList(){
     return this.http.get(`https://uapedgeservicedev.lntedutech.com/getUapOrganizations`)
   }
-
-  dashboard(data:any){
+  ScheduleDetails(data:any){
+    if (data == undefined) {
+      data = {};
+    }
+    return this.http.post(`${this.BASE_URL}/scheduleDetails`,data)
+  }
+  Dashboard(data:any){
     if (data == undefined) {
       data = {};
     }
     return this.http.post(`${this.BASE_URL}/dashboard`,data)
   }
+  liveDashboard(data:any){
+    if (data == undefined) {
+      data = {};
+    }
+    return this.http.post(`${this.BASE_URL}/liveDashboard`,data)
+  }
+  ChartDetails(data:any){
+    if (data == undefined) {
+      data = {};
+    }
+    return this.http.post(`${this.BASE_URL}/chartDetails`,data)
+  }
+  liveUserDashboard(data:any){
+    if (data == undefined) {
+      data = {};
+    }
+    return this.http.post(`${this.BASE_URL}/liveUserDashboard`,data)
+  }
   dashboard_offline(data:any){
     if (data == undefined) {
       data = {};
     }
-    //tm_dashboard---> deliverywise
     return this.http.post(`${this.BASE_URL}/batchWiseDashboard`,data)
-  }
-  dashboard_delivery(data:any){
-    if (data == undefined) {
-      data = {};
-    }
-    //tm_dashboard---> deliverywise
-    return this.http.post(`${this.BASE_URL}/tm_dashboard`,data)
   }
   userdashboard(data:any){
   return this.http.post(`${this.BASE_URL}/userdashboard`,data)

@@ -1,0 +1,158 @@
+<div class="main-reports">
+  <div class="tabs">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="tabchange($event.index)"
+      [selectedIndex]="0">
+      <mat-tab *ngFor="let item of registraterList" [label]="item.report_Name">
+        <!-- For addOrgForm -->
+        <div *ngIf="item.report_Name === 'Organization'">
+          <div class="Org">
+            <div class="OrgRight">
+              <div class="heading">
+                <h2>Add {{ item.report_Name }}</h2>
+              </div>
+              <mat-card>
+                <div [formGroup]="addOrgForm" class="formWrapper">
+                  <mat-label>{{ item.report_Name }} Name<span class="redTxt">*</span></mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput placeholder="Enter here" id="organizationName" class="input" type="text"
+                      formControlName="organizationName">
+                  </mat-form-field>
+                  <div class="submitBtn">
+                    <button mat-raised-button color="primary" (click)="OrgSubmit()">Save</button>
+                  </div>
+                </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+
+        <!-- For addSubOrgForm -->
+        <div *ngIf="item.report_Name === 'subOrganization'">
+          <div class="Org">
+            <div class="OrgRight">
+              <div class="heading">
+                <h2>Add {{ item.report_Name }}</h2>
+              </div>
+              <mat-card>
+                <div [formGroup]="addSubOrgForm" class="formWrapper">
+                  <div class="nzformfield">
+                    <mat-label>Organization <span class="redTxt">*</span></mat-label>
+                    <nz-select style="width:100%" formControlName="orgDetail" [nzSize]="'default'"
+                      nzPlaceHolder="Please select your Organization" [class]="">
+                      <nz-option *ngFor="let option of orglist" [nzLabel]="option.organizationName"
+                        [nzValue]="option"></nz-option>
+                    </nz-select>
+                  </div>
+                  <mat-label>{{ item.report_Name }} Name<span class="redTxt">*</span></mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput placeholder="Enter here" id="subOrganizationName" class="input" type="text"
+                      formControlName="subOrganizationName">
+                  </mat-form-field>
+                  <div class="submitBtn">
+                    <button mat-raised-button color="primary" (click)="subOrgSubmit()">Save</button>
+                  </div>
+                </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="item.report_Name === 'users'">
+          <div class="OrgRight">
+            <div class="heading">
+              <h2>Add user</h2>
+            </div>
+            <mat-card>
+              <div [formGroup]="addUserForm" class="formWrapper">
+                <mat-label>Email ID<span class="redTxt">*</span></mat-label>
+                <mat-form-field appearance="outline">
+                  <input matInput placeholder="Enter here" id="email" class="input" type="email" [email]="true"
+                    formControlName="email">
+                </mat-form-field>
+                <mat-label>First Name <span class="redTxt">*</span></mat-label>
+                <mat-form-field appearance="outline">
+                  <input matInput class="input" id="fname" placeholder="Enter here" type="text" formControlName="fname">
+                </mat-form-field>
+                <mat-label>Last Name <span class="redTxt">*</span></mat-label>
+                <mat-form-field appearance="outline">
+                  <input matInput class="input" id="lname" placeholder="Enter here" type="text" formControlName="lname">
+                </mat-form-field>
+                <mat-label>Password <span class="redTxt">*</span></mat-label>
+                <mat-form-field appearance="outline">
+                  <input matInput class="input" id="password" placeholder="Enter here" type="text" formControlName="password">
+                </mat-form-field>
+                <!-- <div class="nzformfield">
+                  <mat-label>Organization <span class="redTxt"></span></mat-label>
+                  <nz-select style="width:100%" formControlName="orgid" [nzSize]="'default'" nzMode="multiple"
+                    nzPlaceHolder="Please select your Organization" [class]="">
+                    <nz-option *ngFor="let option of orglist" [nzLabel]="option.orgId"
+                      [nzValue]="option.Id"></nz-option>
+                  </nz-select>
+                </div> -->
+                <!-- <div class="nzformfield">
+                  <mat-label>Sub Organization <span class="redTxt"></span></mat-label>
+                  <nz-select style="width:100%" formControlName="orgid" [nzSize]="'default'" nzMode="multiple"
+                    nzPlaceHolder="Please select your sub Organization" [class]="">
+                    <nz-option *ngFor="let option of orglist" [nzLabel]="option.organizationName"
+                      [nzValue]="option.Id"></nz-option>
+                  </nz-select>
+                </div> -->
+                <div class="nzformfield">
+                  <mat-label>Organization <span class="redTxt"></span></mat-label>
+                  <nz-select
+                    style="width:100%"
+                    formControlName="orgid"
+                    [nzSize]="'default'"
+                    nzMode="multiple"
+                    nzPlaceHolder="Please select your Organization"
+                    [class]=""
+                    (ngModelChange)="getSubOrganizationList($event)"
+                  >
+                    <nz-option *ngFor="let option of orglist" [nzLabel]="option.organizationName" [nzValue]="option.orgId"></nz-option>
+                  </nz-select>
+                </div>
+
+                <div class="nzformfield">
+                  <mat-label>Sub Organization <span class="redTxt"></span></mat-label>
+                  <nz-select
+                    style="width:100%"
+                    formControlName="subOrgId"
+                    [nzSize]="'default'"
+                    nzMode="multiple"
+                    nzPlaceHolder="Please select your sub Organization"
+                    [class]=""
+                  >
+                    <nz-option *ngFor="let option of subOrgList" [nzLabel]="option.subOrganizationName" [nzValue]="option.subOrgId"></nz-option>
+                  </nz-select>
+                </div>
+
+                <div class="nzformfield">
+                <mat-label>RoleID<span class="redTxt">*</span></mat-label>
+                <nz-select style="width:100%" formControlName="roleName" [nzSize]="'default'"
+                nzPlaceHolder="Please select your role" [class]="">
+                <nz-option *ngFor="let role of roleList" [nzLabel]="role.roleName" [nzValue]="role.roleName"></nz-option>
+              </nz-select>
+              </div>
+              <div class="nzformfield">
+                <mat-label>Cluster Name<span class="redTxt">*</span></mat-label>
+                <nz-select
+                  style="width:100%"
+                  formControlName="clusterid"
+                  [nzSize]="'default'"
+                  nzMode="multiple"
+                  nzPlaceHolder="Please select your cluster"
+                  [class]=""
+                >
+                  <nz-option *ngFor="let cluster of clusterList" [nzLabel]="cluster.clusterName" [nzValue]="cluster.clusterId"></nz-option>
+                </nz-select>
+              </div>
+                <div class="submitBtn">
+                  <button mat-raised-button color="primary" (click)="userFormSubmit()">Save</button>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import {  Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { AgGridAngular, AgGridModule} from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
@@ -10,7 +10,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { InterComponentMessenger } from 'src/app/services/interComponentMessenger.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -20,21 +20,18 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { CommonreportviewComponent } from '../commons/commonreportview/commonreportview.component';
 import { AppConfigService } from 'src/app/utils/app-config.service';
 import { MinidetailscardComponent } from '../minidetailscard/minidetailscard.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import { MatSelectModule } from '@angular/material/select';
-import {  MatCardModule } from '@angular/material/card';
 
 @Component({
-    selector: 'app-examStatusReport',
-    templateUrl: './examStatusReport.component.html',
-    styleUrls: ['./examStatusReport.component.scss'],
-    standalone: true,
+  selector: 'app-analysis',
+  templateUrl: './analysis.component.html',
+  styleUrls: ['./analysis.component.scss'],
+  standalone: true,
 
-    imports: [CommonModule,NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule,CommonreportviewComponent,MinidetailscardComponent,MatTooltipModule,MatSelectModule,MatCardModule],
+    imports: [CommonModule,NzDatePickerModule, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule,CommonreportviewComponent,MinidetailscardComponent],
 })
-export class ExamStatusReportComponent implements OnInit {
-  position = new FormControl("Aptitude");
-  TooltipPosition: any = ['Aptitude', 'Behavioural', 'Step'];
+export class  AnalysisComponent implements OnInit {
+
+
   userData = { "date": "2023/02/14"};
   datepipe=new DatePipe('en-us')
   datewise:any={}
@@ -47,68 +44,26 @@ export class ExamStatusReportComponent implements OnInit {
   sidenav: any;
   tabdate:any;
   currentTabIndex = 0;
-  toolTipData: any;
   reportList=[
     {
-      report_Name:"Score Report",
+      report_Name:"Test Analysis",
       is_enable:true,
-      is_download:true,
-      endpoint:(this.utility.getUserOrg()==="57")?"getsectiondetails":"dateWiseSectionReport"
+      is_download:false,
+      endpoint:"testAnalysis"
     },
     {
-      report_Name:"Item wise Report",
+      report_Name:"Item Analysis",
       is_enable:true,
-      is_download:true,
-      endpoint:(this.utility.getUserOrg()==="57")?"getitemdetails":"dateWiseitemReport"
-    }
+      is_download:false,
+      endpoint:"userResponse"
+    },
   ]
-  legendData: any;
-  showLegend: any;
   // colDefs: any=[];
   constructor(
     private apiservice : ApiService,
     private utility: AppConfigService,
   ) {
 
-    let show_Audit = {
-      report_Name:"User Audit Log",
-      endpoint:"getauditlogs",
-      is_enable:true,
-      is_download:true
-    };
-
-    let show_AdminLog = {
-      report_Name:"Admin Log",
-      endpoint:"getadminlogs",
-      is_enable:true,
-      is_download:true
-    };
-
-
-    let sectionReport={
-      report_Name:"Section Report",
-      endpoint:"sectionScoreCard",
-      is_enable:true,
-      is_download:true
-    }
-
-    let feedbackDataReport={
-      report_Name:"User Feedback",
-      endpoint:"getFeedback",
-      is_enable:true,
-      is_download:false,
-      isLegend:true
-    }
-    console.log("fdbh",utility.getUserOrg());
-
-
-    if(utility.getUserOrg()==="57"){
-      this.reportList.push(show_Audit)
-      this.reportList.push(show_AdminLog)
-      this.reportList.push(feedbackDataReport)
-    }else{
-      this.reportList.push(sectionReport)
-    }
 
   }
 
@@ -141,16 +96,7 @@ clickHandler() {
   this.sidenav.close();
 }
 
-dateWiseSectionReport(data:any){
-  let endPoint = "dateWiseSectionReport"
-  console.log(this.utility.getUserOrg())
-  if(this.utility.getUserOrg() === 57){
-    endPoint = "getsectiondetails"
-  }
-  this.apiservice.dateWiseSectionReport(data,endPoint).subscribe((res:any)=>{
-    this.rowData = {"data": res.data,"key": res.key}
-  })
-}
+
 
 // dateWiseitemReport(data:any){
 //   let endPoint = "dateWiseitemReport"
@@ -164,9 +110,6 @@ dateWiseSectionReport(data:any){
 
 customTabDataFiller(data: any, endPoint: string) {
   this.apiservice.reportDataFetch(data, endPoint).subscribe((res: any) => {
-    if(res.legend){
-      this.legendData = res?.legend;
-    }
     if (res.key && res.key?.length) {
       this.rowData = { data: res.data, key: res.key };
     } else if (res.data && res.data?.length) {
@@ -180,17 +123,14 @@ customTabDataFiller(data: any, endPoint: string) {
 tabchange(index:any){
   this.currentTabIndex =index;
   this.rowData = []
-  this.reportList.forEach((tab:any,i:number) => {
+  this.reportList.forEach((tab,i) => {
     if(index==i){
-      this.showLegend = tab?.isLegend
       this.customTabDataFiller(this.tabdate,tab.endpoint)
     }
   });
 
 }
+}
 
-onSelectionChange(event: any) {
-  const selectedValue = event.value;
-  this.toolTipData = {"event": event.value}
-}
-}
+
+

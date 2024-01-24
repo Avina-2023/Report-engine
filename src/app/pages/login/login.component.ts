@@ -47,14 +47,17 @@ export class LoginComponent implements OnInit {
 
   //   this.authConfig.routeNavigation("/dashboard");
   //  return false
-  
+
   let encrypted = CryptoTS.AES.encrypt(this.loginForm.value.password, '(!@#Passcode!@#)').toString();
     let data = {
       email: this.loginForm.value.email,
       password: encrypted
     }
+    console.log("data",data);
 
     this.https.login(data).subscribe((res: any) => {
+      console.log("res",res);
+
       if (res.success) {
         var userObject = res.data.attributes
         this.authConfig.setlocalValue('userDetails', JSON.stringify(userObject));
@@ -65,7 +68,7 @@ export class LoginComponent implements OnInit {
         // }else{
           this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.DASHBOARD)
         // }
-        
+
       } else {
         this.alertService.toastfire('error',res.message);
       }

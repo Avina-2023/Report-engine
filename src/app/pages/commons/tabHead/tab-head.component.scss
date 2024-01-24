@@ -71,9 +71,13 @@ border-right: 1px solid #D5D6D9;
 #one:checked ~ .tabs #one-tab,
 #two:checked ~ .tabs #two-tab,
 #three:checked ~ .tabs #three-tab,
-#four:checked ~ .tabs #four-tab {
+#four:checked ~ .tabs #four-tab,
+#five:checked ~ .tabs #five-tab,
+#six:checked ~ .tabs #six-tab,
+#seven:checked ~ .tabs #seven-tab,
+#eight:checked ~ .tabs #eight-tab{
   background: #fff;
   font-weight: 600;
   color: #32557f;
-  // border-top: 3px solid #32557f;
+  border-top: 3px solid #32557f;
 }

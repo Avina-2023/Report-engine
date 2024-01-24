@@ -16,10 +16,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { TinycardComponent } from './widgets/tinycard/tinycard.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { CommonModule } from '@angular/common';
 import { AppConfigService } from 'src/app/utils/app-config.service';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { CommonreportviewComponent } from '../commons/commonreportview/commonreportview.component';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -43,9 +53,13 @@ export type ChartOptions = {
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
     standalone: true,
-    imports: [CommonModule, NzDatePickerModule, ReactiveFormsModule, FormsModule, TinycardComponent, NgApexchartsModule, MatButtonModule, MatIconModule, AgGridModule, MatCardModule]
+    imports: [CommonModule, NzDatePickerModule, ReactiveFormsModule, FormsModule, TinycardComponent, NgApexchartsModule,
+      MatButtonModule, MatIconModule, AgGridModule, MatCardModule,MatSlideToggleModule,MatTabsModule,MatStepperModule,
+      MatGridListModule,MatTooltipModule,MatSelectModule,MatFormFieldModule,MatTableModule,MatPaginatorModule,CommonreportviewComponent]
 })
 export class DashboardComponent implements OnInit {
+  position = new FormControl("All");
+  TooltipPosition: any = ['1 Month', '3 Months', '6 Months', '9 Months', '1 Year', 'All'];
   rowData: any;
   ColDef: any;
   @ViewChild('chart') chart?: ChartComponent;
@@ -53,6 +67,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild('chart5') chart5?: ChartComponent;
   @ViewChild('chart3') chart3?: ChartComponent;
   @ViewChild('ovrAllChrt') ovrAllChrt?: ChartComponent;
+
   public chartOptions: any;
   public chartOptions2: any;
   public chartOptions3: any;
@@ -87,6 +102,7 @@ export class DashboardComponent implements OnInit {
   onewayTP = true;
   @ViewChild('kibona') iframe: ElementRef | undefined;
 
+
   html: any;
   htmlfile = '../../../assets/Html/maintanence.html';
 
@@ -105,6 +121,7 @@ export class DashboardComponent implements OnInit {
   domainCount: any;
   domainSum: any;
   countByClientName: any;
+  tabdate:any;
   chart2series: any;
   chart2label: any;
   countByDriveName: any;
@@ -113,6 +130,33 @@ export class DashboardComponent implements OnInit {
   DashboardData: any;
   socket_subs: any;
   venueCount: number = 0;
+  rejected:any;
+  stopped:any;
+  Started:any;
+  accepted:any;
+  paused:any;
+  template:any;
+  created:any;
+  tabledata: any;
+  currentTabIndex: any;
+  DashData: any;
+  scheduleData: any;
+  datepipe: any;
+  chartData: any;
+  toolTipData: any;
+  clientName: any;
+  scheduled: any;
+  Inprogress: any;
+  Completed: any;
+  displayedColumns: any;
+  dataSource : any;
+  isDownload: any;
+  testData: any;
+  clientData: any;
+
+
+
+
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -183,257 +227,145 @@ export class DashboardComponent implements OnInit {
       xaxis: {
         categories: [
           'Total Count',
-          'Started',
-          'Terminated',
-          'Idle',
-          'Completed',
-          'Inprogress',
           'Yet To Start',
+          'Started',
+          'Inprogress',
+          'Completed'
         ],
       },
     };
-
-    this.chartOptions2 = {
-      series: [],
-      colors: [
-        '#65c15f',
-        '#00bc94',
-        '#69bb46',
-        '#00bdd2',
-        '#C6E7E3',
-        '#219EBC',
-      ],
-      legend: {
-        show: true,
-        position: 'bottom',
-      },
-      chart: {
-        type: 'donut',
-        width: 450,
-        height: 500,
-
-        toolbar: {
-          show: false,
-          offsetX: 0,
-          offsetY: 0,
-          zoom: {
-            enabled: true,
-          },
-          tools: {
-            download: false,
-            selection: true,
-            zoom: true,
-            zoomin: true,
-            zoomout: true,
-          },
-        },
-      },
-      labels: [],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-
-            tooltip: {
-              enabled: true,
-            },
-          },
-        },
-      ],
-    };
-
-    this.chartOptions3 = {
-      series: [],
-      colors: [
-        '#65c15f',
-        '#00bc94',
-        '#69bb46',
-        '#00bdd2',
-        '#C6E7E3',
-        '#219EBC',
-      ],
-      chart: {
-        type: 'pie',
-        width: 450,
-      },
-      labels: [],
-      dataLabels: {
-        enabled: true,
-      },
-      theme: {
-        monochrome: {
-          enabled: false,
-        },
-      },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-            legend: {
-              position: 'bottom',
-            },
-          },
-        },
-      ],
-    };
-
-    this.chartOptions4 = {
-      series: [],
-      chart: {
-        height: 350,
-        type: 'bar',
-        stacked: false,
-        toolbar: {
-          show: false,
-        }
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        width: [1, 1, 4],
-      },
-
-      xaxis: {
-        categories: Array(),
-      },
-      yaxis: [
-        {
-          axisTicks: {
-            show: true,
-          },
-          axisBorder: {
-            show: true,
-            color: '#008FFB',
-          },
-          labels: {
-            style: {
-              color: '#008FFB',
-            },
-          },
-
-          tooltip: {
-            enabled: true,
-          },
-        },
-      ],
-
-      legend: {
-        horizontalAlign: 'left',
-        offsetX: 40,
-      },
-    };
-    this.chartOptions5 = {
-      series: [],
-      colors: ['#65c15f', '#00bc94', '#00bdd2', '#C6E7E3', '#219EBC'],
-      chart: {
-        type: 'donut',
-        width: 450,
-        height: 500,
-        toolbar: {
-          show: false,
-          offsetX: 0,
-          offsetY: 0,
-          zoom: {
-            enabled: true,
-          },
-          tools: {
-            download: false,
-            selection: true,
-            zoom: true,
-            zoomin: true,
-            zoomout: true,
-          },
-        },
-      },
-      labels: [],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-
-            tooltip: {
-              enabled: true,
-            },
-          },
-        },
-      ],
-    };
   }
+
   public columnDefs: ColDef[] = [];
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
+
   @ViewChild('clientwise') clientwisePie: ChartComponent | undefined;
 
+
+
   ngOnInit() {
-
-    this.getDashboardAPI();
-    this.getDashboardSocket();
+    this.getDashboardAPI()
   }
 
-  getDashboardSocket(){
-     this.socket_subs = this.socketService.dashboardData.subscribe((data)=>{
-      this.dynamicallyConfigureColumnsFromObject(data);
-      this.groupingdata(data);
-      this.clientWiseChartDataSort(data);
-      this.domainWiseChartDataSort(data);
-      this.clientwisedrivedata(data);
-      this.getChart(data);
-    })
-  }
+  reportList=[
+    {
+      report_Name:"Home",
+      is_download:false
+    },
+    {
+      report_Name:"Dashboard Details",
+      is_download:true
+    },
+  ]
 
   getDashboardAPI()
    {
-    if(this.utility.getUserOrg()===57){
+    if(this.utility.getUserOrg()==="57"){
       this.apiservice.dashboard_offline(this.DashboardData).subscribe((res: any) => {
+
         this.responseData = res.data;
-          if(this.responseData?.length ){
+          if(this.responseData ){
 
           }else{
             this.responseData = [];
           }
-        this.dynamicallyConfigureColumnsFromObject(this.responseData);
+        this.dynamicallyConfigureColumnsFromObject(res.data);
         this.groupingOfflineCount(this.responseData);
        })
-      //  this.apiservice.dashboard_delivery(this.DashboardData).subscribe((res: any) => {
-      //   this.responseData = res.data.length;
-      //     if(this.responseData ){
-
-      //     }else{
-      //       this.responseData = "";
-      //     }
-      //   // this.dynamicallyConfigureColumnsFromObject(res.data);
-      //   this.groupingCount(res.data);
-      //  })
+    } else {
+      this.tabchange(0)
     }
-    else{
-      this.apiservice.dashboard(this.DashboardData).subscribe((res: any) => {
+  }
 
-          this.responseData = res.data;
-          if(this.responseData.length ){
+   dashboardDetails(){
+    this.apiservice.liveDashboard(this.DashboardData).subscribe((res: any) => {
 
-          }else{
-            this.responseData = [];
-          }
-        this.dynamicallyConfigureColumnsFromObject(this.responseData);
-        this.groupingdata(this.responseData);
-        this.domainWiseChartDataSort(this.responseData);
-        this.clientwisedrivedata(this.responseData);
-        this.clientWiseChartDataSort(this.responseData);
-        this.getChart(this.responseData);
-    });
-    }
+      this.responseData = res.data;
+      if(this.responseData.length ){
 
+      }else{
+        this.responseData = [];
+      }
+
+          this.groupingCount(this.responseData);
+          this.isDownload = "true"
+          this.rowData = { data: res.data };
+          // this.clientwisedomainwisegrid(this.responseData);
+          // this.dynamicallyConfigureColumnsFromObject(this.responseData);
+          // this.domainWiseChartDataSort(res.data);
+          // this.clientwisedrivedata(res.data);
+          // this.clientWiseChartDataSort(res.data);
+          // this.getChart(res.data);
+
+
+
+          this.rejected=0
+          this.stopped=0
+          this.Started=0
+          this.accepted=0
+          this.paused=0
+          this.template=0
+          this.created=0
+
+          this.apiservice.proctor(this.DashboardData).subscribe((res:any)=>{
+
+            res.data.data.forEach((_item:any,_index:any)=>{
+              if(_item.status=="rejected"){
+                this.rejected= this.rejected + 1
+              }else if(_item.status=="stopped"){
+                this.stopped= this.stopped + 1
+              }else if(_item.status=="started"){
+                this.Started= this.Started + 1
+              }else if(_item.status=="accepted"){
+                this.accepted= this.accepted + 1
+              }else if(_item.status=="paused"){
+                this.paused= this.paused + 1
+              }else if(_item.status=="template"){
+                this.template= this.template + 1
+              }else if(_item.status=="created"){
+                this.created= this.created + 1
+              }
+
+            })
+            // this.dynamicallyConfigureColumnsFromObject(res)
+            //  this.agGrid.api.setRowData(res)
+
+          })
+
+  });
    }
+
+   homeDetails(){
+    this.apiservice.ScheduleDetails(this.DashboardData).subscribe((res:any)=>{
+      this.scheduleData = res.data
+      this.chartapi()
+    })
+   }
+   chartapi(){
+    this.apiservice.ChartDetails(this.toolTipData).subscribe((res:any)=>{
+      this.chartData = res.data
+      this.chartOptions.series[0].data = [
+        this.chartData[0]?.overAll[0]?.scheduled,
+        (this.chartData[0]?.overAll[0]?.scheduled - this.chartData[0]?.overAll[0]?.started),
+        this.chartData[0]?.overAll[0]?.started,
+        this.chartData[0].overAll[0].Inprogress ,
+        this.chartData[0].overAll[0].Completed ,
+      ];
+      // setTimeout(() => {
+        this.ovrAllChrt?.updateSeries(this.chartOptions.series);
+        this.clientData = this.chartData[0]?.client
+        this.testData = this.chartData[0]?.test
+      // }, 1000);
+
+    })
+   }
+
    groupingCount(_data:any){
     this.batchCount = _data.length;
     let keys = [
       'Total_Count',
       'Started',
       'Terminated',
-      'Idle',
       'Completed',
       'Inprogress',
       'Yet_To_Start',
@@ -453,6 +385,7 @@ export class DashboardComponent implements OnInit {
       keys.map((key) => _.sum(_.map(_data, key)))
     );
     this.total = results;
+    console.log(this.total,'this.total');
    }
 
    groupingOfflineCount(_data:any){
@@ -482,7 +415,11 @@ export class DashboardComponent implements OnInit {
 
 
     this.total = results;
+    console.log("this.total",this.total);
+
    }
+
+
   getChart(_data: any) {
 
 
@@ -509,17 +446,8 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  chartdataUpdate() {
-    clearTimeout(this.timeoutval);
-    this.timeoutval = setTimeout(() => {
-      if (this.sparkline.length >= 10) {
-        this.sparkline.shift();
-      }
-      this.sparkline.push(Math.floor(Math.random() * 50));
-      this.chartdataUpdate();
-    }, 1000);
-  }
   dynamicallyConfigureColumnsFromObject(anObject: any) {
+    console.log("anObject",anObject);
 
     this.ColDef = this.agGrid.api.getColumnDefs();
     this.ColDef.length = 0;
@@ -533,6 +461,7 @@ export class DashboardComponent implements OnInit {
         this.columnDefs.push({
           field: key,
           headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
+
         }),
 
       );
@@ -543,6 +472,8 @@ export class DashboardComponent implements OnInit {
       this.rowData=anObject
   }
   groupingdata(data: any) {
+
+    console.log(data,'groupingdata');
 
     this.chartOptions4.series = [];
     const data$ = from(data);
@@ -565,101 +496,10 @@ export class DashboardComponent implements OnInit {
           }
           domainData.data.push(gdata?.Total_Count);
         });
-        groupedData.forEach((cData) => {
-          if (cData.Client_Name == null) {
-            cData.Client_Name = 'Not Available';
-          }
-
-          if (
-            !datarray.includes(cData.Client_Name)
-          ) {
-            datarray.push(cData.Client_Name);
-          }
-        });
-        this.chartOptions4.series.push(domainData);
-        console.log(domainData,'series');
-
-
-      });
-      setTimeout(() => {
-
-        this.chartOptions4.xaxis.categories = datarray;
-
-        this.chart4?.updateOptions(this.chartOptions4);
-      }, 1000);
-
+      })
   }
-  clientWiseChartDataSort(_data: any) {
 
-    this.countByClientName = {};
-    _data.forEach((_item: any) => {
-      if (!this.countByClientName[_item.Client_Name]) {
-        this.countByClientName[_item.Client_Name] = 0;
-      }
-      this.countByClientName[_item.Client_Name] += _item.Total_Count;
-    });
-    this.chart2label = Object.keys(this.countByClientName);
-    this.chart2series = Object.values(this.countByClientName);
-    this.chartOptions2.labels = [];
-    this.chart2label.forEach((items: any) => {
-      this.chartOptions2.labels.push(items);
-    });
-    this.chartOptions2.series = [];
-    this.chart2series.forEach((items: any) => {
-      this.chartOptions2.series.push(items);
-      this.clientwisePie?.updateSeries(this.chartOptions2.series);
-    });
-    this.clientwisePie?.updateOptions(this.chartOptions2);
-}
-
-  domainWiseChartDataSort(_data: any) {
-
-    let domainwise: any = {};
-    _data.forEach((_item: any) => {
-      if (!domainwise[_item.Domain_Name]) {
-        domainwise[_item.Domain_Name] = 0;
-      }
-      domainwise[_item.Domain_Name] += _item.Total_Count;
-    });
-    let chart3label = Object.keys(domainwise);
-    let chart3series = Object.values(domainwise);
-    this.chartOptions3.labels = [];
-    chart3label.forEach((items: any) => {
-      this.chartOptions3.labels.push(items);
-    });
-    this.chartOptions3.series = [];
-    chart3series.forEach((items: any) => {
-      this.chartOptions3.series.push(items);
-      this.chart3?.updateOptions(this.chartOptions3);
-    });
-}
-
-  clientwisedrivedata(_data: any) {
-
-      this.countByDriveName = {};
-    _data.forEach((_item: any) => {
-      if (!this.countByDriveName[_item.Client_Name]) {
-        this.countByDriveName[_item.Client_Name] = 1;
-      } else {
-        this.countByDriveName[_item.Client_Name] += 1;
-      }
-    });
-    let chart5label = Object.keys(this.countByDriveName);
-    let chart5series = Object.values(this.countByDriveName);
-    this.chartOptions5.labels = [];
-    chart5label.forEach((items: any) => {
-      this.chartOptions5?.labels.push(items);
-    });
-    this.chartOptions5.series = [];
-    chart5series.forEach((items: any) => {
-      this.chartOptions5?.series.push(items);
-      this.chart5?.updateSeries(this.chartOptions5.series);
-    });
-    this.chart5?.updateOptions(this.chartOptions5);
-
-    }
-
-  daterrange(event:any) {
+  daterrange(event:any){
 
     if (event.length==2) {
       console.log('datata', moment(event[0]).format('yyyy-MM-DD HH:mm'));
@@ -668,21 +508,44 @@ export class DashboardComponent implements OnInit {
         enddate: event ? moment(event[1]).format('yyyy-MM-DD HH:mm') : '',
       };
       this.DashboardData = dateparams;
-      this.getDashboardAPI();
+      if (this.utility.getUserOrg()==="57"){
+        this.getDashboardAPI()
+      } else {
+        this.dashboardDetails();
+      }
       console.log('dateparams', dateparams);
     }
+  }
+  onSelectionChange(event: any) {
+    const selectedValue = event.value;
+    this.toolTipData = {"event": event.value}
+    this.chartapi()
   }
   livebtn() {
     if(this.liveData)
     {
       this.socketService.getDashboardData()
-      this.getDashboardSocket();
     }else{
       this.socket_subs.unsubscribe()
       this.socketService.socketOff();
-      this.getDashboardAPI();
     }
   }
+
+tabchange(index:any){
+  this.currentTabIndex =index;
+  this.rowData = []
+  this.reportList.forEach((tab,i) => {
+    if (index === i) {
+      if (index === 0) {
+        this.homeDetails()
+      } else if (index === 1) {
+        this.dashboardDetails()
+      }
+    }
+
+  });
+}
+
 
   excelexport(params: any) {
     this.excelService.exportAsExcelFile(params, 'report');
