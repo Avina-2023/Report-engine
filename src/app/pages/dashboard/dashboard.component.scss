@@ -276,7 +276,8 @@
   overflow-y: auto; /* Add scrollbars if the content exceeds the maximum height */
 }
 .graph-flex{
-  display: flex
+  display: flex;
+
 }
 .right-chart {
   display: flex;
@@ -287,10 +288,8 @@
 .left_chart {
   display: flex;
   justify-content: flex-end;
-  padding-right: 10px;
-  margin-left: 10px;
   margin-right: 10px;
-  width: 100%;
+  width: 60%;
 }
 .schedule-flex {
   position: relative;

@@ -118,21 +118,9 @@
                                 class="blue-color">
                                 {{ scheduleData[0]?.overAll[0]?.started}}
                               </div>
-                              <!-- <div
-                              *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
-                              class="black-color">
-                              {{ scheduleData[0].overAll[0].Inprogrss }}
-                            </div>
-                            <div
-                              *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
-                              class="red-color">
-                              {{ scheduleData[0].overAll[0].scheduled }}
-                            </div> -->
                             </div>
                             <div class="right-flex">
                               <div>Test Taken</div>
-                              <!-- <div>Active</div>
-                            <div>Completed</div> -->
                             </div>
                           </div>
                         </div>
@@ -222,21 +210,9 @@
                                 class="orange-color">
                                 {{ scheduleData[0]?.completed[0]?.started }}
                               </div>
-                              <!-- <div
-                              *ngIf="scheduleData && scheduleData[0] && scheduleData[0].completed && scheduleData[0].completed[0]"
-                              class="black-color">
-                              {{ scheduleData[0].completed[0].Inprogrss }}
-                            </div>
-                            <div
-                              *ngIf="scheduleData && scheduleData[0] && scheduleData[0].completed && scheduleData[0].completed[0]"
-                              class="red-color">
-                              {{ scheduleData[0].completed[0].Completed }}
-                            </div> -->
                             </div>
                             <div class="right-flex">
                               <div>Test Taken</div>
-                              <!-- <div>Active</div>
-                            <div>Completed</div> -->
                             </div>
                           </div>
                         </div>
@@ -270,7 +246,6 @@
                       </mat-form-field>
                     </div>
                   </div>
-
                   <div class="graph-flex">
                     <div class="right-chart">
                       <div class="schedule-flex">
@@ -520,133 +495,4 @@
     </mat-tab-group>
   </div>
 </div>
-<!-- <div class="main-reports">
-  <div class="main">
-  <div class="right">
-    <mat-slide-toggle  color="warn">Live</mat-slide-toggle>
-  </div>
-  <div class="left">
-    <label for="range">Delivery date range:</label>
-    <nz-range-picker   [nzShowTime]="{ nzFormat: 'HH:mm' }"
-    nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7" (ngModelChange)="daterrange($event)"></nz-range-picker>
-  </div>
-  </div>
-  <div class="matcard-flex">
-    <div class="card-flex">
-      <mat-card class="mat-card">
-        <mat-card-content>
-          <div class="total-content">
-            <div>Total Candidates</div>
-            <div class="total-flex">
-              <div class="num-left">
-                <div class="mat-number">{{total?.Total_Count}}</div>
-              </div>
-              <div class="num-left">
-                <div class="number-flex">
-                  <div class="left-flex">
-                    <div class="green-color">{{total?.Started}}</div>
-                    <div class="black-color">{{total?.Yet_To_Start}}</div>
-                    <div class="red-color">0</div>
-                  </div>
-                  <div class="right-flex">
-                    <div>Total Logged in</div>
-                    <div>Yet To Start</div>
-                    <div>Issue</div>
-                  </div>
-                </div>
 
-              </div>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-    <div class="card-flex">
-      <mat-card class="mat-card">
-        <mat-card-content>
-          <div class="total-content">
-            <div>Test Started</div>
-            <div class="total-flex">
-              <div class="num-left">
-                <div class="mat-number">{{total?.Started}}</div>
-              </div>
-              <div class="num-left">
-                <div class="grid-flex">
-                  <div class="number-flex">
-                    <div class="left-flex">
-                      <div class="green-color">{{total?.Inprogress}}</div>
-                      <div class="black-color">{{total?.Completed}}</div>
-                      <div class="red-color">{{total?.Terminated}}</div>
-                    </div>
-                    <div class="right-flex">
-                      <div>Progress</div>
-                      <div>Completed</div>
-                      <div>Terminated</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-    <div class="card-flex">
-      <mat-card class="mat-card">
-        <mat-card-content>
-          <div class="total-content">
-            <div>Proctor</div>
-            <div class="proctor-flex">
-              <div class="circle green">{{created}}</div>
-              <div class="circle blue">{{Started}}</div>
-              <div class="circle gray">{{paused}}</div>
-              <div class="circle red">{{stopped}}</div>
-            </div>
-            <div class="proctor-create">
-              <div>Created</div>
-              <div>Started</div>
-              <div>Paused</div>
-              <div>Stopped</div>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
-</div>
-<div class="card_topic ml-10">
-  <div class="header">
-  <h1> Overall Dashboard Table Representation</h1>
-  </div>
-</div> -->
-
-<!-- <div class="topToolbar">
-    <button mat-stroked-button color="basic" (click)="excelexport(rowData)" class="outline-button"><mat-icon
-      class="download-icon">download</mat-icon><span>Download Report</span> </button>
-</div>
-<ag-grid-angular
-  style="
-    width: 100%;
-    height: 500px;
-    margin-bottom: 50px;
-    margin-left: 10px;
-    margin-right: 10px;
-  "
-  class="ag-theme-alpine"
-  [columnDefs]="columnDefs"
-  [defaultColDef]="defaultColDef"
-  [paginationPageSize]="20"
-  [pagination]="true"
->
-</ag-grid-angular>
-
-<ng-template #otherContent>
-  <div class="mat_card">
-    <mat-card>
-      <mat-card-header>
-      <mat-card-title></mat-card-title>
-      <mat-card-subtitle><span class="icon-popup-warning">  No Data Found </span> </mat-card-subtitle>
-      </mat-card-header>
-     </mat-card>
-  </div>
-</ng-template> -->

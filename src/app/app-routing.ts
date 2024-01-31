@@ -22,7 +22,7 @@ export const routes: Routes = [
     path:  `${APP_CONSTANTS.ROUTES.PROCTOR}`, loadComponent:() => import('./pages/proctor/proctor.component').then(comp=>comp.ProctorComponent),canActivate:[roleGuard],data:{role:"SADM"}
   },
   {
-    path:  `${APP_CONSTANTS.ROUTES.ACTIONCENTER}`, loadComponent:() => import('./pages/actionCenter/actionCenter.component').then(comp=>comp.ActionCenterComponent),canActivate:[roleGuard],data:{role:"SADM"}
+    path:  `${APP_CONSTANTS.ROUTES.ACTIONCENTER}`, loadComponent:() => import('./pages/actionCenter/actionCenter.component').then(comp=>comp.ActionCenterComponent),canActivate:[loginGaurd],data:{role:"ADMINCC"}
   },
   {
     path:  `${APP_CONSTANTS.ROUTES.USERDASHBOARD}`, loadComponent:() => import('./pages/userDashboard/userDashboard.component').then(comp=>comp.UserDashboardComponent),canActivate:[loginGaurd]

@@ -85,6 +85,13 @@ export class UserDashboardComponent implements OnInit {
   public columnDefs: ColDef[] = [];
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 
+  public defaultColDef: ColDef = {
+    sortable: true,
+    filter: true,
+    resizable:true,
+    editable:false,
+  };
+
 	ngOnInit() {
     this.getUserDashboardAPI();
   }
@@ -154,7 +161,7 @@ export class UserDashboardComponent implements OnInit {
         this.columnDefs.push({
           field: key,
           headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
-
+          pinned: this.isColumnPinned(key),
         }),
 
       );
@@ -175,7 +182,16 @@ export class UserDashboardComponent implements OnInit {
         sortable: false,
         filter: false,
         width: 150, // Adjust the width as needed
+        pinned: this.isColumnPinned("auditLog"),
       });
+  }
+  isColumnPinned(columnKey: string): boolean | 'left' | 'right' | null{
+    if (columnKey === 'User_Mail'){
+      return 'left';
+    } else  if (columnKey === 'auditLog'){
+      return 'right';
+    }
+    return null; // Column is not pinned
   }
   daterrange(event:any) {
 
@@ -195,14 +211,16 @@ export class UserDashboardComponent implements OnInit {
 
   onBtnClick(params: any) {
     if (params.label === "Get Logs") {
-
       if (params && params.rowData && params.rowData.Result_Id) {
         this.userLog = { "result_id": params.rowData.Result_Id }
         this.apiservice.reportDataFetch(this.userLog, "userResponse").subscribe((res: any) => {
-          if (res.data && res.data?.length) {
+          if (res.success === true && res.data && res.data?.length) {
             this.is_download= false
             this.popUpData =  { data: res.data} ;
             this.matPopUpOpen()
+          } else {
+            this.popupMessage = "User have not attented any questions"
+            this.matDialogOpen()
           }
         });
       } else {

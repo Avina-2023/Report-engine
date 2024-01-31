@@ -65,6 +65,9 @@
       <div *ngIf="apiCall === 'BehaviouralSync'">
         <button class="cnfrm" (click)="behaviouralSync()">Ok</button>
       </div>
+      <div *ngIf="apiCall === 'LmsScoreSync'">
+        <button class="cnfrm" (click)="LmsScoreSyncApi()">Ok</button>
+      </div>
       <div *ngIf="apiCall === 'Terminate-User'">
         <button class="cnfrm" (click)="TerminateUserApi()">Ok</button>
       </div>

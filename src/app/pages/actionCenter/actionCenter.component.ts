@@ -78,6 +78,8 @@ export class  ActionCenterComponent implements OnInit {
   UserScoreSync: any;
   ActivateUser: any;
   TerminateUser: any;
+  syncRedisData: any;
+  role: any;
 
 
   constructor(
@@ -85,8 +87,25 @@ export class  ActionCenterComponent implements OnInit {
     private utility: AppConfigService,
     private dialog: MatDialog
   ) {
-
-
+    let userDetails:any = localStorage.getItem('userDetails');
+    if(JSON.parse(userDetails)?.roleId == "SADM"){
+      this.role = "SADM"
+    }
+    if(JSON.parse(userDetails)?.roleId == "ADM"){
+      this.role = "ADM"
+    }
+    if(JSON.parse(userDetails)?.roleId == "CC"){
+      this.role = "CC"
+    }
+    if(JSON.parse(userDetails)?.roleId == "LMSADMIN"){
+      this.role = "LMSADMIN"
+    }
+    if(JSON.parse(userDetails)?.roleId == "OPS"){
+      this.role = "OPS"
+    }
+    if(JSON.parse(userDetails)?.roleId == "CBT"){
+      this.role = "CBT"
+    }
   }
 
   public columnDefs: ColDef[] = [];
@@ -124,7 +143,6 @@ clickHandler() {
 }
 
 dynamicallyConfigureColumnsFromObject(anObject: any) {
-  console.log("anObject",anObject);
 
   this.ColDef = this.agGrid.api.getColumnDefs();
   this.ColDef.length = 0;
@@ -132,14 +150,14 @@ dynamicallyConfigureColumnsFromObject(anObject: any) {
   if (anObject?.length) {
 
     const keys = Object.keys(anObject[0]);
-
     keys.forEach((key) =>
 
       this.columnDefs.push({
         field: key,
         headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
-
+        // pinned: this.isColumnPinned(key),
       }),
+
 
     );
 
@@ -148,29 +166,59 @@ dynamicallyConfigureColumnsFromObject(anObject: any) {
     this.agGrid.api.setRowData(anObject);
     this.rowData=anObject
 
+  if (this.role === "LMSADMIN") {
     this.columnDefs.push({
       headerName: 'Actions',
       cellRenderer: 'buttonRenderer',
       cellRendererParams: {
         onClick: this.onBtnClick.bind(this),
         buttons: [
-          { label: 'Terminate',color: '#32557f' },
-          { label: 'Result-Check',color: '#32557f' },
-          { label: 'Score-Check',color: '#32557f' },
-          { label: 'Score-Sync',color: '#32557f' },
-          { label: 'ProctorStatusSyn',color: '#32557f' },
-          { label: 'BehaviouralSync',color: '#32557f' },
+          { label: 'Terminate', color: '#32557f' },
+          { label: 'Result-Check', color: '#32557f' },
+          { label: 'Score-Check', color: '#32557f' },
+          { label: 'Score-Sync', color: '#32557f' },
+          { label: 'ProctorStatusSyn', color: '#32557f' },
+          { label: 'BehaviouralSync', color: '#32557f' },
+          { label: 'LmsScoreSync', color: '#32557f' },
         ],
       },
       sortable: false,
       filter: false,
       width: 800, // Adjust the width as needed
+      // pinned: this.isColumnPinned("Actions")
     });
+  } else {
+    this.columnDefs.push({
+      headerName: 'Actions',
+      cellRenderer: 'buttonRenderer',
+      cellRendererParams: {
+        onClick: this.onBtnClick.bind(this),
+        buttons: [
+          { label: 'Terminate', color: '#32557f' },
+          { label: 'Result-Check', color: '#32557f' },
+          { label: 'Score-Check', color: '#32557f' },
+          { label: 'Score-Sync', color: '#32557f' },
+          { label: 'ProctorStatusSyn', color: '#32557f' },
+          { label: 'BehaviouralSync', color: '#32557f' },
+        ],
+      },
+      sortable: false,
+      filter: false,
+      width: 800, // Adjust the width as needed
+      // pinned: this.isColumnPinned("Actions")
+    });
+  }
+}
+isColumnPinned(columnKey: string): boolean | 'left' | 'right' | null{
+  if (columnKey === 'Test_Name'){
+    return 'left';
+  } else  if (columnKey === 'User_Mail'){
+    return 'left';
+  }
+  return null; // Column is not pinned
 }
 
 dynamicallyConfigureforuserBased(anObject: any) {
-  console.log("anObject",anObject);
-
   this.ColDef = this.agGrid.api.getColumnDefs();
   this.ColDef.length = 0;
   this.columnDefs = [ ];
@@ -183,7 +231,7 @@ dynamicallyConfigureforuserBased(anObject: any) {
       this.columnDefs.push({
         field: key,
         headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
-
+        pinned: this.isColumnPinned(key),
       }),
 
     );
@@ -192,7 +240,6 @@ dynamicallyConfigureforuserBased(anObject: any) {
   this.agGrid.api.setColumnDefs(this.columnDefs);
     this.agGrid.api.setRowData(anObject);
     this.rowData=anObject
-    console.log("this.rowData",this.rowData);
     this.columnDefs.push({
       headerName: 'Actions',
       cellRenderer: 'buttonRenderer',
@@ -201,6 +248,7 @@ dynamicallyConfigureforuserBased(anObject: any) {
         buttons: [
           { label: 'Terminate-User',color: '#32557f' },
           { label: 'Activate-User',color: '#32557f' },
+          { label: 'syncRedisData',color: '#32557f' },
           { label: 'User-Score-Sync',color: '#32557f' },
           { label: 'UserProctorStatusSyn',color: '#32557f' },
           { label: 'UserBehaviouralSync',color: '#32557f' },
@@ -209,6 +257,7 @@ dynamicallyConfigureforuserBased(anObject: any) {
       sortable: false,
       filter: false,
       width: 800, // Adjust the width as needed
+      // pinned: this.isColumnPinned("Actions")
     });
 }
 
@@ -268,6 +317,19 @@ onBtnClick(params: any) {
     this.UserBehaviouralSync = {"Org_Id": params.rowData.Org_Id,"Delivery_Id":params.rowData.Delivery_Id,"User_Mail":params.rowData.User_Mail,"endpoint":"userBehaviourResultAks"}
     this.popupMessage = "Are you sure you want to sync behaviouralResult?"
     this.apiCall = "UserBehaviouralSync"
+    this.matDialogOpen()
+  } else if (params.label === "syncRedisData") {
+    this.syncRedisData = {"Org_Id": params.rowData.Org_Id,"result_id":params.rowData.Result_Id,"endpoint":"getUserRedisData"}
+    this.popupMessage = "Are you sure you want to sync RedisData?"
+    this.apiCall = "syncRedisData"
+    this.matDialogOpen()
+  } else if (params.label === "LmsScoreSync") {
+    console.log("params",params);
+
+    this.syncRedisData = {"Org_Id": params.rowData.Org_Id,"Delivery_Id": [params.rowData.Delivery_Id],"endpoint":"lmsScoreSyncDelivery"}
+    console.log("syncRedisData",this.syncRedisData);
+    this.popupMessage = "Are you sure you want to sync lmsScore?"
+    this.apiCall = "LmsScoreSync"
     this.matDialogOpen()
   }
 
@@ -422,6 +484,18 @@ userProctorSync(params: any= this.UserProctorStatusSyn){
 userBehaviouralSync(params: any= this.UserBehaviouralSync){
   this.apiCall=""
   this.apiservice.reportDataFetch({Org_Id:params.Org_Id,deliveryid: params.Delivery_Id,email: params.User_Mail},params.endpoint).subscribe((res: any) => {
+    if (res.success && res.success === true) {
+      this.popupMessage = res.message
+      this.messageResponse= res.message
+    } else {
+      this.popupMessage = res.message
+      this.messageResponse= res.message
+    }
+  })
+}
+LmsScoreSyncApi(params: any= this.UserBehaviouralSync){
+  this.apiCall=""
+  this.apiservice.reportDataFetch({Org_Id:params.Org_Id,deliveryid: params.Delivery_Id},params.endpoint).subscribe((res: any) => {
     if (res.success && res.success === true) {
       this.popupMessage = res.message
       this.messageResponse= res.message
