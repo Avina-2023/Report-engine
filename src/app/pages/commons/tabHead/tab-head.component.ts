@@ -21,6 +21,7 @@ export class TabHeadComponent implements OnInit {
   isCC:boolean = false;
   isOPS: boolean = false;
   isCBT: boolean = false;
+  isAdmincc: boolean = false;
   constructor(private utility: UtilityService) {
     let userDetails:any = localStorage.getItem('userDetails');
     if(JSON.parse(userDetails)?.roleId == "SADM"){
@@ -31,6 +32,9 @@ export class TabHeadComponent implements OnInit {
     }
     if(JSON.parse(userDetails)?.roleId == "CC"){
       this.isCC = true;
+    }
+    if(JSON.parse(userDetails)?.roleId == "LMSADMIN"){
+      this.isAdmincc = true
     }
     if(JSON.parse(userDetails)?.roleId == "OPS"){
       this.isOPS = true;
