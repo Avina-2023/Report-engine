@@ -102,7 +102,7 @@ export class CommonreportviewComponent implements OnInit {
   }
   dynamicallyConfigureColumnsanalysis(anObject:any){
     console.log("object",anObject);
-    this.styleSheet = "width: 250%; height: 300px;margin-left: 10px;margin-top: 5px;margin-bottom: 5px;"
+    this.styleSheet = " height: 300px;margin-left: 10px;margin-top: 5px;margin-bottom: 5px;"
     this.ColDef = this.agGrid?.api?.getColumnDefs();
     // this.ColDef.length=0;
     this.columnDefs = []
