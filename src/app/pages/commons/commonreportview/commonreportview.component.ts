@@ -89,15 +89,16 @@ export class CommonreportviewComponent implements OnInit {
       this.tabledata = anObject.data
       this.excelData= anObject
     } else if (anObject.data?.length) {
-
         const keys = Object.keys(anObject.data[0])
         keys.forEach(key =>
           this.columnDefs.push({ field: key, headerName: key.replaceAll('_', ' ') })
         );
+
       this.agGrid?.api?.setColumnDefs(this.columnDefs);
       this.agGrid?.api.setRowData(anObject.data);
       this.tabledata = anObject.data
       this.excelData= anObject
+
     }
   }
   dynamicallyConfigureColumnsanalysis(anObject:any){

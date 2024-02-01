@@ -22,6 +22,7 @@ import { AppConfigService } from 'src/app/utils/app-config.service';
 import { MinidetailscardComponent } from '../minidetailscard/minidetailscard.component';
 import { ButtonRendererComponent } from '../../renderer/button-renderer.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-apiLogs',
@@ -51,8 +52,8 @@ export class ApiLogsComponent implements OnInit {
 
     if(event.length){
      this.tabdate = {
-     "startdate":event?this.datepipe.transform(event[0], 'yyyy-MM-dd HH:mm'):"",
-     "enddate":event?this.datepipe.transform(event[1], 'yyyy-MM-dd HH:mm'):""
+        startdate: event ? moment(event[0]).format('yyyy-MM-DD HH:mm') : '',
+        enddate: event ? moment(event[1]).format('yyyy-MM-DD HH:mm') : '',
    }
    this.apiLogs()
 

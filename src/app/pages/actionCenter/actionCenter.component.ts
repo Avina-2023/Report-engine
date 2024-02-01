@@ -80,6 +80,8 @@ export class  ActionCenterComponent implements OnInit {
   TerminateUser: any;
   syncRedisData: any;
   role: any;
+  synLmsData: any;
+  synLmsStatusData: any;
 
 
   constructor(
@@ -166,7 +168,7 @@ dynamicallyConfigureColumnsFromObject(anObject: any) {
     this.agGrid.api.setRowData(anObject);
     this.rowData=anObject
 
-  if (this.role === "LMSADMIN") {
+  if (this.role === "LMSADMIN" || this.role === "SADM") {
     this.columnDefs.push({
       headerName: 'Actions',
       cellRenderer: 'buttonRenderer',
@@ -179,12 +181,13 @@ dynamicallyConfigureColumnsFromObject(anObject: any) {
           { label: 'Score-Sync', color: '#32557f' },
           { label: 'ProctorStatusSyn', color: '#32557f' },
           { label: 'BehaviouralSync', color: '#32557f' },
+          { label: 'LmsStatusSync', color: '#32557f' },
           { label: 'LmsScoreSync', color: '#32557f' },
         ],
       },
       sortable: false,
       filter: false,
-      width: 800, // Adjust the width as needed
+      width: 1000, // Adjust the width as needed
       // pinned: this.isColumnPinned("Actions")
     });
   } else {
@@ -324,12 +327,14 @@ onBtnClick(params: any) {
     this.apiCall = "syncRedisData"
     this.matDialogOpen()
   } else if (params.label === "LmsScoreSync") {
-    console.log("params",params);
-
-    this.syncRedisData = {"Org_Id": params.rowData.Org_Id,"Delivery_Id": [params.rowData.Delivery_Id],"endpoint":"lmsScoreSyncDelivery"}
-    console.log("syncRedisData",this.syncRedisData);
+    this.synLmsData = {"Org_Id": params.rowData.Org_Id,"Delivery_Id": [params.rowData.Delivery_Id],"endpoint":"lmsScoreSyncDelivery"}
     this.popupMessage = "Are you sure you want to sync lmsScore?"
     this.apiCall = "LmsScoreSync"
+    this.matDialogOpen()
+  } else if (params.label === "LmsStatusSync") {
+    this.synLmsStatusData = {"Org_Id": params.rowData.Org_Id,"Delivery_Id": params.rowData.Delivery_Id,"endpoint":"bulkSyncAssessmentStatus"}
+    this.popupMessage = "Are you sure you want to sync lmsStatus?"
+    this.apiCall = "LmsStatusSync"
     this.matDialogOpen()
   }
 
@@ -493,9 +498,21 @@ userBehaviouralSync(params: any= this.UserBehaviouralSync){
     }
   })
 }
-LmsScoreSyncApi(params: any= this.UserBehaviouralSync){
+LmsScoreSyncApi(params: any= this.synLmsData){
   this.apiCall=""
-  this.apiservice.reportDataFetch({Org_Id:params.Org_Id,deliveryid: params.Delivery_Id},params.endpoint).subscribe((res: any) => {
+  this.apiservice.reportDataFetch({Org_Id:params.Org_Id,Delivery_Id: params.Delivery_Id},params.endpoint).subscribe((res: any) => {
+    if (res.success && res.success === true) {
+      this.popupMessage = res.message
+      this.messageResponse= res.message
+    } else {
+      this.popupMessage = res.message
+      this.messageResponse= res.message
+    }
+  })
+}
+LmsStatusSyncApi(params: any= this.synLmsStatusData){
+  this.apiCall=""
+  this.apiservice.reportDataFetch({Org_Id:params.Org_Id,Delivery_Id: params.Delivery_Id},params.endpoint).subscribe((res: any) => {
     if (res.success && res.success === true) {
       this.popupMessage = res.message
       this.messageResponse= res.message
