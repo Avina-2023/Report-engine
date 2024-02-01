@@ -442,6 +442,7 @@ behaviouralSync(params: any= this.BehaviouralSync){
   })
 }
 TerminateUserApi(params: any= this.TerminateUser){
+  this.apiCall=""
   this.apiservice.reportDataFetch({Org_Id:params.Org_Id,result_id: params.result_id},params.endpoint).subscribe((res: any) => {
     if (res.success && res.success === true) {
       this.popupMessage = res.message
@@ -453,6 +454,19 @@ TerminateUserApi(params: any= this.TerminateUser){
   })
 }
 activateUseeApi(params: any= this.ActivateUser){
+  this.apiCall=""
+  this.apiservice.reportDataFetch({Org_Id:params.Org_Id,result_id: params.result_id},params.endpoint).subscribe((res: any) => {
+    if (res.success && res.success === true) {
+      this.popupMessage = res.message
+      this.messageResponse= res.message
+    } else {
+      this.popupMessage = res.message
+      this.messageResponse= res.message
+    }
+  })
+}
+syncRedisDataApi(params: any= this.syncRedisData){
+  this.apiCall=""
   this.apiservice.reportDataFetch({Org_Id:params.Org_Id,result_id: params.result_id},params.endpoint).subscribe((res: any) => {
     if (res.success && res.success === true) {
       this.popupMessage = res.message
@@ -464,6 +478,7 @@ activateUseeApi(params: any= this.ActivateUser){
   })
 }
 userScoreSync(params: any= this.UserScoreSync){
+  this.apiCall=""
   this.apiservice.reportDataFetch({"Org_Id": params.Org_Id,"Delivery_Id":params.Delivery_Id,"Test_Id":params.Test_Id,"Test_Taker_Id":params.Test_Taker_Id},params.endpoint).subscribe((res: any) => {
     if (res.success && res.success === true) {
       this.popupMessage = res.message
