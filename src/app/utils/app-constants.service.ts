@@ -8,7 +8,11 @@ export const APP_CONSTANTS = {
     VMSSDASH: '/dashboard_VMSS',
     PROCTOR:'/proctor',
     EXAM:'/exam',
-
+    USERDASHBOARD: '/userdashboard',
+    ACTIONCENTER: '/actioncenter',
+    ANALYSIS: '/analysis',
+    REGISTRATION: '/registration',
+    APILOGS: 'apilogs',
     ADMIN:{
       ADDUSER: '/admin/newUser'
     },
@@ -21,6 +25,11 @@ export const APP_CONSTANTS = {
     VMSSDASH: 'dashboard_VMSS',
     PROCTOR:'proctor',
     EXAM:'exam',
+    USERDASHBOARD: 'userdashboard',
+    ACTIONCENTER: 'actioncenter',
+    ANALYSIS: 'analysis',
+    REGISTRATION: 'registration',
+    APILOGS: 'apilogs',
     ADMIN:{
       HOME: 'admin/newUser',
       ADDUSER:'newUser'

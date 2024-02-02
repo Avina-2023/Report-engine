@@ -1,0 +1,10 @@
+<div class="main-reports">
+  <div class="left">
+    <label for="range">Delivery date range:</label>
+    <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7"
+      (ngModelChange)="daterrange($event)"></nz-range-picker>
+  </div>
+  <div class="mat_accordion">
+     <app-commonreportview [tabledata]="rowData" [isdownload]= true></app-commonreportview>
+  </div>
+</div>

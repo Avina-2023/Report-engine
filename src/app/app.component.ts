@@ -6,12 +6,13 @@ import { SideMenuBarComponent } from './pages/commons/sideMenuBar/sideMenuBar.co
 import { HeaderComponent } from './pages/commons/header/header.component';
 import { CommonModule } from '@angular/common';
 import { LoadingSpinnerComponent } from './pages/commons/loadingSpinner/loadingSpinner.component';
+import { TabHeadComponent } from './pages/commons/tabHead/tab-head.component';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     standalone: true,
-    imports: [LoadingSpinnerComponent, CommonModule, HeaderComponent, SideMenuBarComponent, RouterOutlet, FooterComponent]
+    imports: [LoadingSpinnerComponent, CommonModule, HeaderComponent, SideMenuBarComponent, RouterOutlet, FooterComponent,TabHeadComponent]
 })
 
 
