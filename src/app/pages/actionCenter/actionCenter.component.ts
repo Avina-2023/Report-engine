@@ -82,6 +82,7 @@ export class  ActionCenterComponent implements OnInit {
   role: any;
   synLmsData: any;
   synLmsStatusData: any;
+  userDetails: any;
 
 
   constructor(
@@ -167,8 +168,7 @@ dynamicallyConfigureColumnsFromObject(anObject: any) {
    this.agGrid.api.setColumnDefs(this.columnDefs);
     this.agGrid.api.setRowData(anObject);
     this.rowData=anObject
-
-  if (this.role === "LMSADMIN" || this.role === "SADM") {
+  if (this.role === "SADM" ){
     this.columnDefs.push({
       headerName: 'Actions',
       cellRenderer: 'buttonRenderer',
@@ -176,6 +176,7 @@ dynamicallyConfigureColumnsFromObject(anObject: any) {
         onClick: this.onBtnClick.bind(this),
         buttons: [
           { label: 'Terminate', color: '#32557f' },
+          { label: 'UserDatailsSync', color: '#32557f' },
           { label: 'Result-Check', color: '#32557f' },
           { label: 'Score-Check', color: '#32557f' },
           { label: 'Score-Sync', color: '#32557f' },
@@ -190,6 +191,23 @@ dynamicallyConfigureColumnsFromObject(anObject: any) {
       width: 1000, // Adjust the width as needed
       // pinned: this.isColumnPinned("Actions")
     });
+  } else if (this.role === "LMSADMIN" ) {
+    this.columnDefs.push({
+      headerName: 'Actions',
+      cellRenderer: 'buttonRenderer',
+      cellRendererParams: {
+        onClick: this.onBtnClick.bind(this),
+        buttons: [
+          { label: 'Terminate', color: '#32557f' },
+          { label: 'LmsStatusSync', color: '#32557f' },
+          { label: 'LmsScoreSync', color: '#32557f' },
+        ],
+      },
+      sortable: false,
+      filter: false,
+      width: 600, // Adjust the width as needed
+      // pinned: this.isColumnPinned("Actions")
+    });
   } else {
     this.columnDefs.push({
       headerName: 'Actions',
@@ -198,16 +216,17 @@ dynamicallyConfigureColumnsFromObject(anObject: any) {
         onClick: this.onBtnClick.bind(this),
         buttons: [
           { label: 'Terminate', color: '#32557f' },
+          { label: 'UserDatailsSync', color: '#32557f' },
           { label: 'Result-Check', color: '#32557f' },
           { label: 'Score-Check', color: '#32557f' },
           { label: 'Score-Sync', color: '#32557f' },
           { label: 'ProctorStatusSyn', color: '#32557f' },
-          { label: 'BehaviouralSync', color: '#32557f' },
+          { label: 'BehaviouralSync', color: '#32557f' }
         ],
       },
       sortable: false,
       filter: false,
-      width: 800, // Adjust the width as needed
+      width: 1000, // Adjust the width as needed
       // pinned: this.isColumnPinned("Actions")
     });
   }
@@ -336,6 +355,11 @@ onBtnClick(params: any) {
     this.popupMessage = "Are you sure you want to sync lmsStatus?"
     this.apiCall = "LmsStatusSync"
     this.matDialogOpen()
+  } else if (params.label === "UserDatailsSync") {
+    this.userDetails = {"Org_Id": params.rowData.Org_Id,"Delivery_Id": params.rowData.Delivery_Id,"endpoint":"synkUserDetails"}
+    this.popupMessage = "Are you sure you want to sync users in Users Dashboard ?"
+    this.apiCall = "UserDatailsSync"
+    this.matDialogOpen()
   }
 
 }
@@ -432,6 +456,18 @@ proctorStatusSyn(params: any= this.ProctorStatusSyn){
 behaviouralSync(params: any= this.BehaviouralSync){
   this.apiCall=""
   this.apiservice.reportDataFetch({Org_Id:params.Org_Id,deliveryid: params.Delivery_Id},params.endpoint).subscribe((res: any) => {
+    if (res.success && res.success === true) {
+      this.popupMessage = res.message
+      this.messageResponse= res.message
+    } else {
+      this.popupMessage = res.message
+      this.messageResponse= res.message
+    }
+  })
+}
+userDetailsSync(params: any= this.userDetails){
+  this.apiCall=""
+  this.apiservice.reportDataFetch({Org_Id:params.Org_Id,Delivery_Id: params.Delivery_Id},params.endpoint).subscribe((res: any) => {
     if (res.success && res.success === true) {
       this.popupMessage = res.message
       this.messageResponse= res.message
