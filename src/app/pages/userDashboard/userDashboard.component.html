@@ -92,3 +92,47 @@ margin-right: 10px;
     </div>
   </div>
 </ng-template>
+<ng-template #matDialPdf>
+  <div  class="pdf-popup">
+  <div>
+  </div>
+  <div class="text">
+    <div class="audit-trail-container">
+      <h2>Candidate Audit Report</h2>
+      <div class="candidate-details">
+        <p>Roll No: <span>{{auditData[0].User_Mail}} </span></p>
+        <p>Name: <span>{{auditData[0].User_First_Name}} {{auditData[0].User_Last_Name}} </span></p>
+        <p>Exam: <span>{{auditData[0].Custom_Label}} </span></p>
+        <p>Subject: <span>{{auditData[0].Test_Name}} </span></p>
+        <p>Batch Date Time: <span>{{auditData[0].TestTakenOn}} </span></p>
+        <p>Duration: <span>{{auditData[0].TestTakenDuration}} (Mins) </span></p>
+      </div>
+      <h3>Candidate Audit Trail</h3>
+      <table class="audit-trail-table">
+        <thead>
+          <tr>
+            <th>Sl. No.</th>
+            <th>Action Item</th>
+            <th>Selected Option</th>
+            <th>ActionOn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of auditData[0].auditList; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{item.ActionDetails}}</td>
+            <td>{{item.selectedOption}}</td>
+            <td>{{item.ActionOn}} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="popup-btn">
+    <button class="ok" (click)="popupClose()">Close</button>
+    <!-- <button class="ok" (click)="generatePDF()">Generate PDF</button> -->
+  </div>
+  </div>
+</ng-template>
+
+

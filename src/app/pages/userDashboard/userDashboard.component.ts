@@ -21,6 +21,8 @@ import { MinidetailscardComponent } from '../minidetailscard/minidetailscard.com
 import { ButtonRendererComponent } from '../../renderer/button-renderer.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { CommonreportviewComponent } from '../commons/commonreportview/commonreportview.component';
+import { ScrollStrategyOptions } from '@angular/cdk/overlay';
+// import { jsPDF } from "jspdf";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -52,6 +54,9 @@ export class UserDashboardComponent implements OnInit {
   matDialogRef!: TemplateRef<any>;
   @ViewChild('matDialgrid', { static: false })
   matDiagridRef!: TemplateRef<any>;
+  @ViewChild('matDialPdf', { static: false })
+  matDialPdfdRef!: TemplateRef<any>;
+
 
   responseData: any;
   DashboardData: any;
@@ -71,13 +76,15 @@ export class UserDashboardComponent implements OnInit {
   popupMessage: any;
   popUpData: any;
   is_download: any;
+  auditData: any;
 
   constructor(
     private apiservice: ApiService,
     public loader: LoaderService,
     public utility: AppConfigService,
     private excelService:ExcelService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private scrollStrategyOptions: ScrollStrategyOptions
   ){
 
   }
@@ -170,6 +177,24 @@ export class UserDashboardComponent implements OnInit {
     this.agGrid.api.setColumnDefs(this.columnDefs);
       this.agGrid.api.setRowData(anObject);
       this.rowData=anObject
+      console.log("this.utility.getUserOrg()",this.utility.getUserOrg());
+
+      if(this.utility.getUserOrg()=== "57"){
+       this.columnDefs.push({
+        headerName: 'auditLog',
+        cellRenderer: 'buttonRenderer',
+        cellRendererParams: {
+          onClick: this.onBtnClick.bind(this),
+          buttons: [
+            { label: 'View Logs',color: '#32557f' },
+          ],
+        },
+        sortable: false,
+        filter: false,
+        width: 150, // Adjust the width as needed
+        pinned: this.isColumnPinned("auditLog"),
+      });
+    } else {
       this.columnDefs.push({
         headerName: 'auditLog',
         cellRenderer: 'buttonRenderer',
@@ -184,6 +209,7 @@ export class UserDashboardComponent implements OnInit {
         width: 150, // Adjust the width as needed
         pinned: this.isColumnPinned("auditLog"),
       });
+    }
   }
   isColumnPinned(columnKey: string): boolean | 'left' | 'right' | null{
     if (columnKey === 'User_Mail'){
@@ -210,6 +236,8 @@ export class UserDashboardComponent implements OnInit {
   }
 
   onBtnClick(params: any) {
+    console.log("params",params);
+
     if (params.label === "Get Logs") {
       if (params && params.rowData && params.rowData.Result_Id) {
         this.userLog = { "result_id": params.rowData.Result_Id }
@@ -227,7 +255,24 @@ export class UserDashboardComponent implements OnInit {
         this.popupMessage = "User have not started or attented any questions"
         this.matDialogOpen()
       }
+    }  else if (params.label === "View Logs"){
+      console.log("View Logs");
+
+      if (params && params.rowData && params.rowData.Result_Id) {
+        this.userLog = { "result_id": params.rowData.Result_Id }
+        this.apiservice.reportDataFetch(this.userLog, "getAuditPdfReport").subscribe((res: any) => {
+          if (res.success === true && res.data && res.data?.length) {
+            this.is_download= false
+            this.auditData = res.data ;
+            console.log(" this.auditData", this.auditData);
+            this.matPdfOpen()
+          } else {
+            this.popupMessage = "User have not started or attented any questions"
+            this.matDialogOpen()
+          }
+        });
     }
+  }
   }
   matDialogOpen() {
     const dialogRef = this.dialog.open(this.matDialogRef, {
@@ -249,9 +294,54 @@ export class UserDashboardComponent implements OnInit {
       panelClass: 'popupModalContainerForForms'
     });
   }
+  matPdfOpen() {
+    const dialogRef = this.dialog.open(this.matDialPdfdRef, {
+      width: '100%',
+      height: '100%',
+      autoFocus: false,
+      closeOnNavigation: true,
+      disableClose: false,
+      panelClass: 'popupModalContainerForForms',
+      scrollStrategy: this.scrollStrategyOptions.block()
+    });
+  }
+  // generatePDF() {
+  // // Get the HTML content of the table
+  // const tableHtml = this.matDialPdfdRef.elementRef;
+  // console.log("tableHtml",tableHtml);
+
+  // const doc = new jsPDF();
+  // // Add page breaks dynamically based on content height
+  // let y = 20; // Initial starting position
+  // const pageSize = doc.internal.pageSize;
+  // const pageHeight = pageSize.height - 20; // Margin below content
+  // // const tableHeight = doc.getTextDimensions(tableHtml).h;
+
+  // // if (tableHeight > pageHeight) {
+  // //   doc.html(tableHtml, {
+  // //     x: 10, // Horizontal margin
+  // //     y: y,
+  // //     callback: (pdf) => {
+  // //       y += doc.getTextDimensions(tableHtml).h;
+
+  // //       if (y > pageHeight) {
+  // //         pdf.addPage();
+  // //         y = 20; // Reset y for next page
+  // //         pdf.html(tableHtml, { x: 10, y: y });
+  // //       }
+  // //     },
+  // //   });
+  // // } else {
+  // //   // If table fits on one page, add it normally
+  // //   doc.html(tableHtml, { x: 10, y: y });
+  // // }
+
+  // doc.save(this.auditData[0].User_Mail+'audit-trail.pdf');
+  // }
   popupClose(){
     this.dialog.closeAll(); // Close all open dialogs
   }
+
 
 }
 

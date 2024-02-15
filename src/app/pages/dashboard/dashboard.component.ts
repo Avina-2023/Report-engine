@@ -416,6 +416,10 @@ export class DashboardComponent implements OnInit {
 
     this.total = results;
     console.log("this.total",this.total);
+    this.CountDetails = {
+      idle: this.total.Idle,
+      terminate: this.total.Terminated,
+    };
 
    }
 
@@ -447,7 +451,6 @@ export class DashboardComponent implements OnInit {
   }
 
   dynamicallyConfigureColumnsFromObject(anObject: any) {
-    console.log("anObject",anObject);
 
     this.ColDef = this.agGrid.api.getColumnDefs();
     this.ColDef.length = 0;
