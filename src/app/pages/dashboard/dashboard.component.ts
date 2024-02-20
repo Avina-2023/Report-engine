@@ -385,7 +385,6 @@ export class DashboardComponent implements OnInit {
       keys.map((key) => _.sum(_.map(_data, key)))
     );
     this.total = results;
-    console.log(this.total,'this.total');
    }
 
    groupingOfflineCount(_data:any){
@@ -415,7 +414,10 @@ export class DashboardComponent implements OnInit {
 
 
     this.total = results;
-    console.log("this.total",this.total);
+    this.CountDetails = {
+      idle: this.total.Idle,
+      terminate: this.total.Terminated,
+    };
 
    }
 
@@ -447,7 +449,6 @@ export class DashboardComponent implements OnInit {
   }
 
   dynamicallyConfigureColumnsFromObject(anObject: any) {
-    console.log("anObject",anObject);
 
     this.ColDef = this.agGrid.api.getColumnDefs();
     this.ColDef.length = 0;
@@ -473,7 +474,6 @@ export class DashboardComponent implements OnInit {
   }
   groupingdata(data: any) {
 
-    console.log(data,'groupingdata');
 
     this.chartOptions4.series = [];
     const data$ = from(data);
@@ -502,7 +502,6 @@ export class DashboardComponent implements OnInit {
   daterrange(event:any){
 
     if (event.length==2) {
-      console.log('datata', moment(event[0]).format('yyyy-MM-DD HH:mm'));
       let dateparams = {
         startdate: event ? moment(event[0]).format('yyyy-MM-DD HH:mm') : '',
         enddate: event ? moment(event[1]).format('yyyy-MM-DD HH:mm') : '',
@@ -513,7 +512,6 @@ export class DashboardComponent implements OnInit {
       } else {
         this.dashboardDetails();
       }
-      console.log('dateparams', dateparams);
     }
   }
   onSelectionChange(event: any) {

@@ -99,7 +99,6 @@ export class ExamStatusReportComponent implements OnInit {
       is_download:false,
       isLegend:true
     }
-    console.log("fdbh",utility.getUserOrg());
 
 
     if(utility.getUserOrg()==="57"){
@@ -145,7 +144,6 @@ daterrange(event:any){
 // }
 dateWiseSectionReport(data:any){
   let endPoint = "dateWiseSectionReport"
-  console.log(this.utility.getUserOrg())
   if(this.utility.getUserOrg() === 57){
     endPoint = "getsectiondetails"
   }

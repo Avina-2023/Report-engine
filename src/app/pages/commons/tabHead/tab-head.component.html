@@ -1,19 +1,19 @@
 <div class="warpper">
-  <input  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isAdmincc" class="radio" id="one" name="group" type="radio" checked>
-  <input  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isAdmincc" class="radio" id="two" name="group" type="radio">
-  <input  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isAdmincc" class="radio" id="three" name="group" type="radio">
+  <input  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="radio" id="one" name="group" type="radio" checked>
+  <input  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="radio" id="two" name="group" type="radio">
+  <input  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="radio" id="three" name="group" type="radio">
   <input  *ngIf="isSuperAdmin||isAdmin||isAdmincc" class="radio" id="four" name="group" type="radio">
   <input  *ngIf="isSuperAdmin||isAdmin" class="radio" id="five" name="group" type="radio">
-  <!-- <input  *ngIf="isAdmin" class="radio" id="six" name="group" type="radio"> -->
+  <input  *ngIf="isSuperAdmin||isAdmin" class="radio" id="six" name="group" type="radio">
   <input  *ngIf="isSuperAdmin||isAdmin" class="radio" id="seven" name="group" type="radio">
   <input  *ngIf="isSuperAdmin||isAdmin" class="radio" id="eight" name="group" type="radio">
   <div class="tabs">
     <label *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="tab" id="one-tab" for="one" [routerLink]="[app_const.ENDPOINTS.DASHBOARD]" >Dashboard</label>
-    <label  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isAdmincc" class="tab" id="two-tab" for="two" [routerLink]="[app_const.ENDPOINTS.USERDASHBOARD]">User Dashboard</label>
+    <label  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="tab" id="two-tab" for="two" [routerLink]="[app_const.ENDPOINTS.USERDASHBOARD]">User Dashboard</label>
     <label  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="tab" id="three-tab" for="three" [routerLink]="[app_const.ENDPOINTS.EXAM]">Reports</label>
     <label  *ngIf="isSuperAdmin||isAdmin||isAdmincc" class="tab" id="four-tab" for="four" [routerLink]="[app_const.ENDPOINTS.ACTIONCENTER]">Action Center</label>
     <label  *ngIf="isSuperAdmin||isAdmin" class="tab" id="five-tab" for="five" [routerLink]="[app_const.ENDPOINTS.PROCTOR]">Proctors</label>
-    <!-- <label  *ngIf=""class="tab" id="six-tab" for="six" [routerLink]="[app_const.ENDPOINTS.ANALYSIS]">Assessment Analysis</label> -->
+    <label  *ngIf="isSuperAdmin||isAdmin" class="tab" id="six-tab" for="six" [routerLink]="[app_const.ENDPOINTS.ANALYSIS]">Assessment Analysis</label>
     <label  *ngIf="isSuperAdmin||isAdmin" class="tab" id="seven-tab" for="seven" [routerLink]="[app_const.ENDPOINTS.REGISTRATION]">Registration</label>
     <label  *ngIf="isSuperAdmin||isAdmin" class="tab" id="eight-tab" for="eight" [routerLink]="[app_const.ENDPOINTS.APILOGS]">Api Logs</label>
   </div>

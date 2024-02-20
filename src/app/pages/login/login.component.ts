@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("works");
   // this.authConfig.setlocalValue('token', "mytoken is tli");
 
   //   this.authConfig.routeNavigation("/dashboard");
@@ -53,10 +52,8 @@ export class LoginComponent implements OnInit {
       email: this.loginForm.value.email,
       password: encrypted
     }
-    console.log("data",data);
 
     this.https.login(data).subscribe((res: any) => {
-      console.log("res",res);
 
       if (res.success) {
         var userObject = res.data.attributes
