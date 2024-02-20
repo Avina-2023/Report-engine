@@ -22,7 +22,7 @@ import { ButtonRendererComponent } from '../../renderer/button-renderer.componen
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { CommonreportviewComponent } from '../commons/commonreportview/commonreportview.component';
 import { ScrollStrategyOptions } from '@angular/cdk/overlay';
-// import { jsPDF } from "jspdf";
+import { jsPDF } from "jspdf";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -177,7 +177,6 @@ export class UserDashboardComponent implements OnInit {
     this.agGrid.api.setColumnDefs(this.columnDefs);
       this.agGrid.api.setRowData(anObject);
       this.rowData=anObject
-      console.log("this.utility.getUserOrg()",this.utility.getUserOrg());
 
       if(this.utility.getUserOrg()=== "57"){
        this.columnDefs.push({
@@ -236,7 +235,6 @@ export class UserDashboardComponent implements OnInit {
   }
 
   onBtnClick(params: any) {
-    console.log("params",params);
 
     if (params.label === "Get Logs") {
       if (params && params.rowData && params.rowData.Result_Id) {
@@ -256,7 +254,6 @@ export class UserDashboardComponent implements OnInit {
         this.matDialogOpen()
       }
     }  else if (params.label === "View Logs"){
-      console.log("View Logs");
 
       if (params && params.rowData && params.rowData.Result_Id) {
         this.userLog = { "result_id": params.rowData.Result_Id }
@@ -264,7 +261,6 @@ export class UserDashboardComponent implements OnInit {
           if (res.success === true && res.data && res.data?.length) {
             this.is_download= false
             this.auditData = res.data ;
-            console.log(" this.auditData", this.auditData);
             this.matPdfOpen()
           } else {
             this.popupMessage = "User have not started or attented any questions"
@@ -306,38 +302,166 @@ export class UserDashboardComponent implements OnInit {
     });
   }
   // generatePDF() {
-  // // Get the HTML content of the table
-  // const tableHtml = this.matDialPdfdRef.elementRef;
-  // console.log("tableHtml",tableHtml);
+  //   // Get the HTML content of the table
+  //   const tableHtml = document.getElementById('pdf-html');
 
-  // const doc = new jsPDF();
-  // // Add page breaks dynamically based on content height
-  // let y = 20; // Initial starting position
-  // const pageSize = doc.internal.pageSize;
-  // const pageHeight = pageSize.height - 20; // Margin below content
-  // // const tableHeight = doc.getTextDimensions(tableHtml).h;
+  //   if (!tableHtml) {
+  //     console.error('Table element with ID "pdf-html" not found.');
+  //     return;
+  //   }
 
-  // // if (tableHeight > pageHeight) {
-  // //   doc.html(tableHtml, {
-  // //     x: 10, // Horizontal margin
-  // //     y: y,
-  // //     callback: (pdf) => {
-  // //       y += doc.getTextDimensions(tableHtml).h;
+  //   // // Wait for table rendering if dynamically generated (replace with your check)
+  //   // if (/* condition indicating table hasn't rendered yet */) {
+  //   //   setTimeout(() => this.generatePDF(), 100); // Adjust timeout as needed
+  //   //   return;
+  //   // }
 
-  // //       if (y > pageHeight) {
-  // //         pdf.addPage();
-  // //         y = 20; // Reset y for next page
-  // //         pdf.html(tableHtml, { x: 10, y: y });
-  // //       }
-  // //     },
-  // //   });
-  // // } else {
-  // //   // If table fits on one page, add it normally
-  // //   doc.html(tableHtml, { x: 10, y: y });
-  // // }
+  //   const tableHtmlString = tableHtml.innerHTML;
 
-  // doc.save(this.auditData[0].User_Mail+'audit-trail.pdf');
+  //   // Optional logging for debugging
+  //   console.log("tableHtmlString", tableHtmlString);
+
+  //   const doc = new jsPDF();
+
+  //   // Dynamic page breaks with initial position and margin adjustments
+  //   let y = 20; // Initial starting position
+  //   const pageSize = doc.internal.pageSize;
+  //   const pageHeight = pageSize.height - 20; // Adjust margin as needed
+  //   const tableHeight = doc.getTextDimensions(tableHtmlString).h;
+
+  //   if (tableHeight > pageHeight) {
+  //     console.log("Table too large for one page - using page breaks");
+
+  //     doc.html(tableHtmlString, {
+  //       x: 10, // Horizontal margin
+  //       y: y,
+  //       callback: (pdf) => {
+  //         y += doc.getTextDimensions(tableHtmlString).h;
+
+  //         if (y > pageHeight) {
+  //           pdf.addPage();
+  //           y = 20; // Reset y for next page
+  //           pdf.html(tableHtmlString, { x: 10, y: y });
+  //         }
+  //       },
+  //     });
+  //   } else {
+  //     console.log("Table fits on one page");
+  //     doc.html(tableHtmlString, { x: 10, y: y });
+  //   }
+
+  //   // Additional styling if needed (consider inline styles or external stylesheet)
+  //   // doc.setFont('Arial', 'bold', 12); // Example
+  //   // doc.text('Audit Trail Report', 20, 10); // Example
+
+  //   doc.save(this.auditData[0].User_Mail + '-audit-trail.pdf');
   // }
+
+  generatePDF() {
+    const doc = new jsPDF();
+    let y = 20;
+    const fontSize = 16;
+    const pageSize = doc.internal.pageSize;
+    const pageWidth = pageSize.width;
+    const pageHeight = pageSize.height - 20;
+    const reportTitleElement = document.querySelector('.audit-trail-container h2') as HTMLElement;
+    if (!reportTitleElement) {
+        console.error('Report title element not found');
+        return;
+    }
+    const reportTitle = reportTitleElement.innerText.trim();
+    const textWidth = doc.getStringUnitWidth(reportTitle) * fontSize / doc.internal.scaleFactor;
+    const x = (pageWidth - textWidth) / 2;
+    // Add report title to PDF
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16); // Increase font size
+    doc.text(reportTitle, x, y);
+    y += 10;
+    doc.setFontSize(9);
+    doc.setFont('Arial', 'normal');
+    const rollNoElement = document.querySelector('.candidate-details p:nth-child(1) span') as HTMLElement;
+    const nameElement = document.querySelector('.candidate-details p:nth-child(2) span') as HTMLElement;
+    const examElement = document.querySelector('.candidate-details p:nth-child(3) span') as HTMLElement;
+    const subjectElement = document.querySelector('.candidate-details p:nth-child(4) span') as HTMLElement;
+    const batchDateTimeElement = document.querySelector('.candidate-details p:nth-child(5) span') as HTMLElement;
+    const durationElement = document.querySelector('.candidate-details p:nth-child(6) span') as HTMLElement;
+    const auditTrailHeaderElement = document.querySelector('.audit-trail-container h3') as HTMLElement;
+
+    if (!rollNoElement || !nameElement || !examElement || !subjectElement || !batchDateTimeElement || !durationElement || !auditTrailHeaderElement) {
+        console.error('One or more elements not found');
+        return;
+    }
+
+    const rollNo = rollNoElement.innerText.trim();
+    const name = nameElement.innerText.trim();
+    const exam = examElement.innerText.trim();
+    const subject = subjectElement.innerText.trim();
+    const batchDateTime = batchDateTimeElement.innerText.trim();
+    const duration = durationElement.innerText.trim();
+    const auditTrailHeader = auditTrailHeaderElement.innerText.trim();
+    // Add data to PDF
+    doc.text(`Roll No: ${rollNo}`, 10, y);
+    y += 5;
+    doc.text(`Name: ${name}`, 10, y);
+    y += 5;
+    doc.text(`Exam: ${exam}`, 10, y);
+    y += 5;
+    doc.text(`Subject: ${subject}`, 10, y);
+    y += 5;
+    doc.text(`Batch Date Time: ${batchDateTime}`, 10, y);
+    y += 5;
+    doc.text(`Duration: ${duration}`, 10, y);
+    y += 5;
+    doc.text(auditTrailHeader, 10, y);
+    y += 5;
+
+    // Draw the table headers
+    const headers = ['Sl. No.', 'Action Item', 'Selected Option', 'ActionOn'];
+    const colWidths = [20, 80, 40, 50];
+    const headersHeight = 15;
+    for (let i = 0; i < headers.length; i++) {
+        doc.setFillColor(240, 240, 240);
+        doc.rect(10 + this.sumArrayElements(colWidths, i), y, colWidths[i], headersHeight, 'F');
+        doc.rect(10 + this.sumArrayElements(colWidths, i), y, colWidths[i], headersHeight, 'S'); // Add border line
+        doc.setTextColor(0, 0, 0);
+        doc.text(headers[i], 12 + this.sumArrayElements(colWidths, i), y + 10, { maxWidth: colWidths[i] - 2 });
+    }
+    y += headersHeight;
+
+    // Draw the table rows
+    const tableRows = document.querySelectorAll('.audit-trail-table tbody tr');
+    const rowHeight = 15;
+    for (let i = 0; i < tableRows.length; i++) {
+        const cells = tableRows[i].querySelectorAll('td');
+        if (!cells || cells.length !== headers.length) {
+            console.error(`Invalid row at index ${i}`);
+            continue;
+        }
+
+        if (y + rowHeight > pageHeight) {
+            doc.addPage();
+            y = 20;
+        }
+
+        for (let j = 0; j < cells.length; j++) {
+            const cellText = cells[j].innerText.trim();
+            const maxWidth = colWidths[j] - 2;
+            const textLines = doc.splitTextToSize(cellText, maxWidth);
+            doc.rect(10 + this.sumArrayElements(colWidths, j), y, colWidths[j], rowHeight, 'S');
+            doc.text(textLines, 12 + this.sumArrayElements(colWidths, j), y + 6, { maxWidth: colWidths[j] - 2 });
+        }
+
+        y += rowHeight;
+    }
+
+    doc.save(this.auditData[0].User_Mail+'-'+this.auditData[0].Test_Name+'audit-trail.pdf');
+}
+
+sumArrayElements(arr: any, index: any) {
+    return arr.slice(0, index).reduce((acc: any, curr: any) => acc + curr, 0);
+}
+
+
   popupClose(){
     this.dialog.closeAll(); // Close all open dialogs
   }

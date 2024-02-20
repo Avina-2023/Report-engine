@@ -7,14 +7,29 @@ html, body {
   -webkit-overflow-scrolling: touch;
 }
 
-.main-reports{
- margin: 30px;
+
+.main-reports {
+  margin: 30px;
+}
+.input{
+  display: flex;
+  justify-content: flex-end;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
 }
 .reports{
  position: relative;
    text-align: center;
    top: 14px;
 }
+
 
 .accordion_align{
  position: relative;
