@@ -157,7 +157,7 @@ dynamicallyConfigureColumnsFromObject(anObject: any) {
       this.columnDefs.push({
         field: key,
         headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
-        // pinned: this.isColumnPinned(key),
+        pinned: this.isColumnPinned(key),
       }),
 
 
@@ -250,7 +250,6 @@ dynamicallyConfigureforuserBased(anObject: any) {
         onClick: this.onBtnClick.bind(this),
         buttons: [
           { label: 'Terminate-User',color: '#32557f' },
-          { label: 'Activate-User',color: '#32557f' },
           { label: 'syncRedisData',color: '#32557f' },
           { label: 'User-Score-Sync',color: '#32557f' },
           { label: 'UserProctorStatusSyn',color: '#32557f' },
@@ -265,7 +264,6 @@ dynamicallyConfigureforuserBased(anObject: any) {
 }
 
 onBtnClick(params: any) {
-  console.log();
   if(params.label === "Terminate"){
     this.terminateparams = {"Org_Id": params.rowData.Org_Id,"Delivery_Id":params.rowData.Delivery_Id,"endpoint":"terminateProcess"}
     this.popupMessage = "Are you sure you want to terminate users in this delivery?"

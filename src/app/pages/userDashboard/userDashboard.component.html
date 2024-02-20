@@ -93,10 +93,16 @@ margin-right: 10px;
   </div>
 </ng-template>
 <ng-template #matDialPdf>
-  <div  class="pdf-popup">
+  <div id="pdf-html" style="display: block;"  class="pdf-popup">
   <div>
   </div>
   <div class="text">
+    <div class="pdf-btn">
+      <button class="ok" (click)="generatePDF()" ><mat-icon
+        class="download-icon">download</mat-icon></button>
+      <button class="cancel" (click)="popupClose()"><mat-icon
+        class="icon-Popup-close">close</mat-icon></button>
+    </div>
     <div class="audit-trail-container">
       <h2>Candidate Audit Report</h2>
       <div class="candidate-details">
@@ -128,11 +134,9 @@ margin-right: 10px;
       </table>
     </div>
   </div>
-  <div class="popup-btn">
-    <button class="ok" (click)="popupClose()">Close</button>
-    <!-- <button class="ok" (click)="generatePDF()">Generate PDF</button> -->
   </div>
-  </div>
+
 </ng-template>
+
 
 
