@@ -1,12 +1,20 @@
 <div class="warpper">
-  <input  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="radio" id="one" name="group" type="radio" checked>
-  <input  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="radio" id="two" name="group" type="radio">
-  <input  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="radio" id="three" name="group" type="radio">
-  <input  *ngIf="isSuperAdmin||isAdmin||isAdmincc" class="radio" id="four" name="group" type="radio">
-  <input  *ngIf="isSuperAdmin||isAdmin" class="radio" id="five" name="group" type="radio">
-  <input  *ngIf="isSuperAdmin||isAdmin" class="radio" id="six" name="group" type="radio">
-  <input  *ngIf="isSuperAdmin||isAdmin" class="radio" id="seven" name="group" type="radio">
-  <input  *ngIf="isSuperAdmin||isAdmin" class="radio" id="eight" name="group" type="radio">
+  <input  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="radio" id="one" name="group" type="radio" [checked]="selectedTabId === 'dashboard'"
+  (change)="onTabChange('dashboard')">
+  <input  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="radio" id="two" name="group" type="radio" [checked]="selectedTabId === 'userdashboard'"
+  (change)="onTabChange('userdashboard')">
+  <input  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="radio" id="three" name="group" type="radio" [checked]="selectedTabId === 'exam'"
+  (change)="onTabChange('exam')">
+  <input  *ngIf="isSuperAdmin||isAdmin||isAdmincc" class="radio" id="four" name="group" type="radio" [checked]="selectedTabId === 'actioncenter'"
+  (change)="onTabChange('actioncenter')">
+  <input  *ngIf="isSuperAdmin||isAdmin" class="radio" id="five" name="group" type="radio" [checked]="selectedTabId === 'proctor'"
+  (change)="onTabChange('proctor')">
+  <input  *ngIf="isSuperAdmin||isAdmin" class="radio" id="six" name="group" type="radio" [checked]="selectedTabId === 'analysis'"
+  (change)="onTabChange('analysis')">
+  <input  *ngIf="isSuperAdmin||isAdmin" class="radio" id="seven" name="group" type="radio" [checked]="selectedTabId === 'registration'"
+  (change)="onTabChange('registration')">
+  <input  *ngIf="isSuperAdmin||isAdmin" class="radio" id="eight" name="group" type="radio" [checked]="selectedTabId === 'apilogs'"
+  (change)="onTabChange('apilogs')">
   <div class="tabs">
     <label *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="tab" id="one-tab" for="one" [routerLink]="[app_const.ENDPOINTS.DASHBOARD]" >Dashboard</label>
     <label  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="tab" id="two-tab" for="two" [routerLink]="[app_const.ENDPOINTS.USERDASHBOARD]">User Dashboard</label>

@@ -59,16 +59,6 @@ margin-right: 10px;
 [rowData]="rowData" >
 </ag-grid-angular>
 
-<ng-template #otherContent>
-  <div class="mat_card">
-    <mat-card>
-      <mat-card-header>
-      <mat-card-title></mat-card-title>
-      <mat-card-subtitle><span class="icon-popup-warning">  No Data Found </span> </mat-card-subtitle>
-      </mat-card-header>
-     </mat-card>
-  </div>
-</ng-template>
 
 <ng-template #matDialog>
   <div  class="alert-popup">
@@ -104,15 +94,82 @@ margin-right: 10px;
         class="icon-Popup-close">close</mat-icon></button>
     </div>
     <div class="audit-trail-container">
-      <h2>Candidate Audit Report</h2>
+      <h2>Candidate Report</h2>
       <div class="candidate-details">
-        <p>Roll No: <span>{{auditData[0].User_Mail}} </span></p>
-        <p>Name: <span>{{auditData[0].User_First_Name}} {{auditData[0].User_Last_Name}} </span></p>
-        <p>Exam: <span>{{auditData[0].Custom_Label}} </span></p>
-        <p>Subject: <span>{{auditData[0].Test_Name}} </span></p>
-        <p>Batch Date Time: <span>{{auditData[0].TestTakenOn}} </span></p>
-        <p>Duration: <span>{{auditData[0].TestTakenDuration}} (Mins) </span></p>
+        <table class="candidate-details-table">
+          <tbody>
+            <tr>
+              <th>Candidate Name:</th>
+              <td>{{ auditData[0].User_First_Name }} {{ auditData[0].User_Last_Name }}</td>
+            </tr>
+            <tr>
+              <th>Roll No:</th>
+              <td>{{ auditData[0].User_Mail }}</td>
+            </tr>
+            <tr>
+              <th>Mail Id:</th>
+              <td>{{ auditData[0].User_Mail }}</td>
+            </tr>
+            <tr>
+              <th>Exam:</th>
+              <td>{{ auditData[0].Custom_Label }}</td>
+            </tr>
+            <tr>
+              <th>Subject:</th>
+              <td>{{ auditData[0].Test_Name }}</td>
+            </tr>
+            <tr>
+              <th>Batch Date Time:</th>
+              <td>{{ auditData[0].Delivery_Start_Time }}</td>
+            </tr>
+            <tr>
+              <th>Test Duration:</th>
+              <td>{{ auditData[0].TestTakenDuration }} (Mins)</td>
+            </tr>
+            <tr>
+              <th>TestTaken Duration:</th>
+              <td>{{ auditData[0].TestTakenDuration }} (Mins)</td>
+            </tr>
+            <tr>
+              <th>TestStartOn:</th>
+              <td>{{ auditData[0].TestTakenOn }}</td>
+            </tr>
+            <tr>
+              <th>TestEndOn:</th>
+              <td>{{ auditData[0].TestEndOn }}</td>
+            </tr>
+            <tr>
+              <th>Total Question:</th>
+              <td>{{ auditData[0].Total_Question }}</td>
+            </tr>
+            <tr>
+              <th>Total Viewed Question:</th>
+              <td>{{ auditData[0].Total_Viewed_Question }}</td>
+            </tr>
+            <tr>
+              <th>Total Attended Question:</th>
+              <td>{{ auditData[0].Total_Attended_Question }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+      <h3>Candidate Login Trail</h3>
+      <table class="audit-trail-table">
+        <thead>
+          <tr>
+            <th>Sl. No.</th>
+            <th>Action Item</th>
+            <th>ActionOn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr >
+            <td>1</td>
+            <td>Login</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
       <h3>Candidate Audit Trail</h3>
       <table class="audit-trail-table">
         <thead>

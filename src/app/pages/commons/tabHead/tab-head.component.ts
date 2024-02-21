@@ -4,8 +4,9 @@ import { APP_CONSTANTS } from '../../../utils/app-constants.service';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { NgClass, NgIf } from '@angular/common';
-import { RouterLinkActive, RouterLink } from '@angular/router';
+import { RouterLinkActive, RouterLink, Router } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
+import { TabStateService } from '../../../services/tab.service';
 @Component({
   selector: 'app-tab-head',
   standalone: true,
@@ -22,7 +23,11 @@ export class TabHeadComponent implements OnInit {
   isOPS: boolean = false;
   isCBT: boolean = false;
   isAdmincc: boolean = false;
-  constructor(private utility: UtilityService) {
+  selectedTabId: string | null | undefined;
+
+  constructor(private utility: UtilityService,
+    private router: Router,
+    private tabStateService: TabStateService) {
     let userDetails:any = localStorage.getItem('userDetails');
     if(JSON.parse(userDetails)?.roleId == "SADM"){
       this.isSuperAdmin = true;
@@ -42,11 +47,19 @@ export class TabHeadComponent implements OnInit {
     if(JSON.parse(userDetails)?.roleId == "CBT"){
       this.isCBT = true;
     }
+
   }
 
   ngOnInit() {
+    this.selectedTabId = this.tabStateService.getSelectedTabId();
+  }
+  onTabChange(tabId: string) {
+
+    this.selectedTabId = tabId;
+    this.tabStateService.setSelectedTabId(tabId);
+
+    // Optionally, use Angular's routing:
 
 
   }
-
 }

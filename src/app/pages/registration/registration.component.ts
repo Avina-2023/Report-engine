@@ -92,7 +92,6 @@ forminitialize(){
 
 conform(){
   this.alertservice.alertDialog('success',"Do you want to close it?",'Press yes to close').then((data)=>{
-    console.log(data)
   })
 }
 

@@ -23,6 +23,7 @@ import { MinidetailscardComponent } from '../minidetailscard/minidetailscard.com
 import { ButtonRendererComponent } from '../../renderer/button-renderer.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import * as moment from 'moment';
+import { AlertServiceService } from 'src/app/services/alertService.service';
 
 @Component({
   selector: 'app-apiLogs',
@@ -42,6 +43,7 @@ export class ApiLogsComponent implements OnInit {
 
   constructor(
     private apiservice: ApiService,
+    private alertservice: AlertServiceService
     ) { }
 
 	ngOnInit() {
@@ -62,8 +64,12 @@ export class ApiLogsComponent implements OnInit {
  apiLogs(){
 
  this.apiservice.reportDataFetch(this.tabdate,"getApiLogs").subscribe((res: any) => {
-  this.rowData = {data: res.data}
-  console.log("apilogs",this.rowData);
+  if(res.data && res.data[0]){
+    this.rowData = {data: res.data}
+    this.alertservice.toastfire('success',res.message);
+  } else {
+    this.alertservice.toastfire('warning',res.message);
+  }
  })
 
 }
