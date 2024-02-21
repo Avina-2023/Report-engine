@@ -21,6 +21,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { debounceTime, startWith, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { AlertServiceService } from 'src/app/services/alertService.service';
 @Component({
   selector: 'app-analysis',
   templateUrl: './analysis.component.html',
@@ -78,6 +79,7 @@ export class  AnalysisComponent implements OnInit {
   constructor(
     private apiservice : ApiService,
     private utility: AppConfigService,
+    private alertservice: AlertServiceService
   ) {
 
 
@@ -95,7 +97,6 @@ public defaultColDef: ColDef = {
 
 ngOnInit() {
   this.testName();
-  this.tabchange(0);
   this.filteredOptions = this.myControl.valueChanges.pipe(
     startWith(''),
     debounceTime(300),
@@ -132,11 +133,22 @@ onTestNameSelected(testOne: any) {
 }
 
 customTabDataFiller(endPoint: string) {
+  if (this.testId){
   this.apiservice.reportDataFetch({ "testId": this.testId }, endPoint).subscribe((res: any) => {
-    if (res.data && res.data?.length) {
-      this.rowData = { data: res.data };
+    console.log("ressfsregfsrg",res);
+
+    if(res.success){
+      if (res.data && res.data?.length) {
+        this.rowData = { data: res.data };
+      }
+      this.alertservice.toastfire('success',res.message);
+    }else{
+      this.alertservice.toastfire('warning',res.message);
     }
   });
+ } else {
+  this.alertservice.toastfire('success',"Please select Test Name");
+ }
 }
 
 tabchange(index: number) {

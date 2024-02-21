@@ -23,6 +23,7 @@ import { MinidetailscardComponent } from '../minidetailscard/minidetailscard.com
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import {  MatCardModule } from '@angular/material/card';
+import { AlertServiceService } from 'src/app/services/alertService.service';
 
 @Component({
     selector: 'app-examStatusReport',
@@ -68,6 +69,7 @@ export class ExamStatusReportComponent implements OnInit {
   constructor(
     private apiservice : ApiService,
     private utility: AppConfigService,
+    private alertservice: AlertServiceService
   ) {
 
     let show_Audit = {
@@ -168,9 +170,13 @@ customTabDataFiller(data: any, endPoint: string) {
       this.legendData = res?.legend;
     }
     if (res.key && res.key?.length) {
+      this.alertservice.toastfire('success',res.message);
       this.rowData = { data: res.data, key: res.key };
     } else if (res.data && res.data?.length) {
+      this.alertservice.toastfire('success',res.message);
       this.rowData = { data: res.data };
+    } else {
+      this.alertservice.toastfire('warning',res.message);
     }
   });
 }
