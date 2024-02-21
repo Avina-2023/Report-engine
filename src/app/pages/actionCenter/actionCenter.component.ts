@@ -22,7 +22,7 @@ import { AppConfigService } from 'src/app/utils/app-config.service';
 import { MinidetailscardComponent } from '../minidetailscard/minidetailscard.component';
 import { ButtonRendererComponent } from '../../renderer/button-renderer.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-
+import { AlertServiceService } from 'src/app/services/alertService.service';
 @Component({
   selector: 'app-actionCenter',
   templateUrl: './actionCenter.component.html',
@@ -48,7 +48,7 @@ export class  ActionCenterComponent implements OnInit {
   date7:any;
   sidenav: any;
   tabdate:any;
-  currentTabIndex = 0;
+  currentTabIndex = 3;
   reportList=[
     {
       report_Name:"Delivery Based",
@@ -87,7 +87,8 @@ export class  ActionCenterComponent implements OnInit {
   constructor(
     private apiservice : ApiService,
     private utility: AppConfigService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private alertservice: AlertServiceService
   ) {
     let userDetails:any = localStorage.getItem('userDetails');
     if(JSON.parse(userDetails)?.roleId == "SADM"){
@@ -349,6 +350,7 @@ onBtnClick(params: any) {
 
 customTabDataFiller(data: any, endPoint: string) {
   this.apiservice.reportDataFetch(data, endPoint).subscribe((res: any) => {
+    this.alertservice.toastfire('success',res.message);
     if (endPoint === "actionUserDashboard") {
       this.dynamicallyConfigureforuserBased( res.data) ;
     } else if (endPoint === "actionDashboard") {

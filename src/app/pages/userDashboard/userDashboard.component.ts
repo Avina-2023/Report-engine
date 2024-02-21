@@ -23,6 +23,7 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { CommonreportviewComponent } from '../commons/commonreportview/commonreportview.component';
 import { ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { jsPDF } from "jspdf";
+import { AlertServiceService } from 'src/app/services/alertService.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -84,7 +85,8 @@ export class UserDashboardComponent implements OnInit {
     public utility: AppConfigService,
     private excelService:ExcelService,
     private dialog: MatDialog,
-    private scrollStrategyOptions: ScrollStrategyOptions
+    private scrollStrategyOptions: ScrollStrategyOptions,
+    private alertservice: AlertServiceService
   ){
 
   }
@@ -124,9 +126,10 @@ export class UserDashboardComponent implements OnInit {
 
         this.responseData = res.data;
         if(this.responseData.length ){
-
+          this.alertservice.toastfire('success',res.message);
         }else{
           this.responseData = [];
+          this.alertservice.toastfire('warning',res.message);
         }
 
         this.dynamicallyConfigureColumnsFromObject(this.responseData);
