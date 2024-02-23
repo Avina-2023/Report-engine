@@ -33,6 +33,7 @@ export class CommonreportviewComponent implements OnInit {
   excelData: any;
   styleSheet: any;
   style: any;
+  response: any;
   // "width: 100%; height: 380px;margin-top: 10px;"
   constructor(
     private excelService:ExcelService,
@@ -56,14 +57,17 @@ export class CommonreportviewComponent implements OnInit {
   }
 
   ngOnChanges(changes:SimpleChanges){
-    console.log(changes)
     this.is_download = changes['isdownload']?.currentValue
-    if(changes['tabledata'].currentValue.data && changes['tabledata'].currentValue.data.length ){
+    if(changes['tabledata'].currentValue && changes['tabledata'].currentValue.data && changes['tabledata'].currentValue.data.length ){
       this.dynamicallyConfigureColumnsFromObject(changes['tabledata'].currentValue)
       this.agGrid?.api.setRowData(changes['tabledata'].currentValue.data)
     } else if (changes['tabledata'].currentValue && changes['tabledata'].currentValue.length ) {
       this.dynamicallyConfigureColumnsanalysis(changes['tabledata'].currentValue)
       this.agGrid?.api.setRowData(changes['tabledata'].currentValue)
+    } else {
+      this.response=[]
+      this.dynamicallyConfigureColumnsFromObject({"data": this.response})
+      // this.agGrid?.api.setRowData()
     }
   }
 
@@ -72,7 +76,6 @@ export class CommonreportviewComponent implements OnInit {
   }
 
   dynamicallyConfigureColumnsFromObject(anObject:any){
-    console.log("object",anObject);
     this.styleSheet = "width: 100%; height: 380px;margin-top: 10px;"
     this.ColDef = this.agGrid?.api?.getColumnDefs();
     // this.ColDef.length=0;
@@ -99,10 +102,13 @@ export class CommonreportviewComponent implements OnInit {
       this.tabledata = anObject.data
       this.excelData= anObject
 
+    } else {
+      this.agGrid?.api?.setColumnDefs(this.columnDefs);
+      this.agGrid?.api?.setRowData(anObject.data);
+      this.tabledata= anObject.data
     }
   }
   dynamicallyConfigureColumnsanalysis(anObject:any){
-    console.log("object",anObject);
     this.styleSheet = " height: 300px;margin-left: 10px;margin-top: 5px;margin-bottom: 5px;"
     this.ColDef = this.agGrid?.api?.getColumnDefs();
     // this.ColDef.length=0;

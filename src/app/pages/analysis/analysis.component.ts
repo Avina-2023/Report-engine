@@ -30,45 +30,45 @@ import { AlertServiceService } from 'src/app/services/alertService.service';
 
     imports: [CommonModule,NzDatePickerModule,AsyncPipe, ReactiveFormsModule, FormsModule, MatButtonModule, MatIconModule, AgGridModule, MatExpansionModule, MatTabsModule, MatMenuModule, MatSidenavModule, MatToolbarModule,CommonreportviewComponent,MinidetailscardComponent,MatFormFieldModule,MatInputModule, MatAutocompleteModule],
 })
-export class  AnalysisComponent implements OnInit {
+export class AnalysisComponent implements OnInit {
 
 
-  userData = { "date": "2023/02/14"};
-  datepipe=new DatePipe('en-us')
-  datewise:any={}
-  obj:any;
-  rowData:any=[];
-  keyData:any=[];
+  userData = { "date": "2023/02/14" };
+  datepipe = new DatePipe('en-us')
+  datewise: any = {}
+  obj: any;
+  rowData: any = [];
+  keyData: any = [];
   ColDef: any;
-  value:Date[] | undefined;
-  date7:any;
+  value: Date[] | undefined;
+  date7: any;
   sidenav: any;
-  tabdate:any;
+  tabdate: any;
   currentTabIndex = 0;
-  reportList=[
+  reportList = [
     {
-      report_Name:"Test Averages",
-      is_enable:true,
-      is_download:true,
-      endpoint:"getTestAverages"
+      report_Name: "Test Averages",
+      is_enable: true,
+      is_download: true,
+      endpoint: "getTestAverages"
     },
     {
-      report_Name:"Test Candidate Answer",
-      is_enable:true,
-      is_download:true,
-      endpoint:"getTestCandidateResponse"
+      report_Name: "Test Candidate Answer",
+      is_enable: true,
+      is_download: true,
+      endpoint: "getTestCandidateResponse"
     },
     {
-      report_Name:"Test Candidate Scores",
-      is_enable:true,
-      is_download:true,
-      endpoint:"getTestCandidateScore"
+      report_Name: "Test Candidate Scores",
+      is_enable: true,
+      is_download: true,
+      endpoint: "getTestCandidateScore"
     },
     {
-      report_Name:"Item Exposure Summary",
-      is_enable:true,
-      is_download:true,
-      endpoint:"getItemExposure"
+      report_Name: "Item Exposure Summary",
+      is_enable: true,
+      is_download: true,
+      endpoint: "getItemExposure"
     },
   ]
   myControl = new FormControl();
@@ -77,7 +77,7 @@ export class  AnalysisComponent implements OnInit {
   testId: any;
 
   constructor(
-    private apiservice : ApiService,
+    private apiservice: ApiService,
     private utility: AppConfigService,
     private alertservice: AlertServiceService
   ) {
@@ -85,80 +85,78 @@ export class  AnalysisComponent implements OnInit {
 
   }
 
-public columnDefs: ColDef[] = []
+  public columnDefs: ColDef[] = []
 
-public defaultColDef: ColDef = {
-  sortable: true,
-  filter: true,
-  resizable:true,
-  editable:false,
-};
+  public defaultColDef: ColDef = {
+    sortable: true,
+    filter: true,
+    resizable: true,
+    editable: false,
+  };
 
 
-ngOnInit() {
-  this.testName();
-  this.filteredOptions = this.myControl.valueChanges.pipe(
-    startWith(''),
-    debounceTime(300),
-    map(value => this._filter(value))
-  );
+  ngOnInit() {
+    this.testName();
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      debounceTime(300),
+      map(value => this._filter(value))
+    );
 
-}
-
-private _filter(value: string): any[] {
-  if (!value || typeof value !== 'string') {
-    return [];
   }
 
-  const filterValue = value.toLowerCase();
-  return this.testData.filter(option => option.testName && option.testName.toLowerCase().includes(filterValue));
-}
-
-
-displayFn(option: any): string {
-  return option && option.testName ? option.testName : '';
-}
-
-testName() {
-  this.apiservice.reportDataFetch("", "getTestName").subscribe((res: any) => {
-    if (res.data && res.data?.length) {
-      this.testData = res.data;
+  private _filter(value: string): any[] {
+    if (!value || typeof value !== 'string') {
+      return [];
     }
-  });
-}
 
-onTestNameSelected(testOne: any) {
-  this.testId = testOne.testId;
-  this.tabchange(this.currentTabIndex)
-}
+    const filterValue = value.toLowerCase();
+    return this.testData.filter(option => option.testName && option.testName.toLowerCase().includes(filterValue));
+  }
 
-customTabDataFiller(endPoint: string) {
-  if (this.testId){
-  this.apiservice.reportDataFetch({ "testId": this.testId }, endPoint).subscribe((res: any) => {
-    console.log("ressfsregfsrg",res);
 
-    if(res.success){
+  displayFn(option: any): string {
+    return option && option.testName ? option.testName : '';
+  }
+
+  testName() {
+    this.apiservice.reportDataFetch("", "getTestName").subscribe((res: any) => {
       if (res.data && res.data?.length) {
-        this.rowData = { data: res.data };
+        this.testData = res.data;
       }
-      this.alertservice.toastfire('success',res.message);
-    }else{
-      this.alertservice.toastfire('warning',res.message);
-    }
-  });
- } else {
-  this.alertservice.toastfire('success',"Please select Test Name");
- }
-}
+    });
+  }
 
-tabchange(index: number) {
-  this.currentTabIndex = index;
-  this.reportList.forEach((tab, i) => {
-    if (index == i) {
-      this.customTabDataFiller(tab.endpoint);
+  onTestNameSelected(testOne: any) {
+    this.testId = testOne.testId;
+    this.tabchange(this.currentTabIndex)
+  }
+
+  customTabDataFiller(endPoint: string) {
+    if (this.testId) {
+      this.apiservice.reportDataFetch({ "testId": this.testId }, endPoint).subscribe((res: any) => {
+        if (res.success) {
+          if (res.data && res.data?.length) {
+            this.rowData = { data: res.data };
+          }
+          this.alertservice.toastfire('success', res.message);
+        } else {
+          this.alertservice.toastfire('warning', res.message);
+        }
+      });
+    } else {
+      this.alertservice.toastfire('success', "Please select Test Name");
     }
-  });
-}
+  }
+
+  tabchange(index: number) {
+    this.currentTabIndex = index;
+    this.reportList.forEach((tab, i) => {
+      if (index == i) {
+        this.customTabDataFiller(tab.endpoint);
+      }
+    });
+  }
 
 
 }

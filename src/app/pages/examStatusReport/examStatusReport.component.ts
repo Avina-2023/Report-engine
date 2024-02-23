@@ -36,165 +36,158 @@ import { AlertServiceService } from 'src/app/services/alertService.service';
 export class ExamStatusReportComponent implements OnInit {
   position = new FormControl("Aptitude");
   TooltipPosition: any = ['Aptitude', 'Behavioural', 'Step'];
-  userData = { "date": "2023/02/14"};
-  datepipe=new DatePipe('en-us')
-  datewise:any={}
-  obj:any;
-  rowData:any=[];
-  keyData:any=[];
+  userData = { "date": "2023/02/14" };
+  datepipe = new DatePipe('en-us')
+  datewise: any = {}
+  obj: any;
+  rowData: any = [];
+  keyData: any = [];
   ColDef: any;
-  value:Date[] | undefined;
-  date7:any;
+  value: Date[] | undefined;
+  date7: any;
   sidenav: any;
-  tabdate:any;
+  tabdate: any;
   currentTabIndex = 0;
   toolTipData: any;
-  reportList=[
+  reportList = [
     {
-      report_Name:"Score Report",
-      is_enable:true,
-      is_download:true,
-      endpoint:(this.utility.getUserOrg()==="57")?"getsectiondetails":"dateWiseSectionReport"
+      report_Name: "Score Report",
+      is_enable: true,
+      is_download: true,
+      endpoint: (this.utility.getUserOrg() === "57") ? "getsectiondetails" : "dateWiseSectionReport"
     },
     {
-      report_Name:"Item wise Report",
-      is_enable:true,
-      is_download:true,
-      endpoint:(this.utility.getUserOrg()==="57")?"getitemdetails":"dateWiseitemReport"
+      report_Name: "Item wise Report",
+      is_enable: true,
+      is_download: true,
+      endpoint: (this.utility.getUserOrg() === "57") ? "getitemdetails" : "dateWiseitemReport"
     }
   ]
   legendData: any;
   showLegend: any;
   // colDefs: any=[];
   constructor(
-    private apiservice : ApiService,
+    private apiservice: ApiService,
     private utility: AppConfigService,
     private alertservice: AlertServiceService
   ) {
 
     let show_Audit = {
-      report_Name:"User Audit Log",
-      endpoint:"getauditlogs",
-      is_enable:true,
-      is_download:true
+      report_Name: "User Audit Log",
+      endpoint: "getauditlogs",
+      is_enable: true,
+      is_download: true
     };
 
     let show_AdminLog = {
-      report_Name:"Admin Log",
-      endpoint:"getadminlogs",
-      is_enable:true,
-      is_download:true
+      report_Name: "Admin Log",
+      endpoint: "getadminlogs",
+      is_enable: true,
+      is_download: true
     };
 
 
-    let sectionReport={
-      report_Name:"Section Report",
-      endpoint:"sectionScoreCard",
-      is_enable:true,
-      is_download:true
+    let sectionReport = {
+      report_Name: "Section Report",
+      endpoint: "sectionScoreCard",
+      is_enable: true,
+      is_download: true
     }
 
-    let feedbackDataReport={
-      report_Name:"User Feedback",
-      endpoint:"getFeedback",
-      is_enable:true,
-      is_download:false,
-      isLegend:true
+    let feedbackDataReport = {
+      report_Name: "User Feedback",
+      endpoint: "getFeedback",
+      is_enable: true,
+      is_download: false,
+      isLegend: true
     }
 
 
-    if(utility.getUserOrg()==="57"){
+    if (utility.getUserOrg() === "57") {
       this.reportList.push(show_Audit)
       this.reportList.push(show_AdminLog)
       this.reportList.push(feedbackDataReport)
-    }else{
+    } else {
       this.reportList.push(sectionReport)
     }
 
   }
 
-public columnDefs: ColDef[] = []
+  public columnDefs: ColDef[] = []
 
-public defaultColDef: ColDef = {
-  sortable: true,
-  filter: true,
-  resizable:true,
-  editable:false,
-};
+  public defaultColDef: ColDef = {
+    sortable: true,
+    filter: true,
+    resizable: true,
+    editable: false,
+  };
 
-ngOnInit() {
-  this.tabchange(0)
-
-}
-daterrange(event:any){
-
-   if(event.length){
-    this.tabdate = {
-    "startdate":event?this.datepipe.transform(event[0], 'yyyy-MM-dd HH:mm'):"",
-    "enddate":event?this.datepipe.transform(event[1], 'yyyy-MM-dd HH:mm'):""
+  ngOnInit() {
+    this.tabchange(0)
+  }
+  daterrange(event: any) {
+    if (event.length) {
+      this.tabdate = {
+        "startdate": event ? this.datepipe.transform(event[0], 'yyyy-MM-dd HH:mm') : "",
+        "enddate": event ? this.datepipe.transform(event[1], 'yyyy-MM-dd HH:mm') : ""
+      }
+      this.tabchange(this.currentTabIndex);
+    }
+  }
+  clickHandler() {
+    this.sidenav.close();
   }
 
-   this.tabchange(this.currentTabIndex);
-}
-}
-
-clickHandler() {
-  this.sidenav.close();
-}
-
-dateWiseSectionReport(data:any){
-  let endPoint = "dateWiseSectionReport"
-  if(this.utility.getUserOrg() === 57){
-    endPoint = "getsectiondetails"
+  dateWiseSectionReport(data: any) {
+    let endPoint = "dateWiseSectionReport"
+    if (this.utility.getUserOrg() === 57) {
+      endPoint = "getsectiondetails"
+    }
+    this.apiservice.dateWiseSectionReport(data, endPoint).subscribe((res: any) => {
+      this.rowData = { "data": res.data, "key": res.key }
+    })
   }
-  this.apiservice.dateWiseSectionReport(data,endPoint).subscribe((res:any)=>{
-    this.rowData = {"data": res.data,"key": res.key}
-  })
-}
 
-// dateWiseitemReport(data:any){
-//   let endPoint = "dateWiseitemReport"
-//   if(this.utility.getUserOrg() === 57){
-//     endPoint = "getitemdetails"
-//   }
-//   this.apiservice.dateWiseitemReport(data,endPoint).subscribe((res:any)=>{
-//     this.rowData = res.data
-//   })
-// }
+  // dateWiseitemReport(data:any){
+  //   let endPoint = "dateWiseitemReport"
+  //   if(this.utility.getUserOrg() === 57){
+  //     endPoint = "getitemdetails"
+  //   }
+  //   this.apiservice.dateWiseitemReport(data,endPoint).subscribe((res:any)=>{
+  //     this.rowData = res.data
+  //   })
+  // }
 
-customTabDataFiller(data: any, endPoint: string) {
-  this.apiservice.reportDataFetch(data, endPoint).subscribe((res: any) => {
-    if(res.legend){
-      this.legendData = res?.legend;
-    }
-    if (res.key && res.key?.length) {
-      this.alertservice.toastfire('success',res.message);
-      this.rowData = { data: res.data, key: res.key };
-    } else if (res.data && res.data?.length) {
-      this.alertservice.toastfire('success',res.message);
-      this.rowData = { data: res.data };
-    } else {
-      this.alertservice.toastfire('warning',res.message);
-    }
-  });
-}
+  customTabDataFiller(data: any, endPoint: string) {
+    this.apiservice.reportDataFetch(data, endPoint).subscribe((res: any) => {
+      if (res.legend) {
+        this.legendData = res?.legend;
+      }
+      if (res.key && res.key?.length) {
+        this.alertservice.toastfire('success', res.message);
+        this.rowData = { data: res.data, key: res.key };
+      } else if (res.data && res.data?.length) {
+        this.alertservice.toastfire('success', res.message);
+        this.rowData = { data: res.data };
+      } else {
+        this.alertservice.toastfire('warning', res.message);
+      }
+    });
+  }
 
+  tabchange(index: any) {
+    this.currentTabIndex = index;
+    this.rowData = []
+    this.reportList.forEach((tab: any, i: number) => {
+      if (index == i) {
+        this.showLegend = tab?.isLegend
+        this.customTabDataFiller(this.tabdate, tab.endpoint)
+      }
+    });
+  }
 
-
-tabchange(index:any){
-  this.currentTabIndex =index;
-  this.rowData = []
-  this.reportList.forEach((tab:any,i:number) => {
-    if(index==i){
-      this.showLegend = tab?.isLegend
-      this.customTabDataFiller(this.tabdate,tab.endpoint)
-    }
-  });
-
-}
-
-onSelectionChange(event: any) {
-  const selectedValue = event.value;
-  this.toolTipData = {"event": event.value}
-}
+  onSelectionChange(event: any) {
+    const selectedValue = event.value;
+    this.toolTipData = { "event": event.value }
+  }
 }
