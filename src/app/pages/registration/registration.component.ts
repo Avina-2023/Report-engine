@@ -35,13 +35,13 @@ export class RegistrationComponent implements OnInit {
   addOrgForm: any;
   addSubOrgForm: any;
   addUserForm: any;
-  APP_CONSTANTS  = APP_CONSTANTS;
+  APP_CONSTANTS = APP_CONSTANTS;
   currentTabIndex: any;
   rowData: any;
   orglist: any;
   roleList: any;
   isOrg: any;
-  subOrgList: any[] = [{"subOrganizationName": "Need to select OrganizationName"}];
+  subOrgList: any[] = [{ "subOrganizationName": "Need to select OrganizationName" }];
   clusterList: any;
 
 
@@ -49,155 +49,135 @@ export class RegistrationComponent implements OnInit {
     private fb: FormBuilder,
     private apiservice: ApiService,
     private alertservice: AlertServiceService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.tabchange(0)
     this.forminitialize();
   }
 
-  registraterList=[
+  registraterList = [
     {
-      report_Name:"Organization",
+      report_Name: "Organization",
     },
     {
-      report_Name:"subOrganization",
+      report_Name: "subOrganization",
     },
     {
-      report_Name:"users",
+      report_Name: "users",
     }
   ]
 
 
 
-forminitialize(){
-  this.addOrgForm = this.fb.group({
-    organizationName: ['',[Validators.required]]
-  })
-  this.addSubOrgForm = this.fb.group({
-    subOrganizationName: ['',[Validators.required]],
-    orgDetail: ['',[Validators.required]],
-  })
-  this.addUserForm = this.fb.group({
-    orgid :  [[],],
-    subOrgId : [[]],
-    email : ['',[Validators.required]],
-    fname : ['',[Validators.required]],
-    lname : ['',[Validators.required]],
-    roleName : ['',[Validators.required]],
-    password : ['',[Validators.required]],
-    clusterid :  [[],[Validators.required]],
-  })
-}
+  forminitialize() {
+    this.addOrgForm = this.fb.group({
+      organizationName: ['', [Validators.required]]
+    })
+    this.addSubOrgForm = this.fb.group({
+      subOrganizationName: ['', [Validators.required]],
+      orgDetail: ['', [Validators.required]],
+    })
+    this.addUserForm = this.fb.group({
+      orgid: [[],],
+      subOrgId: [[]],
+      email: ['', [Validators.required]],
+      fname: ['', [Validators.required]],
+      lname: ['', [Validators.required]],
+      roleName: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      clusterid: [[], [Validators.required]],
+    })
+  }
 
-conform(){
-  this.alertservice.alertDialog('success',"Do you want to close it?",'Press yes to close').then((data)=>{
-  })
-}
+  conform() {
+    this.alertservice.alertDialog('success', "Do you want to close it?", 'Press yes to close').then((data) => {
+    })
+  }
 
   tabchange(index: any) {
     this.currentTabIndex = index;
     this.rowData = []
-
-      this.registraterList.forEach((tab, i: any) => {
-
-        if (index === i) {
-          if (index === 0) {
-            this.organization()
-          } else if (index === 1) {
-            this.subOrganization()
-          } else if (index === 2) {
-            this.users()
-          }
+    this.registraterList.forEach((tab, i: any) => {
+      if (index === i) {
+        if (index === 0) {
+          this.organization()
+        } else if (index === 1) {
+          this.subOrganization()
+        } else if (index === 2) {
+          this.users()
         }
-      });
+      }
+    });
   }
   organization() {
 
   }
-  OrgSubmit(){
-
-    if(this.addOrgForm?.valid){
-
+  OrgSubmit() {
+    if (this.addOrgForm?.valid) {
       const apiData = {
         organizationName: this.addOrgForm.value.organizationName,
       }
-
-
-      this.apiservice.reportDataFetch(apiData,"createOrganization").subscribe((res: any) => {
-
-        if(res.success){
-          this.alertservice.toastfire('success',res.message);
-        }else{
-          this.alertservice.toastfire('warning',res.message);
+      this.apiservice.reportDataFetch(apiData, "createOrganization").subscribe((res: any) => {
+        if (res.success) {
+          this.alertservice.toastfire('success', res.message);
+        } else {
+          this.alertservice.toastfire('warning', res.message);
         }
       })
-
-    }else{
-    this.alertservice.toastfire('warning',"Please fill all mandatory fields");
-   }
+    } else {
+      this.alertservice.toastfire('warning', "Please fill all mandatory fields");
+    }
   }
-  subOrgSubmit(){
+  subOrgSubmit() {
     // var orgId = this.orglist.map()
-
-    if(this.addSubOrgForm?.valid){
-
+    if (this.addSubOrgForm?.valid) {
       const apiData = {
         organizationName: this.addSubOrgForm.value.orgDetail.organizationName,
         orgId: this.addSubOrgForm.value.orgDetail.orgId,
         subOrganizationName: this.addSubOrgForm.value.subOrganizationName,
       }
-
-
-      this.apiservice.reportDataFetch(apiData,"createSubOrganization").subscribe((res: any) => {
-
-        if(res.success){
-          this.alertservice.toastfire('success',res.message);
-        }else{
-          this.alertservice.toastfire('warning',res.message);
+      this.apiservice.reportDataFetch(apiData, "createSubOrganization").subscribe((res: any) => {
+        if (res.success) {
+          this.alertservice.toastfire('success', res.message);
+        } else {
+          this.alertservice.toastfire('warning', res.message);
         }
       })
-
-    }else{
-    this.alertservice.toastfire('warning',"Please fill all mandatory fields");
-   }
+    } else {
+      this.alertservice.toastfire('warning', "Please fill all mandatory fields");
+    }
   }
-  userFormSubmit(){
-
-    if(this.addUserForm?.valid){
+  userFormSubmit() {
+    if (this.addUserForm?.valid) {
       if (this.addUserForm.value.orgid && this.addUserForm.value.orgid[0] && this.addUserForm.value.orgid[0] != undefined) {
-        this.isOrg="1"
+        this.isOrg = "1"
       } else {
-        this.isOrg="0"
+        this.isOrg = "0"
       }
       const apiData = {
-        "orgId" : this.addUserForm.value.orgid,
-        "subOrgId" : this.addUserForm.value.subOrgId,
-        "isApproved" : false,
-        "isActive" : true,
-        "email" : this.addUserForm.value.email,
-        "firstName" : this.addUserForm.value.fname,
-        "lastName" : this.addUserForm.value.lname,
-        "roleId" : this.addUserForm.value.roleName,
-        "password" : this.addUserForm.value.password,
-        "clusterId" : this.addUserForm.value.clusterid,
-        "isOrg" : this.isOrg
+        "orgId": this.addUserForm.value.orgid,
+        "subOrgId": this.addUserForm.value.subOrgId,
+        "isApproved": false,
+        "isActive": true,
+        "email": this.addUserForm.value.email,
+        "firstName": this.addUserForm.value.fname,
+        "lastName": this.addUserForm.value.lname,
+        "roleId": this.addUserForm.value.roleName,
+        "password": this.addUserForm.value.password,
+        "clusterId": this.addUserForm.value.clusterid,
+        "isOrg": this.isOrg
       }
-
-
-      this.apiservice.reportDataFetch(apiData,"createuser").subscribe((res: any) => {
-
-
-        if(res.success){
-          this.alertservice.toastfire('success',res.message);
-        }else{
-          this.alertservice.toastfire('warning',res.message);
+      this.apiservice.reportDataFetch(apiData, "createuser").subscribe((res: any) => {
+        if (res.success) {
+          this.alertservice.toastfire('success', res.message);
+        } else {
+          this.alertservice.toastfire('warning', res.message);
         }
       })
-
-    }else{
-    this.alertservice.toastfire('warning',"Please fill all mandatory fields");
-   }
+    } else {
+      this.alertservice.toastfire('warning', "Please fill all mandatory fields");
+    }
   }
   users() {
     this.getOrganizationList()
@@ -207,19 +187,19 @@ conform(){
   subOrganization() {
     this.getOrganizationList()
   }
-  getOrganizationList(){
-    this.apiservice.reportDataFetch("","getOrganizationList").subscribe((res: any) => {
+  getOrganizationList() {
+    this.apiservice.reportDataFetch("", "getOrganizationList").subscribe((res: any) => {
 
-      if(res.success && res?.data?.length){
+      if (res.success && res?.data?.length) {
         this.orglist = res.data
       }
     })
   }
-  getRoleList(){
+  getRoleList() {
 
-    this.apiservice.reportDataFetch("","getRoleList").subscribe((res: any) => {
+    this.apiservice.reportDataFetch("", "getRoleList").subscribe((res: any) => {
 
-      if(res.success && res?.data?.length){
+      if (res.success && res?.data?.length) {
         this.roleList = res.data
 
       }
@@ -227,15 +207,15 @@ conform(){
   }
   getClusterList() {
 
-    this.apiservice.reportDataFetch("","getClusterList").subscribe((res: any) => {
+    this.apiservice.reportDataFetch("", "getClusterList").subscribe((res: any) => {
 
       if (res.success && res?.data?.length) {
         this.clusterList = res.data;
       }
     });
   }
-  getSubOrganizationList(selectedOrgIds: any){
-    this.apiservice.reportDataFetch({"orgIds":selectedOrgIds},"getSubOrganizationList").subscribe((res: any) => {
+  getSubOrganizationList(selectedOrgIds: any) {
+    this.apiservice.reportDataFetch({ "orgIds": selectedOrgIds }, "getSubOrganizationList").subscribe((res: any) => {
 
       if (res.success && res?.data?.length) {
         this.subOrgList = res.data;
@@ -251,18 +231,18 @@ conform(){
     return this.addSubOrgForm.get('orgDetail');
   }
 
-  get orgId(){
+  get orgId() {
     return this.addSubOrgForm.get('orgid');
   }
 
-  get subOrganizationName(){
+  get subOrganizationName() {
     return this.addSubOrgForm.get('subOrganizationName');
   }
 
-  get orgid(){
+  get orgid() {
     return this.addUserForm.get('orgid');
   }
-  get clusterid(){
+  get clusterid() {
     return this.addUserForm.get('clusterid');
   }
 }

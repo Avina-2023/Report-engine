@@ -83,11 +83,11 @@ export class UserDashboardComponent implements OnInit {
     private apiservice: ApiService,
     public loader: LoaderService,
     public utility: AppConfigService,
-    private excelService:ExcelService,
+    private excelService: ExcelService,
     private dialog: MatDialog,
     private scrollStrategyOptions: ScrollStrategyOptions,
     private alertservice: AlertServiceService
-  ){
+  ) {
 
   }
 
@@ -97,11 +97,11 @@ export class UserDashboardComponent implements OnInit {
   public defaultColDef: ColDef = {
     sortable: true,
     filter: true,
-    resizable:true,
-    editable:false,
+    resizable: true,
+    editable: false,
   };
 
-	ngOnInit() {
+  ngOnInit() {
     this.getUserDashboardAPI();
   }
   frameworkComponents: any = {
@@ -110,55 +110,50 @@ export class UserDashboardComponent implements OnInit {
 
   getUserDashboardAPI() {
 
-    if(this.utility.getUserOrg()===57){
+    if (this.utility.getUserOrg() === 57) {
 
     }
-    else{
+    else {
 
-      this.total_candidate=0
-      this.completed=0
-      this.Yet_to_Start=0
-      this.inprogress=0
-      this.terminated=0
-      this.proctorStarted=0
+      this.total_candidate = 0
+      this.completed = 0
+      this.Yet_to_Start = 0
+      this.inprogress = 0
+      this.terminated = 0
+      this.proctorStarted = 0
 
       this.apiservice.liveUserDashboard(this.DashboardData).subscribe((res: any) => {
+        if (res && res.data && res.data[0]) {
+          this.responseData = res.data;
+          this.alertservice.toastfire('success', res.message);
+          res.data.forEach((_item: any, _index: any) => {
 
-        this.responseData = res.data;
-        if(this.responseData.length ){
-          this.alertservice.toastfire('success',res.message);
-        }else{
+            this.total_candidate = res.data.length
+            if (_item.Test_Status == "Finished") {
+              this.completed = this.completed + 1
+            } else if (_item.Test_Status == "YetToStart") {
+              this.Yet_to_Start = this.Yet_to_Start + 1
+            } else if (_item.Test_Status == "Active") {
+              this.inprogress = this.inprogress + 1
+            } else if (_item.Test_Status == "Terminated") {
+              this.terminated = this.terminated + 1
+            }
+            if (_item.Proctor_Status == "started") {
+              this.proctorStarted = this.proctorStarted + 1
+            }
+
+          })
+        } else {
           this.responseData = [];
-          this.alertservice.toastfire('warning',res.message);
+          this.alertservice.toastfire('warning', res.message);
         }
 
-        this.dynamicallyConfigureColumnsFromObject(this.responseData);
-
-        res.data.forEach((_item:any,_index:any)=>{
-
-          this.total_candidate= res.data.length
-          if(_item.Test_Status=="Finished"){
-            this.completed= this.completed + 1
-          }else if(_item.Test_Status=="YetToStart"){
-            this.Yet_to_Start= this.Yet_to_Start + 1
-          }else if(_item.Test_Status=="Active"){
-            this.inprogress= this.inprogress + 1
-          }else if(_item.Test_Status=="Terminated"){
-            this.terminated= this.terminated + 1
-          }
-          if(_item.Proctor_Status=="started"){
-            this.proctorStarted= this.proctorStarted + 1
-          }
-
-        })
-
-
-    });
+        this.dynamicallyConfigureColumnsFromObject(this.responseData)
+      });
     }
 
-   }
-   dynamicallyConfigureColumnsFromObject(anObject: any) {
-
+  }
+  dynamicallyConfigureColumnsFromObject(anObject: any) {
     this.ColDef = this.agGrid.api.getColumnDefs();
     this.ColDef.length = 0;
     this.columnDefs = [];
@@ -178,17 +173,17 @@ export class UserDashboardComponent implements OnInit {
 
     }
     this.agGrid.api.setColumnDefs(this.columnDefs);
-      this.agGrid.api.setRowData(anObject);
-      this.rowData=anObject
+    this.agGrid.api.setRowData(anObject);
+    this.rowData = anObject
 
-      if(this.utility.getUserOrg()=== "57"){
-       this.columnDefs.push({
+    if (this.utility.getUserOrg() === "57") {
+      this.columnDefs.push({
         headerName: 'auditLog',
         cellRenderer: 'buttonRenderer',
         cellRendererParams: {
           onClick: this.onBtnClick.bind(this),
           buttons: [
-            { label: 'View Logs',color: '#32557f' },
+            { label: 'View Logs', color: '#32557f' },
           ],
         },
         sortable: false,
@@ -203,7 +198,7 @@ export class UserDashboardComponent implements OnInit {
         cellRendererParams: {
           onClick: this.onBtnClick.bind(this),
           buttons: [
-            { label: 'Get Logs',color: '#32557f' },
+            { label: 'Get Logs', color: '#32557f' },
           ],
         },
         sortable: false,
@@ -213,17 +208,17 @@ export class UserDashboardComponent implements OnInit {
       });
     }
   }
-  isColumnPinned(columnKey: string): boolean | 'left' | 'right' | null{
-    if (columnKey === 'User_Mail'){
+  isColumnPinned(columnKey: string): boolean | 'left' | 'right' | null {
+    if (columnKey === 'User_Mail') {
       return 'left';
-    } else  if (columnKey === 'auditLog'){
+    } else if (columnKey === 'auditLog') {
       return 'right';
     }
     return null; // Column is not pinned
   }
-  daterrange(event:any) {
+  daterrange(event: any) {
 
-    if (event.length==2) {
+    if (event.length == 2) {
       let dateparams = {
         startdate: event ? moment(event[0]).format('yyyy-MM-DD HH:mm') : '',
         enddate: event ? moment(event[1]).format('yyyy-MM-DD HH:mm') : '',
@@ -238,14 +233,13 @@ export class UserDashboardComponent implements OnInit {
   }
 
   onBtnClick(params: any) {
-
     if (params.label === "Get Logs") {
       if (params && params.rowData && params.rowData.Result_Id) {
         this.userLog = { "result_id": params.rowData.Result_Id }
         this.apiservice.reportDataFetch(this.userLog, "userResponse").subscribe((res: any) => {
           if (res.success === true && res.data && res.data?.length) {
-            this.is_download= false
-            this.popUpData =  { data: res.data} ;
+            this.is_download = false
+            this.popUpData = { data: res.data };
             this.matPopUpOpen()
           } else {
             this.popupMessage = "User have not attented any questions"
@@ -256,22 +250,22 @@ export class UserDashboardComponent implements OnInit {
         this.popupMessage = "User have not started or attented any questions"
         this.matDialogOpen()
       }
-    }  else if (params.label === "View Logs"){
+    } else if (params.label === "View Logs") {
 
       if (params && params.rowData && params.rowData.Result_Id) {
         this.userLog = { "result_id": params.rowData.Result_Id }
         this.apiservice.reportDataFetch(this.userLog, "getAuditPdfReport").subscribe((res: any) => {
           if (res.success === true && res.data && res.data?.length) {
-            this.is_download= false
-            this.auditData = res.data ;
+            this.is_download = false
+            this.auditData = res.data;
             this.matPdfOpen()
           } else {
             this.popupMessage = "User have not started or attented any questions"
             this.matDialogOpen()
           }
         });
+      }
     }
-  }
   }
   matDialogOpen() {
     const dialogRef = this.dialog.open(this.matDialogRef, {
@@ -304,61 +298,6 @@ export class UserDashboardComponent implements OnInit {
       scrollStrategy: this.scrollStrategyOptions.block()
     });
   }
-  // generatePDF() {
-  //   // Get the HTML content of the table
-  //   const tableHtml = document.getElementById('pdf-html');
-
-  //   if (!tableHtml) {
-  //     console.error('Table element with ID "pdf-html" not found.');
-  //     return;
-  //   }
-
-  //   // // Wait for table rendering if dynamically generated (replace with your check)
-  //   // if (/* condition indicating table hasn't rendered yet */) {
-  //   //   setTimeout(() => this.generatePDF(), 100); // Adjust timeout as needed
-  //   //   return;
-  //   // }
-
-  //   const tableHtmlString = tableHtml.innerHTML;
-
-  //   // Optional logging for debugging
-  //   console.log("tableHtmlString", tableHtmlString);
-
-  //   const doc = new jsPDF();
-
-  //   // Dynamic page breaks with initial position and margin adjustments
-  //   let y = 20; // Initial starting position
-  //   const pageSize = doc.internal.pageSize;
-  //   const pageHeight = pageSize.height - 20; // Adjust margin as needed
-  //   const tableHeight = doc.getTextDimensions(tableHtmlString).h;
-
-  //   if (tableHeight > pageHeight) {
-  //     console.log("Table too large for one page - using page breaks");
-
-  //     doc.html(tableHtmlString, {
-  //       x: 10, // Horizontal margin
-  //       y: y,
-  //       callback: (pdf) => {
-  //         y += doc.getTextDimensions(tableHtmlString).h;
-
-  //         if (y > pageHeight) {
-  //           pdf.addPage();
-  //           y = 20; // Reset y for next page
-  //           pdf.html(tableHtmlString, { x: 10, y: y });
-  //         }
-  //       },
-  //     });
-  //   } else {
-  //     console.log("Table fits on one page");
-  //     doc.html(tableHtmlString, { x: 10, y: y });
-  //   }
-
-  //   // Additional styling if needed (consider inline styles or external stylesheet)
-  //   // doc.setFont('Arial', 'bold', 12); // Example
-  //   // doc.text('Audit Trail Report', 20, 10); // Example
-
-  //   doc.save(this.auditData[0].User_Mail + '-audit-trail.pdf');
-  // }
 
   generatePDF() {
     const doc = new jsPDF();
@@ -369,8 +308,8 @@ export class UserDashboardComponent implements OnInit {
     const pageHeight = pageSize.height - 20;
     const reportTitleElement = document.querySelector('.audit-trail-container h2') as HTMLElement;
     if (!reportTitleElement) {
-        console.error('Report title element not found');
-        return;
+      console.error('Report title element not found');
+      return;
     }
     const reportTitle = reportTitleElement.innerText.trim();
     const textWidth = doc.getStringUnitWidth(reportTitle) * fontSize / doc.internal.scaleFactor;
@@ -389,12 +328,10 @@ export class UserDashboardComponent implements OnInit {
     const batchDateTimeElement = document.querySelector('.candidate-details p:nth-child(5) span') as HTMLElement;
     const durationElement = document.querySelector('.candidate-details p:nth-child(6) span') as HTMLElement;
     const auditTrailHeaderElement = document.querySelector('.audit-trail-container h3') as HTMLElement;
-
     if (!rollNoElement || !nameElement || !examElement || !subjectElement || !batchDateTimeElement || !durationElement || !auditTrailHeaderElement) {
-        console.error('One or more elements not found');
-        return;
+      console.error('One or more elements not found');
+      return;
     }
-
     const rollNo = rollNoElement.innerText.trim();
     const name = nameElement.innerText.trim();
     const exam = examElement.innerText.trim();
@@ -417,55 +354,49 @@ export class UserDashboardComponent implements OnInit {
     y += 5;
     doc.text(auditTrailHeader, 10, y);
     y += 5;
-
     // Draw the table headers
     const headers = ['Sl. No.', 'Action Item', 'Selected Option', 'ActionOn'];
     const colWidths = [20, 80, 40, 50];
     const headersHeight = 15;
     for (let i = 0; i < headers.length; i++) {
-        doc.setFillColor(240, 240, 240);
-        doc.rect(10 + this.sumArrayElements(colWidths, i), y, colWidths[i], headersHeight, 'F');
-        doc.rect(10 + this.sumArrayElements(colWidths, i), y, colWidths[i], headersHeight, 'S'); // Add border line
-        doc.setTextColor(0, 0, 0);
-        doc.text(headers[i], 12 + this.sumArrayElements(colWidths, i), y + 10, { maxWidth: colWidths[i] - 2 });
+      doc.setFillColor(240, 240, 240);
+      doc.rect(10 + this.sumArrayElements(colWidths, i), y, colWidths[i], headersHeight, 'F');
+      doc.rect(10 + this.sumArrayElements(colWidths, i), y, colWidths[i], headersHeight, 'S'); // Add border line
+      doc.setTextColor(0, 0, 0);
+      doc.text(headers[i], 12 + this.sumArrayElements(colWidths, i), y + 10, { maxWidth: colWidths[i] - 2 });
     }
     y += headersHeight;
-
     // Draw the table rows
     const tableRows = document.querySelectorAll('.audit-trail-table tbody tr');
     const rowHeight = 15;
     for (let i = 0; i < tableRows.length; i++) {
-        const cells = tableRows[i].querySelectorAll('td');
-        if (!cells || cells.length !== headers.length) {
-            console.error(`Invalid row at index ${i}`);
-            continue;
-        }
-
-        if (y + rowHeight > pageHeight) {
-            doc.addPage();
-            y = 20;
-        }
-
-        for (let j = 0; j < cells.length; j++) {
-            const cellText = cells[j].innerText.trim();
-            const maxWidth = colWidths[j] - 2;
-            const textLines = doc.splitTextToSize(cellText, maxWidth);
-            doc.rect(10 + this.sumArrayElements(colWidths, j), y, colWidths[j], rowHeight, 'S');
-            doc.text(textLines, 12 + this.sumArrayElements(colWidths, j), y + 6, { maxWidth: colWidths[j] - 2 });
-        }
-
-        y += rowHeight;
+      const cells = tableRows[i].querySelectorAll('td');
+      if (!cells || cells.length !== headers.length) {
+        console.error(`Invalid row at index ${i}`);
+        continue;
+      }
+      if (y + rowHeight > pageHeight) {
+        doc.addPage();
+        y = 20;
+      }
+      for (let j = 0; j < cells.length; j++) {
+        const cellText = cells[j].innerText.trim();
+        const maxWidth = colWidths[j] - 2;
+        const textLines = doc.splitTextToSize(cellText, maxWidth);
+        doc.rect(10 + this.sumArrayElements(colWidths, j), y, colWidths[j], rowHeight, 'S');
+        doc.text(textLines, 12 + this.sumArrayElements(colWidths, j), y + 6, { maxWidth: colWidths[j] - 2 });
+      }
+      y += rowHeight;
     }
+    doc.save(this.auditData[0].User_Mail + '-' + this.auditData[0].Test_Name + 'audit-trail.pdf');
+  }
 
-    doc.save(this.auditData[0].User_Mail+'-'+this.auditData[0].Test_Name+'audit-trail.pdf');
-}
-
-sumArrayElements(arr: any, index: any) {
+  sumArrayElements(arr: any, index: any) {
     return arr.slice(0, index).reduce((acc: any, curr: any) => acc + curr, 0);
-}
+  }
 
 
-  popupClose(){
+  popupClose() {
     this.dialog.closeAll(); // Close all open dialogs
   }
 

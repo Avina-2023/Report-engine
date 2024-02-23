@@ -107,7 +107,6 @@ export class DashboardComponent implements OnInit {
   htmlfile = '../../../assets/Html/maintanence.html';
 
   liveData: boolean = false;
-
   responseData: any;
   eulaContent: any;
   timeoutval: any;
@@ -279,17 +278,16 @@ export class DashboardComponent implements OnInit {
 
    dashboardDetails(){
     this.apiservice.liveDashboard(this.DashboardData).subscribe((res: any) => {
-
-      this.responseData = res.data;
-      if(this.responseData.length ){
-
+      if(res && res.data && res.data[0]){
+        this.responseData= res.data
+        this.groupingCount(this.responseData);
+        this.isDownload = "true"
+        this.rowData = { data: res.data };
       }else{
         this.responseData = [];
+        this.groupingCount(this.responseData);
+        this.rowData = { data: this.responseData}
       }
-
-          this.groupingCount(this.responseData);
-          this.isDownload = "true"
-          this.rowData = { data: res.data };
           // this.clientwisedomainwisegrid(this.responseData);
           // this.dynamicallyConfigureColumnsFromObject(this.responseData);
           // this.domainWiseChartDataSort(res.data);
@@ -309,24 +307,27 @@ export class DashboardComponent implements OnInit {
 
           this.apiservice.proctor(this.DashboardData).subscribe((res:any)=>{
 
-            res.data.data.forEach((_item:any,_index:any)=>{
-              if(_item.status=="rejected"){
-                this.rejected= this.rejected + 1
-              }else if(_item.status=="stopped"){
-                this.stopped= this.stopped + 1
-              }else if(_item.status=="started"){
-                this.Started= this.Started + 1
-              }else if(_item.status=="accepted"){
-                this.accepted= this.accepted + 1
-              }else if(_item.status=="paused"){
-                this.paused= this.paused + 1
-              }else if(_item.status=="template"){
-                this.template= this.template + 1
-              }else if(_item.status=="created"){
-                this.created= this.created + 1
-              }
+            if (res && res.data && res.data[0]){
+              res.data.data.forEach((_item:any,_index:any)=>{
+                if(_item.status=="rejected"){
+                  this.rejected= this.rejected + 1
+                }else if(_item.status=="stopped"){
+                  this.stopped= this.stopped + 1
+                }else if(_item.status=="started"){
+                  this.Started= this.Started + 1
+                }else if(_item.status=="accepted"){
+                  this.accepted= this.accepted + 1
+                }else if(_item.status=="paused"){
+                  this.paused= this.paused + 1
+                }else if(_item.status=="template"){
+                  this.template= this.template + 1
+                }else if(_item.status=="created"){
+                  this.created= this.created + 1
+                }
+              })
+            } else {
 
-            })
+            }
             // this.dynamicallyConfigureColumnsFromObject(res)
             //  this.agGrid.api.setRowData(res)
 
@@ -337,27 +338,34 @@ export class DashboardComponent implements OnInit {
 
    homeDetails(){
     this.apiservice.ScheduleDetails(this.DashboardData).subscribe((res:any)=>{
-      this.scheduleData = res.data
-      this.chartapi()
+      if (res && res.data && res.data[0]){
+        this.scheduleData = res.data
+        this.chartapi()
+      } else {
+
+      }
     })
    }
    chartapi(){
-    this.apiservice.ChartDetails(this.toolTipData).subscribe((res:any)=>{
-      this.chartData = res.data
-      this.chartOptions.series[0].data = [
-        this.chartData[0]?.overAll[0]?.scheduled,
-        (this.chartData[0]?.overAll[0]?.scheduled - this.chartData[0]?.overAll[0]?.started),
-        this.chartData[0]?.overAll[0]?.started,
-        this.chartData[0].overAll[0].Inprogress ,
-        this.chartData[0].overAll[0].Completed ,
-      ];
-      // setTimeout(() => {
-        this.ovrAllChrt?.updateSeries(this.chartOptions.series);
-        this.clientData = this.chartData[0]?.client
-        this.testData = this.chartData[0]?.test
-      // }, 1000);
+     this.apiservice.ChartDetails(this.toolTipData).subscribe((res: any) => {
+       if (res && res.data && res.data[0]) {
+         this.chartData = res.data
+         this.chartOptions.series[0].data = [
+           this.chartData[0]?.overAll[0]?.scheduled,
+           (this.chartData[0]?.overAll[0]?.scheduled - this.chartData[0]?.overAll[0]?.started),
+           this.chartData[0]?.overAll[0]?.started,
+           this.chartData[0].overAll[0].Inprogress,
+           this.chartData[0].overAll[0].Completed,
+         ];
+         // setTimeout(() => {
+         this.ovrAllChrt?.updateSeries(this.chartOptions.series);
+         this.clientData = this.chartData[0]?.client
+         this.testData = this.chartData[0]?.test
+         // }, 1000);
+       } else {
 
-    })
+       }
+     })
    }
 
    groupingCount(_data:any){

@@ -4,9 +4,10 @@ import { APP_CONSTANTS } from '../../../utils/app-constants.service';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { NgClass, NgIf } from '@angular/common';
-import { RouterLinkActive, RouterLink, Router } from '@angular/router';
+import { RouterLinkActive, RouterLink, Router, NavigationEnd } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
 import { TabStateService } from '../../../services/tab.service';
+import { filter } from 'rxjs';
 @Component({
   selector: 'app-tab-head',
   standalone: true,
@@ -24,7 +25,6 @@ export class TabHeadComponent implements OnInit {
   isCBT: boolean = false;
   isAdmincc: boolean = false;
   selectedTabId: string | null | undefined;
-
   constructor(private utility: UtilityService,
     private router: Router,
     private tabStateService: TabStateService) {
@@ -47,19 +47,23 @@ export class TabHeadComponent implements OnInit {
     if(JSON.parse(userDetails)?.roleId == "CBT"){
       this.isCBT = true;
     }
+    this.router.events
+      .pipe(filter((event: any) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.selectedTabId = this.tabStateService.getEndpoint();
+        console.log("this.selectedTabId",this.selectedTabId);
+
+      });
 
   }
 
   ngOnInit() {
     this.selectedTabId = this.tabStateService.getSelectedTabId();
-  }
-  onTabChange(tabId: string) {
 
+  }
+
+  onTabChange(tabId: string) {
     this.selectedTabId = tabId;
     this.tabStateService.setSelectedTabId(tabId);
-
-    // Optionally, use Angular's routing:
-
-
   }
 }

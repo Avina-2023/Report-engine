@@ -197,7 +197,12 @@
                       <div class="total-flex">
                         <div class="num-left">
                           <div
-                            *ngIf="scheduleData && scheduleData[0] && scheduleData[0].completed && scheduleData[0].completed[0]"
+                            *ngIf="scheduleData && scheduleData[0] && scheduleData[0].completed && scheduleData[0].completed[0]  && scheduleData[0].completed[0].scheduled !== undefined && scheduleData[0].completed[0].scheduled !== null"
+                            class="mat-number">
+                            {{scheduleData[0]?.completed[0]?.scheduled}}
+                          </div>
+                          <div
+                            *ngIf="scheduleData && scheduleData[0] && scheduleData[0].completed && scheduleData[0].completed[0]  && scheduleData[0].completed[0].scheduled === undefined && scheduleData[0].completed[0].scheduled === null"
                             class="mat-number">
                             {{scheduleData[0]?.completed[0]?.scheduled}}
                           </div>
@@ -206,7 +211,7 @@
                           <div class="number-flex">
                             <div class="left-flex">
                               <div
-                                *ngIf="scheduleData && scheduleData[0] && scheduleData[0].completed && scheduleData[0].completed[0]"
+                                *ngIf="scheduleData && scheduleData[0] && scheduleData[0].completed && scheduleData[0].completed[0] && scheduleData[0].completed[0].started !== undefined && scheduleData[0].completed[0].started !== null"
                                 class="orange-color">
                                 {{ scheduleData[0]?.completed[0]?.started }}
                               </div>
@@ -218,7 +223,7 @@
                         </div>
                       </div>
                       <div
-                        *ngIf="scheduleData && scheduleData[0] && scheduleData[0].upComing && scheduleData[0].upComing[0]"
+                        *ngIf="scheduleData && scheduleData[0] && scheduleData[0].upComing && scheduleData[0].upComing[0] && scheduleData[0].upComing[0].scheduled !== undefined && scheduleData[0].scheduled !== null"
                         class="upcoming"> Scheduled Upcomming Assessment Candidates -
                         {{scheduleData[0].upComing[0].scheduled}} </div>
                     </div>

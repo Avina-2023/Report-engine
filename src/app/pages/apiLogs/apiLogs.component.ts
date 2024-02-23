@@ -37,40 +37,37 @@ import { AlertServiceService } from 'src/app/services/alertService.service';
 
 export class ApiLogsComponent implements OnInit {
   datepipe: any;
-  tabdate:  any;
-  date7:any;
+  tabdate: any;
+  date7: any;
   rowData: any;
 
   constructor(
     private apiservice: ApiService,
     private alertservice: AlertServiceService
-    ) { }
+  ) { }
 
-	ngOnInit() {
+  ngOnInit() {
     this.apiLogs()
   }
 
-  daterrange(event:any){
-
-    if(event.length){
-     this.tabdate = {
+  daterrange(event: any) {
+    if (event.length) {
+      this.tabdate = {
         startdate: event ? moment(event[0]).format('yyyy-MM-DD HH:mm') : '',
         enddate: event ? moment(event[1]).format('yyyy-MM-DD HH:mm') : '',
-   }
-   this.apiLogs()
-
- }
- }
- apiLogs(){
-
- this.apiservice.reportDataFetch(this.tabdate,"getApiLogs").subscribe((res: any) => {
-  if(res.data && res.data[0]){
-    this.rowData = {data: res.data}
-    this.alertservice.toastfire('success',res.message);
-  } else {
-    this.alertservice.toastfire('warning',res.message);
+      }
+      this.apiLogs()
+    }
   }
- })
-
-}
+  apiLogs() {
+    this.apiservice.reportDataFetch(this.tabdate, "getApiLogs").subscribe((res: any) => {
+      if (res.data && res.data[0]) {
+        this.rowData = { data: res.data }
+        this.alertservice.toastfire('success', res.message);
+      } else {
+        this.rowData = { data: [] }
+        this.alertservice.toastfire('warning', res.message);
+      }
+    })
+  }
 }

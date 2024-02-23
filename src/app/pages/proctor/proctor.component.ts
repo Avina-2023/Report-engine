@@ -69,7 +69,6 @@ export class ProctorComponent implements OnInit {
     { field: 'duration', filter: 'agMultiColumnFilter',
     cellRenderer: (params:any) => {
       let timeData = moment.duration(params.value,'minutes');
-      console.log(timeData.hours,timeData.minutes);
       let hourData= timeData.hours()>1?timeData.hours()+" Hrs":timeData.hours()?timeData.hours()+" Hr":''
       let minData= timeData.minutes()>1?timeData.minutes()+" Mins":timeData.minutes()?timeData.minutes()+" Min":''
       let val = hourData+" "+minData
@@ -131,7 +130,6 @@ export class ProctorComponent implements OnInit {
     this.template=0
     this.created=0
     this.apiservice.proctor(dateparams).subscribe((res:any)=>{
-      console.log(res);
       this.rowData = res.data.data
       // this.rowData = mockData.data.item;
 
@@ -161,7 +159,6 @@ export class ProctorComponent implements OnInit {
   }
   statsCardClick(data:string){
       var sportsFilterComponent = this.agGrid.api.getFilterInstance("status");
-      console.log(sportsFilterComponent)
 
       sportsFilterComponent?.setModel({
         type: "contains",
