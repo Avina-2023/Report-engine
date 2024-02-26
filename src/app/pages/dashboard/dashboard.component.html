@@ -105,20 +105,30 @@
                       <div class="total-flex">
                         <div class="num-left">
                           <div
-                            *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                            *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0] && scheduleData[0]?.overAll[0]?.scheduled !== undefined && scheduleData[0]?.overAll[0]?.scheduled !== null"
                             class="mat-number">
                             {{scheduleData[0]?.overAll[0]?.scheduled}}
                           </div>
+                          <div
+                          *ngIf="!scheduleData || !scheduleData[0] || !scheduleData[0].overAll || !scheduleData[0].overAll[0] || scheduleData[0]?.overAll[0]?.scheduled === undefined || scheduleData[0]?.overAll[0]?.scheduled === null"
+                          class="mat-number">
+                          0
+                        </div>
                         </div>
                         <div class="num-left">
                           <div class="number-flex">
                             <div class="left-flex">
                               <div
-                                *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                                *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0] && scheduleData[0]?.overAll[0]?.started !== undefined && scheduleData[0]?.overAll[0]?.started !== null"
                                 class="blue-color">
                                 {{ scheduleData[0]?.overAll[0]?.started}}
                               </div>
-                            </div>
+                            <div
+                            *ngIf="!scheduleData || !scheduleData[0] || !scheduleData[0].overAll || !scheduleData[0].overAll[0] || scheduleData[0]?.overAll[0]?.started === undefined || scheduleData[0]?.overAll[0]?.started === null"
+                            class="blue-color">
+                            0
+                          </div>
+                        </div>
                             <div class="right-flex">
                               <div>Test Taken</div>
                             </div>
@@ -202,9 +212,9 @@
                             {{scheduleData[0]?.completed[0]?.scheduled}}
                           </div>
                           <div
-                            *ngIf="scheduleData && scheduleData[0] && scheduleData[0].completed && scheduleData[0].completed[0]  && scheduleData[0].completed[0].scheduled === undefined && scheduleData[0].completed[0].scheduled === null"
+                            *ngIf="!scheduleData && !scheduleData[0] || !scheduleData[0].completed || !scheduleData[0].completed[0]  || scheduleData[0].completed[0].scheduled === undefined || scheduleData[0].completed[0].scheduled === null"
                             class="mat-number">
-                            {{scheduleData[0]?.completed[0]?.scheduled}}
+                            0
                           </div>
                         </div>
                         <div class="num-left">
@@ -215,6 +225,11 @@
                                 class="orange-color">
                                 {{ scheduleData[0]?.completed[0]?.started }}
                               </div>
+                              <div
+                              *ngIf="!scheduleData && !scheduleData[0] || !scheduleData[0].completed || !scheduleData[0].completed[0] || scheduleData[0].completed[0].started === undefined || scheduleData[0].completed[0].started === null"
+                              class="orange-color">
+                              0
+                            </div>
                             </div>
                             <div class="right-flex">
                               <div>Test Taken</div>
@@ -265,19 +280,39 @@
                                     {{ chartData[0]?.overAll[0]?.scheduled }}
                                   </div>
                                   <div
+                                    *ngIf="!scheduleData || !scheduleData[0] || !scheduleData[0].overAll || !scheduleData[0].overAll[0]"
+                                    class="circle green">
+                                    0
+                                  </div>
+                                  <div
                                     *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
                                     class="circle green">
                                     {{ chartData[0]?.overAll[0]?.started }}
                                   </div>
+                                  <div
+                                  *ngIf="!scheduleData || !scheduleData[0] || !scheduleData[0].overAll || !scheduleData[0].overAll[0]"
+                                  class="circle green">
+                                  0
+                                </div>
                                   <div
                                     *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
                                     class="circle green">
                                     {{ chartData[0]?.overAll[0]?.Inprogress }}
                                   </div>
                                   <div
+                                  *ngIf="!scheduleData || !scheduleData[0] || !scheduleData[0].overAll || !scheduleData[0].overAll[0]"
+                                  class="circle green">
+                                  0
+                                </div>
+                                  <div
                                     *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
                                     class="circle green">
                                     {{ chartData[0]?.overAll[0]?.Completed }}
+                                  </div>
+                                  <div
+                                    *ngIf="!scheduleData || !scheduleData[0] || !scheduleData[0].overAll || !scheduleData[0].overAll[0]"
+                                    class="circle green">
+                                    0
                                   </div>
                                 </div>
                                 <div class="proctor-create">
