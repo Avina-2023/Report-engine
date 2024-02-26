@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reportengineui
+  name: reportengineuiprod
   namespace: report
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: reportengineui
+      app: reportengineuiprod
   template:
     metadata:
       labels:
-        app: reportengineui
+        app: reportengineuiprod
     spec:
       containers:
-        - name: reportengineui
+        - name: reportengineuiprod
           image: taoprodassess.azurecr.io/reportengineuiprod:$tag
           ports:
           - containerPort: 80
