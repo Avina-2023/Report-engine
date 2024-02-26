@@ -31,10 +31,10 @@ export const routes: Routes = [
     path: `${APP_CONSTANTS.ROUTES.ANALYSIS}`,loadComponent: () => import('./pages/analysis/analysis.component').then(comp=>comp.AnalysisComponent),canActivate:[loginGaurd]
   },
   {
-    path: `${APP_CONSTANTS.ROUTES.REGISTRATION}`,loadComponent: () => import('./pages/registration/registration.component').then(comp=>comp.RegistrationComponent),canActivate:[loginGaurd],data:{role:"ADMINCC"}
+    path: `${APP_CONSTANTS.ROUTES.REGISTRATION}`,loadComponent: () => import('./pages/registration/registration.component').then(comp=>comp.RegistrationComponent),canActivate:[loginGaurd],data:{role:"SADM"}
   },
   {
-    path: `${APP_CONSTANTS.ROUTES.APILOGS}`,loadComponent: () => import('./pages/apiLogs/apiLogs.component').then(comp=>comp.ApiLogsComponent),canActivate:[roleGuard],data:{role:"ADMINCC"}
+    path: `${APP_CONSTANTS.ROUTES.APILOGS}`,loadComponent: () => import('./pages/apiLogs/apiLogs.component').then(comp=>comp.ApiLogsComponent),canActivate:[roleGuard],data:{role:"SADM"}
   },
   // {
   //   path:  `${APP_CONSTANTS.ROUTES.VMSSDASH}`, loadComponent:()=> import('./pages/dashboard_VMSS/dashboard_VMSS.component').then(comp=>comp.Dashboard_VMSSComponent),canActivate:[loginGaurd]
