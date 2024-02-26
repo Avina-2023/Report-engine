@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reportengineui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reportengineui
+  template:
+    metadata:
+      labels:
+        app: reportengineui
+    spec:
+      containers:
+        - name: reportengineui
+          image: taodev.azurecr.io/reportengineuiuat:$tag
+          ports:
+          - containerPort: 80
+      imagePullSecrets:
+        - name: mysecret
