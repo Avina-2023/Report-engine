@@ -350,7 +350,11 @@ onBtnClick(params: any) {
 
 customTabDataFiller(data: any, endPoint: string) {
   this.apiservice.reportDataFetch(data, endPoint).subscribe((res: any) => {
-    this.alertservice.toastfire('success',res.message);
+    if(res && res.data && res.data[0]){
+      this.alertservice.toastfire('success',res.message);
+    } else {
+      this.alertservice.toastfire('warning',res.message);
+    }
     if (endPoint === "actionUserDashboard") {
       this.dynamicallyConfigureforuserBased( res.data) ;
     } else if (endPoint === "actionDashboard") {
