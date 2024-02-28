@@ -275,42 +275,42 @@
                               <div class="total-content">
                                 <div class="proctor-flex">
                                   <div
-                                    *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                                    *ngIf="chartData && chartData[0] && chartData[0].overAll && chartData[0].overAll[0]"
                                     class="circle green">
                                     {{ chartData[0]?.overAll[0]?.scheduled }}
                                   </div>
                                   <div
-                                    *ngIf="!scheduleData || !scheduleData[0] || !scheduleData[0].overAll || !scheduleData[0].overAll[0]"
+                                    *ngIf="!chartData || !chartData[0] || !chartData[0].overAll || !chartData[0].overAll[0]"
                                     class="circle green">
                                     0
                                   </div>
                                   <div
-                                    *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                                    *ngIf="chartData && chartData[0] && chartData[0].overAll && chartData[0].overAll[0]"
                                     class="circle green">
                                     {{ chartData[0]?.overAll[0]?.started }}
                                   </div>
                                   <div
-                                  *ngIf="!scheduleData || !scheduleData[0] || !scheduleData[0].overAll || !scheduleData[0].overAll[0]"
+                                  *ngIf="!chartData || !chartData[0] || !chartData[0].overAll || !chartData[0].overAll[0]"
                                   class="circle green">
                                   0
                                 </div>
                                   <div
-                                    *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                                    *ngIf="chartData && chartData[0] && chartData[0].overAll && chartData[0].overAll[0]"
                                     class="circle green">
                                     {{ chartData[0]?.overAll[0]?.Inprogress }}
                                   </div>
                                   <div
-                                  *ngIf="!scheduleData || !scheduleData[0] || !scheduleData[0].overAll || !scheduleData[0].overAll[0]"
+                                  *ngIf="!chartData || !chartData[0] || !chartData[0].overAll || !chartData[0].overAll[0]"
                                   class="circle green">
                                   0
                                 </div>
                                   <div
-                                    *ngIf="scheduleData && scheduleData[0] && scheduleData[0].overAll && scheduleData[0].overAll[0]"
+                                    *ngIf="chartData && chartData[0] && chartData[0].overAll && chartData[0].overAll[0]"
                                     class="circle green">
                                     {{ chartData[0]?.overAll[0]?.Completed }}
                                   </div>
                                   <div
-                                    *ngIf="!scheduleData || !scheduleData[0] || !scheduleData[0].overAll || !scheduleData[0].overAll[0]"
+                                    *ngIf="!chartData || !chartData[0] || !chartData[0].overAll || !chartData[0].overAll[0]"
                                     class="circle green">
                                     0
                                   </div>

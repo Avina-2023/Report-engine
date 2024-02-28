@@ -180,7 +180,7 @@ dynamicallyConfigureColumnsFromObject(anObject: any) {
           { label: 'Result-Check', color: '#32557f' },
           { label: 'Score-Check', color: '#32557f' },
           { label: 'Score-Sync', color: '#32557f' },
-          { label: 'ProctorStatusSyn', color: '#32557f' },
+          { label: 'ProctorStatusSync', color: '#32557f' },
           { label: 'BehaviouralSync', color: '#32557f' },
           { label: 'LmsStatusSync', color: '#32557f' },
           { label: 'LmsScoreSync', color: '#32557f' },
@@ -202,7 +202,7 @@ dynamicallyConfigureColumnsFromObject(anObject: any) {
           { label: 'Result-Check', color: '#32557f' },
           { label: 'Score-Check', color: '#32557f' },
           { label: 'Score-Sync', color: '#32557f' },
-          { label: 'ProctorStatusSyn', color: '#32557f' },
+          { label: 'ProctorStatusSync', color: '#32557f' },
           { label: 'BehaviouralSync', color: '#32557f' },
         ],
       },
@@ -253,7 +253,7 @@ dynamicallyConfigureforuserBased(anObject: any) {
           { label: 'Terminate-User',color: '#32557f' },
           { label: 'syncRedisData',color: '#32557f' },
           { label: 'User-Score-Sync',color: '#32557f' },
-          { label: 'UserProctorStatusSyn',color: '#32557f' },
+          { label: 'UserProctorStatusSync',color: '#32557f' },
           { label: 'UserBehaviouralSync',color: '#32557f' },
         ],
       },
@@ -285,7 +285,7 @@ onBtnClick(params: any) {
     this.popupMessage = "Are you sure you want to syn score?"
     this.apiCall = "Score-Sync"
     this.matDialogOpen()
-  } else if (params.label === "ProctorStatusSyn") {
+  } else if (params.label === "ProctorStatusSync") {
     this.ProctorStatusSyn = {"Org_Id": params.rowData.Org_Id,"Delivery_Id":params.rowData.Delivery_Id,"endpoint":"proctorBulkStatusData"}
     this.popupMessage = "Are you sure you want to sync proctor Status?"
     this.apiCall = "ProctorStatusSyn"
@@ -310,7 +310,7 @@ onBtnClick(params: any) {
     this.popupMessage = "Are you sure you want to sync score for user :" +params.rowData.User_Mail+" ?"
     this.apiCall = "User-Score-Sync"
     this.matDialogOpen()
-  } else if (params.label === "UserProctorStatusSyn") {
+  } else if (params.label === "UserProctorStatusSync") {
     this.UserProctorStatusSyn = {"Org_Id": params.rowData.Org_Id,"Delivery_Id":params.rowData.Delivery_Id,"Test_Name":params.rowData.Test_Name,"User_Mail":params.rowData.User_Mail,"endpoint":"proctorStatusData"}
     this.popupMessage = "Are you sure you want to sync behaviouralResult?"
     this.apiCall = "UserProctorStatusSyn"
