@@ -350,20 +350,42 @@ export class DashboardComponent implements OnInit {
      this.apiservice.ChartDetails(this.toolTipData).subscribe((res: any) => {
        if (res && res.data && res.data[0]) {
          this.chartData = res.data
-         this.chartOptions.series[0].data = [
-           this.chartData[0]?.overAll[0]?.scheduled,
-           (this.chartData[0]?.overAll[0]?.scheduled - this.chartData[0]?.overAll[0]?.started),
-           this.chartData[0]?.overAll[0]?.started,
-           this.chartData[0].overAll[0].Inprogress,
-           this.chartData[0].overAll[0].Completed,
-         ];
-         // setTimeout(() => {
-         this.ovrAllChrt?.updateSeries(this.chartOptions.series);
-         this.clientData = this.chartData[0]?.client
-         this.testData = this.chartData[0]?.test
+         if( this.chartData[0].overAll && this.chartData[0].overAll[0]){
+          this.chartOptions.series[0].data = [
+            this.chartData[0]?.overAll[0]?.scheduled ?? 0,
+            (this.chartData[0]?.overAll[0]?.scheduled ?? 0) - (this.chartData[0]?.overAll[0]?.started ?? 0),
+            this.chartData[0]?.overAll[0]?.started ?? 0,
+            this.chartData[0]?.overAll[0]?.Inprogress ?? 0,
+            this.chartData[0]?.overAll[0]?.Completed ?? 0
+          ];
+          this.ovrAllChrt?.updateSeries(this.chartOptions.series);
+        } else{
+          this.chartOptions.series[0].data = [
+            this.chartData[0]?.overAll[0]?.scheduled ?? 0,
+            (this.chartData[0]?.overAll[0]?.scheduled ?? 0) - (this.chartData[0]?.overAll[0]?.started ?? 0),
+            this.chartData[0]?.overAll[0]?.started ?? 0,
+            this.chartData[0]?.overAll[0]?.Inprogress ?? 0,
+            this.chartData[0]?.overAll[0]?.Completed ?? 0
+          ];
+          this.ovrAllChrt?.updateSeries(this.chartOptions.series);
+        }
+        if( this.chartData[0].client && this.chartData[0].client[0]){
+          this.clientData = this.chartData[0]?.client
+        } else {
+          this.clientData = []
+        }
+        if(this.chartData[0].test && this.chartData[0].test[0]){
+          this.testData = this.chartData[0]?.test
+        } else {
+          this.testData = []
+        }
+
+        this.testData = this.chartData[0]?.test
          // }, 1000);
        } else {
-
+        this.ovrAllChrt?.updateSeries([]);
+        this.clientData = []
+        this.testData = []
        }
      })
    }

@@ -111,7 +111,6 @@ export class RegistrationComponent implements OnInit {
     });
   }
   organization() {
-
   }
   OrgSubmit() {
     if (this.addOrgForm?.valid) {
@@ -121,6 +120,7 @@ export class RegistrationComponent implements OnInit {
       this.apiservice.reportDataFetch(apiData, "createOrganization").subscribe((res: any) => {
         if (res.success) {
           this.alertservice.toastfire('success', res.message);
+          this.addOrgForm.reset();
         } else {
           this.alertservice.toastfire('warning', res.message);
         }
@@ -140,6 +140,7 @@ export class RegistrationComponent implements OnInit {
       this.apiservice.reportDataFetch(apiData, "createSubOrganization").subscribe((res: any) => {
         if (res.success) {
           this.alertservice.toastfire('success', res.message);
+          this.addSubOrgForm.reset();
         } else {
           this.alertservice.toastfire('warning', res.message);
         }
@@ -171,6 +172,7 @@ export class RegistrationComponent implements OnInit {
       this.apiservice.reportDataFetch(apiData, "createuser").subscribe((res: any) => {
         if (res.success) {
           this.alertservice.toastfire('success', res.message);
+          this.addUserForm.reset();
         } else {
           this.alertservice.toastfire('warning', res.message);
         }
@@ -188,8 +190,10 @@ export class RegistrationComponent implements OnInit {
     this.getOrganizationList()
   }
   getOrganizationList() {
+    this.addSubOrgForm.reset();
+    this.addUserForm.reset();
+    this.addOrgForm.reset();
     this.apiservice.reportDataFetch("", "getOrganizationList").subscribe((res: any) => {
-
       if (res.success && res?.data?.length) {
         this.orglist = res.data
       }
