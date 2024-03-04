@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -13,11 +14,17 @@ spec:
       labels:
         app: adaniengineui
     spec:
+      volumes:
+        - name: pplogs1
+          persistentVolumeClaim:
+            claimName: pplogs1
       containers:
         - name: adaniengineui
           image: adanitaoprod.azurecr.io/adaniengineui:$tag
           ports:
-          - containerPort: 80
+            - containerPort: 80
+          volumeMounts:
+            - name: pplogs1
+              mountPath: /var/www/html/assess/data/pplogs1
       imagePullSecrets:
         - name: mysecret
-    
