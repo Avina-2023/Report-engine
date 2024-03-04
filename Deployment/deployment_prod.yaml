@@ -2,29 +2,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: adaniengineui
-  namespace: report-prod
+  name: sheik
+  namespace: demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: adaniengineui
+      app: sheik
   template:
     metadata:
       labels:
-        app: adaniengineui
+        app: sheik
     spec:
       volumes:
-        - name: pplogs1
+        - name: sheik
           persistentVolumeClaim:
-            claimName: pplogs1
+            claimName: sheik
       containers:
-        - name: adaniengineui
-          image: adanitaoprod.azurecr.io/adaniengineui:$tag
+        - name: sheik
+          image: taodev.azurecr.io/sheikdawood:$tag
           ports:
             - containerPort: 80
           volumeMounts:
-            - name: pplogs1
-              mountPath: /var/www/html/assess/data/pplogs1
+            - name: sheik
+              mountPath: /var/www/html/assess/data/sheik1
       imagePullSecrets:
         - name: mysecret
