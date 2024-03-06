@@ -24,6 +24,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import {  MatCardModule } from '@angular/material/card';
 import { AlertServiceService } from 'src/app/services/alertService.service';
+import { ButtonRendererComponent } from 'src/app/renderer/button-renderer.component';
 
 @Component({
     selector: 'app-examStatusReport',
@@ -35,7 +36,7 @@ import { AlertServiceService } from 'src/app/services/alertService.service';
 })
 export class ExamStatusReportComponent implements OnInit {
   position = new FormControl("Aptitude");
-  TooltipPosition: any = ['Aptitude', 'Behavioural', 'Step'];
+  TooltipPosition: any = ['Aptitude', 'Behavioural', 'Coding'];
   userData = { "date": "2023/02/14" };
   datepipe = new DatePipe('en-us')
   datewise: any = {}
@@ -48,7 +49,7 @@ export class ExamStatusReportComponent implements OnInit {
   sidenav: any;
   tabdate: any;
   currentTabIndex = 0;
-  toolTipData: any;
+  toolTipData: string = 'Aptitude';
   reportList = [
     {
       report_Name: "Score Report",
@@ -63,8 +64,26 @@ export class ExamStatusReportComponent implements OnInit {
       endpoint: (this.utility.getUserOrg() === "57") ? "getitemdetails" : "dateWiseitemReport"
     }
   ]
+  behaviouralList = [
+    {
+      behaviouralLabel: "User Behavioural Report",
+      is_enable: true,
+      is_download: true,
+      endpoint: "getUserBehaviouralReport"
+    }
+  ]
+  codingList = [
+    {
+      codingLabel: "Score Report",
+      is_enable: true,
+      is_download: true,
+      endpoint: "getCodingResults"
+    }
+  ]
   legendData: any;
   showLegend: any;
+  popupMessage: any;
+
   // colDefs: any=[];
   constructor(
     private apiservice: ApiService,
@@ -113,7 +132,8 @@ export class ExamStatusReportComponent implements OnInit {
 
   }
 
-  public columnDefs: ColDef[] = []
+  public columnDefs: ColDef[] = [];
+  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 
   public defaultColDef: ColDef = {
     sortable: true,
@@ -125,6 +145,9 @@ export class ExamStatusReportComponent implements OnInit {
   ngOnInit() {
     this.tabchange(0)
   }
+  frameworkComponents: any = {
+    buttonRenderer: ButtonRendererComponent,
+  };
   daterrange(event: any) {
     if (event.length) {
       this.tabdate = {
@@ -148,6 +171,48 @@ export class ExamStatusReportComponent implements OnInit {
     })
   }
 
+  onBtnClick(params: any) {
+    console.log("params",params);
+
+    if (params.label === "View Report") {
+      console.log("params.rowData.Result_Id",params.rowData.user_Mail);
+
+      const url = 'https://skillexchange.lntedutech.com/auth/reports/viewreport/'+params.rowData.user_Mail;
+      console.log("url",url);
+
+      const data = {
+        username: 'superadmin@dispoatable.com',
+        password: 'Test@123'
+      };
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+
+      // this.userLog = { "result_id": params.rowData.Result_Id }
+      // this.apiservice.reportDataFetch(this.userLog, "getAuditPdfReport").subscribe((res: any) => {
+      //   if (res.success === true && res.data && res.data?.length) {
+      //     this.matPdfOpen()
+      //   } else {
+      //     this.popupMessage = "User have not started or attented any questions"
+      //     this.matDialogOpen()
+      //   }
+      // });
+    }
+  }
+
+
   // dateWiseitemReport(data:any){
   //   let endPoint = "dateWiseitemReport"
   //   if(this.utility.getUserOrg() === 57){
@@ -157,6 +222,51 @@ export class ExamStatusReportComponent implements OnInit {
   //     this.rowData = res.data
   //   })
   // }
+  isColumnPinned(columnKey: string): boolean | 'left' | 'right' | null {
+    if (columnKey === 'User_Mail') {
+      return 'left';
+    } else if (columnKey === 'ViewReport') {
+      return 'right';
+    }
+    return null;
+  }
+  dynamicallyConfigureColumnsFromObject(anObject: any) {
+    this.ColDef = this.agGrid.api.getColumnDefs();
+    this.ColDef.length = 0;
+    this.columnDefs = [];
+    if (anObject?.length) {
+
+      const keys = Object.keys(anObject[0]);
+
+      keys.forEach((key) =>
+
+        this.columnDefs.push({
+          field: key,
+          headerName: key.replaceAll('_', ' ').replaceAll('Time', 'Date'),
+          pinned: this.isColumnPinned(key),
+        }),
+
+      );
+
+    }
+    this.agGrid.api.setColumnDefs(this.columnDefs);
+    this.agGrid.api.setRowData(anObject);
+    this.rowData = anObject
+    this.columnDefs.push({
+        headerName: 'ViewReport',
+        cellRenderer: 'buttonRenderer',
+        cellRendererParams: {
+          onClick: this.onBtnClick.bind(this),
+          buttons: [
+            { label: 'View Report', color: '#32557f' },
+          ],
+        },
+        sortable: false,
+        filter: false,
+        width: 150, // Adjust the width as needed
+        pinned: this.isColumnPinned("ViewReport"),
+    });
+  }
 
   customTabDataFiller(data: any, endPoint: string) {
     this.apiservice.reportDataFetch(data, endPoint).subscribe((res: any) => {
@@ -168,9 +278,18 @@ export class ExamStatusReportComponent implements OnInit {
         this.rowData = { data: res.data, key: res.key };
       } else if (res.data && res.data?.length) {
         this.alertservice.toastfire('success', res.message);
-        this.rowData = { data: res.data };
+        if (this.toolTipData === "Behavioural"){
+          this.dynamicallyConfigureColumnsFromObject(res.data)
+        } else{
+          this.rowData = { data: res.data };
+        }
       } else {
         this.alertservice.toastfire('warning', res.message);
+        if (this.toolTipData === "Behavioural"){
+          this.dynamicallyConfigureColumnsFromObject([])
+        } else{
+          this.rowData = { data: [] };
+        }
       }
     });
   }
@@ -178,16 +297,31 @@ export class ExamStatusReportComponent implements OnInit {
   tabchange(index: any) {
     this.currentTabIndex = index;
     this.rowData = []
-    this.reportList.forEach((tab: any, i: number) => {
-      if (index == i) {
-        this.showLegend = tab?.isLegend
-        this.customTabDataFiller(this.tabdate, tab.endpoint)
-      }
-    });
+    if(this.toolTipData === "Aptitude"){
+      this.reportList.forEach((tab: any, i: number) => {
+        if (index == i) {
+          this.showLegend = tab?.isLegend
+          this.customTabDataFiller(this.tabdate, tab.endpoint)
+        }
+      });
+    } else if (this.toolTipData === "Behavioural"){
+      this.behaviouralList.forEach((tab: any, i: number) => {
+        if (index == i) {
+          this.customTabDataFiller(this.tabdate, tab.endpoint)
+        }
+      });
+    } else if (this.toolTipData === "Coding"){
+      this.codingList.forEach((tab: any, i: number) => {
+        if (index == i) {
+          this.customTabDataFiller(this.tabdate, tab.endpoint)
+        }
+      });
+    }
+
   }
 
   onSelectionChange(event: any) {
-    const selectedValue = event.value;
-    this.toolTipData = { "event": event.value }
+    this.toolTipData = event.value;
+    this.tabchange(0)
   }
 }
