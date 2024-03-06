@@ -241,10 +241,12 @@ export class DashboardComponent implements OnInit {
   @ViewChild('clientwise') clientwisePie: ChartComponent | undefined;
 
 
-
   ngOnInit() {
     this.getDashboardAPI()
   }
+
+
+
 
   reportList=[
     {
@@ -288,14 +290,6 @@ export class DashboardComponent implements OnInit {
         this.groupingCount(this.responseData);
         this.rowData = { data: this.responseData}
       }
-          // this.clientwisedomainwisegrid(this.responseData);
-          // this.dynamicallyConfigureColumnsFromObject(this.responseData);
-          // this.domainWiseChartDataSort(res.data);
-          // this.clientwisedrivedata(res.data);
-          // this.clientWiseChartDataSort(res.data);
-          // this.getChart(res.data);
-
-
 
           this.rejected=0
           this.stopped=0
@@ -304,6 +298,7 @@ export class DashboardComponent implements OnInit {
           this.paused=0
           this.template=0
           this.created=0
+         if(this.utility.getUserDetails().isOrg !== "1"){
 
           this.apiservice.proctor(this.DashboardData).subscribe((res:any)=>{
 
@@ -332,6 +327,9 @@ export class DashboardComponent implements OnInit {
             //  this.agGrid.api.setRowData(res)
 
           })
+        } else {
+
+        }
 
   });
    }
@@ -446,7 +444,7 @@ export class DashboardComponent implements OnInit {
     this.total = results;
     this.CountDetails = {
       idle: this.total.Idle,
-      terminate: this.total.Terminated,
+      terminate: this.total.Force_Submit,
     };
 
    }

@@ -312,7 +312,7 @@ onBtnClick(params: any) {
     this.matDialogOpen()
   } else if (params.label === "UserProctorStatusSync") {
     this.UserProctorStatusSyn = {"Org_Id": params.rowData.Org_Id,"Delivery_Id":params.rowData.Delivery_Id,"Test_Name":params.rowData.Test_Name,"User_Mail":params.rowData.User_Mail,"endpoint":"proctorStatusData"}
-    this.popupMessage = "Are you sure you want to sync behaviouralResult?"
+    this.popupMessage = "Are you sure you want to sync User Proctor Status?"
     this.apiCall = "UserProctorStatusSyn"
     this.matDialogOpen()
   } else if (params.label === "UserBehaviouralSync") {
