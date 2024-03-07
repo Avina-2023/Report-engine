@@ -1,0 +1,199 @@
+<div>
+  <div class="main-reports">
+  <div class="main">
+    <div class="left">
+      <label for="range">Delivery date range:</label>
+      <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="dd-MM-yyyy HH:mm" [(ngModel)]="date7"
+        (ngModelChange)="daterrange($event)"></nz-range-picker>
+    </div>
+  </div>
+  </div>
+  <div class="matcard-flex">
+  <div class="card-flex">
+  <app-minidetailscard  [label]="'Candidates'" [val]="total_candidate" [c_color]="'#00bed7'" [iconClass]="'icon-groups'"></app-minidetailscard>
+  </div>
+  <div class="card-flex">
+    <app-minidetailscard  [label]="'Yet to Start'" [val]="Yet_to_Start" [c_color]="'#00bdac'" [iconClass]="'icon-assignment'"></app-minidetailscard>
+    </div>
+      <div class="card-flex">
+        <app-minidetailscard  [label]="'InProgress'" [val]="inprogress" [c_color]="'#1bbc7a'" [iconClass]="'icon-draft_orders'"></app-minidetailscard>
+        </div>
+        <div class="card-flex">
+          <app-minidetailscard  [label]="'Completed'" [val]="completed" [c_color]="'#77bc3c'" [iconClass]="'icon-test-completed'"></app-minidetailscard>
+          </div>
+          <div class="card-flex">
+            <app-minidetailscard  [label]="'Terminated'" [val]="terminated" [c_color]="'#57e86b'" [iconClass]="'icon-Popup-close'"></app-minidetailscard>
+            </div>
+          </div>
+</div>
+<div class="card_topic ml-10">
+  <h1>User Dashboard Live Report</h1>
+</div>
+<div class="topToolbar">
+  <button mat-stroked-button color="basic" (click)="excelexport(rowData)" ><mat-icon class="download-icon">download</mat-icon><span>Download Report</span> </button>
+</div>
+<!-- <ag-grid-angular
+  style="
+    width: 100%;
+    height: 500px;
+    margin-bottom: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+  "
+  class="ag-theme-alpine"
+  [columnDefs]="columnDefs"
+  [frameworkComponents]="frameworkComponents"
+  [paginationPageSize]="20"
+  [pagination]="true"
+>
+</ag-grid-angular> -->
+<ag-grid-angular style="
+width: 100%;
+height: 500px;
+margin-bottom: 50px;
+margin-left: 10px;
+margin-right: 10px;
+" class="ag-theme-alpine" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+[frameworkComponents]="frameworkComponents" [paginationPageSize]="20"
+[pagination]="true"
+[rowData]="rowData" >
+</ag-grid-angular>
+
+
+<ng-template #matDialog>
+  <div  class="alert-popup">
+  <div>
+  </div>
+  <div class="text">
+      {{popupMessage}}
+  </div>
+  <div class="popup-btn">
+  <button class="ok" (click)="popupClose()">Ok</button>
+  </div>
+  </div>
+</ng-template>
+<ng-template #matDialgrid>
+  <div class="logs-popup">
+    <div class="logs">
+      <app-commonreportview [tabledata]="popUpData" [isdownload]="is_download"></app-commonreportview>
+      <div class="popup-btn">
+        <button class="ok" (click)="popupClose()">Ok</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #matDialPdf>
+  <div id="pdf-html" style="display: block;"  class="pdf-popup">
+  <div>
+  </div>
+  <div class="text">
+    <div class="pdf-btn">
+      <button class="ok" (click)="generatePDF()" ><mat-icon
+        class="download-icon">download</mat-icon></button>
+      <button class="cancel" (click)="popupClose()"><mat-icon
+        class="icon-Popup-close">close</mat-icon></button>
+    </div>
+    <div class="audit-trail-container">
+      <h2>Candidate Report</h2>
+      <div class="candidate-details">
+        <table class="candidate-details-table">
+          <tbody>
+            <tr>
+              <th>Candidate Name:</th>
+              <td>{{ auditData[0].User_First_Name }} {{ auditData[0].User_Last_Name }}</td>
+            </tr>
+            <tr>
+              <th>Roll No:</th>
+              <td>{{ auditData[0].User_Mail }}</td>
+            </tr>
+            <tr>
+              <th>Mail Id:</th>
+              <td>{{ auditData[0].User_Mail }}</td>
+            </tr>
+            <tr>
+              <th>Exam:</th>
+              <td>{{ auditData[0].Custom_Label }}</td>
+            </tr>
+            <tr>
+              <th>Subject:</th>
+              <td>{{ auditData[0].Test_Name }}</td>
+            </tr>
+            <tr>
+              <th>Batch Date Time:</th>
+              <td>{{ auditData[0].Delivery_Start_Time }}</td>
+            </tr>
+            <tr>
+              <th>Test Duration:</th>
+              <td>{{ auditData[0].TestTakenDuration }} (Mins)</td>
+            </tr>
+            <tr>
+              <th>TestTaken Duration:</th>
+              <td>{{ auditData[0].TestTakenDuration }} (Mins)</td>
+            </tr>
+            <tr>
+              <th>TestStartOn:</th>
+              <td>{{ auditData[0].TestTakenOn }}</td>
+            </tr>
+            <tr>
+              <th>TestEndOn:</th>
+              <td>{{ auditData[0].TestEndOn }}</td>
+            </tr>
+            <tr>
+              <th>Total Question:</th>
+              <td>{{ auditData[0].Total_Question }}</td>
+            </tr>
+            <tr>
+              <th>Total Viewed Question:</th>
+              <td>{{ auditData[0].Total_Viewed_Question }}</td>
+            </tr>
+            <tr>
+              <th>Total Attended Question:</th>
+              <td>{{ auditData[0].Total_Attended_Question }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Candidate Login Trail</h3>
+      <table class="audit-trail-table">
+        <thead>
+          <tr>
+            <th>Sl. No.</th>
+            <th>Action Item</th>
+            <th>ActionOn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr >
+            <td>1</td>
+            <td>Login</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Candidate Audit Trail</h3>
+      <table class="audit-trail-table">
+        <thead>
+          <tr>
+            <th>Sl. No.</th>
+            <th>Action Item</th>
+            <th>Selected Option</th>
+            <th>ActionOn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of auditData[0].auditList; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{item.ActionDetails}}</td>
+            <td>{{item.selectedOption}}</td>
+            <td>{{item.ActionOn}} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+
+</ng-template>
+
+
+

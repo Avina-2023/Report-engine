@@ -44,14 +44,14 @@ export class ProctorComponent implements OnInit {
   public groupDisplayType: RowGroupingDisplayType = 'groupRows';
   // public groupRowRenderer = 'agGroupCellRenderer';
   columnDefs: ColDef[] = [
-  //   { 
+  //   {
   //     // group column name
   //     headerName: 'Group',
   //     // use the group cell render provided by the grid
-  //     cellRenderer: 'agGroupCellRenderer', 
+  //     cellRenderer: 'agGroupCellRenderer',
   //     // informs the grid to display row groups under this column
   //     showRowGroup: true,
-  //     filter:false 
+  //     filter:false
   // },
   // {
   //   headerName: 'Status',
@@ -69,13 +69,12 @@ export class ProctorComponent implements OnInit {
     { field: 'duration', filter: 'agMultiColumnFilter',
     cellRenderer: (params:any) => {
       let timeData = moment.duration(params.value,'minutes');
-      console.log(timeData.hours,timeData.minutes);
       let hourData= timeData.hours()>1?timeData.hours()+" Hrs":timeData.hours()?timeData.hours()+" Hr":''
       let minData= timeData.minutes()>1?timeData.minutes()+" Mins":timeData.minutes()?timeData.minutes()+" Min":''
       let val = hourData+" "+minData
       return val;
   }
-  
+
   },
     { field: 'error', filter: 'agMultiColumnFilter'},
     { headerName:"Created At", field: 'date', filter: 'agDateColumnFilter'},
@@ -83,7 +82,7 @@ export class ProctorComponent implements OnInit {
 
     // { field: 'browser.name' },
     // { field: 'signedAt', filter: 'agMultiColumnFilter'},
-    
+
 ];
 
 
@@ -93,7 +92,7 @@ export class ProctorComponent implements OnInit {
    filter: true,
    resizable:true,
    editable:false,
- 
+
  };
  public sideBar: SideBarDef  = {
   toolPanels: ['filters'],
@@ -102,9 +101,9 @@ export class ProctorComponent implements OnInit {
  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
  // Example load data from sever
 //  onGridReady(params: GridReadyEvent) {
- 
+
 //  }
- 
+
 //  // Example of consuming Grid Event
 //  onCellClicked( e: CellClickedEvent): void {
 //    console.log('cellClicked', e);
@@ -114,7 +113,6 @@ export class ProctorComponent implements OnInit {
     this.proctordata(param)
   }
   dateChange(event:any) {
-    console.log(event)
     if (event.length==2) {
       let dateparams = {
         startdate: event ? moment(event[0]).toISOString() : '',
@@ -132,7 +130,6 @@ export class ProctorComponent implements OnInit {
     this.template=0
     this.created=0
     this.apiservice.proctor(dateparams).subscribe((res:any)=>{
-      console.log(res);
       this.rowData = res.data.data
       // this.rowData = mockData.data.item;
 
@@ -153,7 +150,7 @@ export class ProctorComponent implements OnInit {
         }else if(_item.status=="created"){
           this.created= this.created + 1
         }
-        
+
       })
       // this.dynamicallyConfigureColumnsFromObject(res)
       //  this.agGrid.api.setRowData(res)
@@ -162,7 +159,6 @@ export class ProctorComponent implements OnInit {
   }
   statsCardClick(data:string){
       var sportsFilterComponent = this.agGrid.api.getFilterInstance("status");
-      console.log(sportsFilterComponent)
 
       sportsFilterComponent?.setModel({
         type: "contains",
@@ -171,6 +167,6 @@ export class ProctorComponent implements OnInit {
       this.agGrid.api.onFilterChanged();
   }
 
-  
+
 
 }

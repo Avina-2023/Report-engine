@@ -3,7 +3,9 @@
  // overflow: hidden;
  overflow: scroll;
  scroll-behavior: smooth;
+ position: relative;
 }
+
 .dashbody{
   width: 100%;
   //height: calc(100% - 50px);

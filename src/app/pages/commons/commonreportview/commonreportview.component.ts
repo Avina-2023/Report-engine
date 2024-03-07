@@ -31,6 +31,10 @@ export class CommonreportviewComponent implements OnInit {
     toolPanels: ['filters'],
   };
   excelData: any;
+  styleSheet: any;
+  style: any;
+  response: any;
+  // "width: 100%; height: 380px;margin-top: 10px;"
   constructor(
     private excelService:ExcelService,
   ) { }
@@ -53,11 +57,17 @@ export class CommonreportviewComponent implements OnInit {
   }
 
   ngOnChanges(changes:SimpleChanges){
-    console.log(changes)
     this.is_download = changes['isdownload']?.currentValue
-    if(changes['tabledata'].currentValue.data && changes['tabledata'].currentValue.data.length ){
+    if(changes['tabledata'].currentValue && changes['tabledata'].currentValue.data && changes['tabledata'].currentValue.data.length ){
       this.dynamicallyConfigureColumnsFromObject(changes['tabledata'].currentValue)
       this.agGrid?.api.setRowData(changes['tabledata'].currentValue.data)
+    } else if (changes['tabledata'].currentValue && changes['tabledata'].currentValue.length ) {
+      this.dynamicallyConfigureColumnsanalysis(changes['tabledata'].currentValue)
+      this.agGrid?.api.setRowData(changes['tabledata'].currentValue)
+    } else {
+      this.response=[]
+      this.dynamicallyConfigureColumnsFromObject({"data": this.response})
+      // this.agGrid?.api.setRowData()
     }
   }
 
@@ -66,6 +76,7 @@ export class CommonreportviewComponent implements OnInit {
   }
 
   dynamicallyConfigureColumnsFromObject(anObject:any){
+    this.styleSheet = "width: 100%; height: 380px;margin-top: 10px;"
     this.ColDef = this.agGrid?.api?.getColumnDefs();
     // this.ColDef.length=0;
     this.columnDefs = []
@@ -75,13 +86,12 @@ export class CommonreportviewComponent implements OnInit {
       keys.forEach((key: string) =>
         this.columnDefs.push({ field: key, headerName: key.replaceAll('_', ' ') })
       );
-
+      this.agGrid?.api?.setColumnDefs(this.columnDefs);
       this.agGrid?.api?.setColumnDefs(this.columnDefs);
       this.agGrid?.api.setRowData(anObject.data);
       this.tabledata = anObject.data
       this.excelData= anObject
     } else if (anObject.data?.length) {
-
         const keys = Object.keys(anObject.data[0])
         keys.forEach(key =>
           this.columnDefs.push({ field: key, headerName: key.replaceAll('_', ' ') })
@@ -90,6 +100,39 @@ export class CommonreportviewComponent implements OnInit {
       this.agGrid?.api?.setColumnDefs(this.columnDefs);
       this.agGrid?.api.setRowData(anObject.data);
       this.tabledata = anObject.data
+      this.excelData= anObject
+
+    } else {
+      this.agGrid?.api?.setColumnDefs(this.columnDefs);
+      this.agGrid?.api?.setRowData(anObject.data);
+      this.tabledata= anObject.data
+    }
+  }
+  dynamicallyConfigureColumnsanalysis(anObject:any){
+    this.styleSheet = " height: 300px;margin-left: 10px;margin-top: 5px;margin-bottom: 5px;"
+    this.ColDef = this.agGrid?.api?.getColumnDefs();
+    // this.ColDef.length=0;
+    this.columnDefs = []
+    if (anObject.data?.length && anObject.key?.length) {
+
+      const keys = anObject.key
+      keys.forEach((key: string) =>
+        this.columnDefs.push({ field: key, headerName: key.replaceAll('_', ' ') })
+      );
+      this.agGrid?.api?.setColumnDefs(this.columnDefs);
+      this.agGrid?.api?.setColumnDefs(this.columnDefs);
+      this.agGrid?.api.setRowData(anObject.data);
+      this.tabledata = anObject.data
+      this.excelData= anObject
+    } else if (anObject.length) {
+
+        const keys = Object.keys(anObject[0])
+        keys.forEach(key =>
+          this.columnDefs.push({ field: key, headerName: key.replaceAll('_', ' ') })
+        );
+      this.agGrid?.api?.setColumnDefs(this.columnDefs);
+      this.agGrid?.api.setRowData(anObject);
+      this.tabledata = anObject
       this.excelData= anObject
     }
   }

@@ -18,8 +18,6 @@ console.log(route)
   }
 };
 
-
-
 export const roleGuard:CanActivateFn=(route,state)=>{
   const authService = inject(AppConfigService)
   const router = inject(Router)
@@ -38,7 +36,6 @@ else{
   
 }
 }
-
 
 export const rootGaurd: CanActivateFn = (route, state) => {
   const authService = inject(AppConfigService)

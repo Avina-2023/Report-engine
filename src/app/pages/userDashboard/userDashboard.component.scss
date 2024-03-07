@@ -1,0 +1,235 @@
+.main-reports{
+  margin: 10px;
+}
+.main {
+  display: flex;
+}
+.left {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom:10px;
+  margin-right: 50px;
+  width: 100%;
+}
+.matcard-flex {
+  padding: 25px;
+  display: flex;
+  padding-top: 40px;
+  justify-content: space-between;
+  .card-flex{
+    width: 100;
+  }
+}
+.mat_card{
+  display: flex;
+  justify-content: center;
+}
+.ml-10{
+  margin-left:10px
+}
+  .NoData{
+  color: black;
+}
+
+  .topToolbar{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom:10px;
+    margin-right: 10px;
+    width: 100%;
+  }
+
+  .alert-popup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10%;
+    height: 285px;
+    justify-content: space-around;
+    img{
+      width: 70px;
+
+    }
+    .text{
+      width: 60%;
+      text-align: center;
+      color: #000000;
+      font-size: 16px;
+      // font-weight: 500;
+    }
+    .popup-btn{
+      display: flex;
+      width: 70%;
+      justify-content: space-evenly;
+    }
+    .ok{
+      background-color: #1B4E9B;
+      color: #FCFCFC;
+      font-size: 14px;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cancel{
+      background-color: #FFFFFF;
+      color: #1B4E9B;
+      font-size: 14px;
+      border-color: #1B4E9B;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+
+    }
+    .tickimg{
+      background-color: #49AE31;
+      border-radius: 50px;
+      width: 50px;
+    }
+  }
+
+  .logs-popup {
+    width: 1050px;
+    max-width: 1300px; /* Set a max-width if desired */
+    margin: 0 auto; /* Center the pop-up horizontally */
+    background-color: white; /* Set the background color */
+    padding: 20px; /* Add padding as needed */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    border-radius: 8px; /* Add border-radius for rounded corners */
+  }
+
+    .popup-btn{
+      display: flex;
+      width: 100%;
+      justify-content: space-evenly;
+    }
+    .ok{
+      background-color: #1B4E9B;
+      color: #FCFCFC;
+      font-size: 14px;
+      border: none;
+      padding: 5px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cancel{
+      background-color: #FFFFFF;
+      color: #1B4E9B;
+      font-size: 14px;
+      border-color: #1B4E9B;
+      padding: 5px 7px;
+      border-radius: 5px;
+      cursor: pointer;
+
+    }
+
+
+        .pdf-btn {
+          display: flex;
+          width: 100%;
+          justify-content: end;
+
+          .ok {
+            background-color: #fff;
+            /* color: #FCFCFC; */
+            margin-right: 15px;
+            font-size: 10px;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            border: 1px solid #1B4E9B;
+          }
+
+          .download-icon {
+            color: #1B4E9B !important;
+
+          }
+
+          .cancel {
+            background-color: #FFFFFF;
+            color: #1B4E9B;
+            font-size: 1px;
+            border-color: #1B4E9B;
+            /* padding: 10px; */
+            border-radius: 50%;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+          }
+        }
+    .audit-trail-container {
+
+      h2 {
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      h3 {
+        margin-bottom: 10px;
+      }
+
+      .candidate-details {
+        margin-bottom: 10px;
+        p {
+          margin-right: 20px;
+        }
+      }
+      .candidate-details-table {
+        border-collapse: collapse;
+        margin-bottom: 20px;
+
+        th, td {
+          padding: 5px 100px;
+          border: 1px solid #ddd;
+          text-align: left;
+        }
+
+        th {
+          background-color: #f2f2f2;
+        }
+      }
+      .audit-trail-table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+
+        thead {
+          background-color: #f2f2f2;
+        }
+
+        th,
+        td {
+          padding: 8px;
+          text-align: left;
+          border: 1px solid #ddd;
+        }
+      }
+    }
+
+    #pdf-html {
+      width: 100%;
+      display: block;
+      max-width: 1300px; /* Set a max-width if desired */
+      margin: 0 auto; /* Center the pop-up horizontally */
+      background-color: white; /* Set the background color */
+      padding: 20px; /* Add padding as needed */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+      border-radius: 8px; /* Add border-radius for rounded corners */
+    }
+    .html2pdf__overlay{
+      width: 100%;
+      display: block;
+      max-width: 1300px; /* Set a max-width if desired */
+      margin: 0 auto; /* Center the pop-up horizontally */
+      background-color: white; /* Set the background color */
+      padding: 20px; /* Add padding as needed */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+      border-radius: 8px; /* Add border-radius for rounded corners */
+    }

@@ -19,7 +19,22 @@ export const routes: Routes = [
     path:  `${APP_CONSTANTS.ROUTES.EXAM}`, loadComponent:() => import('./pages/examStatusReport/examStatusReport.component').then(comp=>comp.ExamStatusReportComponent),canActivate:[loginGaurd]
   },
   {
-    path:  `${APP_CONSTANTS.ROUTES.PROCTOR}`, loadComponent:() => import('./pages/proctor/proctor.component').then(comp=>comp.ProctorComponent),canActivate:[roleGuard],data:{role:"SADM"}
+    path:  `${APP_CONSTANTS.ROUTES.PROCTOR}`, loadComponent:() => import('./pages/proctor/proctor.component').then(comp=>comp.ProctorComponent),canActivate:[loginGaurd],data:{role:"ADMINCC"}
+  },
+  {
+    path:  `${APP_CONSTANTS.ROUTES.ACTIONCENTER}`, loadComponent:() => import('./pages/actionCenter/actionCenter.component').then(comp=>comp.ActionCenterComponent),canActivate:[loginGaurd],data:{role:"ADMINCC"}
+  },
+  {
+    path:  `${APP_CONSTANTS.ROUTES.USERDASHBOARD}`, loadComponent:() => import('./pages/userDashboard/userDashboard.component').then(comp=>comp.UserDashboardComponent),canActivate:[loginGaurd]
+  },
+  {
+    path: `${APP_CONSTANTS.ROUTES.ANALYSIS}`,loadComponent: () => import('./pages/analysis/analysis.component').then(comp=>comp.AnalysisComponent),canActivate:[loginGaurd]
+  },
+  {
+    path: `${APP_CONSTANTS.ROUTES.REGISTRATION}`,loadComponent: () => import('./pages/registration/registration.component').then(comp=>comp.RegistrationComponent),canActivate:[loginGaurd],data:{role:"SADM"}
+  },
+  {
+    path: `${APP_CONSTANTS.ROUTES.APILOGS}`,loadComponent: () => import('./pages/apiLogs/apiLogs.component').then(comp=>comp.ApiLogsComponent),canActivate:[roleGuard],data:{role:"SADM"}
   },
   // {
   //   path:  `${APP_CONSTANTS.ROUTES.VMSSDASH}`, loadComponent:()=> import('./pages/dashboard_VMSS/dashboard_VMSS.component').then(comp=>comp.Dashboard_VMSSComponent),canActivate:[loginGaurd]

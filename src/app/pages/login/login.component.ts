@@ -42,12 +42,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("works");
   // this.authConfig.setlocalValue('token', "mytoken is tli");
 
   //   this.authConfig.routeNavigation("/dashboard");
   //  return false
-  
+
   let encrypted = CryptoTS.AES.encrypt(this.loginForm.value.password, '(!@#Passcode!@#)').toString();
     let data = {
       email: this.loginForm.value.email,
@@ -55,6 +54,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.https.login(data).subscribe((res: any) => {
+
       if (res.success) {
         var userObject = res.data.attributes
         this.authConfig.setlocalValue('userDetails', JSON.stringify(userObject));
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
         // }else{
           this.authConfig.routeNavigation(APP_CONSTANTS.ENDPOINTS.DASHBOARD)
         // }
-        
+
       } else {
         this.alertService.toastfire('error',res.message);
       }
