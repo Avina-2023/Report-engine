@@ -9,7 +9,7 @@
   (change)="onTabChange('actioncenter')">
   <input  *ngIf="isSuperAdmin||isOPS" class="radio" id="five" name="group" type="radio" [checked]="selectedTabId === 'proctor'"
   (change)="onTabChange('proctor')">
-  <input  *ngIf="isSuperAdmin||isOPS||isCC" class="radio" id="six" name="group" type="radio" [checked]="selectedTabId === 'analysis'"
+  <input  *ngIf="isSuperAdmin||isOPS" class="radio" id="six" name="group" type="radio" [checked]="selectedTabId === 'analysis'"
   (change)="onTabChange('analysis')">
   <input  *ngIf="isSuperAdmin" class="radio" id="seven" name="group" type="radio" [checked]="selectedTabId === 'registration'"
   (change)="onTabChange('registration')">
@@ -21,7 +21,7 @@
     <label  *ngIf="isSuperAdmin||isAdmin||isCC||isOPS||isCBT||isAdmincc" class="tab" id="three-tab" for="three" [routerLink]="[app_const.ENDPOINTS.EXAM]">Reports</label>
     <label  *ngIf="isSuperAdmin||isAdmincc" class="tab" id="four-tab" for="four" [routerLink]="[app_const.ENDPOINTS.ACTIONCENTER]">Action Center</label>
     <label  *ngIf="isSuperAdmin||isOPS" class="tab" id="five-tab" for="five" [routerLink]="[app_const.ENDPOINTS.PROCTOR]">Proctors</label>
-    <label  *ngIf="isSuperAdmin||isOPS||isCC" class="tab" id="six-tab" for="six" [routerLink]="[app_const.ENDPOINTS.ANALYSIS]">Assessment Analysis</label>
+    <label  *ngIf="isSuperAdmin||isOPS" class="tab" id="six-tab" for="six" [routerLink]="[app_const.ENDPOINTS.ANALYSIS]">Assessment Analysis</label>
     <label  *ngIf="isSuperAdmin" class="tab" id="seven-tab" for="seven" [routerLink]="[app_const.ENDPOINTS.REGISTRATION]">Registration</label>
     <label  *ngIf="isSuperAdmin" class="tab" id="eight-tab" for="eight" [routerLink]="[app_const.ENDPOINTS.APILOGS]">Api Logs</label>
   </div>
