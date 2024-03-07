@@ -307,7 +307,7 @@ export class DashboardComponent implements OnInit {
 
           this.apiservice.proctor(this.DashboardData).subscribe((res:any)=>{
 
-            if (res && res.data && res.data[0]){
+            if (res && res.data && res.data && res.data.data && res.data.data[0]){
               res.data.data.forEach((_item:any,_index:any)=>{
                 if(_item.status=="rejected"){
                   this.rejected= this.rejected + 1
