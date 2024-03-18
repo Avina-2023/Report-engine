@@ -121,11 +121,20 @@ export class ExamStatusReportComponent implements OnInit {
       isLegend: true
     }
 
+    let utilityLog = {
+      report_Name: "Utility Logs",
+      endpoint: "getCbtEventLog",
+      is_enable: true,
+      is_download: false,
+      isLegend: true
+    }
+
 
     if (utility.getUserOrg() === "57") {
       this.reportList.push(show_Audit)
       this.reportList.push(show_AdminLog)
       this.reportList.push(feedbackDataReport)
+      this.reportList.push(utilityLog)
     } else {
       this.reportList.push(sectionReport)
     }
