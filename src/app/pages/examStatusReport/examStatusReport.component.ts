@@ -129,12 +129,21 @@ export class ExamStatusReportComponent implements OnInit {
       isLegend: true
     }
 
+    let tcSeatLog = {
+      report_Name: "User Seat Allocation",
+      endpoint: "getTcSeatallocation",
+      is_enable: true,
+      is_download: false,
+      isLegend: true
+    }
+
 
     if (utility.getUserOrg() === "57") {
       this.reportList.push(show_Audit)
       this.reportList.push(show_AdminLog)
       this.reportList.push(feedbackDataReport)
       this.reportList.push(utilityLog)
+      this.reportList.push(tcSeatLog)
     } else {
       this.reportList.push(sectionReport)
     }
