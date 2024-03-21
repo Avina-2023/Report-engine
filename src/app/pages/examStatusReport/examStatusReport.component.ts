@@ -105,16 +105,14 @@ let utilityLog = {
       report_Name: "Utility Logs",
       endpoint: "getCbtEventLog",
       is_enable: true,
-      is_download: false,
-      isLegend: true
+      is_download: false
     }
 
     let tcSeatLog = {
       report_Name: "User Seat Allocation",
       endpoint: "getTcSeatallocation",
       is_enable: true,
-      is_download: false,
-      isLegend: true
+      is_download: false
     }
 
 
